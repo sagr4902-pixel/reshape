@@ -4496,7 +4496,7 @@ function viewProgress(){
   ${subBanner()}
   <div class="card hero tint t1">${CHEV}
     <div class="phase">MY PROGRESS</div>
-    ${donut(all.pct,'var(--c1)',(ATH?ATH.name:'')+T(' — التزامك',' — your commitment'),all.done+T(' مجموعة من ',' of ')+all.total+' · '+done+T(' أسابيع مكتملة',' weeks completed'))}
+    ${donut(all.pct,'var(--c1)',(ATH?ATH.name:'')+T(' — التزامك',' — your commitment'),all.done+T(' مجموعة من ',' of ')+all.total+' · '+done+T(' أسابيع مكتملة',' weeks completed'),'progress-'+(ATH?ATH.id:'me'))}
   </div>
 
   <div class="kpi">
@@ -4550,19 +4550,43 @@ function rpeSeries(){
 }
 
 const PAL=['var(--c1)','var(--c2)','var(--c3)','var(--c4)','var(--c5)','var(--c6)'];
-function donut(pct,color,label,sub){
+function donut(pct,color,label,sub,key){
   const R=52,C=2*Math.PI*R;
-  return `<div class="donut">
+  const attrs = key ? ` data-donut-key="${H(key)}" data-donut-pct="${pct}"` : '';
+  return `<div class="donut"${attrs}>
     <svg viewBox="0 0 120 120" aria-hidden="true">
       <circle cx="60" cy="60" r="${R}" fill="none" stroke="var(--track)" stroke-width="13"></circle>
-      <circle cx="60" cy="60" r="${R}" fill="none" stroke="${color}" stroke-width="13" stroke-linecap="round"
+      <circle class="donut-fill" cx="60" cy="60" r="${R}" fill="none" stroke="${color}" stroke-width="13" stroke-linecap="round"
         stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct/100)}"></circle>
-      <text x="60" y="60" transform="rotate(90 60 60)" text-anchor="middle" dy="8"
+      <text class="donut-text" x="60" y="60" transform="rotate(90 60 60)" text-anchor="middle" dy="8"
         font-family="Barlow Semi Condensed" font-size="30" fill="currentColor">${pct}%</text>
     </svg>
     <span class="lbl"><span class="big">${H(label)}</span>
       <span style="display:block;font-size:12.5px;color:var(--warm);margin-top:5px">${H(sub||'')}</span></span>
   </div>`;
+}
+/* يحرّك حلقات donut() ذات data-donut-key من قيمتها السابقة إلى الجديدة فقط عند تغيّرها فعلياً */
+const DONUT_PREV=new Map();
+function animateDonuts(){
+  document.querySelectorAll('[data-donut-key]').forEach(wrap=>{
+    const key=wrap.dataset.donutKey;
+    const target=+wrap.dataset.donutPct||0;
+    const prev=DONUT_PREV.has(key)?DONUT_PREV.get(key):target;
+    DONUT_PREV.set(key,target);
+    if(reducedMotion()||prev===target) return;
+    const fill=wrap.querySelector('.donut-fill'), text=wrap.querySelector('.donut-text');
+    if(!fill||!text) return;
+    const R=52, C=2*Math.PI*R, dur=600, start=performance.now();
+    (function step(now){
+      const t=Math.min(1,(now-start)/dur);
+      const eased=1-Math.pow(1-t,3);
+      const cur=prev+(target-prev)*eased;
+      fill.style.strokeDashoffset=C*(1-cur/100);
+      text.textContent=Math.round(cur)+'%';
+      if(t<1) requestAnimationFrame(step);
+      else { fill.style.strokeDashoffset=C*(1-target/100); text.textContent=target+'%'; }
+    })(start);
+  });
 }
 function barChart(items){
   return items.map((it,i)=>`
@@ -4726,7 +4750,7 @@ function coachRoster(){
   const head=`
   <div class="card hero tint t1">${CHEV}
     <div class="logo-lockup"><img src="${ASSET.PRIMARY}" alt="reshape"><span>Coach Console</span></div>
-    ${donut(avg,'var(--c1)',T('متوسط التزام المجموعة','Group average adherence'),ROSTER.length+T(' متدربين · ',' athletes · ')+active+T(' نشط هذا الأسبوع',' active this week'))}
+    ${donut(avg,'var(--c1)',T('متوسط التزام المجموعة','Group average adherence'),ROSTER.length+T(' متدربين · ',' athletes · ')+active+T(' نشط هذا الأسبوع',' active this week'),'coach-overview')}
   </div>
   <nav class="tabs sectabs" style="padding:0 0 10px">${TABS.map(t=>`
     <button class="tab ${sec===t[0]?'on':''}" data-sec="${t[0]}">${t[1]}${
@@ -6091,6 +6115,7 @@ function render(opts){
     paintNet();
     requestAnimationFrame(tickerFit);
     animateRefBar();
+    animateDonuts();
 
     /* استعادة ما كان يكتبه المستخدم ومكان المؤشر */
     if(keep){

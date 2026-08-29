@@ -359,7 +359,8 @@ table.t tr:last-child td{border-bottom:0}
 .scroll{overflow-x:auto}
 .note{font-size:12.5px;color:var(--warm);background:var(--surf2);border:1px solid var(--line);border-left:2px solid var(--orange);border-radius:8px;padding:9px 11px;margin-bottom:8px}
 .note b{font-family:var(--data);color:var(--strong);font-size:13px}
-.empty{text-align:center;color:var(--muted);font-size:13px;padding:26px 12px;border:1px dashed var(--line);border-radius:12px}
+.empty{text-align:center;color:var(--muted);font-size:13px;padding:26px 12px;border:1px dashed var(--line);border-radius:12px;line-height:1.7}
+.empty::before{content:"";display:block;width:34px;height:34px;margin:0 auto 10px;border-radius:50%;border:1.5px dashed var(--line);opacity:.85}
 
 /* ---------- guide ---------- */
 .gtable{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
@@ -374,6 +375,7 @@ table.t tr:last-child td{border-bottom:0}
 }
 .net.ok{color:var(--orange);border-color:rgba(255,84,32,.45);background:var(--orange-dim)}
 .net.saving{color:var(--warm)}
+.net.saving::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-inline-end:5px;animation:tkpulse 1s infinite}
 .net.err{color:var(--onDark);background:var(--danger);border-color:var(--danger-line)}
 .setup{border-color:rgba(255,84,32,.45)}
 .setup code{
@@ -615,6 +617,7 @@ input[type="date"].inp{min-height:48px}
   display:flex;flex-direction:column;gap:9px;scroll-behavior:smooth
 }
 .chat-empty{text-align:center;padding:34px 16px;color:var(--muted)}
+.chat-empty::before{content:"";display:block;width:38px;height:38px;margin:0 auto 12px;border-radius:50%;border:1.5px dashed var(--line);opacity:.85}
 .chat-empty b{display:block;font-size:14.5px;color:var(--warm);margin-bottom:6px}
 .chat-empty span{font-size:12px;line-height:1.8}
 .chat-day{text-align:center;margin:6px 0 2px}
@@ -1671,6 +1674,8 @@ html[dir="rtl"] .wiz-step-back{animation-name:wizBackRTL}
 /* ---------- completion / celebration: short + controlled ---------- */
 .cheer .ring{animation:cheerRing var(--dur-cheer) var(--ease-spring)}
 @keyframes cheerRing{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}
+.cheer.closing{animation:cheerOut var(--dur-ui) var(--ease-in-out) forwards}
+@keyframes cheerOut{to{opacity:0;transform:scale(.97)}}
 .chevbar i.f{animation:chevFill var(--dur-ui) var(--ease-out)}
 @keyframes chevFill{from{opacity:.55;transform:scaleY(.7)}to{opacity:1;transform:none}}
 
@@ -2973,7 +2978,12 @@ function cheer(opts){
     ${opts.sub?`<p>${H(opts.sub)}</p>`:''}
     <div class="row"><button data-cheer="go">${H(opts.btn||T('الانتقال إلى التمرين التالي','Go to the next exercise'))}</button></div>`;
   document.body.appendChild(el);
-  el.addEventListener('click',ev=>{ if(ev.target.closest('[data-cheer]')) el.remove(); });
+  el.addEventListener('click',ev=>{
+    if(!ev.target.closest('[data-cheer]')) return;
+    if(reducedMotion()){ el.remove(); return; }
+    el.classList.add('closing');
+    setTimeout(()=>el.remove(),200);
+  });
 }
 
 function toast(msg){

@@ -39,7 +39,7 @@
   --orange:#FF5420;
   --orange-dim:rgba(255,84,32,.14);
   --muted:#8A8B90;
-  --card1:#26272B; --card2:#212226;
+  --card1:rgba(255,255,255,.15); --card2:rgba(255,255,255,.04);
   --surf:#202124; --surf2:#1A1B1E;
   --sunken:rgba(0,0,0,.28);
   --field:#141416; --panel:#1D1E21; --deep:#111113;
@@ -80,6 +80,17 @@
   --dur-ui:220ms;
   --dur-reveal:380ms;
   --dur-cheer:650ms;
+
+  /* ---------- glassmorphism ---------- */
+  --glass-bg:linear-gradient(160deg,rgba(255,255,255,.13),rgba(255,255,255,.04));
+  --glass-bg-strong:rgba(32,33,37,.48);
+  --glass-bg-hot:linear-gradient(160deg,rgba(255,110,60,.16),rgba(255,255,255,.03));
+  --glass-border:rgba(255,255,255,.14);
+  --glass-border-strong:rgba(255,255,255,.22);
+  --glass-sheen:rgba(255,255,255,.5);
+  --glass-blur:blur(16px);
+  --glass-blur-lg:blur(24px);
+  --glass-shadow:0 8px 32px rgba(0,0,0,.28);
 }
 html[data-theme="light"] h1,
 html[data-theme="light"] h2,
@@ -102,7 +113,7 @@ html[data-theme="light"]{
   --orange:#E8401D;
   --orange-dim:rgba(232,64,29,.10);
   --muted:#8B817A;
-  --card1:#FFFFFF; --card2:#FAF4EE;
+  --card1:rgba(255,255,255,.7); --card2:rgba(255,255,255,.32);
   --surf:#F7F0E9; --surf2:#F3EAE2;
   --sunken:rgba(0,0,0,.045);
   --field:#FFFFFF; --panel:#FCF7F2; --deep:#FFFFFF;
@@ -123,6 +134,14 @@ html[data-theme="light"]{
   --e2:0 8px 22px rgba(36,34,35,.09);
   --e3:0 18px 42px rgba(36,34,35,.14);
   --ring-accent:0 0 0 3px var(--orange-dim);
+
+  --glass-bg:linear-gradient(160deg,rgba(255,255,255,.75),rgba(255,255,255,.4));
+  --glass-bg-strong:rgba(255,252,248,.65);
+  --glass-bg-hot:linear-gradient(160deg,rgba(232,64,29,.14),rgba(255,255,255,.4));
+  --glass-border:rgba(255,255,255,.6);
+  --glass-border-strong:rgba(255,255,255,.8);
+  --glass-sheen:rgba(255,255,255,.8);
+  --glass-shadow:0 8px 32px rgba(36,34,35,.12);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
@@ -137,6 +156,17 @@ body::before{
     repeating-linear-gradient(115deg,var(--grain) 0 2px,transparent 2px 26px),
     radial-gradient(120% 60% at 80% -10%,var(--glow),transparent 60%);
 }
+/* لمسات لونية ثابتة وهادئة خلف الواجهة — هي ما يُحدث تأثير الزجاج المصنفر فعلياً؛
+   بلا حركة حتى لا تُلهي، وبشفافية منخفضة تحافظ على هوية RESHAPE الداكنة */
+body::after{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(38vw 38vw at 8% 8%, color-mix(in srgb,var(--c1) 40%,transparent), transparent 70%),
+    radial-gradient(34vw 34vw at 95% 30%, color-mix(in srgb,var(--c2) 30%,transparent), transparent 70%),
+    radial-gradient(40vw 40vw at 30% 105%, color-mix(in srgb,var(--c4) 22%,transparent), transparent 70%);
+  opacity:.65
+}
+html[data-theme="light"] body::after{opacity:.35}
 #app{position:relative;z-index:1}
 button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer}
 input,select,textarea{font-family:inherit;font-size:15px}
@@ -148,9 +178,9 @@ input,select,textarea{font-family:inherit;font-size:15px}
 .wrap.wide{max-width:1080px}
 
 .topbar{
-  position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);
-  background:linear-gradient(180deg,var(--ink),color-mix(in srgb,var(--ink) 84%,transparent));
-  border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:40;backdrop-filter:var(--glass-blur-lg);-webkit-backdrop-filter:var(--glass-blur-lg);
+  background:var(--glass-bg-strong);
+  border-bottom:1px solid var(--glass-border);
 }
 .topbar .inner{max-width:1080px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px}
 .brand{display:flex;align-items:center;gap:9px}
@@ -192,11 +222,16 @@ h3{font-size:17px}
 
 /* ---------- cards ---------- */
 .card{
-  background:linear-gradient(180deg,var(--card1),var(--card2));
-  border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:12px;
-  position:relative;overflow:hidden
+  background:var(--glass-bg);
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);border-radius:var(--radius);padding:16px;margin-bottom:12px;
+  position:relative;overflow:hidden;box-shadow:var(--glass-shadow)
 }
-.card.flat{background:var(--surf)}
+.card::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--glass-sheen),transparent);opacity:.5;pointer-events:none
+}
+.card.flat{background:var(--glass-bg)}
 .card .chev{position:absolute;inset-inline-end:-18px;top:-18px;width:96px;opacity:.05;pointer-events:none}
 
 /* hero */
@@ -270,21 +305,21 @@ h3{font-size:17px}
 
 .sets{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;align-items:center}
 .setbtn{
-  width:42px;height:38px;border-radius:9px;border:1px solid var(--line);background:var(--surf2);
+  width:42px;height:38px;border-radius:9px;border:1px solid var(--glass-border);background:var(--glass-bg);
   font-family:var(--data);font-size:16px;font-weight:600;color:var(--muted);transition:.15s
 }
 .setbtn.on{background:var(--orange);border-color:var(--orange);color:var(--onAccent)}
 .setbtn:active{transform:scale(.94)}
 .logbtn{
-  margin-inline-start:auto;font-size:12px;color:var(--warm);border:1px solid var(--line);
-  border-radius:9px;padding:8px 11px;background:var(--surf2)
+  margin-inline-start:auto;font-size:12px;color:var(--warm);border:1px solid var(--glass-border);
+  border-radius:9px;padding:8px 11px;background:var(--glass-bg)
 }
 .logbtn.has{border-color:rgba(255,84,32,.5);color:var(--orange)}
 
 /* ---------- forms ---------- */
 label.f{display:block;font-size:13px;font-weight:700;color:var(--strong);margin:14px 0 6px;letter-spacing:0}
 .inp,textarea.inp,select.inp{
-  width:100%;background:var(--field);border:1px solid var(--line);border-radius:10px;
+  width:100%;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:10px;
   padding:11px 12px;color:var(--soft)
 }
 .inp:focus{border-color:var(--orange);outline:none}
@@ -295,10 +330,10 @@ textarea.inp{min-height:74px;resize:vertical}
   border-radius:11px;padding:13px;font-size:15px;margin-top:16px;transition:.15s
 }
 .btn:active{transform:scale(.99)}
-.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--warm);font-weight:600}
+.btn.ghost{background:var(--glass-bg);border:1px solid var(--glass-border);color:var(--warm);font-weight:600}
 .rate{display:flex;gap:7px}
 .rate button{
-  flex:1;padding:11px 0;border-radius:10px;border:1px solid var(--line);background:var(--field);
+  flex:1;padding:11px 0;border-radius:10px;border:1px solid var(--glass-border);background:var(--glass-bg);
   font-family:var(--data);font-size:17px;font-weight:600;color:var(--muted)
 }
 .rate button.on{background:var(--orange);border-color:var(--orange);color:var(--onAccent)}
@@ -309,8 +344,10 @@ textarea.inp{min-height:74px;resize:vertical}
   display:flex;align-items:flex-end;justify-content:center
 }
 .sheet .panel{
-  width:100%;max-width:560px;max-height:92vh;overflow:auto;background:var(--panel);
-  border:1px solid var(--line);border-radius:18px 18px 0 0;padding:18px 16px 30px;
+  width:100%;max-width:560px;max-height:92vh;overflow:auto;background:var(--glass-bg-strong);
+  backdrop-filter:var(--glass-blur-lg);-webkit-backdrop-filter:var(--glass-blur-lg);
+  border:1px solid var(--glass-border);border-bottom:0;border-radius:18px 18px 0 0;padding:18px 16px 30px;
+  box-shadow:var(--glass-shadow);
   animation:up .22s ease
 }
 @keyframes up{from{transform:translateY(30px);opacity:.4}to{transform:none;opacity:1}}
@@ -425,7 +462,7 @@ table.t tr:last-child td{border-bottom:0}
 .shotframe .top i{width:9px;height:9px;border-radius:50%;background:var(--gray);display:block}
 .shotframe .top span{margin-inline-start:auto;font-family:var(--data);font-size:11px;color:var(--muted);letter-spacing:.1em}
 .shotframe .body{padding:12px;background:var(--ink)}
-.demo{background:linear-gradient(180deg,var(--card1),var(--card2));border:1px solid var(--line);border-radius:12px;padding:12px}
+.demo{background:linear-gradient(180deg,var(--card1),var(--card2));backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--glass-border);border-radius:12px;padding:12px}
 .demo .en2{font-family:var(--data);font-size:16px;color:var(--strong);display:block}
 .demo .ar2{font-size:12px;color:var(--warm);display:block;margin-top:1px}
 .demo .sp{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
@@ -514,7 +551,7 @@ html[dir="ltr"] .dial-ends{flex-direction:row-reverse}
 .opts{display:flex;flex-direction:column;gap:7px;margin-top:2px}
 .opt{
   display:flex;align-items:center;gap:10px;text-align:start;width:100%;
-  border:1px solid var(--line);background:transparent;border-radius:11px;padding:12px 14px;
+  border:1px solid var(--glass-border);background:var(--glass-bg);border-radius:11px;padding:12px 14px;
   font-family:inherit;cursor:pointer;color:var(--warm)
 }
 .opt b{font-size:13.5px;flex:none}
@@ -525,7 +562,7 @@ html[dir="ltr"] .dial-ends{flex-direction:row-reverse}
 /* --- أزرار الأيام --- */
 .pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
 .pill{
-  flex:1;min-width:72px;border:1px solid var(--line);background:transparent;color:var(--warm);
+  flex:1;min-width:72px;border:1px solid var(--glass-border);background:var(--glass-bg);color:var(--warm);
   border-radius:10px;padding:11px 6px;font-size:12.5px;font-family:inherit;cursor:pointer
 }
 .pill.on{background:var(--orange);color:var(--onAccent);border-color:var(--orange);font-weight:700}
@@ -540,7 +577,8 @@ input[type="date"].inp{min-height:48px}
 /* ============ نموذج التسجيل المتدرّج ============ */
 .wizhead{
   display:flex;align-items:center;gap:12px;margin:4px 0 12px;padding:12px 14px;
-  background:var(--surf);border:1px solid var(--line);border-radius:13px
+  background:var(--glass-bg);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);border-radius:13px
 }
 .wizhead>div{flex:1;min-width:0}
 .wizhead span{display:block;font-size:11px;color:var(--orange);font-weight:700;letter-spacing:.04em}
@@ -564,21 +602,21 @@ input[type="date"].inp{min-height:48px}
 
 .segs{display:flex;gap:9px;margin-top:2px}
 .seg{
-  flex:1;padding:14px;border-radius:11px;border:1px solid var(--line);background:transparent;
+  flex:1;padding:14px;border-radius:11px;border:1px solid var(--glass-border);background:var(--glass-bg);
   color:var(--warm);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer
 }
 .seg.on{background:var(--orange);color:var(--onAccent);border-color:var(--orange)}
 
 .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
 .chip{
-  background:transparent;border:1px solid var(--line);color:var(--warm);border-radius:999px;
+  background:var(--glass-bg);border:1px solid var(--glass-border);color:var(--warm);border-radius:999px;
   padding:8px 13px;font-size:12px;font-family:inherit;cursor:pointer
 }
 .chip.on{background:var(--orange-dim);border-color:rgba(255,84,32,.5);color:var(--orange);font-weight:700}
 
 .planpick{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:2px}
 .pp{
-  border:1px solid var(--line);background:transparent;border-radius:11px;padding:12px 8px;
+  border:1px solid var(--glass-border);background:var(--glass-bg);border-radius:11px;padding:12px 8px;
   text-align:center;font-family:inherit;cursor:pointer;color:var(--warm)
 }
 .pp b{display:block;font-size:13.5px;color:var(--soft,inherit)}
@@ -687,7 +725,7 @@ input[type="date"].inp{min-height:48px}
 }
 .fwa.thanks{background:var(--orange);color:var(--onAccent)}
 .fghost{
-  background:transparent;color:var(--warm);border:1px solid var(--line);border-radius:9px;
+  background:var(--glass-bg);color:var(--warm);border:1px solid var(--glass-border);border-radius:9px;
   padding:11px 12px;font-size:12.5px;font-family:inherit;cursor:pointer
 }
 
@@ -1005,8 +1043,9 @@ footer b{color:var(--warm);font-weight:600}
 .bnav{
   position:fixed;inset-inline:0;bottom:0;z-index:60;display:flex;gap:2px;
   padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));
-  background:color-mix(in srgb,var(--ink) 92%,transparent);
-  backdrop-filter:blur(14px);border-top:1px solid var(--line)
+  background:var(--glass-bg-strong);
+  backdrop-filter:var(--glass-blur-lg);-webkit-backdrop-filter:var(--glass-blur-lg);
+  border-top:1px solid var(--glass-border)
 }
 .bnav button{
   flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;

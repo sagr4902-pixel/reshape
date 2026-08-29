@@ -1716,7 +1716,7 @@ html[dir="rtl"] .wiz-step-back{animation-name:wizBackRTL}
 </head>
 <body>
 <script>
-/* بيان التطبيق + Service Worker — يسمحان بالتثبيت على الشاشة الرئيسية واستقبال Web Push */
+/* بيان التطبيق — يسمح بالتثبيت على الشاشة الرئيسية (Add to Home Screen) */
 (function(){
   try{
     var mf={name:"منصة التدريب الشخصي عن بُعد - RESHAPE",short_name:"RESHAPE",start_url:"./",scope:"./",
@@ -1725,16 +1725,6 @@ html[dir="rtl"] .wiz-step-back{animation-name:wizBackRTL}
     l.href=URL.createObjectURL(new Blob([JSON.stringify(mf)],{type:'application/json'}));
     document.head.appendChild(l);
   }catch(e){}
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',function(){
-      navigator.serviceWorker.register('./sw.js')
-        .then(function(r){ window.SW_REG=r; r.update&&r.update(); })
-        .catch(function(){});
-      navigator.serviceWorker.addEventListener('message',function(ev){
-        if(ev.data&&ev.data.type==='resubscribe'&&window.pushSaveSub) window.pushSaveSub(ev.data.sub);
-      });
-    });
-  }
 })();
 </script>
 <div class="splash" id="splash"><img src="data:image/png;base64,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" alt="reshape"><span>RE-SHAPE YOUR BODY</span></div>
@@ -2389,18 +2379,6 @@ function remindAthlete(force){
   lset(key,today);
 }
 
-const canNotify = ()=> ('Notification' in window);
-const notifyOn  = ()=> canNotify() && Notification.permission==='granted';
-
-async function askNotify(){
-  return pushEnable();
-}
-/* ================== Web Push ==================
-   إشعارات حقيقية تصل حتى والتطبيق مغلق والجوال مقفل.
-   المفتاح العام فقط هنا — المفتاح الخاص داخل Edge Function ولا يظهر في الواجهة. */
-const VAPID_PUBLIC = 'BApaTCe3Q1-lCc5iXN9Aa5_YGi8RuqOWJWAWFa2o7dHGOvYTvT-yxLwQtNBjjyjC4KG9OSFdG1aEVHZc_nr-H1A';
-const PUSH_FN = SB_URL ? SB_URL.replace('.supabase.co','.supabase.co/functions/v1') + '/push-notify' : '';
-
 /* ================== ربط الساعة (آبل هيلث عبر الاختصارات) ================== */
 const HEALTH_FN = SB_URL ? SB_URL.replace('.supabase.co','.supabase.co/functions/v1') + '/health-sync' : '';
 /* ضع هنا رابط iCloud للاختصار بعد مشاركته من جوالك */
@@ -2458,97 +2436,11 @@ function healthRun(){
   try{ location.href=url; }catch(e){ toast(T('تعذّر فتح الاختصار','Could not open the shortcut')); }
 }
 
-const isStandalone = ()=> window.matchMedia('(display-mode: standalone)').matches || navigator.standalone===true;
-const isIOS = ()=> /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-                   (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
-const pushSupported = ()=> ('serviceWorker' in navigator) && ('PushManager' in window) && canNotify();
-
-/* حالة الإشعارات — تُعرض للمستخدم بدل الصمت */
-function pushState(){
-  if(!canNotify())      return {ok:false, code:'unsupported', msg:T('متصفحك لا يدعم الإشعارات','This browser does not support notifications')};
-  if(isIOS() && !isStandalone())
-                        return {ok:false, code:'ios-install', msg:T('على الآيفون يجب إضافة الموقع للشاشة الرئيسية ثم فتحه من أيقونته','On iPhone you must add the site to the Home Screen and open it from its icon')};
-  if(!('serviceWorker' in navigator)) return {ok:false, code:'nosw', msg:T('المتصفح لا يدعم Service Worker','This browser does not support Service Worker')};
-  if(!('PushManager' in window))      return {ok:false, code:'nopush', msg:T('المتصفح لا يدعم Web Push','This browser does not support Web Push')};
-  if(Notification.permission==='denied')
-                        return {ok:false, code:'denied', msg:T('الإشعارات محظورة — فعّلها من إعدادات المتصفح','Notifications are blocked — enable them in your browser settings')};
-  if(Notification.permission!=='granted')
-                        return {ok:false, code:'ask', msg:T('لم تُفعّل الإشعارات بعد','Notifications are not enabled yet')};
-  if(!lget('reshape:pushsub'))
-                        return {ok:false, code:'nosub', msg:T('الإذن ممنوح لكن الجهاز غير مشترك — اضغط تفعيل','Permission granted but this device is not subscribed — press Enable')};
-  return {ok:true, code:'ready', msg:T('الإشعارات تعمل — تصلك حتى والتطبيق مغلق','Notifications are working — they reach you even when the app is closed')};
-}
-
-function urlB64ToU8(b64){
-  const pad='='.repeat((4-b64.length%4)%4);
-  const raw=atob((b64+pad).replace(/-/g,'+').replace(/_/g,'/'));
-  const arr=new Uint8Array(raw.length);
-  for(let i=0;i<raw.length;i++) arr[i]=raw.charCodeAt(i);
-  return arr;
-}
-async function pushFn(payload){
-  if(!PUSH_FN) return null;
-  try{
-    const r=await fetch(PUSH_FN,{method:'POST',headers:SBH(),body:JSON.stringify(payload)});
-    return r.ok ? await r.json() : null;
-  }catch(err){ return null; }
-}
-window.pushSaveSub = async function(sub){
-  lset('reshape:pushsub',{endpoint:sub.endpoint,ts:Date.now()});
-  return pushFn({action:'subscribe', sub:sub,
-    role: UI.coachOK && !UI.focus ? 'coach' : 'athlete',
-    athlete: ATH?ATH.id:'', name: UI.coachOK?T('الكابتن','Coach'):(ATH?ATH.name:''),
-    ua: navigator.userAgent});
-};
-/* تفعيل كامل: إذن + Service Worker + اشتراك Push + تسجيله في الخادم */
-async function pushEnable(){
-  const st=pushState();
-  if(st.code==='unsupported'||st.code==='ios-install'||st.code==='nosw'||st.code==='nopush'){
-    toast(st.msg); return false;
-  }
-  try{
-    const p = Notification.permission==='granted' ? 'granted' : await Notification.requestPermission();
-    if(p!=='granted'){ toast(p==='denied'?T('الإشعارات محظورة — فعّلها من إعدادات جوالك','Notifications are blocked — enable them in your phone settings'):T('لم يتم التفعيل','Not enabled')); render(); return false; }
-    const reg = window.SW_REG || await navigator.serviceWorker.ready;
-    let sub = await reg.pushManager.getSubscription();
-    if(!sub) sub = await reg.pushManager.subscribe({userVisibleOnly:true, applicationServerKey:urlB64ToU8(VAPID_PUBLIC)});
-    const res = await window.pushSaveSub(sub.toJSON());
-    if(res && res.ok){ toast(T('تم تفعيل الإشعارات على هذا الجهاز','Notifications enabled on this device')); render(); return true; }
-    toast(T('فُعّل الإذن لكن تعذّر التسجيل في الخادم — تأكد من نشر Edge Function','Permission granted but registering with the server failed — make sure the Edge Function is deployed')); render(); return false;
-  }catch(err){ toast(T('تعذّر التفعيل: ','Could not enable: ')+(err&&err.message?err.message:T('خطأ غير معروف','Unknown error'))); render(); return false; }
-}
-async function pushDisable(){
-  try{
-    const reg=window.SW_REG||await navigator.serviceWorker.ready;
-    const sub=await reg.pushManager.getSubscription();
-    if(sub){ await pushFn({action:'unsubscribe',endpoint:sub.endpoint}); await sub.unsubscribe(); }
-  }catch(err){}
-  try{ localStorage.removeItem('reshape:pushsub'); }catch(e){}
-  toast(T('أُوقفت الإشعارات على هذا الجهاز','Notifications stopped on this device')); render();
-}
-/* إرسال إشعار لجهة معيّنة — 'coach' أو معرّف متدرب */
-function pushSend(to,title,body,kind){
-  return pushFn({action:'send',to:to,title:title,body:body,kind:kind||'',url:'/'});
-}
-
-function nativeNotify(title,body){
-  if(!notifyOn()) return false;
-  const opts={body:body,icon:ASSET.MARK,badge:ASSET.MARK,tag:'reshape-alert',renotify:true,dir:'rtl',lang:'ar'};
-  /* الآيفون لا يدعم new Notification إطلاقاً — العرض يتم عبر Service Worker */
-  const reg=window.SW_REG;
-  if(reg&&reg.showNotification){
-    try{ reg.showNotification(title,opts); return true; }catch(err){}
-  }
-  if(navigator.serviceWorker&&navigator.serviceWorker.ready){
-    navigator.serviceWorker.ready.then(r=>{ try{ r.showNotification(title,opts); }catch(e){} }).catch(()=>{});
-    return true;
-  }
-  try{
-    const n=new Notification(title,opts);
-    n.onclick=()=>{ try{ window.focus(); }catch(e){} n.close(); };
-    return true;
-  }catch(err){ return false; }
-}
+/* أُزيلت الإشعارات (Web Push + Service Worker) بطلب صريح — index.html أصبح ملفاً واحداً مستقلاً.
+   تبقى هاتان الدالتان كـ"جذع" آمن حتى لا تنكسر نقاط الاستدعاء المنتشرة (تنبيه ألم، رسائل،
+   تذكير الانقطاع): يستمر حفظ البيانات نفسه كما هو — فقط تنبيه الجهاز خارج الصفحة توقف. */
+function nativeNotify(){ return false; }
+function pushSend(){}
 
 /* فحص دوري: ينبّه المدرب بأي تنبيه ألم جديد ما دام الموقع مفتوحاً أو في الخلفية */
 let LAST_SEEN = 0;
@@ -3552,16 +3444,6 @@ function viewTrain(){
     </div>
     <div class="chevbar" aria-hidden="true">${Array.from({length:cells},(_,i)=>`<i class="${i<filled?'f':''}"></i>`).join('')}</div>
   </div>
-
-  ${(()=>{const ps=pushState(); if(ps.ok) return '';
-    return `<div class="card setup">
-      <h3>${T('تفعيل الإشعارات','Enable notifications')}</h3>
-      <p style="font-size:12.5px;color:var(--warm);margin:6px 0 0;line-height:1.9">
-        ${ps.code==='ios-install'
-          ? T('لتصلك رسائل الكابتن وتذكير حصتك على شاشة القفل: افتح الموقع في سفاري ← زر المشاركة ← <b>إضافة إلى الشاشة الرئيسية</b> ← ثم افتح التطبيق من أيقونته وفعّل الإشعارات.',"To get the coach's messages and your session reminder on the lock screen: open the site in Safari → Share button → <b>Add to Home Screen</b> → then open the app from its icon and enable notifications.")
-          : T('فعّل الإشعارات ليصلك رد الكابتن وتذكير حصتك حتى والتطبيق مغلق.',"Enable notifications to get the coach's replies and your session reminder even when the app is closed.")}</p>
-      ${ps.code==='ios-install'?'':`<button class="btn" data-ask-notify="1">${T('تفعيل الإشعارات','Enable notifications')}</button>`}
-    </div>`;})()}
 
   <div class="eyebrow">${T('اختر الأسبوع','Choose the week')}</div>
   <div class="weeks">${PROGRAM.map(x=>{
@@ -4799,29 +4681,6 @@ function coachRoster(){
       </div>
     </div>`).join('')}`:'';
 
-  const PS = pushState();
-  const notifUI = `
-    <div class="card ${PS.ok?'':'setup'}">
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-        <span class="subchip ${PS.ok?'ok':'expired'}" style="margin:0">
-          ${PS.ok?T('الإشعارات تعمل','Notifications are on'):T('الإشعارات غير مفعّلة','Notifications are off')}</span>
-        <span style="font-size:12px;color:var(--warm);flex:1;min-width:180px">${H(PS.msg)}</span>
-      </div>
-      ${PS.code==='ios-install'?`
-        <p style="font-size:12.5px;color:var(--warm);margin:10px 0 0;line-height:1.9">
-          ${T('على الآيفون: افتح الموقع في سفاري ','On iPhone: open the site in Safari ')}← ${T('زر المشاركة ','Share button ')}← <b>${T('إضافة إلى الشاشة الرئيسية','Add to Home Screen')}</b> ←
-          ${T('أغلق سفاري وافتح التطبيق من أيقونته ','Close Safari and open the app from its icon ')}← ${T('ثم اضغط تفعيل هنا.','then press Enable here.')}</p>`:''}
-      <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:12px">
-        ${PS.ok
-          ? `<button class="logbtn has" data-test-native="1" style="margin:0">${T('تجربة إشعار محلي','Test a local notification')}</button>
-             <button class="logbtn has" data-test-webpush="1" style="margin:0">${T('تجربة إشعار حقيقي','Test a real notification')}</button>
-             <button class="logbtn" data-push-off="1" style="margin:0">${T('إيقاف على هذا الجهاز','Turn off on this device')}</button>`
-          : `<button class="btn" style="margin:0" data-ask-notify="1">${T('تفعيل الإشعارات على هذا الجهاز','Enable notifications on this device')}</button>`}
-      </div>
-      <p style="font-size:11px;color:var(--muted);margin:10px 0 0;line-height:1.8">
-        «${T('إشعار حقيقي» يمر عبر الخادم ويصل حتى والتطبيق مغلق والجوال مقفل —\n        وهو الاختبار الصحيح. أما «المحلي» فيعمل والتطبيق مفتوح فقط.','real notification" goes through the server and arrives even with the app closed and the phone locked —\n        and that is the correct test. The "local" one only works while the app is open.')}</p>
-    </div>`;
-
   const connUI = cloudOn()
     ? `<div class="card" style="display:flex;align-items:center;gap:12px">
         <span class="net ${NET.state==='err'?'err':'ok'}" style="margin:0">${NET.state==='err'?T('انقطع الاتصال','Connection lost'):T('مربوط بقاعدة البيانات','Connected to the database')}</span>
@@ -4857,8 +4716,6 @@ function coachRoster(){
       ${!news.length?`<div class="note" style="border-left-color:var(--c3)"><b>${T('لا توجد تنبيهات ألم','No pain alerts')}</b><br>${T('جميع المتدربين بخير حالياً','All athletes are doing fine right now')}</div>`:''}
     </div>
 
-    <div class="sect">${T('الإشعارات','Notifications')}</div>
-    ${notifUI}
     <div class="sect">${T('حالة المزامنة','Sync status')}</div>
     ${connUI}
     <div class="hair accent"></div>
@@ -4936,7 +4793,6 @@ function coachRoster(){
             UI.chatAll?T('افتح ملف أي متدرب وابدأ المحادثة، أو ردّ على ملاحظاته مباشرة.',"Open any athlete's file and start the conversation, or reply to their notes directly.")
                       :T('رددت على الجميع 👏 اضغط «عرض الكل» لفتح أي محادثة سابقة.','You have replied to everyone 👏 tap “Show all” to open any earlier conversation.')}</div></div>`}
     <div class="hair accent"></div>
-    ${notifUI}
     <button class="btn ghost" data-refresh-chats="1">${T('تحديث الرسائل','Refresh messages')}</button>`;
   }
 
@@ -5053,7 +4909,6 @@ function coachRoster(){
     <div class="sect">${T('مواظبون ','Consistent ')}<span class="n">${FOLLOW.good.length}</span></div>
     ${goodUI}
     <div class="hair accent"></div>
-    ${notifUI}
     <button class="btn ghost" data-refresh-all="1">${T('تحديث بيانات الجميع',"Refresh everyone's data")}</button>`;
   }
 
@@ -6327,12 +6182,7 @@ document.addEventListener('click',ev=>{
     progsSave().then(()=>{ UI.edit=null; render(); toast(T('حُذف الجدول','Plan deleted')); });
     return;
   }
-  if(t.closest('[data-ask-notify]')){ askNotify(); return; }
   if(t.closest('[data-test-remind]')){ remindAthlete(true); return; }
-  if(t.closest('[data-test-native]')){
-    nativeNotify(T('🚨 تجربة تنبيه — RESHAPE','🚨 Test alert — RESHAPE'),T('الإشعارات تعمل بنجاح على هذا الجهاز','Notifications work on this device'));
-    toast(T('أُرسل إشعار تجريبي','Test notification sent')); return;
-  }
 
   if(t.closest('[data-test-push]')){
     toast(T('جارٍ الإرسال…','Sending…'));
@@ -6690,14 +6540,6 @@ document.addEventListener('click',ev=>{
     return;
   }
 
-  if(t.closest('[data-test-webpush]')){
-    toast(T('جارٍ الإرسال عبر الخادم…','Sending through the server…'));
-    pushSend(UI.coachOK&&!UI.focus?'coach':(ATH?ATH.id:'coach'),
-      T('✅ تجربة Web Push — RESHAPE','✅ Web Push test — RESHAPE'),T('وصل الإشعار عبر الخادم. أغلق التطبيق وجرّب مرة أخرى للتأكد.','The notification arrived through the server. Close the app and try again to be sure.'),'test')
-      .then(r=>toast(r&&r.ok?(r.sent?T('أُرسل إلى ','Sent to ')+r.sent+T(' جهاز',' device'):T('لا يوجد جهاز مشترك بعد','No subscribed device yet')):T('فشل الإرسال — تحقق من نشر Edge Function','Sending failed — check that the Edge Function is deployed')));
-    return;
-  }
-  if(t.closest('[data-push-off]')){ pushDisable(); return; }
 
   if(t.closest('[data-health-link]')){ healthLink(); return; }
   if(t.closest('[data-health-run]')){ healthRun(); return; }

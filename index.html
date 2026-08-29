@@ -1653,6 +1653,21 @@ a.card:active,button.card:active{transform:scale(.99)}
   .splash.out{transform:none}
 }
 
+/* ---------- registration wizard: direction-aware step transition ---------- */
+.wiz-step{animation-duration:var(--dur-reveal);animation-timing-function:var(--ease-out);animation-fill-mode:both}
+.wiz-step-fwd{animation-name:wizFwdLTR}
+.wiz-step-back{animation-name:wizBackLTR}
+html[dir="rtl"] .wiz-step-fwd{animation-name:wizFwdRTL}
+html[dir="rtl"] .wiz-step-back{animation-name:wizBackRTL}
+@keyframes wizFwdLTR{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+@keyframes wizBackLTR{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
+@keyframes wizFwdRTL{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
+@keyframes wizBackRTL{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+
+/* ---------- chat: new-message reveal (only ever plays once per message id) ---------- */
+.msg-in{animation:msgIn var(--dur-reveal) var(--ease-out)}
+@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
 /* ---------- completion / celebration: short + controlled ---------- */
 .cheer .ring{animation:cheerRing var(--dur-cheer) var(--ease-spring)}
 @keyframes cheerRing{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}
@@ -1972,6 +1987,20 @@ function lset(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(err){
 
 function timed(ms){ const c=new AbortController(); setTimeout(()=>c.abort(),ms||7000); return c.signal; }
 function reducedMotion(){ try{ return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){ return false; } }
+/* شريط تقدّم برنامج الإحالة يُعاد بناؤه بالكامل مع كل render — فتحويل قيمته الابتدائية
+   لا يُحرَّك تلقائياً. هذه الدالة تعيده مؤقتاً لعرضه السابق ثم تُطلق الانتقال لعرضه الجديد. */
+let REF_BAR_PREV=null;
+function animateRefBar(){
+  const el=document.querySelector('.refbar i');
+  if(!el) return;
+  const target=el.style.width;
+  if(!reducedMotion() && REF_BAR_PREV!=null && REF_BAR_PREV!==target){
+    el.style.width=REF_BAR_PREV;
+    void el.offsetWidth;
+    el.style.width=target;
+  }
+  REF_BAR_PREV=target;
+}
 async function cloudRow(id){
   const r=await fetch(SB_URL+'/rest/v1/progress?athlete=eq.'+encodeURIComponent(id)+'&select=data,updated',{headers:SBH(),signal:timed()});
   if(!r.ok) throw new Error('HTTP '+r.status);
@@ -2004,6 +2033,7 @@ async function mediaSave(){
    تُحفظ في صف مستقل لكل متدرب (<id>:chat) حتى لا تتعارض مع بيانات التمرين،
    وكل إرسال يقرأ آخر نسخة ثم يدمج ثم يكتب — فلا تضيع رسالة أحد الطرفين.      */
 let CHAT=[], CHAT_FOR=null, CHATS={}, CHAT_REF=null, CHAT_SENDING=false;
+const CHAT_ANIMATED=new Set(); /* معرّفات الرسائل التي ظهرت مرة — لا تُعاد حركتها عند إعادة الرسم */
 const chatRow   = id => id+':chat';
 const chatLocal = id => 'reshape:chat:'+id;
 const newMsgId  = f => f.charAt(0)+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
@@ -3260,7 +3290,9 @@ function chatBubbles(list,side){
       sep=`<div class="chat-day"><span>${new Date(m.ts).toLocaleDateString(LOCALE(),{weekday:'long',day:'numeric',month:'long'})}</span></div>`;
     }
     const mine=m.from===side;
-    return sep+`<div class="msg ${mine?'me':'them'}">
+    const isNew=!CHAT_ANIMATED.has(m.id);
+    if(isNew) CHAT_ANIMATED.add(m.id);
+    return sep+`<div class="msg ${mine?'me':'them'}${isNew?' msg-in':''}">
       ${m.ref?`<div class="quote"><b>${H(m.ref.label||T('ملاحظة المتدرب',"Athlete's note"))}</b>${H(m.ref.t||'')}</div>`:''}
       <p>${H(m.t).replace(/\n/g,'<br>')}</p>
       <span class="mt">${chatTime(m.ts)}${mine?(m.read?T(' · تمت القراءة',' · read'):T(' · أُرسلت',' · sent')):''}</span>
@@ -4223,7 +4255,7 @@ function viewApply(){
   </div>
   <div class="wizbar">${STEPS.map((s,k)=>`<i class="${k<i?'done':k===i?'now':''}"></i>`).join('')}</div>
 
-  <div class="card">
+  <div class="card wiz-step ${UI.stepDir==='back'?'wiz-step-back':'wiz-step-fwd'}">
     <p class="wizsub">${H(st.s)}</p>
     ${body}
     ${err?`<p class="wizerr">${H(err)}</p>`:''}
@@ -6053,6 +6085,7 @@ function render(opts){
     $('#app').innerHTML=shell(body, v==='coach'&&UI.coachOK);
     paintNet();
     requestAnimationFrame(tickerFit);
+    animateRefBar();
 
     /* استعادة ما كان يكتبه المستخدم ومكان المؤشر */
     if(keep){
@@ -6074,7 +6107,11 @@ function render(opts){
     stickyCTA();
   };
 
-  const isRealNav = !sameScreen;
+  /* خطوات نموذج التسجيل تُنقَل بحركتها الاتجاهية الخاصة داخل viewApply — لا حاجة
+     لتكرار حركة تنقّل الصفحة الكاملة فوقها */
+  const prevViewOnly = VIEW_SIG ? VIEW_SIG.split('|')[0] : null;
+  const isWizardStepOnly = v==='apply' && prevViewOnly==='apply';
+  const isRealNav = !sameScreen && !isWizardStepOnly;
   const canUseVT = isRealNav && !reducedMotion() && typeof document.startViewTransition==='function';
   if(canUseVT){
     try{ document.startViewTransition(paint); return; }catch(err){}
@@ -6210,7 +6247,7 @@ document.addEventListener('click',ev=>{
     if(v!=='coach') UI.edit=null;
     if(v!=='coach'&&UI.focus){ UI.focus=null; ATH=null; S={logs:{},checkins:{},updated:null}; UI.view='pick'; UI.session=null; render(); return; }
     if((v==='train'||v==='progress'||v==='me')&&!ATH){ UI.view='join'; render(); return; }
-    if(v==='apply'){ UI.step=0; UI.stepErr=''; }
+    if(v==='apply'){ UI.step=0; UI.stepErr=''; UI.stepDir='fwd'; }
     UI.view=v; UI.session=null; render();
     if(v==='coach'&&UI.coachOK&&!UI.focus) pullAll(false);
     return;
@@ -6847,6 +6884,7 @@ document.addEventListener('click',ev=>{
       if(e){ UI.stepErr=e; render(); toast(e); return; }
     }
     UI.stepErr='';
+    UI.stepDir=dir>0?'fwd':'back';
     UI.step=Math.max(0,Math.min((UI.step||0)+dir,STEPS.length-1));
     render({top:true});
     return;
@@ -7059,7 +7097,7 @@ document.addEventListener('input',ev=>{
     else UI.view='join';
     /* صفحة البرنامج المستقلة: ?p=ref — ورابط الصديق ?ref=CODE يفتح التسجيل بكوده */
     if(page==='ref') UI.view='ref';
-    else if(refCode && !a2){ UI.view='apply'; UI.step=0; setTimeout(()=>toast(T('كود الخصم مُطبّق: ','Discount code applied: ')+FORM.ref),1200); }
+    else if(refCode && !a2){ UI.view='apply'; UI.step=0; UI.stepDir='fwd'; setTimeout(()=>toast(T('كود الخصم مُطبّق: ','Discount code applied: ')+FORM.ref),1200); }
   }catch(err){ NET.state='err'; UI.view='join'; }
   applyLang();
   render();

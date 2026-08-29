@@ -55,6 +55,31 @@
   --ar:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;
   --disp:'Zain','IBM Plex Sans Arabic',sans-serif;
   --data:'Barlow Semi Condensed','IBM Plex Sans Arabic',sans-serif;
+
+  /* ---------- semantic status ---------- */
+  --ok:#4FB183; --ok-dim:rgba(79,177,131,.14);
+  --warn:#E8B04B; --warn-dim:rgba(232,176,75,.14);
+  --bad:#E4573C; --bad-dim:rgba(228,87,60,.14);
+  --focus-ring:var(--orange);
+
+  /* ---------- elevation ---------- */
+  --e1:0 1px 2px rgba(0,0,0,.22);
+  --e2:0 6px 20px rgba(0,0,0,.26);
+  --e3:0 16px 40px rgba(0,0,0,.34);
+  --ring-accent:0 0 0 3px var(--orange-dim);
+
+  /* ---------- spacing scale ---------- */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px;
+  --sp-6:24px; --sp-7:32px; --sp-8:40px; --sp-9:48px;
+
+  /* ---------- motion tokens ---------- */
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --ease-in-out:cubic-bezier(.65,0,.35,1);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+  --dur-micro:140ms;
+  --dur-ui:220ms;
+  --dur-reveal:380ms;
+  --dur-cheer:650ms;
 }
 html[data-theme="light"] h1,
 html[data-theme="light"] h2,
@@ -89,6 +114,15 @@ html[data-theme="light"]{
   --grain:rgba(36,34,35,.035);
   --glow:rgba(232,64,29,.09);
   --logofx:brightness(.28) saturate(0);
+
+  --ok:#3B8C64; --ok-dim:rgba(59,140,100,.12);
+  --warn:#C08A22; --warn-dim:rgba(192,138,34,.12);
+  --bad:#B23A21; --bad-dim:rgba(178,58,33,.10);
+
+  --e1:0 1px 2px rgba(36,34,35,.06);
+  --e2:0 8px 22px rgba(36,34,35,.09);
+  --e3:0 18px 42px rgba(36,34,35,.14);
+  --ring-accent:0 0 0 3px var(--orange-dim);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
@@ -931,12 +965,12 @@ html[data-theme="light"] .cheer{background:rgba(239,231,223,.94)}
 .logo-lockup span{font-family:var(--data);font-size:12px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;border-inline-start:1px solid var(--line);padding-inline-start:14px}
 .splash{
   position:fixed;inset:0;z-index:200;background:var(--ink);display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:16px;transition:opacity .45s ease
+  align-items:center;justify-content:center;gap:16px;transition:opacity .4s var(--ease-in-out),transform .4s var(--ease-in-out)
 }
 .splash img{width:210px;max-width:62vw}
 .splash span{font-family:var(--data);font-style:italic;font-weight:700;font-size:12px;letter-spacing:.34em;color:var(--orange)}
 .splash.out{opacity:0;pointer-events:none}
-.splash{animation:splashGo .6s ease 3.2s forwards}
+.splash{animation:splashGo .5s var(--ease-in-out) 2.5s forwards}
 @keyframes splashGo{to{opacity:0;visibility:hidden;pointer-events:none}}
 .errbar{
   position:fixed;bottom:0;inset-inline:0;z-index:300;background:var(--danger);color:var(--onDark);
@@ -1525,6 +1559,129 @@ html[data-theme="light"] .promo-btn{border-color:var(--line);background:rgba(0,0
 .annnew:active{transform:scale(.99)}
 .annsheet .a-item{border-top:1px solid var(--line);padding:14px 0}
 .annsheet .a-item:first-of-type{border-top:0}
+
+/* =========================================================================
+   PREMIUM MOTION + STATE SYSTEM
+   Additive layer: refines existing components with hover/press/focus/
+   disabled/loading states and a shared, restrained motion vocabulary.
+   ========================================================================= */
+
+/* ---------- view navigation ---------- */
+@keyframes navIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#app{animation:none}
+#app.nav-enter{animation:navIn var(--dur-reveal) var(--ease-out)}
+::view-transition-old(root),::view-transition-new(root){animation-duration:var(--dur-ui)}
+@media (prefers-reduced-motion:reduce){
+  #app.nav-enter{animation:none}
+}
+
+/* ---------- reveal-on-scroll utility (opt-in via data-reveal) ---------- */
+[data-reveal]{opacity:0;transform:translateY(10px)}
+[data-reveal].in{opacity:1;transform:none;transition:opacity var(--dur-reveal) var(--ease-out),transform var(--dur-reveal) var(--ease-out)}
+@media (prefers-reduced-motion:reduce){ [data-reveal]{opacity:1;transform:none} }
+
+/* ---------- button system: hover / press / focus / disabled / loading ---------- */
+.btn{position:relative;transition:transform var(--dur-micro) var(--ease-out),filter var(--dur-micro) var(--ease-out),opacity var(--dur-micro) var(--ease-out),box-shadow var(--dur-ui) var(--ease-out)}
+@media (hover:hover){
+  .btn:not(.ghost):hover{filter:brightness(1.06)}
+  .btn.ghost:hover{border-color:var(--orange);color:var(--orange)}
+}
+.btn:active{transform:scale(.98)}
+.btn[disabled],.btn.is-disabled{opacity:.45;pointer-events:none;filter:none}
+.btn.is-loading{color:transparent!important;pointer-events:none}
+.btn.is-loading::after{
+  content:"";position:absolute;inset:0;margin:auto;width:18px;height:18px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.35);border-top-color:currentColor;color:var(--onAccent);
+  animation:spin .7s linear infinite
+}
+.btn.ghost.is-loading::after{color:var(--warm);border-color:var(--line);border-top-color:var(--warm)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* icon/utility buttons: consistent press + focus feel */
+.vidbtn,.themebtn,.wizx,.dstep,.fghost,.replybtn,.step .ic{transition:transform var(--dur-micro) var(--ease-out),border-color var(--dur-ui) var(--ease-out),background-color var(--dur-ui) var(--ease-out)}
+.vidbtn:active,.themebtn:active,.wizx:active,.dstep:active,.fghost:active{transform:scale(.94)}
+
+/* ---------- card system: elevation + hover + pressed ---------- */
+.card{transition:border-color var(--dur-ui) var(--ease-out),box-shadow var(--dur-ui) var(--ease-out),transform var(--dur-micro) var(--ease-out)}
+button.card,a.card,[data-tab-card]{cursor:pointer}
+@media (hover:hover){
+  a.card:hover,button.card:hover{border-color:rgba(255,84,32,.4);box-shadow:var(--e2)}
+}
+a.card:active,button.card:active{transform:scale(.99)}
+.card.today,.card.comeback,.card.refcode{box-shadow:var(--e1)}
+
+/* ---------- form system: focus / error / success ---------- */
+.inp{transition:border-color var(--dur-ui) var(--ease-out),box-shadow var(--dur-ui) var(--ease-out)}
+.inp:focus{box-shadow:var(--ring-accent)}
+.inp.err{border-color:var(--bad)}
+.inp.ok{border-color:var(--ok)}
+.f-msg{display:block;font-size:11.5px;margin-top:6px;line-height:1.6}
+.f-msg.err{color:var(--bad)}
+.f-msg.ok{color:var(--ok)}
+
+/* choice controls: chips/segs/pills/options — press + selected transition already exist; add motion */
+.chip,.seg,.pill,.opt,.pp,.setbtn,.tab,.week,.day{transition:background-color var(--dur-ui) var(--ease-out),border-color var(--dur-ui) var(--ease-out),color var(--dur-ui) var(--ease-out),transform var(--dur-micro) var(--ease-out)}
+.chip:active,.seg:active,.pill:active,.opt:active,.pp:active,.week:active{transform:scale(.97)}
+.setbtn.on{animation:setPop var(--dur-micro) var(--ease-spring)}
+@keyframes setPop{0%{transform:scale(.88)}100%{transform:scale(1)}}
+
+/* ---------- bottom nav: soft active indicator ---------- */
+.bnav button::before{content:"";position:absolute;top:0;width:26px;height:2.5px;border-radius:0 0 3px 3px;background:var(--orange);opacity:0;transform:translateY(-2px);transition:opacity var(--dur-ui) var(--ease-out),transform var(--dur-ui) var(--ease-out)}
+.bnav button.on::before{opacity:1;transform:none}
+.bnav button svg{transition:transform var(--dur-ui) var(--ease-spring)}
+.bnav button.on svg{transform:translateY(-1px)}
+
+/* ---------- sheets / modals: open + close ---------- */
+.sheet{animation:scrimIn var(--dur-ui) var(--ease-out)}
+@keyframes scrimIn{from{opacity:0}to{opacity:1}}
+.sheet .panel{animation:sheetIn var(--dur-reveal) var(--ease-out)}
+@keyframes sheetIn{from{transform:translateY(24px);opacity:.4}to{transform:none;opacity:1}}
+.sheet.closing{animation:scrimOut var(--dur-ui) var(--ease-in-out) forwards}
+.sheet.closing .panel{animation:sheetOut var(--dur-ui) var(--ease-in-out) forwards}
+@keyframes scrimOut{to{opacity:0}}
+@keyframes sheetOut{to{transform:translateY(18px);opacity:0}}
+.promo-wrap.closing{opacity:0}
+
+/* ---------- splash: controlled premium open ---------- */
+.splash img{animation:splashMark .5s var(--ease-spring) both}
+.splash span{animation:splashWord .5s var(--ease-out) .15s both}
+@keyframes splashMark{from{opacity:0;transform:scale(.86)}to{opacity:1;transform:none}}
+@keyframes splashWord{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.splash.out{transform:scale(1.02)}
+@media (prefers-reduced-motion:reduce){
+  .splash img,.splash span{animation:none}
+  .splash.out{transform:none}
+}
+
+/* ---------- completion / celebration: short + controlled ---------- */
+.cheer .ring{animation:cheerRing var(--dur-cheer) var(--ease-spring)}
+@keyframes cheerRing{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}
+.chevbar i.f{animation:chevFill var(--dur-ui) var(--ease-out)}
+@keyframes chevFill{from{opacity:.55;transform:scaleY(.7)}to{opacity:1;transform:none}}
+
+/* ---------- skeleton loading (lightweight, opt-in via .skel) ---------- */
+.skel{position:relative;overflow:hidden;background:var(--surf2);border-radius:8px;color:transparent!important}
+.skel::after{
+  content:"";position:absolute;inset:0;transform:translateX(-100%);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
+  animation:skelSweep 1.3s ease-in-out infinite
+}
+@keyframes skelSweep{100%{transform:translateX(100%)}}
+@media (prefers-reduced-motion:reduce){ .skel::after{animation:none} }
+
+/* ---------- coach console: desktop density ---------- */
+@media (min-width:900px){
+  .wrap.wide{padding-inline:24px}
+  .kpi{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  table.t{font-size:13px}
+  table.t th{position:sticky;top:0;background:var(--surf);z-index:1}
+  .scroll table.t tr:hover td{background:var(--sunken)}
+}
+
+/* ---------- minimum comfortable touch targets ---------- */
+.tab,.setbtn{min-height:44px}
+.setbtn{min-width:44px}
+.dstep,.themebtn,.wizx{min-height:44px;min-width:44px}
 </style>
 </head>
 <body>
@@ -1557,7 +1714,7 @@ html[data-theme="light"] .promo-btn{border-color:var(--line);background:rgba(0,0
 (function(){
   try{ if(localStorage.getItem('reshape:theme')==='light') document.documentElement.setAttribute('data-theme','light'); }catch(e){}
   function drop(){ var sp=document.getElementById('splash'); if(sp){ sp.classList.add('out'); setTimeout(function(){ if(sp&&sp.parentNode) sp.remove(); },600); } }
-  setTimeout(drop,2600);
+  setTimeout(drop,1900);
   window.addEventListener('error',function(ev){
     drop();
     var b=document.getElementById('errbar');
@@ -1814,6 +1971,7 @@ function lget(k){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):n
 function lset(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(err){} }
 
 function timed(ms){ const c=new AbortController(); setTimeout(()=>c.abort(),ms||7000); return c.signal; }
+function reducedMotion(){ try{ return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){ return false; } }
 async function cloudRow(id){
   const r=await fetch(SB_URL+'/rest/v1/progress?athlete=eq.'+encodeURIComponent(id)+'&select=data,updated',{headers:SBH(),signal:timed()});
   if(!r.ok) throw new Error('HTTP '+r.status);
@@ -5699,7 +5857,14 @@ function openSheet(html){
   $('#layer').innerHTML=`<div class="sheet" data-sheet="1"><div class="panel" style="position:relative">
     <div class="grip"></div><button class="close" data-sheet="1" aria-label="${T('إغلاق','Close')}">×</button>${html}</div></div>`;
 }
-const closeSheet = ()=>$('#layer').innerHTML='';
+const closeSheet = ()=>{
+  const layer=$('#layer');
+  if(!layer) return;
+  const openEl=layer.querySelector('.sheet');
+  if(!openEl || reducedMotion()){ layer.innerHTML=''; return; }
+  openEl.classList.add('closing');
+  setTimeout(()=>{ if(layer.contains(openEl)) layer.innerHTML=''; }, 200);
+};
 
 function vidId(u){ return u; }
 function sheetVideo(id,name){
@@ -5881,28 +6046,44 @@ function render(opts){
                v==='chat'?(ATH?viewChat():viewJoin()):
                v==='pick'?viewPick(): v==='session'?viewSession(): v==='progress'?viewProgress():
                v==='coach'?viewCoach(): v==='guide'?viewGuide(): (ATH?viewTrain():viewJoin());
-  $('#app').innerHTML=shell(body, v==='coach'&&UI.coachOK);
-  paintNet();
-  requestAnimationFrame(tickerFit);
 
-  /* استعادة ما كان يكتبه المستخدم ومكان المؤشر */
-  if(keep){
-    const el=document.getElementById(keep.id);
-    if(el){
-      if(el.value!==keep.val) el.value=keep.val;
-      try{ el.focus({preventScroll:true}); el.setSelectionRange(keep.s,keep.e); }catch(err){}
-      if(el.id==='chatin'){ el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,140)+'px'; }
+  /* تلوين الواجهة الفعلي — بلا أي تغيير في المنطق، فقط ملفوف ليُشغَّل عبر
+     View Transitions API عند توفّرها وعند وجود تنقّل حقيقي (لا إعادة رسم خلفية) */
+  const paint = ()=>{
+    $('#app').innerHTML=shell(body, v==='coach'&&UI.coachOK);
+    paintNet();
+    requestAnimationFrame(tickerFit);
+
+    /* استعادة ما كان يكتبه المستخدم ومكان المؤشر */
+    if(keep){
+      const el=document.getElementById(keep.id);
+      if(el){
+        if(el.value!==keep.val) el.value=keep.val;
+        try{ el.focus({preventScroll:true}); el.setSelectionRange(keep.s,keep.e); }catch(err){}
+        if(el.id==='chatin'){ el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,140)+'px'; }
+      }
     }
+    /* استعادة موضع القراءة */
+    if(sameScreen) window.scrollTo(0,keepY);
+    else window.scrollTo(0,0);
+
+    const nb=document.getElementById('chatbody');
+    if(nb){ if(cbBottom||!sameScreen) nb.scrollTop=nb.scrollHeight; else nb.scrollTop=cbTop; }
+
+    VIEW_SIG=sig;
+    stickyCTA();
+  };
+
+  const isRealNav = !sameScreen;
+  const canUseVT = isRealNav && !reducedMotion() && typeof document.startViewTransition==='function';
+  if(canUseVT){
+    try{ document.startViewTransition(paint); return; }catch(err){}
   }
-  /* استعادة موضع القراءة */
-  if(sameScreen) window.scrollTo(0,keepY);
-  else window.scrollTo(0,0);
-
-  const nb=document.getElementById('chatbody');
-  if(nb){ if(cbBottom||!sameScreen) nb.scrollTop=nb.scrollHeight; else nb.scrollTop=cbTop; }
-
-  VIEW_SIG=sig;
-  stickyCTA();
+  paint();
+  if(isRealNav && !reducedMotion()){
+    const app=$('#app');
+    if(app){ app.classList.remove('nav-enter'); void app.offsetWidth; app.classList.add('nav-enter'); }
+  }
 }
 
 /* شريط "سجّل بياناتك" الثابت — يظهر بعد تجاوز الواجهة ويختفي عند النموذج */

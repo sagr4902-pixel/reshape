@@ -1684,13 +1684,18 @@ html[dir="rtl"] .wiz-step-back{animation-name:wizBackRTL}
 @keyframes skelSweep{100%{transform:translateX(100%)}}
 @media (prefers-reduced-motion:reduce){ .skel::after{animation:none} }
 
-/* ---------- coach console: desktop density ---------- */
+/* ---------- coach console: distinct professional dashboard feel ---------- */
+.coach-topbar{border-bottom-color:rgba(255,84,32,.35)}
+.coach-topbar::before{content:"";display:block;height:2px;background:linear-gradient(90deg,var(--orange),transparent 65%)}
+.roster-grid{display:block}
 @media (min-width:900px){
   .wrap.wide{padding-inline:24px}
   .kpi{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
   table.t{font-size:13px}
   table.t th{position:sticky;top:0;background:var(--surf);z-index:1}
   .scroll table.t tr:hover td{background:var(--sunken)}
+  .roster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:var(--sp-4);align-items:start}
+  .roster-grid>.card{margin-bottom:0}
 }
 
 /* ---------- minimum comfortable touch targets ---------- */
@@ -3092,7 +3097,7 @@ function shell(inner,wide){
   const showNav = !!ATH && !UI.focus && !wide;
   const hideTop = showNav && !UI.coachOK;   /* الجوال: التنقّل السفلي يغني عن الشريط العلوي */
   return `
-  <header class="topbar">
+  <header class="topbar${wide?' coach-topbar':''}">
     <div class="inner">
       <div class="brand"><img class="logo-primary" src="${ASSET.PRIMARY}" alt="reshape"></div>
       <div class="who">
@@ -5067,7 +5072,7 @@ function coachRoster(){
     <div class="card">${rankList(sorted)}</div>
 
     <div class="sect">${T('تفاصيل أسبوع بأسبوع','Week-by-week detail')}</div>
-    ${sorted.map((r,ri)=>athCard(r,ri,`
+    <div class="roster-grid">${sorted.map((r,ri)=>athCard(r,ri,`
       <div class="wkgrid">${r.weeks.map((W2,wi)=>{
         const logs=((ALL[r.a.id]||{}).data||{}).logs||{};
         let dn=0,tt=0;
@@ -5077,7 +5082,7 @@ function coachRoster(){
         return `<div class="wkcard"><b style="color:${PAL[wi%6]}">${p}%</b>
           <span>${T('الأسبوع ','Week ')}${wi+1}</span>
           <span class="bar"><i style="width:${p}%;background:${PAL[wi%6]}"></i></span></div>`;}).join('')}</div>
-      <button class="logbtn has" data-open-ath="${H(r.a.id)}" style="margin-top:11px">${T('فتح الملف الكامل','Open the full file')}</button>`)).join('')}`;
+      <button class="logbtn has" data-open-ath="${H(r.a.id)}" style="margin-top:11px">${T('فتح الملف الكامل','Open the full file')}</button>`)).join('')}</div>`;
   }
 
   /* ============ الاشتراكات ============ */
@@ -5195,7 +5200,7 @@ function coachRoster(){
   /* ============ الملفات والجداول ============ */
   return head+`
   <div class="sect">${T('ملفات المتدربين ','Athlete files ')}<span class="n">${rows.length}</span></div>
-  ${rows.length? rows.map((r,ri)=>athCard(r,ri,`
+  <div class="roster-grid">${rows.length? rows.map((r,ri)=>athCard(r,ri,`
     <div style="display:flex;gap:7px;flex-wrap:wrap">
       <button class="logbtn has" data-edit-ath="${H(r.a.id)}" style="margin:0">${T('تعديل الاسم والجدول','Edit name and plan')}</button>
       <button class="logbtn" data-edit-ath="${H(r.a.id)}" style="margin:0">${T('تصفية السجل','Clear the record')}</button>
@@ -5204,7 +5209,7 @@ function coachRoster(){
       <button class="logbtn has" data-welcome="${H(r.a.id)}" style="margin:0">${T('رسالة الترحيب','Welcome message')}</button>
       <button class="logbtn" data-link="${H(r.a.id)}" style="margin:0">${T('نسخ رابطه','Copy their link')}</button>
       <button class="logbtn" data-del-ath="${H(r.a.id)}" style="margin:0">${T('حذف','Delete')}</button>
-    </div>`)).join('') : T('<div class="empty">لا يوجد متدربون.</div>','<div class="empty">No athletes yet.</div>')}
+    </div>`)).join('') : T('<div class="empty">لا يوجد متدربون.</div>','<div class="empty">No athletes yet.</div>')}</div>
 
   <div class="sect">${T('إضافة متدرب','Add an athlete')}</div>
   <div class="card">

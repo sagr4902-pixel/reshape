@@ -708,6 +708,11 @@ input[type="date"].inp{min-height:48px}
   color:var(--orange);border-radius:8px;padding:7px 12px;font-size:11.5px;
   font-family:inherit;font-weight:700;cursor:pointer
 }
+.msg.them .markread{
+  display:block;margin-top:8px;background:transparent;border:1px solid rgba(255,84,32,.4);
+  color:var(--orange);border-radius:8px;padding:5px 10px;font-size:10.5px;
+  font-family:inherit;font-weight:700;cursor:pointer
+}
 
 /* بطاقات المتابعة في لوحة المدرب */
 .fcard{position:relative;overflow:hidden}
@@ -2128,9 +2133,8 @@ async function chatSend(id,from,text,ref){
   CHAT_SENDING=true;
   const msg={id:newMsgId(from),from:from,t:t.slice(0,1200),ts:Date.now(),ref:ref||null,read:false};
   const list=chatMerge(CHATS[id]||lget(chatLocal(id))||[],[msg]);
-  /* ردّ الكابتن الفعلي هو ما يُعلَّم رسائل المتدرب كمقروءة — لا مجرّد فتح المحادثة أو ملفه
-     (كانت رسائل غير مقروءة أخرى تُعلَّم كمقروءة بلا رد فعلي؛ الآن يحدث هذا فقط هنا) */
-  if(from==='coach') list.forEach(m=>{ if(m.from!=='coach') m.read=true; });
+  /* لا يُعلَّم أي شيء كمقروء هنا — إرسال ردّ لا يعني أن بقية الرسائل غير
+     المقروءة قُرئت فعلاً. القراءة يدوية فقط عبر زر ✓ على كل رسالة (انظر chatSeenIds) */
   CHAT_FOR=id; CHAT=list; CHATS[id]=list;
   CHAT_REF=null;
   if(SHEET_CHAT===id){ render(); chatSheetRefresh(); }
@@ -2155,6 +2159,15 @@ async function chatSeen(id,viewer){
   let changed=false;
   list.forEach(m=>{ if(m.from!==viewer && !m.read){ m.read=true; changed=true; } });
   if(changed) await chatPush(id,list);
+}
+/* تحديد يدوي لرسائل بعينها كمقروءة — زر ✓ على كل رسالة، مستقل تماماً عن الردّ أو فتح المحادثة */
+async function chatSeenIds(id,ids){
+  const list=CHATS[id]||lget(chatLocal(id))||[];
+  const set=new Set(ids);
+  let changed=false;
+  list.forEach(m=>{ if(set.has(m.id) && !m.read){ m.read=true; changed=true; } });
+  if(changed) await chatPush(id,list);
+  return changed;
 }
 function chatScroll(){
   setTimeout(()=>{ const b=document.getElementById('chatbody'); if(b) b.scrollTop=b.scrollHeight; },60);
@@ -3203,7 +3216,7 @@ function chatSheetHTML(id){
       <span class="cmeta"><b>${H(a.name)}</b>
         <span>${T('ردّك يصل المتدرب فوراً','Your reply reaches the athlete instantly')}</span></span>
     </div>
-    <div class="chat-body csheet-body" id="chatbody">${chatBubbles(list,'coach')}</div>
+    <div class="chat-body csheet-body" id="chatbody">${chatBubbles(list,'coach',id)}</div>
     <div class="quickbar">${QUICK.map((q,i)=>`<button data-quick="${i}">${H(q.slice(0,26))}${q.length>26?'…':''}</button>`).join('')}</div>
     ${chatComposer('coach',id)}
     <div class="csheet-foot">
@@ -3228,7 +3241,7 @@ function chatSheetRefresh(){
   chatScroll();
 }
 
-function chatBubbles(list,side){
+function chatBubbles(list,side,convId){
   if(!list||!list.length){
     return `<div class="chat-empty">
       <b>${T('لا توجد رسائل بعد','No messages yet')}</b>
@@ -3246,10 +3259,14 @@ function chatBubbles(list,side){
     const mine=m.from===side;
     const isNew=!CHAT_ANIMATED.has(m.id);
     if(isNew) CHAT_ANIMATED.add(m.id);
+    /* القراءة يدوية فقط: لا فتح المحادثة ولا إرسال ردّ يُعلِّم رسالة الطرف الآخر كمقروءة —
+       فقط الضغط على زر ✓ الخاص بها تحديداً (انظر chatSeenIds) */
+    const unread=side==='coach'&&!mine&&!m.read;
     return sep+`<div class="msg ${mine?'me':'them'}${isNew?' msg-in':''}">
       ${m.ref?`<div class="quote"><b>${H(m.ref.label||T('ملاحظة المتدرب',"Athlete's note"))}</b>${H(m.ref.t||'')}</div>`:''}
       <p>${H(m.t).replace(/\n/g,'<br>')}</p>
       <span class="mt">${chatTime(m.ts)}${mine?(m.read?T(' · تمت القراءة',' · read'):T(' · أُرسلت',' · sent')):''}</span>
+      ${unread?`<button class="markread" data-mark-read="${H(convId||'')}:${H(m.id)}">${T('✓ تحديد كمقروءة','✓ Mark as read')}</button>`:''}
     </div>`;
   }).join('');
 }
@@ -5331,7 +5348,7 @@ function coachAthlete(){
   <div class="sect">${T('المحادثة مع ','Chat with ')}${H(ATH?ATH.name:T('المتدرب','Athlete'))}
     ${chatUnread(CHAT,'coach')?`<span class="n">${chatUnread(CHAT,'coach')} ${T('جديدة','New')}</span>`:''}</div>
   <div class="chatwrap">
-    <div class="chatbody" id="chatbody">${chatBubbles(CHAT,'coach')}</div>
+    <div class="chatbody" id="chatbody">${chatBubbles(CHAT,'coach',ATH?ATH.id:'')}</div>
     <div class="quickrow">${QUICK.map((q,qi)=>`<button class="quickbtn" data-quick="${qi}">${H(q.slice(0,26))}…</button>`).join('')}</div>
     ${chatComposer('coach',ATH?ATH.id:'')}
   </div>
@@ -6677,6 +6694,13 @@ document.addEventListener('click',ev=>{
   if(wk){ UI.week=+wk.dataset.week; render(); return; }
 
   /* ---------- المحادثة ---------- */
+  const mr=t.closest('[data-mark-read]');
+  if(mr){
+    const i=mr.dataset.markRead.indexOf(':');
+    const convId=mr.dataset.markRead.slice(0,i), msgId=mr.dataset.markRead.slice(i+1);
+    chatSeenIds(convId,[msgId]).then(()=>{ if(SHEET_CHAT===convId) chatSheetRefresh(); else render(); });
+    return;
+  }
   const cs=t.closest('[data-chat-send]');
   if(cs){
     const box=$('#chatin'); if(!box) return;

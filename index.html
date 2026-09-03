@@ -2128,6 +2128,9 @@ async function chatSend(id,from,text,ref){
   CHAT_SENDING=true;
   const msg={id:newMsgId(from),from:from,t:t.slice(0,1200),ts:Date.now(),ref:ref||null,read:false};
   const list=chatMerge(CHATS[id]||lget(chatLocal(id))||[],[msg]);
+  /* ردّ الكابتن الفعلي هو ما يُعلَّم رسائل المتدرب كمقروءة — لا مجرّد فتح المحادثة أو ملفه
+     (كانت رسائل غير مقروءة أخرى تُعلَّم كمقروءة بلا رد فعلي؛ الآن يحدث هذا فقط هنا) */
+  if(from==='coach') list.forEach(m=>{ if(m.from!=='coach') m.read=true; });
   CHAT_FOR=id; CHAT=list; CHATS[id]=list;
   CHAT_REF=null;
   if(SHEET_CHAT===id){ render(); chatSheetRefresh(); }
@@ -3213,7 +3216,7 @@ function sheetChat(id,ref){
   SHEET_CHAT=id;
   CHAT_FOR=id; CHAT=CHATS[id]||lget(chatLocal(id))||[]; CHAT_REF=ref||null;
   openSheet(chatSheetHTML(id));
-  chatSeen(id,'coach');
+  /* لا تُعلَّم رسائل المتدرب كمقروءة بمجرد فتح النافذة — فقط عند ردّ الكابتن فعلاً (انظر chatSend) */
   notesSeenFor(id);
   chatScroll();
 }
@@ -5217,7 +5220,7 @@ function healthCoach(){
 
 function coachAthlete(){
   const all=allStats(), tests=collectTests(), notes=allNotes(), rpe=rpeSeries();
-  if(ATH && chatUnread(CHAT,'coach')) setTimeout(()=>chatSeen(ATH.id,'coach').then(render),500);
+  /* لا تُعلَّم رسائل المتدرب كمقروءة بمجرد فتح ملفه — فقط عند ردّ الكابتن فعلاً (انظر chatSend) */
   const conn = cloudOn()
     ? `<div class="card" style="display:flex;align-items:center;gap:12px">
         <span class="net ${NET.state==='err'?'err':'ok'}" style="margin:0">${NET.state==='err'?T('انقطع الاتصال','Connection lost'):T('مربوط بقاعدة البيانات','Connected to the database')}</span>

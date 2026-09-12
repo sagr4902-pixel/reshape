@@ -2,6 +2,19 @@ node_modules
 dist
 .DS_Store
 .env
-
-# Ignore the output video from Git but not videos you import into src/.
 out
+
+# Trainee footage is NOT committed.
+#
+# This repository is public. The source clips show an identifiable person, and
+# the brief this template is built to is explicit about protecting them, so the
+# footage stays out of git history — which is the one place you cannot take it
+# back from.
+#
+# Drop before.mp4 / after.mp4 into public/ locally and the template runs.
+public/*.mp4
+public/*.mov
+public/*.m4v
+
+# Rendered reels — deliver these to the client, don't version them.
+public/music/

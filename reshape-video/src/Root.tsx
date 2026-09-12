@@ -1,10 +1,10 @@
-import "./index.css";
-import { MyComposition } from "./Composition";
+import "./fonts";
+import { TransformationReelComposition } from "./compositions/TransformationReel";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
-      <MyComposition />
+      <TransformationReelComposition />
     </>
   );
 };

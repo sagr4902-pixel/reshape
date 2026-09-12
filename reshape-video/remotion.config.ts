@@ -6,9 +6,19 @@
  */
 
 import { Config } from "@remotion/cli/config";
-import { enableTailwind } from '@remotion/tailwind-v4';
 
 Config.setRspack(true);
 Config.setVideoImageFormat("jpeg");
 Config.setOverwriteOutput(true);
-Config.overrideBundlerConfig(enableTailwind);
+
+/**
+ * Delivery settings for Reels / TikTok / Shorts.
+ *
+ * CRF 21 lands around 6–8 Mbps at 1080×1920, which is well inside what the
+ * platforms keep before they re-encode — sending them a 15 Mbps master just
+ * means their encoder throws the extra away.
+ */
+Config.setCodec("h264");
+Config.setCrf(21);
+Config.setPixelFormat("yuv420p");
+Config.setAudioCodec("aac");

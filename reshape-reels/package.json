@@ -1,0 +1,24 @@
+{
+  "name": "reshape-reels",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RESHAPE motion system — reusable Remotion components for Arabic fitness Reels",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.410",
+    "@remotion/cli": "4.0.410",
+    "@remotion/paths": "4.0.410",
+    "@remotion/renderer": "4.0.410",
+    "@remotion/shapes": "4.0.410",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "remotion": "4.0.410"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.0",
+    "typescript": "5.6.3"
+  }
+}

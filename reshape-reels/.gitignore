@@ -1,0 +1,7 @@
+node_modules/
+out/
+.remotion/
+# large media inputs — regenerate from the source clip via the prep step
+public/speaker.mp4
+public/voice.wav
+qc/

@@ -4,6 +4,7 @@ import { RESHAPE_THEME as T } from './theme';
 import { DURATION_S } from './timeline';
 import { ReshapeReel } from './ReshapeReel';
 import type { CaptionGroup } from './components/WordCaption';
+import type { TrackRec } from './plate';
 
 export const RemotionRoot: React.FC = () => (
   <Composition
@@ -13,10 +14,13 @@ export const RemotionRoot: React.FC = () => (
     fps={T.fps}
     width={T.width}
     height={T.height}
-    defaultProps={{ captions: [] as CaptionGroup[], debugSafe: false }}
+    defaultProps={{ captions: [] as CaptionGroup[], track: [] as TrackRec[], debugSafe: false }}
     calculateMetadata={async ({ props }) => {
-      const captions = (await (await fetch(staticFile('captions.json'))).json()) as CaptionGroup[];
-      return { props: { ...props, captions } };
+      const [captions, track] = await Promise.all([
+        (await fetch(staticFile('captions.json'))).json(),
+        (await fetch(staticFile('track_v3.json'))).json(),
+      ]);
+      return { props: { ...props, captions, track } };
     }}
   />
 );

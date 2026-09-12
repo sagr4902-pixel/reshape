@@ -5,3 +5,12 @@ out/
 public/speaker.mp4
 public/voice.wav
 qc/
+# derived plate + mattes — rebuild with scripts/build-matte.py then scripts/retime.py
+public/isolate.mp4
+public/edge.mp4
+public/track.json
+public/speaker_v3.mp4
+public/isolate_v3.mp4
+public/edge_v3.mp4
+public/voice_v3.wav
+public/silhouette.png

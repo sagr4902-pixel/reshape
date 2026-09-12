@@ -23,14 +23,35 @@ cues, all in seconds, converted to frames by `sec()`.
 
 ## Components
 
+### Subject matte pipeline
+
+`scripts/build-matte.py` runs MediaPipe multiclass selfie segmentation over the
+plate and emits three frame-locked assets plus tracking data:
+
+| Asset | What it is |
+|---|---|
+| `isolate_v3.mp4` | the plate with the world dimmed and desaturated behind a per-frame subject matte |
+| `edge_v3.mp4` | the silhouette contour, screen-blended as a rim light |
+| `track_v3.json` | per-frame subject bbox and left/right arm centroids |
+
+`scripts/retime.py` then applies ONE frame map to the plate and every matte, so
+they can never drift apart: a half-speed ramp as his arms come up, a 0.9s freeze
+on the peak pose, and a hold on the final gesture. The audio is rebuilt against
+the same map with silence filling the inserted beats.
+
+The freeze lands in a real inter-word gap, so nothing is cut mid-syllable and
+the held beat reads as a deliberate pause rather than a dropout.
+
 ### Editorial shape
 
 Contrast is the design. The reel opens bare, then alternates hero moment and
 clean talking head:
 
 ```
-clean open -> chapter mark -> VESSEL BLOOM -> clean -> STRUCK CLAIM ->
-clean -> flex (no graphics, one sub impact) -> EVIDENCE BARS -> sign-off
+COLD OPEN (silhouette + the claim as a question)
+  -> chapter mark -> VESSEL BLOOM -> clean -> STRUCK CLAIM -> clean
+  -> ramp -> THE POSE (freeze, isolate, rim light, tracked BICEPS labels)
+  -> EVIDENCE BARS -> clean -> FROZEN END CARD
 ```
 
 Each hero moment speaks a *different* visual language on purpose — organic

@@ -16,10 +16,18 @@ export type CaptionGroup = { start: number; end: number; words: CaptionWord[] };
  * token is an atomic flex item, so bidi cannot reorder inside it - separate
  * spans for "LET'S" and "GO" render as "GO LET'S". captions.json merges them.
  */
-export const WordCaption: React.FC<{ groups: CaptionGroup[] }> = ({ groups }) => {
+export const WordCaption: React.FC<{
+  groups: CaptionGroup[];
+  /** windows where other typography carries the speech and the band stands down */
+  suppress?: Array<[number, number]>;
+  /** windows where the caption itself is the moment and scales up */
+  display?: Array<[number, number]>;
+}> = ({ groups, suppress = [], display = [] }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
+  if (suppress.some(([a, b]) => t >= a && t < b)) return null;
+  const big = display.some(([a, b]) => t >= a && t < b);
 
   const gi = groups.findIndex((g, i) => {
     const next = groups[i + 1];
@@ -50,12 +58,12 @@ export const WordCaption: React.FC<{ groups: CaptionGroup[] }> = ({ groups }) =>
         direction: 'rtl',
         gap: '0 18px',
         fontFamily: T.font.display,
-        fontSize: T.size.caption,
+        fontSize: big ? T.size.caption * 1.46 : T.size.caption,
         lineHeight: 1.22,
         textAlign: 'center',
         opacity: fade,
         textShadow: `0 0 14px rgba(0,0,0,.55), 0 4px 18px rgba(0,0,0,.6)`,
-        WebkitTextStroke: `5px ${T.tint.capStroke}`,
+        WebkitTextStroke: `${big ? 7 : 5}px ${T.tint.capStroke}`,
         paintOrder: 'stroke fill',
       }}
     >

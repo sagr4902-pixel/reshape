@@ -1756,6 +1756,418 @@ html[dir="rtl"] .wiz-step-back{animation-name:wizBackRTL}
 .tab,.setbtn{min-height:44px}
 .setbtn{min-width:44px}
 .dstep,.themebtn,.wizx{min-height:44px;min-width:44px}
+
+/* =====================================================================
+   الصفحة العامة (اشترك معنا) — تصميم تقرير التدريب
+   كل القواعد هنا محصورة في body.lp-on و .lp ولا تمس واجهة المتدرب أو المدرب
+   ===================================================================== */
+.lp{
+  --bg:var(--ink); --fg:var(--strong); --fg2:var(--warm);
+  --tone1:var(--surf); --tone2:var(--charcoal); --deepf:#0F0F11;
+  --orange:#FF5420; --onAccent:#17181A; --acc:#FF5420; --onacc:#17181A; --paper:var(--soft); --onpaper:var(--ink);
+  --m:clamp(16px,3.4vw,48px); --gut:clamp(12px,1.6vw,24px);
+  --fs-xl:clamp(46px,7vw,108px); --fs-l:clamp(30px,4vw,60px);
+  --fs-m:clamp(21px,1.9vw,28px); --fs-t:18px; --fs-s:14px;
+  --sec:clamp(96px,11vw,176px);
+  color:var(--fg); font-size:var(--fs-t); line-height:1.6; font-variant-numeric:tabular-nums;
+}
+html[data-theme="light"] .lp{--deepf:#242223; --tone2:#2F2C2B}
+body.lp-on::before, body.lp-on::after{display:none}
+body.lp-on{background:var(--ink)}
+.lp-on .wrap{max-width:none; padding:0}
+.lp-on #app > footer{display:none}
+
+/* ---------- شريط الأعلى: صف واحد مسطّح ---------- */
+.lp-on .topbar{
+  position:sticky; top:0; backdrop-filter:none; -webkit-backdrop-filter:none;
+  background:var(--ink); border-bottom:0;
+  display:flex; align-items:center; gap:clamp(8px,2vw,28px); padding:10px clamp(16px,3.4vw,48px);
+}
+.lp-on .topbar .inner{display:contents}
+.lp-on .topbar .brand{order:0}
+.lp-on .topbar .brand img{height:30px; width:auto}
+.lp-on .topbar .who{display:none}
+.lp-on .topbar .tabs{order:1; margin:0 auto 0 0; margin-inline:auto 0; padding:0; max-width:none; gap:clamp(4px,1.6vw,22px); overflow:visible}
+.lp-on .topbar .langbtn{order:2; margin-inline-start:auto}
+.lp-on .topbar .themebtn{order:3}
+.lp-on .topbar .tab{
+  flex:0 0 auto; min-width:0; background:none; border:0; border-radius:0; padding:10px 4px;
+  font-size:14px; font-weight:600; color:var(--warm);
+}
+.lp-on .topbar .tab.on{color:var(--strong); background:none; font-weight:700}
+.lp-on .topbar .tab.on::before{content:""}
+.lp-on .topbar .tab:hover{color:var(--strong)}
+.lp-on .topbar .themebtn{background:var(--surf); border:0; border-radius:0; width:44px; height:44px}
+.lp-on .topbar .themebtn:hover{background:var(--charcoal)}
+@media (max-width:699px){
+  .lp-on .topbar{flex-wrap:wrap; row-gap:2px; padding:8px 16px 4px}
+  .lp-on .topbar .tabs{order:4; flex-basis:100%; justify-content:space-between; margin:0}
+  .lp-on .topbar .tab{padding:10px 2px}
+}
+
+/* ---------- الشبكة ومحور الصفحة (42%) ---------- */
+.lp-g{display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gut); padding-inline:var(--m)}
+.lp-side{grid-column:1 / span 5}
+.lp-axis{grid-column:6 / -1}
+.lp h1,.lp h2,.lp h3{margin:0; font-family:var(--disp); font-weight:800; color:var(--fg); line-height:1.08; letter-spacing:0}
+html[lang="en"] .lp h1, html[lang="en"] .lp h2, html[lang="en"] .lp .lp-stair b{letter-spacing:-.03em; line-height:.98}
+.lp p{margin:0}
+.lp a{color:inherit}
+.lp-sec{padding-block:var(--sec)}
+.lp-h2{font-size:var(--fs-l)}
+.lp-lead{font-size:var(--fs-m); line-height:1.45; color:var(--fg)}
+.lp-soft{color:var(--fg2)}
+.lp-small{font-size:var(--fs-s); line-height:1.6; color:var(--fg2)}
+
+/* ---------- الأزرار: مستطيلة، لون واحد ---------- */
+.lp-btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:56px; padding:0 28px;
+  background:var(--acc); color:var(--onacc); font:700 18px/1.2 var(--ar); text-decoration:none; border-radius:0;
+  transition:transform var(--dur-micro) var(--ease-out), background-color var(--dur-micro) ease;
+}
+.lp-btn:hover{background:color-mix(in srgb,var(--acc) 86%,#fff)}
+.lp-btn:active{transform:scale(.97)}
+.lp-btn svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+.lp-btn.dark{background:var(--fg); color:var(--bg)}
+.lp-btn.dark:hover{background:color-mix(in srgb,var(--fg) 86%,var(--bg))}
+.lp-link{
+  display:inline-flex; align-items:center; gap:10px; min-height:44px; font:700 18px/1.3 var(--ar); color:var(--fg);
+  text-decoration:underline; text-underline-offset:6px; text-decoration-thickness:2px; text-decoration-color:color-mix(in srgb,var(--fg) 35%,transparent);
+  transition:text-decoration-color var(--dur-micro) ease, transform var(--dur-micro) var(--ease-out);
+}
+.lp-link:hover{text-decoration-color:var(--acc)}
+.lp-link:active{transform:translateY(1px)}
+.lp-link svg{width:18px; height:18px; fill:currentColor}
+
+/* =========================== الواجهة =========================== */
+.lp-hero{display:flex; flex-direction:column}
+.lp-mast{order:-1; margin-inline:var(--m); display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); grid-template-rows:1fr 1fr;
+  grid-template-areas:"a a b c c d" "a a b e e d"; height:clamp(420px,52svh,520px)}
+.lp-cell{position:relative; overflow:hidden; min-width:0; min-height:0}
+.lp-c-a{grid-area:a; background:var(--tone1)}
+.lp-c-b{grid-area:b; background:var(--acc); color:var(--onacc)}
+.lp-c-c{grid-area:c; background:var(--tone2); color:#fff}
+.lp-c-d{grid-area:d; background:var(--deepf); color:#fff}
+.lp-c-e{grid-area:e; background:var(--paper); color:var(--onpaper)}
+.lp-copy{padding-top:clamp(28px,4vw,56px); padding-bottom:clamp(28px,3vw,44px); row-gap:20px; align-items:end}
+.lp-copy .lp-side{grid-row:1; display:flex; flex-direction:column; gap:18px}
+.lp-copy .lp-axis{grid-row:1}
+.lp-h1{font-size:var(--fs-xl); font-weight:900}
+.lp-h1 .ln{display:block; overflow:hidden; padding-block:.04em .1em}
+.lp-h1 .ln > span{display:block}
+.lp-stand{font-size:var(--fs-t); line-height:1.6; color:var(--fg); max-width:34ch}
+.lp-acts{display:flex; flex-wrap:wrap; align-items:center; gap:12px 22px}
+.lp-pay{display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; font-size:var(--fs-s); color:var(--fg2)}
+.lp-pay img{height:30px; width:auto; display:block}
+
+/* --- خلية الجلسة الحية (واجهة حقيقية من التطبيق) --- */
+.lp-sess{position:absolute; inset:0; padding:clamp(18px,2vw,28px); display:flex; flex-direction:column; gap:14px; font-family:var(--ar)}
+.lp-sess-top{display:flex; justify-content:space-between; gap:12px; font-size:14px; color:var(--warm)}
+.lp-sess-top b{color:var(--strong); font-weight:700}
+.lp-sess-top > span:last-child{white-space:nowrap}
+.lp-ex{display:flex; gap:14px; align-items:flex-start}
+.lp-ex .nm{flex:1; min-width:0}
+.lp-ex .en{display:block; font:600 14px/1.3 var(--ar); color:var(--warm); direction:ltr; text-align:start}
+html[dir="rtl"] .lp-ex .en{text-align:right}
+.lp-ex .ar{display:block; font:800 var(--fs-m)/1.25 var(--disp); color:var(--strong); margin-top:4px}
+.lp-vid{flex:none; display:flex; flex-direction:column; align-items:center; gap:4px; font-size:14px; color:var(--warm)}
+.lp-vid i{width:48px; height:48px; display:grid; place-items:center; background:var(--orange); color:var(--onacc)}
+.lp-vid svg{width:20px; height:20px; fill:currentColor}
+.lp-spec{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--ink)}
+.lp-spec span{background:var(--surf2); padding:8px 10px; font-size:14px; color:var(--warm); line-height:1.35}
+.lp-spec b{display:block; font-size:16px; font-family:var(--disp); color:var(--strong); font-weight:700; margin-top:2px}
+.lp-sets{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+.lp-sets .lbl{flex-basis:100%; font-size:14px; color:var(--warm)}
+.lp-set{
+  width:48px; height:48px; display:grid; place-items:center; font:800 18px/1 var(--disp); color:#fff;
+  background:var(--charcoal); transition:transform var(--dur-micro) var(--ease-spring), background-color var(--dur-ui) ease;
+}
+.lp-set:hover{background:color-mix(in srgb,var(--charcoal) 70%,var(--orange))}
+.lp-set:active{transform:scale(.9)}
+.lp-set[aria-pressed="true"]{background:var(--orange); color:var(--onacc)}
+.lp-set.next{outline:2px solid var(--orange); outline-offset:-2px}
+.lp-rest{display:flex; align-items:center; gap:14px; background:var(--ink); padding:12px 14px; margin-top:auto}
+.lp-ring{width:44px; height:44px; flex:none; transform:rotate(-90deg)}
+.lp-ring circle{fill:none; stroke-width:5}
+.lp-ring .tr{stroke:var(--track)}
+.lp-ring .fl{stroke:var(--orange); stroke-dasharray:113.1; transition:stroke-dashoffset 1s linear}
+.lp-rest b{display:block; font:800 var(--fs-m)/1.1 var(--disp); color:var(--strong)}
+.lp-rest span{font-size:14px; color:var(--warm)}
+
+/* --- خلية الالتزام (برتقالي) --- */
+.lp-commit{position:absolute; inset:0; padding:clamp(18px,1.8vw,26px); display:flex; flex-direction:column; justify-content:space-between}
+.lp-commit .fig{font:900 clamp(64px,6vw,96px)/1 var(--disp); letter-spacing:0}
+.lp-commit .sets{font-weight:800; font-size:18px; font-family:var(--disp); margin-top:6px}
+.lp-commit p{font-size:14px; line-height:1.55}
+.lp-commit .bar{height:8px; background:color-mix(in srgb,var(--onacc) 22%,transparent); margin-top:12px}
+.lp-commit .bar i{display:block; height:100%; background:var(--onacc); transition:width .6s var(--ease-out)}
+
+/* --- خلية اليوم --- */
+.lp-today{position:absolute; inset:0; padding:clamp(18px,2vw,26px); display:flex; flex-direction:column; gap:10px}
+.lp-today .t{font:800 var(--fs-m)/1.1 var(--disp)}
+.lp-today .s{font-size:14px; color:#D9CCC4}
+.lp-today .meta{display:flex; gap:18px; font-size:14px; color:#D9CCC4}
+.lp-today .meta b{color:#fff; font-size:16px}
+.lp-days{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:auto}
+.lp-days span{background:rgba(0,0,0,.28); padding:9px 10px; font-size:14px; color:#D9CCC4}
+.lp-days span.now{background:#fff; color:#17181A; font-weight:700}
+
+/* --- خلية زر الألم --- */
+.lp-pain{position:absolute; inset:0; padding:clamp(18px,2vw,26px); display:flex; flex-direction:column; justify-content:space-between; gap:10px}
+.lp-pain .sos{border-radius:0; box-shadow:none; border:0; margin:0; display:flex; align-items:center; gap:10px; background:#C9402A; color:#fff; padding:13px 16px; font-weight:700; font-size:16px}
+.lp-pain .sos svg{width:20px; height:20px; fill:currentColor; flex:none}
+.lp-pain p{font-size:14px; line-height:1.55; max-width:44ch}
+
+/* --- خلية المقطع الدعائي --- */
+.lp-promo{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:space-between; gap:12px;
+  padding:clamp(18px,2vw,26px); text-align:start; color:#fff; width:100%; transition:background-color var(--dur-ui) ease}
+.lp-promo:hover{background:#1C1C1F}
+.lp-promo .pl{width:64px; height:64px; display:grid; place-items:center; background:var(--orange); color:var(--onacc);
+  transition:transform var(--dur-ui) var(--ease-spring)}
+.lp-promo:hover .pl{transform:scale(1.08)}
+.lp-promo .pl svg{width:26px; height:26px; fill:currentColor}
+.lp-promo b{display:block; font:800 var(--fs-m)/1.2 var(--disp)}
+.lp-promo span{font-size:14px; color:#D9CCC4; line-height:1.5}
+
+/* =========================== عرض الشاشات =========================== */
+.lp-show{row-gap:40px}
+.lp-show .lp-side{display:flex; flex-direction:column; gap:28px}
+.lp-idx{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px}
+.lp-idx button{
+  display:block; width:100%; text-align:start; padding:8px 0; font:800 var(--fs-l)/1.12 var(--disp); color:color-mix(in srgb,var(--fg) 58%,var(--bg));
+  transition:color var(--dur-ui) ease, transform var(--dur-micro) var(--ease-out);
+}
+.lp-idx button:hover{color:color-mix(in srgb,var(--fg) 70%,var(--bg))}
+.lp-idx button[aria-pressed="true"]{color:var(--fg)}
+.lp-idx button:active{transform:translateX(-4px)}
+.lp-idx-note{font-size:var(--fs-t); color:var(--fg2); max-width:40ch; min-height:3.2em}
+.lp-stage{grid-column:6 / -1; background:var(--tone1); height:clamp(520px,66svh,640px); position:relative; overflow:hidden;
+}
+.lp-frag{position:absolute; inset-block-start:64px; inset-inline-start:64px; width:min(460px,calc(100% - 64px));
+  background:var(--ink); color:var(--strong); padding:24px; display:flex; flex-direction:column; gap:16px;
+  animation:lpFade .2s ease both}
+@keyframes lpFade{from{opacity:0}to{opacity:1}}
+.lp-frag .hd{display:flex; justify-content:space-between; font-size:14px; color:var(--warm)}
+.lp-frag .ttl{font:800 var(--fs-m)/1.25 var(--disp)}
+.lp-frag .tx{font-size:14px; color:var(--warm); line-height:1.6}
+.lp-screen{aspect-ratio:16/10; background:#0B0B0C; display:grid; place-items:center; position:relative}
+.lp-screen i{width:76px; height:76px; display:grid; place-items:center; background:var(--orange); color:#17181A}
+.lp-screen i svg{width:30px; height:30px; fill:currentColor}
+.lp-screen .tm{position:absolute; inset-inline-start:14px; inset-block-end:12px; font-size:14px; color:#D9CCC4; direction:ltr}
+.lp-bigring{display:grid; place-items:center; position:relative; width:240px; height:240px; margin:8px auto}
+.lp-bigring svg{position:absolute; inset:0; transform:rotate(-90deg)}
+.lp-bigring circle{fill:none; stroke-width:12}
+.lp-bigring b{font:900 56px/1 var(--disp); color:var(--strong)}
+.lp-bigring span{display:block; text-align:center; font-size:14px; color:var(--warm); margin-top:6px}
+.lp-ctrls{display:grid; grid-template-columns:1fr 1fr; gap:2px}
+.lp-ctrls span{background:var(--surf2); padding:14px; text-align:center; font-weight:700; font-size:14px}
+.lp-rate{display:grid; grid-template-columns:repeat(5,1fr); gap:2px}
+.lp-rate span{background:var(--surf2); padding:12px 0; text-align:center; font-weight:700}
+.lp-rate span.on{background:#C9402A; color:#fff}
+.lp-field{background:var(--field); padding:14px; font-size:14px; color:var(--muted); min-height:84px; line-height:1.6}
+.lp-send{background:#C9402A; color:#fff; text-align:center; padding:15px; font-weight:700}
+.lp-flbl{font-size:14px; color:var(--warm)}
+
+/* =========================== كيف يعمل =========================== */
+.lp-how .lp-side{margin-bottom:56px}
+.lp-stair{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:56px; grid-column:1 / -1}
+.lp-stair li{display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:var(--gut)}
+.lp-stair li > div{grid-column:var(--s) / span 6}
+.lp-stair li:nth-child(1){--s:1} .lp-stair li:nth-child(2){--s:3} .lp-stair li:nth-child(3){--s:5} .lp-stair li:nth-child(4){--s:7}
+.lp-stair b{display:block; font:800 var(--fs-l)/1.1 var(--disp); color:var(--fg)}
+.lp-stair p{margin-top:12px; font-size:var(--fs-t); color:var(--fg2); max-width:40ch}
+
+/* =========================== الأيام =========================== */
+.lp-days-sec{background:var(--tone1); row-gap:40px}
+.lp-days-sec .lp-side{grid-row:1 / span 2; display:flex; flex-direction:column; gap:28px}
+.lp-dayfig{display:grid; grid-template-columns:auto 1fr; align-items:baseline; column-gap:18px}
+.lp-dayfig b{text-align:start; font:900 var(--fs-l)/1 var(--disp); color:var(--fg); min-width:2.6em}
+.lp-dayfig span{font-size:var(--fs-t); color:var(--fg2)}
+.lp-dayfig.on b{color:var(--acc)}
+.lp-cols{columns:2 30ch; column-gap:var(--gut); font-size:var(--fs-t); color:var(--fg2)}
+.lp-cols p + p{margin-top:1em}
+.lp-cols b{color:var(--fg)}
+
+/* =========================== الأرقام (حقل داكن) =========================== */
+.lp-stats{background:var(--deepf); color:#fff; padding-top:var(--sec); min-height:min(96svh,900px); display:flex; flex-direction:column}
+.lp-stats .lp-h2, .lp-stats h2{color:#fff}
+.lp-stats .lp-g{row-gap:28px}
+.lp-stats .fig{font:900 var(--fs-xl)/1 var(--disp); color:#fff; letter-spacing:0}
+.lp-stats .claim{font-size:var(--fs-m); line-height:1.4; color:#fff; margin-top:10px}
+.lp-stats .txt{font-size:var(--fs-t); color:#D9CCC4; max-width:52ch}
+.lp-facts{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:2px; margin-top:28px; max-width:720px}
+.lp-facts div{background:rgba(255,255,255,.06); padding:14px 16px}
+.lp-facts b{display:block; font:800 var(--fs-m)/1.1 var(--disp); color:#fff}
+.lp-facts span{font-size:var(--fs-s); color:#D9CCC4}
+.lp-bars{margin-top:auto; padding-inline:var(--m); display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; height:clamp(260px,40svh,420px); align-items:end; padding-top:56px}
+.lp-bar{display:flex; flex-direction:column; justify-content:flex-end; height:100%; outline-offset:-2px}
+.lp-bar .v{position:relative; z-index:1; font:800 var(--fs-m)/1 var(--disp); color:#fff; padding:0 14px 10px}
+.lp-bar .col{background:#3A3B40; height:calc(var(--h) * 1%); min-height:6px; transform-origin:bottom; transition:transform .9s var(--ease-out)}
+.lp-bar.on .col{background:var(--orange)}
+.lp-bar .n{font-size:var(--fs-s); color:#D9CCC4; padding:10px 14px 18px; line-height:1.45}
+.lp-io .lp-bars:not(.is-in) .col{transform:scaleY(.04)}
+.lp-stats .lp-note{font-size:var(--fs-s); color:#D9CCC4; margin-top:16px}
+
+/* =========================== عن الكابتن =========================== */
+.lp-about{row-gap:32px}
+.lp-about .lp-side{display:flex; flex-direction:column; gap:24px; padding-top:8px}
+.lp-cred{margin:0; display:flex; flex-direction:column; gap:22px}
+.lp-cred div{display:flex; flex-direction:column}
+.lp-cred dt{order:2; font-size:var(--fs-s); color:var(--fg2)}
+.lp-cred dd{order:1; margin:0; font:900 var(--fs-l)/1.05 var(--disp); color:var(--fg)}
+.lp-about .lp-axis{display:flex; flex-direction:column; gap:28px}
+.lp-about .lp-cols{color:var(--fg2)}
+
+/* =========================== الباقات =========================== */
+.lp-price{row-gap:48px}
+.lp-plans{grid-column:1 / -1; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; align-items:end}
+.lp-plan{display:flex; flex-direction:column; justify-content:space-between; gap:18px; padding:clamp(20px,2.4vw,36px); background:var(--tone1); color:var(--fg)}
+.lp-plan:nth-child(1){min-height:380px}
+.lp-plan:nth-child(2){min-height:480px; background:var(--tone2); color:#fff}
+.lp-plan:nth-child(3){min-height:580px; background:var(--acc); color:var(--onacc)}
+.lp-plan .dur{font:800 var(--fs-m)/1.2 var(--disp)}
+.lp-plan .who2{font-size:16px; line-height:1.55; opacity:.86; max-width:30ch; margin-top:8px}
+.lp-plan .now{font:900 var(--fs-l)/1 var(--disp); letter-spacing:0}
+.lp-plan .now small{font:800 var(--fs-t) var(--disp); margin-inline-start:8px}
+.lp-plan .was{font-size:14px; text-decoration:line-through; margin-top:8px; display:block}
+.lp-plan .per{font-size:14px; line-height:1.55; margin-top:6px; display:block}
+.lp-plan .lp-btn{width:100%}
+.lp-plan:nth-child(2) .lp-btn{background:#fff; color:#17181A}
+.lp-plan:nth-child(3) .lp-btn{background:#17181A; color:#fff}
+.lp-plan:nth-child(1) .lp-btn{background:var(--fg); color:var(--bg)}
+.lp-inst{grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:18px 32px; background:var(--tone1); padding:clamp(20px,2.4vw,32px)}
+.lp-inst > div > b{font:800 var(--fs-m)/1.25 var(--disp)}
+.lp-inst p{font-size:16px; color:var(--fg2); max-width:56ch; margin-top:6px}
+.lp-inst .logos{display:flex; gap:12px}
+.lp-inst .logos img{height:40px; width:auto; display:block}
+
+/* =========================== التحويل البنكي =========================== */
+.lp-bank{background:var(--tone1); row-gap:36px}
+.lp-bank .lp-side{display:flex; flex-direction:column; gap:20px}
+.lp-fast{font-weight:700; color:var(--fg); font-size:var(--fs-t)}
+.lp-qr{width:180px; height:180px; background:#fff; padding:10px; display:block}
+.lp-acct{margin:0; display:flex; flex-direction:column; gap:2px}
+.lp-acct div{display:grid; grid-template-columns:minmax(90px,140px) 1fr; align-items:center; gap:16px; background:var(--bg); padding:14px 18px}
+.lp-acct dt{font-size:var(--fs-s); color:var(--fg2)}
+.lp-acct dd{display:flex; align-items:center; justify-content:space-between; gap:16px; margin:0; font-weight:700; font-size:16px; color:var(--fg); overflow-wrap:anywhere}
+
+.lp-acct dd.ar{font-family:var(--ar)}
+.lp-copy-btn{min-height:44px; min-width:64px; padding:0 14px; background:var(--tone2); color:#fff; font-weight:700; font-size:14px;
+  transition:transform var(--dur-micro) var(--ease-out), background-color var(--dur-micro) ease}
+.lp-copy-btn:hover{background:var(--orange); color:var(--onacc)}
+.lp-copy-btn:active{transform:scale(.95)}
+
+/* =========================== التسجيل (معكوس) =========================== */
+.lp-cta{background:var(--paper); color:var(--onpaper); min-height:min(92svh,860px); display:flex; flex-direction:column; justify-content:space-between; gap:56px}
+.lp .lp-cta h2{color:var(--onpaper); font-size:var(--fs-xl); font-weight:900; grid-column:1 / span 10}
+.lp-cta .lp-g{row-gap:28px; align-items:end}
+.lp-cta .lp-stand{color:var(--onpaper)}
+.lp-steps5{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px 0; font-weight:700; font-size:var(--fs-t)}
+.lp-steps5 li + li::before{content:"←"; padding-inline:12px; color:color-mix(in srgb,var(--onpaper) 50%,transparent)}
+html[dir="ltr"] .lp-steps5 li + li::before{content:"→"}
+.lp-cta .lp-btn{background:var(--acc); color:var(--onacc); min-height:60px; font-size:18px}
+.lp-cta .lp-link{color:var(--onpaper); text-decoration-color:color-mix(in srgb,var(--onpaper) 40%,transparent)}
+.lp-cta .acts{grid-column:8 / -1; display:flex; flex-direction:column; align-items:stretch; gap:10px}
+.lp-cta .say{grid-column:1 / span 6; display:flex; flex-direction:column; gap:18px}
+
+/* =========================== الخاتمة =========================== */
+.lp-foot{max-width:none; margin:0; text-align:start; font-size:16px; line-height:1.6; background:var(--deepf); color:#fff; padding-top:clamp(56px,7vw,96px); padding-bottom:40px; overflow:hidden}
+.lp-foot .word{display:block; width:min(680px,calc(100% - 2 * var(--m))); height:auto; margin-inline:var(--m)}
+.lp-foot .lp-g{margin-top:72px; row-gap:40px}
+.lp-reach{display:flex; flex-direction:column; gap:10px}
+.lp-reach a{font:800 var(--fs-m)/1.3 var(--disp); color:#fff; text-decoration:none; display:inline-flex; min-height:44px; align-items:center}
+.lp-reach a:hover{color:var(--orange)}
+.lp-reach a span{font-family:var(--ar); direction:ltr; unicode-bidi:isolate}
+.lp-foot .lp-axis{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--gut)}
+.lp .lp-foot h3{font:700 16px/1.4 var(--ar); color:#D9CCC4; margin-bottom:10px}
+.lp-foot ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px}
+.lp-foot li button, .lp-foot li a{display:inline-flex; align-items:center; min-height:44px; font-size:16px; color:#fff; text-align:start; text-decoration:none}
+.lp-foot li button:hover, .lp-foot li a:hover{color:var(--orange)}
+.lp-foot .hint{font-size:var(--fs-s); color:#D9CCC4; margin-top:4px; max-width:34ch}
+.lp-legal{margin-top:96px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px; font-size:var(--fs-s); color:#D9CCC4}
+.lp-legal img{height:44px; width:auto}
+.lp-legal .l{display:flex; align-items:center; gap:14px; max-width:70ch}
+.lp-legal button{color:#fff; text-decoration:underline; text-underline-offset:5px; min-height:44px}
+
+/* الزر الثابت أسفل الشاشة — مسطّح */
+.lp-on .stickycta{background:var(--ink); backdrop-filter:none; -webkit-backdrop-filter:none; border-top:0; padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.lp-on .stickycta button{border-radius:0; min-height:52px; font-size:16px; max-width:520px; margin:0 auto}
+
+/* =========================== الحركة =========================== */
+.lp-h1 .ln > span{animation:lpLine .9s var(--ease-out) both}
+.lp-h1 .ln:nth-child(2) > span{animation-delay:.11s}
+.lp-copy .lp-side{animation:lpUp .6s var(--ease-out) .5s both}
+@keyframes lpLine{from{transform:translateY(105%)}to{transform:none}}
+@keyframes lpUp{from{opacity:0; transform:translateY(18px)}to{opacity:1; transform:none}}
+.lp.played .lp-h1 .ln > span, .lp.played .lp-copy .lp-side{animation:none}
+.lp-io [data-r]{opacity:0; transform:translateY(24px); transition:opacity .6s var(--ease-out), transform .6s var(--ease-out); transition-delay:calc(var(--i,0) * 80ms)}
+.lp-io .is-in [data-r], .lp-io [data-r].is-in{opacity:1; transform:none}
+.lp-mast .lp-cell{animation:lpUp .7s var(--ease-out) both; animation-delay:calc(.15s + var(--i,0) * 70ms)}
+.lp.played .lp-mast .lp-cell{animation:none}
+.lp-rest.run .lp-ring{animation:lpPulse 1s ease-in-out infinite}
+@keyframes lpPulse{50%{transform:rotate(-90deg) scale(1.08)}}
+@media (prefers-reduced-motion:reduce){
+  .lp-io [data-r]{opacity:1; transform:none}
+  .lp-io .lp-bars .col{transform:none}
+}
+
+/* =========================== لوحي =========================== */
+@media (max-width:1099px){
+  .lp-sets{gap:6px}
+  .lp-set{width:44px; height:44px}
+  .lp-mast{order:0; grid-template-columns:repeat(4,minmax(0,1fr)); grid-template-rows:repeat(3,minmax(0,1fr));
+    grid-template-areas:"a a b b" "a a c c" "e e d d"; height:clamp(640px,80svh,760px)}
+  .lp-copy .lp-side, .lp-copy .lp-axis{grid-column:1 / -1}
+  .lp-copy .lp-axis{grid-row:1}
+  .lp-copy .lp-side{grid-row:2}
+  .lp-side{grid-column:1 / -1}
+  .lp-axis{grid-column:1 / -1}
+  .lp-stage{grid-column:1 / -1; margin-inline:0}
+  .lp-stair li > div{grid-column:var(--s) / span 8}
+  .lp-stair li:nth-child(2){--s:2} .lp-stair li:nth-child(3){--s:3} .lp-stair li:nth-child(4){--s:4}
+  .lp-days-sec .lp-side{grid-row:auto; order:2}
+  .lp-days-sec .lp-cols{order:1}
+  .lp-about .lp-side{order:2}
+  .lp-cta h2, .lp-cta .say, .lp-cta .acts{grid-column:1 / -1}
+  .lp-foot .lp-axis{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+/* =========================== جوال =========================== */
+@media (max-width:699px){
+  .lp{--fs-xl:clamp(40px,12.4vw,64px); --fs-l:clamp(28px,8.2vw,40px); --fs-m:20px; --fs-t:17px}
+  .lp-mast{order:0; grid-template-columns:1fr 1fr; grid-template-rows:none; grid-template-areas:"a a" "b d" "c c" "e e"; height:auto}
+  .lp-c-a{min-height:480px}
+  .lp-c-b, .lp-c-d{min-height:250px}
+  .lp-c-c, .lp-c-e{min-height:230px}
+  .lp-copy{padding-top:28px}
+  .lp-stand{font-size:18px}
+  .lp-acts .lp-btn{width:100%}
+  .lp-spec{grid-template-columns:repeat(2,1fr)}
+  .lp-set{width:44px; height:44px}
+  .lp-idx{gap:0}
+  .lp-idx button{font-size:var(--fs-l); padding:6px 0}
+  .lp-stage{height:auto; min-height:70svh; padding:16px 0 0}
+  .lp-frag{position:relative; inset:auto; margin-inline-start:16px; width:calc(100% - 32px)}
+  .lp-bigring{width:200px; height:200px}
+  .lp-stair{gap:40px}
+  .lp-stair li > div{grid-column:1 / -1; padding-inline-start:calc((var(--s) - 1) * 3vw)}
+  .lp-facts{grid-template-columns:1fr 1fr}
+  .lp-bars{grid-template-columns:1fr; height:auto; gap:6px; padding-top:40px; padding-bottom:24px}
+  .lp-bar{display:grid; grid-template-columns:1fr; height:auto; position:relative}
+  .lp-bar .col{height:44px; width:max(calc(var(--h) * 1%), 6px); min-height:0; transform-origin:right; grid-row:1}
+  html[dir="ltr"] .lp-bar .col{transform-origin:left}
+  .lp-bar .v{grid-row:1; position:absolute; inset-inline-start:12px; top:12px; padding:0; font-size:18px; color:#17181A}
+  .lp-bar:not(.on) .v{color:#fff}
+  .lp-bar .n{padding:6px 0 10px}
+  .lp-io .lp-bars:not(.is-in) .col{transform:scaleX(.04)}
+  .lp-plans{grid-template-columns:1fr; gap:8px}
+  .lp-plan:nth-child(n){min-height:0}
+  .lp-plan:nth-child(3){order:-1}
+  .lp-acct div{grid-template-columns:1fr; row-gap:4px}
+  .lp-cta{min-height:auto}
+  .lp-foot .lp-axis{grid-template-columns:1fr 1fr}
+  .lp-legal{margin-top:56px}
+}
 </style>
 </head>
 <body>
@@ -3687,268 +4099,391 @@ function viewRef(){
      href="https://wa.me/${COACH_WA}" target="_blank" rel="noopener">${T('استفسار عبر واتساب','Ask on WhatsApp')}</a>`;
 }
 
+/* ================= الصفحة العامة: حالة العرض الحي ================= */
+/* مثال حقيقي من برنامج عبدالهادي: 86 مجموعة من 120، والجلسة: مسل أب 6 مجموعات منها 3 منجزة */
+const LP_BASE=86, LP_TOTAL=120, LP_REST=150;
+let LP={done:3, restEnd:0, stage:'video', played:false, seen:{}, timer:null};
+let LP_ON=false;
+const LP_PLAY='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+const LP_ARROW='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 10.5l2 2 4.5-4.5"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7"/></svg>';
+const LP_SOS='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm0 5.8 7.5 12.9h-15L12 7.8zM11 10v5h2v-5h-2zm0 6.5V19h2v-2.5h-2z"/></svg>';
+
+function lpLogged(){ return LP_BASE + (LP.done-3); }
+function lpPct(){ return Math.round(lpLogged()/LP_TOTAL*100); }
+function lpRestLeft(){ return Math.max(0, Math.ceil((LP.restEnd-Date.now())/1000)); }
+function lpRestText(){
+  if(LP.done>=6) return T('انتهى التمرين — أحسنت','Workout complete — well done');
+  return T('راحة — ثم المجموعة ','Rest — then set ')+(LP.done+1)+T(' من 6',' of 6');
+}
+
+function lpSession(){
+  const left=lpRestLeft();
+  const shown=left||LP_REST;
+  const off=113.1*(1-shown/LP_REST);
+  return `<div class="lp-sess" data-ui>
+    <div class="lp-sess-top"><span><b>${T('الأحد','Sunday')}</b> · ${T('قوة السحب + مهارة المسل أب','Pull strength + muscle-up skill')}</span>
+      <span>${T('الأسبوع','Week')} <b>3 / 4</b></span></div>
+    <div class="lp-ex">
+      <span class="nm"><span class="en" lang="en">Muscle-Up Technique Singles</span>
+        <span class="ar">${T('مسل أب — تكرارات تكنيك مفردة','Muscle-up — single technique reps')}</span></span>
+      <span class="lp-vid"><i>${LP_PLAY}</i>${T('الفيديو','Video')}</span>
+    </div>
+    <div class="lp-spec">
+      <span>${T('مجموعات','Sets')}<b>6</b></span><span>${T('التكرار','Reps')}<b>${T('1 نظيف','1 clean')}</b></span>
+      <span>${T('النسخة','Variation')}<b>${T('وزن الجسم','Bodyweight')}</b></span><span>TEMPO<b>Explosive</b></span>
+      <span>${T('راحة','Rest')}<b>2:30</b></span><span>RPE<b>6.5</b></span>
+    </div>
+    <div class="lp-sets" role="group" aria-label="${T('سجّل مجموعاتك','Log your sets')}">
+      <span class="lbl">${T('اضغط لتسجيل المجموعة','Tap to log a set')}</span>
+      ${[1,2,3,4,5,6].map(n=>`<button class="lp-set${n===LP.done+1?' next':''}" data-lp-set="${n}" aria-pressed="${n<=LP.done}"
+        aria-label="${T('المجموعة ','Set ')}${n}">${n}</button>`).join('')}
+    </div>
+    <div class="lp-rest${left?' run':''}" aria-live="polite">
+      <svg class="lp-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="tr" cx="22" cy="22" r="18"/>
+        <circle class="fl" id="lpRing" cx="22" cy="22" r="18" style="stroke-dashoffset:${left?off:0}"/></svg>
+      <span><b id="lpRestT">${mmss(shown)}</b><span id="lpRestS">${lpRestText()}</span></span>
+    </div>
+  </div>`;
+}
+
+function lpCommit(){
+  return `<div class="lp-commit" data-ui>
+    <div><span class="fig" id="lpPct">${lpPct()}%</span>
+      <div class="sets" id="lpSets" aria-live="polite">${lpLogged()} ${T('من','of')} ${LP_TOTAL} ${T('مجموعة','sets')}</div>
+      <div class="bar"><i id="lpBar" style="width:${lpPct()}%"></i></div></div>
+    <p>${T('التزام عبدالهادي في برنامجه، الأسبوع 3 من 4. مثال حقيقي، ويتحدّث مع كل مجموعة تسجّلها هنا.',
+      "Abdulhadi's commitment to his program, week 3 of 4. A real example that updates with every set you log here.")}</p>
+  </div>`;
+}
+
+function lpStage(){
+  const k=LP.stage;
+  if(k==='rest') return `<div class="lp-frag" data-ui>
+      <div class="hd"><span>${T('مسل أب — المجموعة 3 من 6','Muscle-up — set 3 of 6')}</span><span>${T('سُجّلت','Logged')}</span></div>
+      <div class="lp-bigring"><svg viewBox="0 0 240 240" aria-hidden="true"><circle cx="120" cy="120" r="110" stroke="var(--track)"/>
+        <circle cx="120" cy="120" r="110" stroke="var(--orange)" stroke-dasharray="691" stroke-dashoffset="230"/></svg>
+        <span><b>01:40</b><span>${T('راحة — ثم المجموعة 4 من 6','Rest — then set 4 of 6')}</span></span></div>
+      <div class="lp-ctrls"><span>${T('+30 ثانية','+30 seconds')}</span><span>${T('تخطّي الراحة','Skip rest')}</span></div>
+      <p class="tx">${T('ينبّهك بالصوت قبل نهاية الراحة بثلاث ثوانٍ، ثم يعيدك للمجموعة التالية.','A sound cue three seconds before the rest ends, then straight back to your next set.')}</p>
+    </div>`;
+  if(k==='pain') return `<div class="lp-frag" data-ui>
+      <div class="ttl" style="color:#E4573C">${T('إبلاغ عن ألم','Report pain')}</div>
+      <p class="tx"><b style="color:var(--strong)">Muscle-Up Technique Singles</b> — ${T('الأحد · الأسبوع 3','Sunday · Week 3')}<br>
+        ${T('أوقف هذا التمرين الآن ولا تكمل التكرارات مع الألم.','Stop this exercise now and do not push reps through pain.')}</p>
+      <span class="lp-flbl">${T('شدة الألم من 10','Pain level out of 10')}</span>
+      <div class="lp-rate"><span>3</span><span>5</span><span class="on">7</span><span>9</span><span>10</span></div>
+      <span class="lp-flbl">${T('مكان الألم ووصفه','Pain location and description')}</span>
+      <div class="lp-field">${T('مثال: ألم حاد في الكتف الأيمن عند الصعود، بدأ في المجموعة الثانية','Example: sharp pain in the right shoulder on the way up, started on the second set')}</div>
+      <div class="lp-send">${T('إرسال التنبيه للمدرب','Send the alert to the coach')}</div>
+    </div>`;
+  return `<div class="lp-frag" data-ui>
+      <div class="hd"><span>${T('تمرين 2 من 7','Exercise 2 of 7')}</span><span>${T('الأحد','Sunday')}</span></div>
+      <div class="lp-screen"><i>${LP_PLAY}</i><span class="tm">0:00 / 0:42</span></div>
+      <div><span class="lp-ex"><span class="nm"><span class="en" lang="en">Muscle-Up Technique Singles</span>
+        <span class="ar">${T('مسل أب — تكرارات تكنيك مفردة','Muscle-up — single technique reps')}</span></span></span></div>
+      <p class="tx">${T('6 مجموعات · تكرار نظيف واحد · راحة 2:30 · RPE 6.5','6 sets · 1 clean rep · 2:30 rest · RPE 6.5')}</p>
+    </div>`;
+}
+const LP_STAGES=[
+  ['video',T('فيديو لكل تمرين','A video for every exercise'),T('مقطع شرح لكل حركة داخل التطبيق، فتؤدّيها بتكنيك صحيح من أول يوم.','A demo clip for each movement inside the app, so you perform it with the right technique from day one.')],
+  ['rest',T('مؤقّت راحة تلقائي','Automatic rest timer'),T('يبدأ وحده بعد كل مجموعة بصوت وعدّ تنازلي، والإيموم يعمل معك بالطريقة نفسها.','Starts on its own after each set, with sound and a countdown. EMOM works the same way.')],
+  ['pain',T('زر الألم','The pain button'),T('تشعر بألم؟ بضغطة واحدة يصل الكابتن تنبيه فوري بتفاصيل التمرين وشدّة الألم ليتدخّل مباشرة.','Feel pain? One tap sends the coach an instant alert with the exercise and pain level so he can step in.')]
+];
+
 function viewJoin(){
+  LP_ON=true;
   const sent=lget('reshape:joined');
+  const seen=id=>LP.seen[id]?' is-in':'';
+  const cur=LP_STAGES.find(s=>s[0]===LP.stage)||LP_STAGES[0];
   return `
-  <div class="refwrap">
-    <div class="refhero jh2">
-      <span class="rfx rfx1"></span><span class="rfx rfx2"></span><span class="rfglow"></span>
-      <img class="rflogo" src="${ASSET.PRIMARY}" alt="reshape">
-      <span class="jhbadge">
-        <i class="dot"></i>
-        <b>ONLINE COACHING</b>
-        <em>${T('من أي مكان في العالم','from anywhere in the world')}</em>
-      </span>
-      <h1 class="refttl jhttl"><span>${T('تدرّب مع','Train with')}</span><b>${T('الكابتن محمد الصقر','COACH ALSAGR')}</b></h1>
-      <p class="rfsub">${T('برنامج تدريب عن بُعد مصمّم لك خصيصاً — أيام التمرين تُحدَّد حسب هدفك ووقتك، مع فيديو لكل تمرين ومتابعة مباشرة لتقدّمك.',
-        'A remote coaching program built for you — training days set by your goal and your schedule, a video for every exercise, and your progress followed directly by the coach.')}</p>
-      <div class="jhstats">
-        <span><b>10+</b>${T('سنوات خبرة','years')}</span>
-        <span><b class="word">${T('مرنة','Flexible')}</b>${T('أيام التدريب','training days')}</span>
-        <span><b>100%</b>${T('برنامج مخصّص لك','a program built for you')}</span>
+<div class="lp lp-io${LP.played?' played':''}">
+
+  <section class="lp-hero" aria-labelledby="lpTitle">
+    <div class="lp-g lp-copy">
+      <div class="lp-axis">
+        <h1 class="lp-h1" id="lpTitle"><span class="ln"><span>${T('تدرّب مع الكابتن','Train with')}</span></span><span class="ln"><span>${T('محمد الصقر','Coach Alsagr')}</span></span></h1>
       </div>
-      <button class="btn jumpnow rfcta" data-tab="apply">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 10.5l2 2 4.5-4.5"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7"/></svg>
-        ${T('ابدأ التسجيل الآن — دقيقتان','Start registration — 2 minutes')}
-      </button>
-      <button class="promo-btn" data-promo="1">
-        <span class="pico"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-        <span class="ptx"><b>${T('شاهد المقطع الدعائي','Watch the promo')}</b>
-          <span>${T('٥٢ ثانية بالصوت — جولة كاملة في المنصة','52 seconds with sound — a full tour')}</span></span>
-      </button>
-      <p class="jumphint">${T('التسجيل لا يلزمك بالدفع — الكابتن يتواصل معك أولاً',
-        'Registering does not commit you to pay — the coach contacts you first')}</p>
-      <div class="jhtags"><span>LIMITED SPOTS</span><span>${T('متوافق مع الشريعة','Shariah compliant')}</span></div>
-      <div class="paylogos"><img src="${POSTER.TABBY}" alt="tabby"><img src="${POSTER.TAMARA}" alt="tamara"></div>
-    </div>
-  </div>
-
-  <div class="sect">${T('كيف يعمل التدريب','How the coaching works')}</div>
-  <div class="card steps">
-    <div class="step">
-      <span class="ic"><svg viewBox="0 0 24 24"><path d="M8 6h8a2 2 0 0 1 2 2v12l-6-3-6 3V8a2 2 0 0 1 2-2z"/><path d="M9 3h6"/></svg><span class="num">1</span></span>
-      <span><b>${T('تسجيل وتقييم','Register & assess')}</b><span>${T('تعبّئ بياناتك وهدفك وإصاباتك السابقة، فيبني الكابتن صورة كاملة عن حالتك قبل أي تمرين.','You share your details, goal and past injuries, so the coach has a full picture before any training starts.')}</span></span></div>
-    <div class="step">
-      <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M8 14h3M8 18h3M14 14h2"/></svg><span class="num">2</span></span>
-      <span><b>${T('جدول مصمّم لك','A plan built for you')}</b><span>${T('عدد الأيام يُبنى على هدفك ووقتك المتاح — من يومين إلى ستة أسبوعياً — بمجموعات وتكرارات و TEMPO و RPE محدّدة لكل تمرين، لا نسخ جاهزة.','Your days are set by your goal and your time — two to six a week — with sets, reps, tempo and RPE defined per exercise. Never a copied template.')}</span></span></div>
-    <div class="step">
-      <span class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2.5"/><path d="M10 8.5l5 2.5-5 2.5z"/><path d="M8 21h8"/></svg><span class="num">3</span></span>
-      <span><b>${T('فيديو لكل تمرين','A video for every exercise')}</b><span>${T('مقطع شرح لكل حركة داخل التطبيق، فتؤدّيها بتكنيك صحيح من أول يوم.','A demo clip for each movement inside the app, so your technique is right from day one.')}</span></span></div>
-    <div class="step">
-      <span class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8.5 9.5l2 2 4-4M8.5 16h7"/></svg><span class="num">4</span></span>
-      <span><b>${T('تسجيل مباشر أثناء التمرين','Log as you train')}</b><span>${T('تعلّم كل مجموعة فور إنهائها، ومؤقّت الراحة والإيموم يعمل معك تلقائياً بالصوت.','Tick each set the moment you finish it, with rest and EMOM timers running automatically with sound.')}</span></span></div>
-    <div class="step">
-      <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span class="num">5</span></span>
-      <span><b>${T('متابعة من الكابتن','Coach follow-up')}</b><span>${T('يرى تقدّمك ونسبة التزامك أولاً بأول، ويعدّل حملك حسب أدائك وتقييمك الأسبوعي.','He sees your progress and adherence as it happens, and adjusts your load from your performance and weekly check-in.')}</span></span></div>
-    <div class="step">
-      <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v2M5.5 6.5 7 8M18.5 6.5 17 8M12 8a5 5 0 0 0-5 5v4h10v-4a5 5 0 0 0-5-5z"/><path d="M4 21h16"/></svg><span class="num">6</span></span>
-      <span><b>${T('زر الألم الطارئ','Emergency pain button')}</b><span>${T('تشعر بألم؟ بضغطة واحدة يصل الكابتن تنبيه فوري بتفاصيل التمرين وشدّة الألم ليتدخّل مباشرة.','Feeling pain? One tap sends the coach an instant alert with the exercise and pain level so he can step in.')}</span></span></div>
-  </div>
-
-  <div class="sect">${T('هكذا يظهر التمرين لك','This is how training looks to you')}</div>
-  <p style="font-size:12.5px;color:var(--muted);margin:0 0 12px;line-height:1.9">
-    ${T('مثال حقيقي من حصة المتدرب عبدالهادي — يوم الأحد، مهارة المسل أب. هذه الشاشة نفسها التي ستفتحها كل يوم تدريب.',
-        "A real example from Abdulhadi's session — Sunday, muscle-up skill work. This is the same screen you will open on every training day.")}</p>
-
-  <div class="phone">
-    <div class="pbar"><span class="notch"></span><b>9:41</b><span class="pdots"><i></i><i></i><i></i></span></div>
-    <div class="pbody">
-
-      <div class="ptoday">
-        <span class="kick2">TODAY — PULL</span>
-        <h4>${T('الأحد','Sunday')}</h4>
-        <p>${T('قوة السحب + مهارة المسل أب','Pull strength + muscle-up skill')}</p>
-        <div class="pmeta">
-          <span><b>${T('الأسبوع','Week')}</b>3 / 4</span>
-          <span><b>7</b>${T('تمارين','exercises')}</span>
-          <span><b>45</b>${T('دقيقة','min')}</span>
+      <div class="lp-side">
+        <p class="lp-stand">${T('تدريب شخصي عن بُعد من أي مكان في العالم: برنامج مبني على هدفك ووقتك، فيديو لكل تمرين، والكابتن يتابع كل مجموعة تسجّلها.',
+          'Remote personal coaching from anywhere in the world: a program built on your goal and your time, a video for every exercise, and every set you log followed by the coach.')}</p>
+        <div class="lp-acts">
+          <button class="lp-btn" data-tab="apply">${LP_ARROW}${T('ابدأ التسجيل الآن — دقيقتان','Start registration — 2 minutes')}</button>
+          <button class="lp-link" data-promo="1">${LP_PLAY}${T('شاهد المقطع الدعائي','Watch the promo')}</button>
         </div>
-        <span class="pcta">${T('ابدأ تمرين اليوم','Start today\'s workout')}</span>
+        <p class="lp-small">${T('التسجيل لا يلزمك بالدفع، الكابتن يتواصل معك أولاً. المقاعد محدودة.','Registering does not commit you to pay; the coach contacts you first. Places are limited.')}</p>
+        <div class="lp-pay"><span>${T('قسّط مع','Split with')}</span><img src="${POSTER.TABBY}" alt="Tabby" width="78" height="30"><img src="${POSTER.TAMARA}" alt="Tamara" width="78" height="30"><span>${T('متوافق مع الشريعة','Shariah compliant')}</span></div>
       </div>
+    </div>
 
-      <div class="pstrip">
-        <span class="d done"><i>✓</i>${T('الأحد','Sun')}</span>
-        <span class="d now"><i>●</i>${T('الثلاثاء','Tue')}</span>
-        <span class="d"><i>○</i>${T('الخميس','Thu')}</span>
+    <div class="lp-mast" aria-label="${T('معاينة حيّة من تطبيق التمرين','A live preview of the training app')}" role="region">
+      <div class="lp-cell lp-c-a" style="--i:0">${lpSession()}</div>
+      <div class="lp-cell lp-c-b" style="--i:1">${lpCommit()}</div>
+      <div class="lp-cell lp-c-c" style="--i:2"><div class="lp-today" data-ui>
+        <span class="s">${T('تمرين اليوم','Today\'s workout')}</span>
+        <span class="t">${T('الأحد — سحب','Sunday — Pull')}</span>
+        <div class="meta"><span><b>3 / 4</b> ${T('الأسبوع','week')}</span><span><b>7</b> ${T('تمارين','exercises')}</span><span><b>45</b> ${T('دقيقة','min')}</span></div>
+        <div class="lp-days"><span class="now">${T('الأحد · اليوم','Sun · today')}</span><span>${T('الثلاثاء','Tue')}</span><span>${T('الخميس','Thu')}</span></div>
+      </div></div>
+      <div class="lp-cell lp-c-d" style="--i:3"><button class="lp-promo" data-promo="1">
+        <span class="pl">${LP_PLAY}</span>
+        <span><b>${T('المقطع الدعائي','The promo')}</b><span>${T('شاهده: ٥٢ ثانية بالصوت — جولة كاملة في المنصة','Watch: 52 seconds with sound — a full tour')}</span></span>
+      </button></div>
+      <div class="lp-cell lp-c-e" style="--i:4"><div class="lp-pain" data-ui>
+        <span class="sos">${LP_SOS}${T('ألم شديد؟ أبلغ المدرب فوراً','Severe pain? Report to the coach now')}</span>
+        <p>${T('بضغطة واحدة يصل الكابتن تنبيه فوري بتفاصيل التمرين وشدّة الألم ليتدخّل مباشرة.','One tap sends the coach an instant alert with the exercise and the pain level, so he can step in.')}</p>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="lp-sec lp-g lp-show${seen('show')}" data-lp-sec="show" aria-labelledby="lpShowT">
+    <div class="lp-side">
+      <h2 class="lp-h2" id="lpShowT" data-r>${T('هكذا يظهر التمرين لك','This is how training looks to you')}</h2>
+      <p class="lp-soft" data-r style="--i:1">${T('مثال حقيقي من حصة المتدرب عبدالهادي، يوم الأحد، مهارة المسل أب. هذه الشاشات نفسها التي ستفتحها كل يوم تدريب.',
+        "A real example from Abdulhadi's session: Sunday, muscle-up skill work. These are the same screens you will open on every training day.")}</p>
+      <ul class="lp-idx" data-r style="--i:2">${LP_STAGES.map(s=>`<li><button data-lp-stage="${s[0]}" aria-pressed="${s[0]===LP.stage}" aria-controls="lpStage">${s[1]}</button></li>`).join('')}</ul>
+      <p class="lp-idx-note" id="lpStageNote" data-r style="--i:3">${cur[2]}</p>
+    </div>
+    <div class="lp-stage" id="lpStage" aria-live="polite" data-r style="--i:1">${lpStage()}</div>
+  </section>
+
+  <section class="lp-sec lp-g lp-how${seen('how')}" data-lp-sec="how" aria-labelledby="lpHowT">
+    <div class="lp-side"><h2 class="lp-h2" id="lpHowT" data-r>${T('كيف يعمل التدريب','How the coaching works')}</h2></div>
+    <ol class="lp-stair">
+      <li><div data-r style="--i:1"><b>${T('أولاً تسجّل وتُقيَّم','First, you register')}</b>
+        <p>${T('تعبّئ بياناتك وهدفك وإصاباتك السابقة، فيبني الكابتن صورة كاملة عن حالتك قبل أي تمرين.','You share your details, goal and past injuries, so the coach has a full picture before any training starts.')}</p></div></li>
+      <li><div data-r style="--i:2"><b>${T('ثم يُبنى جدولك','Then your plan is built')}</b>
+        <p>${T('عدد الأيام يُبنى على هدفك ووقتك المتاح، من يومين إلى ستة أسبوعياً، بمجموعات وتكرارات و TEMPO و RPE محدّدة لكل تمرين. لا نسخ جاهزة.','Your days are set by your goal and your time, two to six a week, with sets, reps, tempo and RPE defined per exercise. Never a copied template.')}</p></div></li>
+      <li><div data-r style="--i:3"><b>${T('بعدها تتمرّن وتسجّل','Next, you train and log')}</b>
+        <p>${T('فيديو كل حركة أمامك، تعلّم كل مجموعة فور إنهائها، ومؤقّت الراحة والإيموم يعمل معك تلقائياً بالصوت.','Every movement has its video, you tick each set as you finish it, and the rest and EMOM timers run on their own with sound.')}</p></div></li>
+      <li><div data-r style="--i:4"><b>${T('والكابتن يتابع ويعدّل','And the coach adjusts')}</b>
+        <p>${T('يرى تقدّمك ونسبة التزامك أولاً بأول، ويعدّل حملك حسب أدائك وتقييمك الأسبوعي. وزر الألم يوصله بك فوراً.','He sees your progress and commitment as it happens, and adjusts your load to your performance and weekly rating. The pain button reaches him instantly.')}</p></div></li>
+    </ol>
+  </section>
+
+  <section class="lp-sec lp-g lp-days-sec${seen('days')}" data-lp-sec="days" aria-labelledby="lpDaysT">
+    <div class="lp-side">
+      <div class="lp-dayfig" data-r style="--i:1"><b dir="ltr">2–3</b><span>${T('أيام · وقت محدود','days · limited time')}</span></div>
+      <div class="lp-dayfig on" data-r style="--i:2"><b>4</b><span>${T('أيام · الأكثر شيوعاً','days · most common')}</span></div>
+      <div class="lp-dayfig" data-r style="--i:3"><b dir="ltr">5–6</b><span>${T('أيام · أهداف متقدمة','days · advanced goals')}</span></div>
+    </div>
+    <div class="lp-axis"><h2 class="lp-h2" id="lpDaysT" data-r>${T('أيام تمرينك أنت من يحدّدها','You decide your own training days')}</h2></div>
+    <div class="lp-axis lp-cols" data-r style="--i:1">
+      <p>${T('لا يوجد قالب ثابت. عدد أيام التمرين في الأسبوع يُحدَّد بعد التقييم حسب ','There is no fixed template. Weekly training days are set after assessment based on ')}<b>${T('هدفك','your goal')}</b>${T('، و',', ')}<b>${T('أيامك المتاحة','your available days')}</b>${T('، و',' and ')}<b>${T('قدرتك على الاستشفاء','your ability to recover')}</b>.</p>
+      <p>${T('فمن يستهدف مهارة معيّنة يختلف عمّن يستهدف إنقاص وزن أو تضخيماً، ومن عنده ثلاثة أيام فقط يُبنى له برنامج يعمل بثلاثة، لا نسخة مقصوصة من ستة.','Someone chasing a specific skill needs a different plan from someone cutting fat or building size, and a three-day athlete gets a plan built for three days, not a trimmed-down six-day plan.')}</p>
+      <p>${T('ويمكن تعديل عدد الأيام أثناء البرنامج إذا تغيّر ظرفك، يكفي أن تخبر الكابتن.','The number of days can change mid-program if your circumstances change; just tell the coach.')}</p>
+    </div>
+  </section>
+
+  <section class="lp-stats${seen('stats')}" data-lp-sec="stats" aria-labelledby="lpStatsT">
+    <div class="lp-g">
+      <div class="lp-side">
+        <h2 class="lp-h2" id="lpStatsT" data-r>${T('تقدّمك أمام عينك كل يوم','Your progress in front of you every day')}</h2>
+        <div data-r style="--i:1;margin-top:28px"><span class="fig">72%</span>
+          <p class="claim">${T('التزام عبدالهادي بعد ثلاثة أسابيع','Abdulhadi\'s commitment after three weeks')}</p></div>
       </div>
-
-      <div class="demo">
-        <div style="display:flex;gap:10px;align-items:flex-start">
-          <span style="flex:1;min-width:0">
-            <span class="en2">Muscle-Up Technique Singles</span>
-            <span class="ar2">${T('مسل أب — تكرارات تكنيك مفردة','Muscle-up — single technique reps')}</span>
-            <span class="tagfocus" style="margin-top:5px">${T('تطوير المسل أب','Muscle-up development')}</span></span>
-          <span class="vidbtn"><span class="ico"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-            <span class="cap">${T('شاهد الفيديو','Watch the video')}</span></span>
+      <div class="lp-axis" data-r style="--i:2">
+        <p class="txt">${T('كل مجموعة تعلّمها ترفع نسبتك، فترى أثر التزامك رقماً لا إحساساً. عبدالهادي بدأ بصفر، وبعد ثلاثة أسابيع التزام وصل 72% من برنامجه، وأرقامه في اختبار المسل أب تحسّنت مع كل أسبوع.',
+          'Every set you tick raises your percentage, so you see your commitment as a number, not a feeling. Abdulhadi started from zero, and after three committed weeks reached 72% of his program, and his muscle-up test numbers improved every week.')}</p>
+        <div class="lp-facts">
+          <div><b>+4</b><span>${T('تكرارات عقلة','Pull-up reps')}</span></div>
+          <div><b>+2</b><span>${T('مسل أب نظيف','Clean muscle-ups')}</span></div>
+          <div><b>7.8</b><span>${T('متوسط RPE','Average RPE')}</span></div>
+          <div><b>3/4</b><span>${T('تقييمات أسبوعية','Weekly ratings')}</span></div>
         </div>
-        <div class="sp">
-          <span>${T('مجموعات','sets')}<b>6</b></span><span>${T('التكرار','Reps')}<b>1 ${T('تكرار نظيف','Clean rep')}</b></span>
-          <span>${T('النسخة','Variation')}<b>${T('وزن الجسم','Bodyweight')}</b></span><span>TEMPO<b>Explosive</b></span>
-          <span>${T('راحة','Rest')}<b>2:30</b></span><span>RPE<b>6.5</b></span>
-        </div>
-        <div class="setrow"><u class="on">1</u><u class="on">2</u><u class="on">3</u><u>4</u><u>5</u><u>6</u>
-          <span style="margin-inline-start:auto;font-size:11px;color:var(--orange)">${T('تسجيل النتيجة','Log the result')}</span></div>
-        <div class="prest">
-          <span class="ring2"></span>
-          <span><b>02:30</b>${T('راحة — ثم المجموعة 4 من 6','Rest — then set 4 of 6')}</span>
-        </div>
-        <div class="sos" style="margin-top:10px">
-          <svg viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2zm0 5.8 7.5 12.9h-15L12 7.8zM11 10v5h2v-5h-2zm0 6.5V19h2v-2.5h-2z"/></svg>
-          ${T('ألم شديد؟ أبلغ المدرب فوراً','Severe pain? Report to the coach now')}</div>
-      </div>
-
-      <div class="pnav">
-        <span class="on">${NAVICON.train}${T('التمرين','Train')}</span>
-        <span>${NAVICON.chat}${T('المحادثة','Chat')}</span>
-        <span>${NAVICON.progress}${T('تقدّمي','Progress')}</span>
-        <span>${NAVICON.me}${T('حسابي','Profile')}</span>
+        <p class="lp-note">${T('86 مجموعة من 120 · الأسبوع 3 من 4. وعند إنهاء كل تمرين تظهر لك شاشة تهنئة بصوت، تحفيز صغير يبقيك مستمراً.','86 of 120 sets · week 3 of 4. And at the end of every session a celebration screen with sound, a small push that keeps you going.')}</p>
       </div>
     </div>
-  </div>
-
-  <div class="pfeat">
-    <span><b>${T('فيديو لكل تمرين','A video for every exercise')}</b>${T('طريقة الأداء الصحيحة أمامك قبل أن تبدأ.','The right technique in front of you before you start.')}</span>
-    <span><b>${T('مؤقّت راحة تلقائي','Automatic rest timer')}</b>${T('يبدأ وحده بعد كل مجموعة بصوت وعدّ تنازلي.','Starts on its own after each set, with sound and a countdown.')}</span>
-    <span><b>${T('تسجيل بضغطة','One-tap logging')}</b>${T('كل مجموعة تعلّمها تصل الكابتن لحظتها.','Every set you tick reaches your coach instantly.')}</span>
-    <span><b>${T('زر الألم','Pain button')}</b>${T('تنبيه فوري للكابتن بتفاصيل التمرين وشدّة الألم.','An instant alert to the coach with the exercise and pain level.')}</span>
-  </div>
-
-  <div class="sect">${T('تقدّمك أمام عينك كل يوم','Your progress in front of you every day')}</div>
-  <div class="card tint t3">
-    <p style="font-size:12.5px;color:var(--warm);margin:0 0 4px">
-      ${T('كل مجموعة تعلّمها ترفع نسبتك — فترى أثر التزامك رقماً لا إحساساً.','Every set you tick raises your percentage — so you see your commitment as a number, not a feeling.')}</p>
-    ${donut(72,'var(--c3)',T('التزامك في البرنامج','Your commitment to the program'),T('86 مجموعة من 120 · الأسبوع 3 من 4','86 of 120 sets · Week 3 of 4'))}
-    <div class="wkgrid" style="margin-top:14px">
-      <div class="wkcard"><b style="color:var(--c1)">100%</b><span>${T('الأسبوع 1 — التأسيس','Week 1 — Foundation')}</span>
-        <span class="bar"><i style="width:100%;background:var(--c1)"></i></span></div>
-      <div class="wkcard"><b style="color:var(--c2)">100%</b><span>${T('الأسبوع 2 — زيادة الحجم','Week 2 — Volume')}</span>
-        <span class="bar"><i style="width:100%;background:var(--c2)"></i></span></div>
-      <div class="wkcard"><b style="color:var(--c3)">88%</b><span>${T('الأسبوع 3 — تكثيف القوة','Week 3 — Intensification')}</span>
-        <span class="bar"><i style="width:88%;background:var(--c3)"></i></span></div>
-      <div class="wkcard"><b style="color:var(--c4)">0%</b><span>${T('الأسبوع 4 — الاختبار','Week 4 — Testing')}</span>
-        <span class="bar"><i style="width:0%;background:var(--c4)"></i></span></div>
+    <div class="lp-bars" data-ui role="list" aria-label="${T('نسبة الإنجاز في كل أسبوع','Completion for each week')}">
+      ${[[100,T('الأسبوع 1 — التأسيس','Week 1 — Foundation')],[100,T('الأسبوع 2 — زيادة الحجم','Week 2 — Volume')],[88,T('الأسبوع 3 — تكثيف القوة','Week 3 — Intensification')],[0,T('الأسبوع 4 — الاختبار','Week 4 — Testing')]]
+        .map((b,i)=>`<div class="lp-bar${i===2?' on':''}" role="listitem" style="--h:${b[0]}" tabindex="0" aria-label="${b[1]}: ${b[0]}%">
+          <span class="v">${b[0]}%</span><span class="col"></span><span class="n">${b[1]}</span></div>`).join('')}
     </div>
-    <div class="note" style="margin-top:12px;border-left-color:var(--c3)">
-      <b>${T('مثال حقيقي','A real example')}</b><br>
-      ${T('عبدالهادي بدأ بصفر، وبعد ثلاثة أسابيع التزام وصل 72% من برنامجه —\n      وأرقامه في اختبار المسل أب تحسّنت مع كل أسبوع.','Abdulhadi started from zero, and after three committed weeks reached 72% of his program —\n      and his muscle-up test numbers improved every single week.')}</div>
-    <div class="facts" style="margin-top:12px">
-      <div class="fact"><b style="color:var(--c1)">+4</b><span>${T('تكرارات عقلة','Pull-up reps')}</span></div>
-      <div class="fact"><b style="color:var(--c2)">+2</b><span>${T('مسل أب نظيف','Clean muscle-up')}</span></div>
-      <div class="fact"><b style="color:var(--c3)">7.8</b><span>${T('متوسط ','avg ')}RPE</span></div>
-      <div class="fact"><b style="color:var(--c5)">3/4</b><span>${T('تقييمات أسبوعية','Weekly ratings')}</span></div>
+  </section>
+
+  <section class="lp-sec lp-g lp-about${seen('about')}" data-lp-sec="about" aria-labelledby="lpAboutT">
+    <div class="lp-side">
+      <dl class="lp-cred">
+        <div data-r style="--i:1"><dt>${T('سنوات خبرة','years of experience')}</dt><dd>+10</dd></div>
+        <div data-r style="--i:2"><dt>${T('متدرب وصل لهدفه','athletes reached their goal')}</dt><dd>+100</dd></div>
+        <div data-r style="--i:3"><dt>${T('بداية المسيرة التدريبية','where the coaching journey began')}</dt><dd>2018</dd></div>
+        <div data-r style="--i:4"><dt>${T('شهادة معتمدة من وزارة الرياضة','certification accredited by the Ministry of Sport')}</dt><dd>NCSF</dd></div>
+      </dl>
     </div>
-    <p style="font-size:12px;color:var(--muted);margin:12px 0 0;text-align:center">
-      ${T('وعند إنهاء كل تمرين تظهر لك شاشة تهنئة بصوت — تحفيز صغير يبقيك مستمراً.','And at the end of every session you get a celebration screen with sound — a small push that keeps you going.')}</p>
-  </div>
-
-  <div class="sect">${T('عن الكابتن','About the coach')}</div>
-  <div class="card tint t2">
-    <b style="font-size:17px">${T('الكابتن محمد الصقر','Coach Mohammed Alsagr')}</b>
-    <p style="font-size:13.5px;color:var(--warm);margin:9px 0 0;line-height:1.85">
-      ${T('بإذن الله بساعدك للوصول إلى هدفك الرياضي بأسرع طريقة وأكثرها فعالية، حيث إن خبرتي في عالم الرياضة تخطّت العشر سنوات في عدة رياضات.','God willing, I will get you to your athletic goal by the fastest and most effective route — my experience in sport spans more than ten years across several disciplines.')}<br><br>
-      ${T('وكوني مؤسّساً لأقوى فريق كاليسثنكس بالخليج وممثّل المملكة في بطولة العالم في أوروبا، أعطاني ذلك الكثير من فهم طبيعة الأجسام.\n      وحاصل على شهادة ','As founder of the strongest calisthenics team in the Gulf and Saudi Arabia\'s representative at the World Championship in Europe, I have learned a great deal about how bodies really work.\n      I am certified by ')}<b>NCSF</b> — ${T('المجلس الوطني الأمريكي للقوة واللياقة البدنية، وهي شهادة معتمدة من وزارة الرياضة.','the National Council on Strength and Fitness (USA), a certification accredited by the Ministry of Sport.')}<br><br>
-      ${T('مسيرتي التدريبية انطلقت من عام 2018م، حيث أقمت العديد من الدورات التدريبية بالتعاون مع جهات عدّة، أهمها\n      جامعة الملك فهد للبترول والمعادن في الخبر، والهيئة الملكية في الجبيل، ومدارس دار العلوم بالرياض.\n    ','My coaching career started in 2018, running many training courses in partnership with several institutions, the most notable being\n      King Fahd University of Petroleum and Minerals in Khobar, the Royal Commission in Jubail, and Dar Al Uloom Schools in Riyadh.\n    ')}</p>
-    <div class="credz">
-      <div><b>+10</b><span>${T('سنوات خبرة','years of experience')}</span></div>
-      <div><b>+100</b><span>${T('متدرب وصل لهدفه','athlete reached their goal')}</span></div>
-      <div><b>2018</b><span>${T('بداية المسيرة التدريبية','Where the coaching journey began')}</span></div>
-      <div><b>NCSF</b><span>${T('شهادة معتمدة','Accredited certification')}</span></div>
+    <div class="lp-axis">
+      <h2 class="lp-h2" id="lpAboutT" data-r>${T('الكابتن محمد الصقر','Coach Mohammed Alsagr')}</h2>
+      <p class="lp-lead" data-r style="--i:1">${T('بإذن الله بساعدك للوصول إلى هدفك الرياضي بأسرع طريقة وأكثرها فعالية، حيث إن خبرتي في عالم الرياضة تخطّت العشر سنوات في عدة رياضات.','God willing, I will get you to your athletic goal by the fastest and most effective route. My experience in sport spans more than ten years across several disciplines.')}</p>
+      <div class="lp-cols" data-r style="--i:2">
+        <p>${T('وكوني مؤسّساً لأقوى فريق كاليسثنكس بالخليج وممثّل المملكة في بطولة العالم في أوروبا، أعطاني ذلك الكثير من فهم طبيعة الأجسام. وحاصل على شهادة ','As founder of the strongest calisthenics team in the Gulf and Saudi Arabia\'s representative at the World Championship in Europe, I have learned a great deal about how bodies really work. I am certified by ')}<b>NCSF</b>${T('، المجلس الوطني الأمريكي للقوة واللياقة البدنية، وهي شهادة معتمدة من وزارة الرياضة.',', the National Council on Strength and Fitness (USA), a certification accredited by the Ministry of Sport.')}</p>
+        <p>${T('مسيرتي التدريبية انطلقت من عام 2018م، حيث أقمت العديد من الدورات التدريبية بالتعاون مع جهات عدّة، أهمها جامعة الملك فهد للبترول والمعادن في الخبر، والهيئة الملكية في الجبيل، ومدارس دار العلوم بالرياض.','My coaching career started in 2018, running many training courses in partnership with several institutions, the most notable being King Fahd University of Petroleum and Minerals in Khobar, the Royal Commission in Jubail, and Dar Al Uloom Schools in Riyadh.')}</p>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="sect">${T('أيام تمرينك أنت من يحدّدها','You decide your own training days')}</div>
-  <div class="card tint t4">
-    <p style="font-size:13.5px;color:var(--warm);margin:0;line-height:1.85">
-      ${T('لا يوجد قالب ثابت. عدد أيام التمرين في الأسبوع يُحدَّد بعد التقييم حسب ','There is no fixed template. Weekly training days are set after assessment based on ')}<b>${T('هدفك','your goal')}</b> ${T('و','and')}<b>${T('أيامك المتاحة','Your available days')}</b> ${T('و','and')}<b>${T('قدرتك على الاستشفاء','Your ability to recover')}</b> —
-      ${T('فمن يستهدف مهارة معيّنة يختلف عمّن يستهدف إنقاص وزن أو تضخيماً، ومن عنده ثلاثة أيام فقط يُبنى له برنامج يعمل بثلاثة، لا نسخة مقصوصة من ستة.','Someone chasing a specific skill needs a different plan from someone cutting fat or building size, and a three-day athlete gets a plan built for three days — not a trimmed-down six-day plan.')}</p>
-    <div class="facts" style="margin-top:12px">
-      <div class="fact"><b style="color:var(--c2)">2-3</b><span>${T('أيام · وقت محدود','days · limited time')}</span></div>
-      <div class="fact"><b style="color:var(--c3)">4</b><span>${T('أيام · الأكثر شيوعاً','days · most common')}</span></div>
-      <div class="fact"><b style="color:var(--c1)">5-6</b><span>${T('أيام · أهداف متقدمة','days · advanced goals')}</span></div>
+  <section class="lp-sec lp-g lp-price${seen('price')}" data-lp-sec="price" aria-labelledby="lpPriceT" style="padding-top:0">
+    <div class="lp-side"><h2 class="lp-h2" id="lpPriceT" data-r>${T('الباقات والاشتراك','Plans & pricing')}</h2></div>
+    <div class="lp-axis"><p class="lp-soft" data-r style="--i:1">${T('الأسعار شاملة الضريبة · عدد أيام التمرين حسب هدفك · إعداد البرنامج والمتابعة مع الكابتن مشمولة في جميع الباقات.',
+      'Prices include VAT · training days set by your goal · program design and coach follow-up included in every plan.')}</p></div>
+    <div class="lp-plans">${PLANS.map((p,i)=>`
+      <div class="lp-plan" data-r style="--i:${i+1}">
+        <div><span class="dur">${T(p.t, p.k==='1'?'1 month':p.k+' months')}</span></div>
+        <div><span class="now">${p.price}<small>${T('ريال','SAR')}</small></span>
+          ${p.was?`<span class="was">${p.was} ${T('ريال','SAR')}</span>`:''}
+          <span class="per">${p.k==='1'?T('تُجدَّد شهرياً','renews monthly'):`${p.per} ${T('ريال/شهر','SAR/month')} · ${T('وفّر ','save ')}${p.was-p.price} ${T('ريال','SAR')}`}</span>
+          <p class="who2">${p.best?T('الأفضل قيمة: ستة أشهر تكفي لبناء مهارة وقياس تقدّمها.','Best value: six months to build a skill and measure its progress.')
+            :p.k==='1'?T('مناسبة لتجربة البرنامج والمتابعة مع الكابتن.','A way to try the program and the coach follow-up.')
+            :T('مرحلة كاملة من البرنامج بسعر أقل للشهر.','A full program phase at a lower monthly price.')}</p></div>
+        <a class="lp-btn" href="${p.url}" target="_blank" rel="noopener">${T('اشترك','Subscribe')} — ${T(p.t, p.k==='1'?'1 month':p.k+' months')}</a>
+      </div>`).join('')}</div>
+    <div class="lp-inst" data-r style="--i:2">
+      <div><b>${T('قسّط فاتورتك بدون رسوم أو فوائد','Split your bill with no fees or interest')}</b>
+        <p>${T('اختر ','Choose ')}<b>${T('تابي','Tabby')}</b> ${T('أو ','or ')}<b>${T('تمارا','Tamara')}</b> ${T('في صفحة الدفع وقسّطها. خيارات متوافقة مع أحكام الشريعة الإسلامية.','on the payment page and split it. Options compliant with Islamic Shariah.')}</p></div>
+      <div class="logos"><img src="${POSTER.TABBY}" alt="Tabby" width="104" height="40"><img src="${POSTER.TAMARA}" alt="Tamara" width="104" height="40"></div>
     </div>
-    <p style="font-size:12px;color:var(--muted);margin:12px 0 0">
-      ${T('ويمكن تعديل عدد الأيام أثناء البرنامج إذا تغيّر ظرفك — يكفي أن تخبر الكابتن.','The number of days can change mid-program if your circumstances change — just tell the coach.')}</p>
-  </div>
+  </section>
 
-  <div class="sect">${T('الباقات والاشتراك','Plans & pricing')}</div>
-  <div class="plans">${PLANS.map(p=>`
-    <div class="plan${p.best?' best':''}">
-      ${p.best?T('<span class="tag">الأفضل</span>','<span class="tag">Best value</span>'):''}
-      <span class="dur">${T(p.t, p.k==='1'?'1 month':p.k+' months')}</span>
-      <span class="now">${p.price}</span>
-      <span class="cur">${T('ريال','SAR')}</span>
-      <span class="was">${p.was?p.was+' '+T('ريال','SAR'):''}</span>
-      <span class="per">${p.k==='1'?T('تُجدَّد شهرياً','renews monthly')
-        :T(`${p.per} ${T('ريال/شهر','SAR/month')}<br>${T('وفّر ','Save ')}${p.was-p.price} ${T('ريال','SAR')}`,`${p.per} SAR/mo<br>save ${p.was-p.price} SAR`)}</span>
-      <a href="${p.url}" target="_blank" rel="noopener">${T('اشترك','Subscribe')}</a>
-    </div>`).join('')}</div>
-  <p style="font-size:11.5px;color:var(--muted);text-align:center;margin:10px 0 0;line-height:1.7">
-    ${T('الأسعار شاملة الضريبة · عدد أيام التمرين حسب هدفك · إعداد البرنامج والمتابعة مع الكابتن مشمولة في جميع الباقات',
-      'Prices include VAT · training days set by your goal · program design and coach follow-up included in every plan')}</p>
-  <div class="card" style="margin-top:12px;text-align:center">
-    <b style="font-size:15px">${T('قسّط فاتورتك بدون رسوم أو فوائد','Split your bill with no fees or interest')}</b>
-    <div class="paylogos">
-      <img src="${POSTER.TABBY}" alt="tabby"><img src="${POSTER.TAMARA}" alt="tamara">
+  <section class="lp-sec lp-g lp-bank${seen('bank')}" data-lp-sec="bank" aria-labelledby="lpBankT">
+    <div class="lp-side">
+      <h2 class="lp-h2" id="lpBankT" data-r>${T('التحويل البنكي المباشر','Direct bank transfer')}</h2>
+      <p class="lp-fast" data-r style="--i:1">${T('الأسرع: تفعيل خلال دقائق','Fastest: active within minutes')}</p>
+      <p class="lp-soft" data-r style="--i:2">${T('حوّل مباشرة على حساب الكابتن، وأرفق صورة الإيصال في نموذج التسجيل. يُفعَّل اشتراكك فور وصول التحويل دون انتظار معالجة بوابة الدفع.',
+        'Transfer directly to the coach\'s account and attach the receipt in the registration form. Your subscription activates as soon as the transfer lands, with no payment-gateway wait.')}</p>
+      <div data-r style="--i:3"><img class="lp-qr" src="${POSTER.BANKQR}" alt="QR ${T('تحويل بنكي','Bank transfer')}" width="180" height="180">
+        <p class="lp-small" style="margin-top:10px">${T('امسح الكود من تطبيق بنكك للتحويل مباشرة','Scan the code in your banking app to transfer directly')}</p></div>
     </div>
-    <p style="font-size:12.5px;color:var(--warm);margin:10px 0 0">
-      ${T('اختر ','Choose ')}<b>${T('تابي','Tabby')}</b> ${T('أو ','or ')}<b>${T('تمارا','Tamara')}</b> ${T('في صفحة الدفع وقسّطها — خيارات متوافقة مع أحكام الشريعة الإسلامية.','on the payment page and split it — options compliant with Islamic finance rules.')}</p>
-  </div>
+    <div class="lp-axis" data-r style="--i:2">
+      <dl class="lp-acct">
+        <div><dt>${T('الاسم','Name')}</dt><dd class="ar">${H(BANK.name)}</dd></div>
+        <div><dt>${T('البنك','Bank')}</dt><dd class="ar">${H(BANK.bank)}</dd></div>
+        <div><dt>${T('رقم الحساب','Account number')}</dt><dd><span dir="ltr">${H(BANK.acc)}</span><button class="lp-copy-btn" data-copy="${H(BANK.acc)}" aria-label="${T('نسخ رقم الحساب','Copy the account number')}">${T('نسخ','Copy')}</button></dd></div>
+        <div><dt>${T('الآيبان','IBAN')}</dt><dd><span dir="ltr">${H(BANK.iban)}</span><button class="lp-copy-btn" data-copy="${H(BANK.iban.replace(/ /g,''))}" aria-label="${T('نسخ الآيبان','Copy the IBAN')}">${T('نسخ','Copy')}</button></dd></div>
+        <div><dt>${T('سويفت','SWIFT')}</dt><dd><span dir="ltr">${H(BANK.swift)}</span><button class="lp-copy-btn" data-copy="${H(BANK.swift)}" aria-label="${T('نسخ رمز سويفت','Copy the SWIFT code')}">${T('نسخ','Copy')}</button></dd></div>
+      </dl>
+      <p class="lp-small" style="margin-top:16px">${T('تأكد أن اسم المحوّل مطابق لاسمك في النموذج ليسهل ربط التحويل باشتراكك.','Make sure the sender name matches your name on the form so the transfer is easy to match.')}</p>
+    </div>
+  </section>
 
-  <div class="sect">${T('التحويل البنكي المباشر','Direct bank transfer')}</div>
-  <div class="card tint t3" style="border-inline-start:4px solid var(--c3)">
-    <span class="fastbadge">⚡ ${T('الأسرع — تفعيل خلال دقائق','Fastest — active within minutes')}</span>
-    <p style="font-size:12.5px;color:var(--warm);margin:0 0 10px">
-      ${T('حوّل مباشرة على حساب الكابتن، وأرفق صورة الإيصال في النموذج أدناه — يُفعَّل اشتراكك فور وصول التحويل\n      دون انتظار معالجة بوابة الدفع.','Transfer straight to the coach\'s account and attach a photo of the receipt in the form below — your subscription is activated the moment the transfer lands,\n      with no wait for the payment gateway.')}</p>
-    <img class="bankqr" src="${POSTER.BANKQR}" alt="QR ${T('تحويل بنكي','Bank transfer')}">
-    <p style="text-align:center;font-size:12px;color:var(--muted);margin:8px 0 12px">
-      ${T('امسح الكود من تطبيق بنكك للتحويل مباشرة','Scan the code in your banking app to transfer directly')}</p>
-    <div class="bankrow"><span>${T('الاسم','Name')}</span><b style="direction:rtl;text-align:right;font-family:var(--ar)">${H(BANK.name)}</b></div>
-    <div class="bankrow"><span>${T('البنك','Bank')}</span><b style="direction:rtl;text-align:right;font-family:var(--ar)">${H(BANK.bank)}</b></div>
-    <div class="bankrow"><span>${T('رقم الحساب','Account number')}</span><b>${H(BANK.acc)}</b>
-      <button data-copy="${H(BANK.acc)}">${T('نسخ','Copy')}</button></div>
-    <div class="bankrow"><span>${T('الآيبان','IBAN')}</span><b>${H(BANK.iban)}</b>
-      <button data-copy="${H(BANK.iban.replace(/ /g,''))}">${T('نسخ','Copy')}</button></div>
-    <div class="bankrow"><span>${T('سويفت','SWIFT')}</span><b>${H(BANK.swift)}</b>
-      <button data-copy="${H(BANK.swift)}">${T('نسخ','Copy')}</button></div>
-    <p style="font-size:11.5px;color:var(--muted);margin:12px 0 0">
-      ${T('تأكد أن اسم المحوّل مطابق لاسمك في النموذج ليسهل ربط التحويل باشتراكك.','Make sure the sender name matches your name on the form so the transfer is easy to match.')}</p>
-  </div>
-
-  ${sent?'':`<div class="stickycta" id="stickycta"><button data-tab="apply">
-    <svg viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M8.5 10.5l2 2 4.5-4.5"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7"/></svg>
+  ${sent?'':`<div class="stickycta" id="stickycta"><button data-tab="apply">${LP_ARROW.replace('<svg','<svg style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"')}
     ${T('سجّل بياناتك الآن','Register now')}</button></div>`}
 
-  <div class="sect" id="joinform">${T('سجّل بياناتك','Register')}</div>
-  ${sent?`<div class="card tint t3" style="border-inline-start:4px solid var(--c3)">
-      <b style="font-size:16px">${T('وصل طلبك للكابتن','Your request reached the coach')}</b>
-      <p style="font-size:13px;color:var(--warm);margin:6px 0 0">
-        ${T('سيتواصل معك قريباً لبدء برنامجك. إن لم تكن قد أتممت الاشتراك بعد، اختر باقتك من الأعلى.','He will contact you shortly to start your program. If you have not completed the subscription yet, pick your plan above.')}</p>
-      <a class="wa" href="https://wa.me/${COACH_WA}" target="_blank" rel="noopener">${T('تواصل عبر واتساب','Contact on WhatsApp')}</a>
-      <button class="btn ghost" data-join-again="1">${T('إرسال طلب جديد','Send a new request')}</button>
-    </div>`
-   :`<div class="card applycta">
-    <div class="ac-top">
-      <span class="ac-badge">${T('٥ خطوات · دقيقتان','5 steps · 2 minutes')}</span>
-      <b>${T('سجّل بياناتك ويبدأ الكابتن بإعداد برنامجك','Register and the coach starts building your program')}</b>
-      <p>${T('نأخذك خطوة بخطوة: بياناتك، قياساتك، هدفك وإصاباتك، ثم الباقة — بدون نموذج طويل مربك.',
-        'Step by step: your details, measurements, goal and injuries, then your plan — no long confusing form.')}</p>
-    </div>
-    <div class="ac-steps">
-      <span><i>1</i>${T('بياناتك','Details')}</span><span><i>2</i>${T('قياساتك','Measures')}</span>
-      <span><i>3</i>${T('هدفك','Goal')}</span><span><i>4</i>${T('باقتك','Plan')}</span>
-      <span><i>5</i>${T('الإرسال','Send')}</span>
-    </div>
-    <button class="btn" data-tab="apply">${T('ابدأ التسجيل الآن','Start registration')}</button>
-    <a class="wa" style="display:block;text-align:center" href="https://wa.me/${COACH_WA}" target="_blank" rel="noopener">${T('أو تواصل مباشرة عبر واتساب','Or message us on WhatsApp')}</a>
-  </div>`}
+  <section class="lp-sec lp-cta${seen('cta')}" data-lp-sec="cta" aria-labelledby="joinform">
+    ${sent?`
+    <div class="lp-g"><h2 id="joinform" data-r>${T('وصل طلبك للكابتن','Your request reached the coach')}</h2></div>
+    <div class="lp-g">
+      <div class="say" data-r style="--i:1"><p class="lp-stand">${T('سيتواصل معك قريباً لبدء برنامجك. إن لم تكن قد أتممت الاشتراك بعد، اختر باقتك من الأعلى.','He will contact you shortly to start your program. If you have not completed the subscription yet, choose your plan above.')}</p></div>
+      <div class="acts" data-r style="--i:2">
+        <a class="lp-btn" href="https://wa.me/${COACH_WA}" target="_blank" rel="noopener">${T('تواصل عبر واتساب','Contact on WhatsApp')}</a>
+        <button class="lp-link" data-join-again="1" style="justify-content:center">${T('إرسال طلب جديد','Send a new request')}</button>
+      </div>
+    </div>`:`
+    <div class="lp-g"><h2 id="joinform" data-r>${T('سجّل بياناتك،','Register,')}<br>${T('ويبدأ برنامجك','and your plan begins')}</h2></div>
+    <div class="lp-g">
+      <div class="say" data-r style="--i:1">
+        <p class="lp-stand">${T('نأخذك خطوة بخطوة، بدون نموذج طويل مربك. خمس خطوات في دقيقتين، ثم يبدأ الكابتن بإعداد برنامجك.','Step by step, with no long confusing form. Five steps in two minutes, then the coach starts building your program.')}</p>
+        <ol class="lp-steps5"><li>${T('بياناتك','Details')}</li><li>${T('قياساتك','Measures')}</li><li>${T('هدفك','Goal')}</li><li>${T('باقتك','Plan')}</li><li>${T('الإرسال','Send')}</li></ol>
+      </div>
+      <div class="acts" data-r style="--i:2">
+        <button class="lp-btn" data-tab="apply">${LP_ARROW}${T('ابدأ التسجيل الآن','Start registration')}</button>
+        <a class="lp-link" style="justify-content:center" href="https://wa.me/${COACH_WA}" target="_blank" rel="noopener">${T('أو تواصل مباشرة عبر واتساب','Or message us on WhatsApp')}</a>
+      </div>
+    </div>`}
+  </section>
 
-  <div class="hair accent"></div>
-  <p style="text-align:center;font-size:12px;color:var(--muted)">
-    ${T('لديك حساب بالفعل؟ افتح الرابط الخاص الذي أرسله لك الكابتن.','Already registered? Use the private link the coach sent you.')}</p>
-  <button class="btn ghost" data-tab="pick">${T('أنا متدرب مسجّل','I am an existing athlete')}</button>
-  <p class="refline" data-tab="ref" role="button" tabindex="0">
-    🎁 ${T('لديك كود صديق؟ تعرّف على برنامج «اشتراكك علينا»','Have a friend\'s code? See the “On us” program')} ←</p>`;
+  <footer class="lp-foot">
+    <img class="word" src="${ASSET.WORD}" alt="reshape" width="680" height="202" loading="lazy">
+    <div class="lp-g">
+      <div class="lp-side lp-reach">
+        <a href="https://wa.me/${COACH_WA}" target="_blank" rel="noopener">${T('واتساب','WhatsApp')}&nbsp;<span>0539714714</span></a>
+        <a href="https://reshape-sa.com" target="_blank" rel="noopener"><span>reshape-sa.com</span></a>
+      </div>
+      <div class="lp-axis">
+        <div><h3>${T('للمتدربين','Athletes')}</h3><ul>
+          <li><button data-tab="pick">${T('أنا متدرب مسجّل','I am an existing athlete')}</button></li></ul>
+          <p class="hint">${T('لديك حساب بالفعل؟ افتح الرابط الخاص الذي أرسله لك الكابتن.','Already registered? Use the private link the coach sent you.')}</p></div>
+        <div><h3>${T('البرامج','Programs')}</h3><ul>
+          <li><button data-tab="apply">${T('ابدأ التسجيل','Start registration')}</button></li>
+          <li><button data-tab="ref">${T('اشتراكك علينا','On us')}</button></li></ul>
+          <p class="hint">${T('لديك كود صديق؟ تعرّف على برنامج «اشتراكك علينا».','Have a friend\'s code? See the “On us” program.')}</p></div>
+        <div><h3>${T('المنصة','Platform')}</h3><ul>
+          <li><button data-promo="1">${T('المقطع الدعائي','The promo clip')}</button></li>
+          <li><a href="https://wa.me/${COACH_WA}" target="_blank" rel="noopener">${T('استفسار عبر واتساب','Ask on WhatsApp')}</a></li></ul></div>
+      </div>
+    </div>
+    <div class="lp-legal" style="padding-inline:var(--m)">
+      <span class="l"><img src="${ASSET.BADGE}" alt="" width="44" height="44" loading="lazy"><span>${T('جميع الحقوق محفوظة للعلامة التجارية ','All rights reserved to the trademark ')}RESHAPE. ${T('تصميم البرنامج ومتابعة اللاعب والإشراف: الكابتن ','Program design, athlete follow-up and supervision: Coach ')}MOHAMMED ALSAGR</span></span>
+      <button data-lp-top="1">${T('العودة للأعلى','Back to top')}</button>
+    </div>
+  </footer>
+</div>`;
 }
+
+/* بعد كل رسم للصفحة العامة: ظهور الأقسام عند الوصول إليها، وتثبيت الحركة الافتتاحية */
+let LP_IO=null;
+function lpInit(){
+  document.body.classList.toggle('lp-on', LP_ON);
+  if(LP_IO){ LP_IO.disconnect(); LP_IO=null; }
+  if(!LP_ON) return;
+  const root=document.querySelector('.lp');
+  if(!root) return;
+  if('IntersectionObserver' in window){
+    LP_IO=new IntersectionObserver(es=>es.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const el=e.target; el.classList.add('is-in');
+      if(el.dataset.lpSec) LP.seen[el.dataset.lpSec]=1;
+      LP_IO.unobserve(el);
+    }),{rootMargin:'0px 0px -12% 0px', threshold:0.05});
+    root.querySelectorAll('[data-lp-sec]:not(.is-in), .lp-bars:not(.is-in)').forEach(el=>LP_IO.observe(el));
+  }else{
+    root.querySelectorAll('[data-lp-sec], .lp-bars').forEach(el=>el.classList.add('is-in'));
+  }
+  if(!LP.played) setTimeout(()=>{ LP.played=true; },1600);
+  if(lpRestLeft()) lpTick();
+}
+
+function lpTick(){
+  clearInterval(LP.timer);
+  const step=()=>{
+    const t=document.getElementById('lpRestT');
+    if(!t){ clearInterval(LP.timer); return; }
+    const left=lpRestLeft();
+    t.textContent=mmss(left||LP_REST);
+    const r=document.getElementById('lpRing');
+    if(r) r.style.strokeDashoffset = left ? 113.1*(1-left/LP_REST) : 0;
+    const box=t.closest('.lp-rest'); if(box) box.classList.toggle('run', !!left);
+    if(!left) clearInterval(LP.timer);
+  };
+  LP.timer=setInterval(step,1000); step();
+}
+
+function lpSet(n){
+  const undo=n<=LP.done;                 /* الضغط على مجموعة منجزة يلغيها وما بعدها */
+  LP.done = undo ? n-1 : n;
+  LP.restEnd = (!undo && LP.done<6) ? Date.now()+LP_REST*1000 : 0;
+  const cell=document.querySelector('.lp-c-a');
+  if(cell) cell.innerHTML=lpSession();
+  const pct=document.getElementById('lpPct'), sets=document.getElementById('lpSets'), bar=document.getElementById('lpBar');
+  if(pct) pct.textContent=lpPct()+'%';
+  if(sets) sets.textContent=`${lpLogged()} ${T('من','of')} ${LP_TOTAL} ${T('مجموعة','sets')}`;
+  if(bar) bar.style.width=lpPct()+'%';
+  const nb=document.querySelector(`[data-lp-set="${Math.min(LP.done+1,6)}"]`);
+  const kb=document.querySelector(`[data-lp-set="${n}"]`);
+  (kb||nb)?.focus({preventScroll:true});
+  if(LP.restEnd) lpTick();
+}
+
+document.addEventListener('click',ev=>{
+  const t=ev.target;
+  const s=t.closest('[data-lp-set]');
+  if(s){ lpSet(+s.dataset.lpSet); try{ navigator.vibrate&&navigator.vibrate(30); }catch(e){} return; }
+  const st=t.closest('[data-lp-stage]');
+  if(st){
+    LP.stage=st.dataset.lpStage;
+    document.querySelectorAll('[data-lp-stage]').forEach(b=>b.setAttribute('aria-pressed', String(b===st)));
+    const stage=document.getElementById('lpStage'); if(stage) stage.innerHTML=lpStage();
+    const cur=LP_STAGES.find(x=>x[0]===LP.stage); const note=document.getElementById('lpStageNote'); if(note&&cur) note.textContent=cur[2];
+    return;
+  }
+  if(t.closest('[data-lp-top]')){ window.scrollTo({top:0,behavior:reducedMotion()?'auto':'smooth'}); const h=document.getElementById('lpTitle'); if(h){ h.setAttribute('tabindex','-1'); h.focus({preventScroll:true}); } }
+});
 
 /* ================= نموذج التسجيل المتدرّج (صفحة مستقلة) ================= */
 let FORM = {sex:'', days:'4', plan:(PLANS[0]||{}).t||'', pay:'تحويل بنكي',
@@ -6016,6 +6551,7 @@ let VIEW_SIG=null;
 
 function render(opts){
   const v=UI.view;
+  LP_ON=false;
   applyAccent();
   const sig=viewSig();
   const sameScreen = (sig===VIEW_SIG) && !(opts&&opts.top);
@@ -6041,6 +6577,7 @@ function render(opts){
      View Transitions API عند توفّرها وعند وجود تنقّل حقيقي (لا إعادة رسم خلفية) */
   const paint = ()=>{
     $('#app').innerHTML=shell(body, v==='coach'&&UI.coachOK);
+    lpInit();
     paintNet();
     requestAnimationFrame(tickerFit);
     animateRefBar();
@@ -6086,12 +6623,18 @@ function render(opts){
 let CTA_SCROLL=null;
 function stickyCTA(){
   if(CTA_SCROLL){ window.removeEventListener('scroll',CTA_SCROLL); CTA_SCROLL=null; }
-  const bar=$('#stickycta'), form=$('#joinform');
+  const bar=$('#stickycta'), form=$('#lpPriceT')||$('#joinform');
   if(!bar||!form) return;
+  /* في الصفحة العامة يظهر الشريط عند الرجوع للأعلى فقط، حتى لا يغطي العناوين أثناء القراءة */
+  const upOnly=!!$('.lp'); let lastY=window.scrollY;
   CTA_SCROLL=()=>{
     const y=window.scrollY;
     const formTop=form.getBoundingClientRect().top+y;
-    bar.classList.toggle('on', y>520 && y<formTop-260);
+    const up=y<lastY-2, down=y>lastY+2; lastY=y;
+    const inRange=y>520 && y<formTop-260;
+    if(!upOnly) bar.classList.toggle('on', inRange);
+    else if(!inRange||down) bar.classList.remove('on');
+    else if(up) bar.classList.add('on');
   };
   window.addEventListener('scroll',CTA_SCROLL,{passive:true});
   CTA_SCROLL();

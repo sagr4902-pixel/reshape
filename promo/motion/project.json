@@ -1,0 +1,26 @@
+{ "name": "reshape-motion", "fps": 60, "width": 1080, "height": 1920, "bpm": 120, "beatsPerBar": 4, "beatOffset": 0,
+  "palette": { "bg": "#17181A", "ink": "#E9DDD7", "acc": "#FF5420", "clay": "#E71C2B", "hi": "#FF7A46", "mut": "#8A8B90" },
+  "fonts": { "display": "Zain", "body": "IBM Plex Sans Arabic", "num": "Barlow Semi Condensed" },
+  "extraFonts": [
+    { "family": "Zain", "file": "fonts/Zain-Black.ttf", "weight": "900" },
+    { "family": "Zain", "file": "fonts/Zain-ExtraBold.ttf", "weight": "800" },
+    { "family": "Barlow Semi Condensed", "file": "fonts/BarlowSemiCondensed-Bold.ttf", "weight": "700" },
+    { "family": "Barlow Semi Condensed", "file": "fonts/BarlowSemiCondensed-SemiBold.ttf", "weight": "600" }
+  ],
+  "images": { "mark": "assets/mark.png", "word": "assets/word.png", "primary": "assets/primary.png", "badge": "assets/badge.png" },
+  "post": { "grain": 0.035, "vignette": 0.22 },
+  "voice": { "name": "ElevenLabs Abdulrahman" },
+  "timing": { "snap": "half", "snapTarget": "line", "snapLines": "first", "leadIn": 0.2, "gap": 0.12, "startPad": 0.15, "tail": 0.9 },
+  "music": { "key": "D", "scale": "minor", "progression": [0, 5, 3, 4], "level": -8, "duck": -5, "top": { "hat": 15, "pluck": 3 } },
+  "sections": [ { "name": "intro", "at": 0 }, { "name": "build", "at": "scene:s2" }, { "name": "drop", "at": "scene:s4" }, { "name": "outro", "at": "scene:s7" } ],
+  "scenes": [
+    { "id": "s1", "file": "scenes/s1.js", "lines": ["l1"], "minDur": 2.0 },
+    { "id": "s2", "file": "scenes/s2.js", "lines": ["l2"], "transition": { "type": "wipe", "dur": 0.4, "dir": "rtl", "bar": true, "color": "#FF5420", "ease": "expoInOut" } },
+    { "id": "s3", "file": "scenes/s3.js", "lines": ["l3"], "transition": { "type": "push", "dur": 0.4, "dir": "up", "ease": "expoInOut" } },
+    { "id": "s4", "file": "scenes/s4.js", "lines": ["l4"], "transition": { "type": "zoom", "dur": 0.4, "ease": "expoInOut" } },
+    { "id": "s5", "file": "scenes/s5.js", "lines": ["l5"], "transition": { "type": "wipe", "dur": 0.4, "dir": "ltr", "bar": true, "color": "#FF5420", "ease": "expoInOut" } },
+    { "id": "s6", "file": "scenes/s6.js", "lines": ["l6"], "transition": { "type": "push", "dur": 0.4, "dir": "rtl", "ease": "expoInOut" } },
+    { "id": "s7", "file": "scenes/s7.js", "lines": ["l7"], "minDur": 3.0, "transition": { "type": "iris", "dur": 0.45, "at": [540, 900], "ring": true, "ease": "expoInOut" } },
+    { "id": "s8", "file": "scenes/s8.js", "lines": ["l8"], "minDur": 3.2, "transition": { "type": "dip", "dur": 0.35, "color": "#FF5420" } }
+  ]
+}

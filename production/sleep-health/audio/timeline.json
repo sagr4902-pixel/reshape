@@ -1,0 +1,31 @@
+{
+  "total": 48.5,
+  "segments": [
+    {"id": "hook", "src": [0.0, 4.3], "dst": 0.9},
+    {"id": "brain", "src": [4.55, 10.1], "dst": 5.7},
+    {"id": "immune", "src": [10.35, 15.05], "dst": 14.6},
+    {"id": "heart", "src": [15.1, 19.39], "dst": 22.1},
+    {"id": "regular", "src": [19.39, 21.72], "dst": 29.0},
+    {"id": "advice", "src": [21.74, 30.36], "dst": 33.9},
+    {"id": "ending", "src": [30.38, 35.16], "dst": 43.0}
+  ],
+  "sfx": [
+    {"file": "clock", "at": 0.0, "gain": 0.45},
+    {"file": "impact", "at": 0.55, "gain": 0.9},
+    {"file": "whoosh", "at": 5.1, "gain": 0.4},
+    {"file": "tick", "at": 6.4, "gain": 0.3},
+    {"file": "whoosh", "at": 14.1, "gain": 0.4},
+    {"file": "tick", "at": 15.3, "gain": 0.3},
+    {"file": "whoosh", "at": 21.5, "gain": 0.4},
+    {"file": "heartbeat", "at": 22.0, "gain": 0.5},
+    {"file": "heartbeat", "at": 24.3, "gain": 0.4},
+    {"file": "whoosh", "at": 28.5, "gain": 0.4},
+    {"file": "tick", "at": 29.6, "gain": 0.3},
+    {"file": "whoosh", "at": 33.5, "gain": 0.4},
+    {"file": "tick", "at": 36.2, "gain": 0.3},
+    {"file": "tick", "at": 38.4, "gain": 0.3},
+    {"file": "tick", "at": 40.4, "gain": 0.3},
+    {"file": "impact", "at": 42.8, "gain": 0.55},
+    {"file": "sonic-logo", "at": 46.5, "gain": 0.85}
+  ]
+}

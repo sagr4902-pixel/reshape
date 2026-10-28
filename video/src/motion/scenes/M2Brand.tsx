@@ -7,6 +7,7 @@ import { Athlete, P, deadlift, run } from "../Athlete";
 import { MCOLORS, SLANT } from "../design";
 import { DrawPath, SlantBar, clamp, easeInOut, easeOut, prog } from "../kit";
 import { mword } from "../timeline";
+import { HOOK_MARK_CY, HOOK_MARK_SCALE } from "./M1Hook";
 
 // SCENE 2 — RESHAPE INTRODUCTION (5.5–12.9 s)
 // "في RESHAPE، كل حصّة هي خطوة جديدة… لقوّتك، ولياقتك، وثقتك بنفسك."
@@ -24,6 +25,8 @@ const T = {
   thiqa: w("وثقتك"),
 };
 const LINE_OUT = T.quwwa - 8;
+// the hook hands over the mark at 6.2 px per logo unit; the lockup starts at 780 px wide
+const START_SCALE = (HOOK_MARK_SCALE * 389) / 780;
 const END = 222;
 
 /** Giant outlined Latin wordmark rows drifting in opposite directions (layered typography). */
@@ -63,10 +66,10 @@ const Panel: React.FC<{ x: number; at: number; label: string; children: React.Re
   const p = prog(frame, at - 3, at + 13, easeOut);
   const out = prog(frame, END - 16, END - 4, Easing.in(Easing.cubic));
   if (p <= 0) return null;
-  const PW = 262;
-  const PH = 380;
+  const PW = 260;
+  const PH = 480;
   return (
-    <div style={{ position: "absolute", left: x, top: 1020, width: PW, height: PH + 140, opacity: 1 - out, transform: `translateY(${out * 40}px)` }}>
+    <div style={{ position: "absolute", left: x, top: 720, width: PW, height: PH + 140, opacity: 1 - out, transform: `translateY(${out * 40}px)` }}>
       <div
         style={{
           position: "absolute",
@@ -139,7 +142,7 @@ export const M2Brand: React.FC = () => {
         ) : (
           <div
             style={{
-              transform: `translate(${settle * (540 - (540 - lockW / 2 + markW / 2))}px, ${settle * (960 - lockY)}px) scale(${1 + settle * 6})`,
+              transform: `translate(${settle * (540 - (540 - lockW / 2 + markW / 2))}px, ${settle * (HOOK_MARK_CY - lockY)}px) scale(${1 + settle * (START_SCALE - 1)})`,
               transformOrigin: `${markW / 2}px ${markH / 2}px`,
             }}
           >
@@ -166,18 +169,18 @@ export const M2Brand: React.FC = () => {
         />
       </div>
       {[T.hissa, T.hiya, T.khutwa, T.jadida].map((at, i) => (
-        <SlantBar key={i} x={720 - i * 150} y={960 - i * 26} w={120} h={20 + i * 26} inAt={at} outAt={LINE_OUT} dur={8} color={i === 3 ? MCOLORS.orange : "rgba(255,255,255,0.85)"} from="right" />
+        <SlantBar key={i} x={690 - i * 140} y={1010 - (22 + i * 30)} w={112} h={22 + i * 30} inAt={at} outAt={LINE_OUT} dur={8} color={i === 3 ? MCOLORS.orange : "rgba(255,255,255,0.85)"} from="right" />
       ))}
 
       {/* the triad: قوّة | لياقة | ثقة — right to left, each on its VO word */}
-      <Panel x={724} at={T.quwwa} label="قوّة">
-        <Athlete pose={deadlift(((frame - T.quwwa) / 34) % 1)} x={120} y={352} scale={1.45} prop="plate" bg="#1E1F22" />
+      <Panel x={710} at={T.quwwa} label="قوّة">
+        <Athlete pose={deadlift(((frame - T.quwwa) / 34) % 1)} x={112} y={448} scale={1.12} prop="plate" bg="#1E1F22" />
       </Panel>
-      <Panel x={409} at={T.liyaqa} label="لياقة">
-        <Athlete pose={run(t * 1.6)} x={118} y={352} scale={1.38} bg="#1E1F22" trail={[run(t * 1.6 - 0.06), run(t * 1.6 - 0.12)]} />
+      <Panel x={410} at={T.liyaqa} label="لياقة">
+        <Athlete pose={run(t * 1.6)} x={116} y={448} scale={1.1} bg="#1E1F22" trail={[run(t * 1.6 - 0.06), run(t * 1.6 - 0.12)]} />
       </Panel>
-      <Panel x={94} at={T.thiqa} label="ثقة">
-        <Athlete pose={P.victory} x={128} y={352} scale={1.32} bg="#1E1F22" rim={7} />
+      <Panel x={110} at={T.thiqa} label="ثقة">
+        <Athlete pose={P.victory} x={126} y={448} scale={0.98} bg="#1E1F22" rim={7} />
       </Panel>
     </AbsoluteFill>
   );

@@ -29,7 +29,7 @@ const BASE = 1560;
 const SKEW = Math.tan((14 * Math.PI) / 180);
 const BW = 132;
 // level i: index 0 is the rightmost (start), rising to the left
-const LEVELS = Array.from({ length: 5 }, (_, i) => ({ x0: 790 - i * 165, h: 120 + i * 92 }));
+const LEVELS = Array.from({ length: 5 }, (_, i) => ({ x0: 790 - i * 165, h: 104 + i * 70 }));
 const topCenter = (i: number): [number, number] => {
   const l = LEVELS[i];
   return [l.x0 + BW / 2 + SKEW * l.h, BASE - l.h];
@@ -96,11 +96,11 @@ export const M4Progress: React.FC = () => {
         {/* athlete (faces left: the direction of progress) */}
         {athIn > 0 ? (
           <g opacity={athIn} style={{ clipPath: `inset(${(1 - athIn) * 100}% 0 0 0)` }}>
-            <Athlete pose={pose} x={athX - 12} y={athY} scale={1.12} flip rim={moving || toVictory > 0 ? 5 : 0} bg={MCOLORS.black} />
+            <Athlete pose={pose} x={athX - 12} y={athY} scale={1.0} flip rim={moving || toVictory > 0 ? 5 : 0} bg={MCOLORS.black} />
           </g>
         ) : null}
 
-        <Chevrons x={topCenter(4)[0] + 10} y={topCenter(4)[1] - 400} count={4} gap={52} size={30} opacity={prog(frame, T.afdal, T.afdal + 10)} />
+        <Chevrons x={topCenter(4)[0] - 150} y={topCenter(4)[1] - 30} count={4} gap={52} size={28} opacity={prog(frame, T.afdal, T.afdal + 10)} />
 
         {/* RTL progress bar */}
         <g opacity={prog(frame, T.mustawak, T.mustawak + 12)}>

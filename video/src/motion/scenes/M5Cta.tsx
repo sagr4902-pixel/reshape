@@ -38,7 +38,7 @@ const CtaLabel: React.FC<{ at: number }> = ({ at }) => {
   const W = 560;
   const H = 136;
   return (
-    <div style={{ position: "absolute", left: 540 - W / 2, top: 790, width: W, height: H, transform: `scale(${0.6 + 0.4 * s})`, opacity: Math.min(1, s * 1.4) }}>
+    <div style={{ position: "absolute", left: 540 - W / 2, top: 846, width: W, height: H, transform: `scale(${0.6 + 0.4 * s})`, opacity: Math.min(1, s * 1.4) }}>
       <div style={{ position: "absolute", inset: 0, transform: `skewX(${SLANT}deg)`, background: MCOLORS.orange, overflow: "hidden", boxShadow: "0 18px 60px rgba(255,84,32,0.35)" }}>
         {frame > at + 14 ? (
           <div
@@ -177,7 +177,7 @@ export const M5Cta: React.FC = () => {
             {[0, 1, 2, 3, 4, 5].map((i) => {
               const k = Math.max(0, Math.min(1, meter * 6 - i));
               const h = (60 + i * 46) * k;
-              const x0 = 830 - i * 74;
+              const x0 = 880 - i * 70;
               const sk = Math.tan((14 * Math.PI) / 180);
               return (
                 <path
@@ -188,10 +188,10 @@ export const M5Cta: React.FC = () => {
               );
             })}
             <g opacity={heroIn} style={{ clipPath: `inset(${(1 - heroIn) * 100}% 0 0 0)` }}>
-              <Athlete pose={jumpSquat(heroPhase)} x={300} y={1540} scale={1.4} rim={6} trail={[jumpSquat(heroPhase - 0.05), jumpSquat(heroPhase - 0.1)]} />
+              <Athlete pose={jumpSquat(heroPhase)} x={330} y={1540} scale={1.4} rim={6} trail={[jumpSquat(heroPhase - 0.05), jumpSquat(heroPhase - 0.1)]} />
             </g>
             {[0, 1, 2, 3].map((k) => (
-              <Ring key={k} x={320} y={1540} at={Math.round(T.ghayyir + (k + 0.7) * 26)} r0={30} r1={210} dur={16} width={6} squash={0.22} />
+              <Ring key={k} x={350} y={1540} at={Math.round(T.ghayyir + (k + 0.7) * 26)} r0={30} r1={210} dur={16} width={6} squash={0.22} />
             ))}
           </svg>
         ) : null}
@@ -201,25 +201,32 @@ export const M5Cta: React.FC = () => {
       <svg width={1080} height={1920} style={{ position: "absolute" }}>
         <DrawPath d="M840,568 L240,568" at={END_CARD} dur={14} width={4} />
       </svg>
-      <div
-        style={{
-          position: "absolute",
-          left: 60,
-          right: 60,
-          top: 600,
-          textAlign: "center",
-          direction: "rtl",
-          fontFamily: FONTS.display,
-          fontWeight: 900,
-          fontSize: 84,
-          lineHeight: 1.2,
-          color: MCOLORS.white,
-          opacity: card(4),
-          transform: `translateY(${(1 - card(4)) * 30}px)`,
-        }}
-      >
-        الحصص الجماعية <span style={{ color: MCOLORS.orange }}>بالنادي</span>
-      </div>
+      {/* in-club emphasis: two deliberate lines, "بالنادي" in brand orange */}
+      {[
+        { text: "الحصص الجماعية", top: 596, color: MCOLORS.white, a: 4 },
+        { text: "بالنادي", top: 694, color: MCOLORS.orange, a: 9 },
+      ].map((l) => (
+        <div
+          key={l.text}
+          style={{
+            position: "absolute",
+            left: 60,
+            right: 60,
+            top: l.top,
+            textAlign: "center",
+            direction: "rtl",
+            fontFamily: FONTS.display,
+            fontWeight: 900,
+            fontSize: 88,
+            lineHeight: 1.1,
+            color: l.color,
+            opacity: card(l.a),
+            transform: `translateY(${(1 - card(l.a)) * 30}px)`,
+          }}
+        >
+          {l.text}
+        </div>
+      ))}
 
       <CtaLabel at={Math.max(END_CARD + 8, T.sajjil - 2)} />
 
@@ -228,7 +235,7 @@ export const M5Cta: React.FC = () => {
           position: "absolute",
           left: 0,
           right: 0,
-          top: 990,
+          top: 1036,
           textAlign: "center",
           fontFamily: FONTS.latin,
           fontWeight: 700,
@@ -246,7 +253,7 @@ export const M5Cta: React.FC = () => {
           position: "absolute",
           left: 0,
           right: 0,
-          top: 1086,
+          top: 1132,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

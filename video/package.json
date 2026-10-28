@@ -7,6 +7,9 @@
     "studio": "remotion studio",
     "preview": "remotion render ReshapeCommercial out/preview.mp4 --scale=0.5",
     "render": "remotion render ReshapeCommercial out/RESHAPE_Club_Commercial_35s.mp4 --codec=h264 --crf=17 --audio-codec=aac --audio-bitrate=320k --pixel-format=yuv420p --color-space=bt709",
+    "preview:motion": "remotion render ReshapeMotionGraphics out/preview_motion.mp4 --scale=0.5",
+    "render:motion": "remotion render ReshapeMotionGraphics out/RESHAPE_Premium_Motion_Graphics_35s.mp4 --codec=h264 --crf=17 --audio-codec=aac --audio-bitrate=320k --pixel-format=yuv420p --color-space=bt709 --concurrency=4",
+    "audio:motion": "python3 scripts/build_motion_audio.py",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

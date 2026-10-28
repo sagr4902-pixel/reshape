@@ -1,7 +1,7 @@
-import { interpolatePath, scalePath, translatePath } from "@remotion/paths";
+import { getBoundingBox, interpolatePath, scalePath, translatePath } from "@remotion/paths";
 import React from "react";
-import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from "remotion";
-import { MARK_BOX, MARK_PATH } from "../../components/logoPaths";
+import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
+import { MARK_PATH } from "../../components/logoPaths";
 import { KineticWords } from "../../components/KineticWords";
 import { Athlete, P, deadlift, lerpPose } from "../Athlete";
 import { MCOLORS } from "../design";
@@ -27,15 +27,15 @@ const COPY1_OUT = T.bas - 12;
 const COPY2_OUT = T.yueed - 6;
 
 const CX = 540;
-const FLOOR = 1390;
+const FLOOR = 1450;
 
-// morph: rigid square -> the authentic RESHAPE mark (shape unchanged, only scaled/centred)
-const MARK_SCALE = 6.2;
-const markCentered = translatePath(
-  scalePath(translatePath(MARK_PATH, -(MARK_BOX.x + MARK_BOX.w / 2), -(MARK_BOX.y + MARK_BOX.h / 2)), MARK_SCALE, MARK_SCALE),
-  CX,
-  1080,
-);
+// morph: rigid square -> the authentic RESHAPE mark (shape unchanged, only scaled/centred).
+// scalePath scales about the bbox corner, so centre explicitly afterwards.
+export const HOOK_MARK_SCALE = 6.2;
+export const HOOK_MARK_CY = 1080;
+const markScaled = scalePath(MARK_PATH, HOOK_MARK_SCALE, HOOK_MARK_SCALE);
+const mbb = getBoundingBox(markScaled);
+const markCentered = translatePath(markScaled, CX - (mbb.x1 + mbb.x2) / 2, HOOK_MARK_CY - (mbb.y1 + mbb.y2) / 2);
 const square = (s: number) => `M${CX - s},${1080 - s} L${CX + s},${1080 - s} L${CX + s},${1080 + s} L${CX - s},${1080 + s} Z`;
 
 export const M1Hook: React.FC = () => {
@@ -52,7 +52,7 @@ export const M1Hook: React.FC = () => {
   const morphIn = prog(frame, T.yueed - 6, T.yueed + 8);
   const morph = prog(frame, T.tashkeelak - 6, T.tashkeelak + 14, easeInOut);
   const blockPath = interpolatePath(morph, square(250), markCentered);
-  const zoom = interpolate(frame, [148, 165], [1, 7], { ...clamp, easing: Easing.in(Easing.cubic) });
+  const zoom = 1; // the brand scene picks the mark up at exactly this size and position
   const blockColor = morph > 0.5 ? MCOLORS.logoRed : MCOLORS.orange;
 
   return (
@@ -100,15 +100,15 @@ export const M1Hook: React.FC = () => {
         <svg width={1080} height={1920} style={{ position: "absolute", opacity: 1 - athleteOut }}>
           <DrawPath d={`M140,${FLOOR} L940,${FLOOR}`} at={T.bas - 6} dur={12} width={4} stroke={MCOLORS.white} opacity={0.35} />
           <g style={{ clipPath: `inset(${(1 - athleteIn) * 100}% 0 0 0)` }}>
-            <Athlete pose={pose} x={CX - 30} y={FLOOR} scale={2.6} prop={toVictory > 0.5 ? "none" : "plate"} />
+            <Athlete pose={pose} x={CX - 30} y={FLOOR} scale={2.0} prop={toVictory > 0.5 ? "none" : "plate"} />
           </g>
         </svg>
       ) : null}
 
       {/* COPY 2 */}
-      <div style={{ position: "absolute", left: 115, width: 850, top: 330 }}>
+      <div style={{ position: "absolute", left: 40, width: 1000, top: 330 }}>
         <KineticWords
-          fontSize={120}
+          fontSize={108}
           style="blur"
           out={COPY2_OUT}
           words={[
@@ -120,11 +120,11 @@ export const M1Hook: React.FC = () => {
       </div>
 
       {/* COPY 3 */}
-      <div style={{ position: "absolute", left: 115, width: 850, top: 300 }}>
-        <KineticWords fontSize={130} out={146} words={[{ text: "يعيد", at: T.yueed }]} />
+      <div style={{ position: "absolute", left: 115, width: 850, top: 250 }}>
+        <KineticWords fontSize={120} out={146} words={[{ text: "يعيد", at: T.yueed }]} />
       </div>
-      <div style={{ position: "absolute", left: 0, right: 0, top: 440 }}>
-        <LayeredWord text="تشكيلك" at={T.tashkeelak} size={230} color={MCOLORS.orange} echo={MCOLORS.white} out={146} />
+      <div style={{ position: "absolute", left: 0, right: 0, top: 385 }}>
+        <LayeredWord text="تشكيلك" at={T.tashkeelak} size={215} color={MCOLORS.orange} echo={MCOLORS.white} out={146} />
       </div>
     </AbsoluteFill>
   );

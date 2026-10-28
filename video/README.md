@@ -1,12 +1,13 @@
 # RESHAPE — 35 s in-club group training commercial (Remotion)
 
 Vertical 1080×1920, 30 fps, H.264 + AAC 48 kHz. Promotes **in-club group classes only**.
+Final files and the QA report are in `../deliverables/`.
 
 ```
 npm install
 npm run studio        # live preview / scrub
 npm run preview       # half-res check render → out/preview.mp4
-npm run render        # final → out/RESHAPE_Club_Commercial_35s.mp4
+npm run render        # final → out/RESHAPE_Club_Commercial_35s.mp4 (~35 min on 4 CPU cores)
 ```
 
 The render uses the container's Chromium headless shell and SwiftShader WebGL

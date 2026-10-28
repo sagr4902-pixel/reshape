@@ -6,7 +6,7 @@
   "scripts": {
     "studio": "remotion studio",
     "preview": "remotion render ReshapeCommercial out/preview.mp4 --scale=0.5",
-    "render": "remotion render ReshapeCommercial out/RESHAPE_Club_Commercial_35s.mp4 --codec=h264 --audio-codec=aac",
+    "render": "remotion render ReshapeCommercial out/RESHAPE_Club_Commercial_35s.mp4 --codec=h264 --crf=17 --audio-codec=aac --audio-bitrate=320k --pixel-format=yuv420p --color-space=bt709",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

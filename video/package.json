@@ -1,0 +1,28 @@
+{
+  "name": "reshape-club-commercial",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RESHAPE Performance Sports — 35s in-club group training commercial (Remotion)",
+  "scripts": {
+    "studio": "remotion studio",
+    "preview": "remotion render ReshapeCommercial out/preview.mp4 --scale=0.5",
+    "render": "remotion render ReshapeCommercial out/RESHAPE_Club_Commercial_35s.mp4 --codec=h264 --audio-codec=aac",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-three/fiber": "9.3.0",
+    "@remotion/cli": "4.0.539",
+    "@remotion/media": "4.0.539",
+    "@remotion/three": "4.0.539",
+    "@remotion/transitions": "4.0.539",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.539",
+    "three": "0.178.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "@types/three": "0.178.1",
+    "typescript": "5.8.3"
+  }
+}

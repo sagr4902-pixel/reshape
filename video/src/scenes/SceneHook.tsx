@@ -30,7 +30,7 @@ const T = {
 };
 
 const Block: React.FC<{ top: number; children: React.ReactNode }> = ({ top, children }) => (
-  <div style={{ position: "absolute", left: 90, width: 850, top }}>{children}</div>
+  <div style={{ position: "absolute", left: 115, width: 850, top }}>{children}</div>
 );
 
 /** Soft dark scrim behind the upper copy zone so type always reads over bright CGI. */
@@ -116,9 +116,9 @@ export const SceneHook: React.FC = () => {
       {/* COPY 2 */}
       <Block top={380}>
         <KineticWords
-          fontSize={124}
+          fontSize={98}
           style="blur"
-          out={97}
+          out={102}
           words={[
             { text: "بس", at: T.bas },
             { text: "فيه", at: T.feeh },

@@ -4,7 +4,7 @@ import { Flash, LightLeak, useShake } from "../components/Finish";
 import { FootageSlot } from "../components/FootageSlot";
 import { KineticWords } from "../components/KineticWords";
 import { LogoLockup } from "../components/Logo";
-import { COLORS, FONTS } from "../lib/brand";
+import { COLORS } from "../lib/brand";
 import { FloorShot } from "./brand/FloorShot";
 import { CUT, LOCKUP_CX, LOCKUP_CY, LOCKUP_H, LOCKUP_W, MARK2D_H, MARK_DX, MATCH_H, VO } from "./brand/layout";
 import { MarkReveal } from "./brand/MarkReveal";
@@ -95,30 +95,30 @@ export const SceneBrand: React.FC = () => {
         <LightLeak from={ALL_ON - 6} to={180} intensity={0.35} y={66} />
 
         {/* ---------- secondary line: synced to "كل حصّة … خطوة جديدة", gone before the triad */}
-        <div style={{ position: "absolute", left: 90, right: 90, top: 840 }}>
+        <div style={{ position: "absolute", left: 115, right: 115, top: 820 }}>
           <KineticWords
-            font={FONTS.body}
-            weight={600}
-            fontSize={54}
-            color={COLORS.warm}
-            style="blur"
-            out={VO.quwwa - 10}
+            weight={800}
+            fontSize={64}
+            color={COLORS.white}
+            style="rise"
+            out={VO.quwwa + 4}
             words={[
-              { text: "كل", at: VO.kull },
+              { text: "كلّ", at: VO.kull },
               { text: "حصّة…", at: VO.hissa },
               { text: "خطوة", at: VO.khutwa },
-              { text: "جديدة", at: VO.jadida, color: COLORS.white },
+              { text: "جديدة", at: VO.jadida, color: COLORS.orange },
             ]}
           />
         </div>
 
         {/* ---------- triad */}
-        <div style={{ position: "absolute", left: 90, right: 140, top: 1170 }}>
+        <div style={{ position: "absolute", left: 115, right: 115, top: 1170 }}>
           <Triad quwwa={VO.quwwa} liyaqa={VO.liyaqa} thiqa={VO.thiqa} allOn={ALL_ON} fontSize={104} />
         </div>
       </AbsoluteFill>
 
-      <Flash at={0} peak={0.85} length={8} color="#fff1e8" />
+      {/* short hit only: a long white-out would wash the logo red to salmon */}
+      <Flash at={0} peak={0.3} length={3} color="#fff1e8" />
     </AbsoluteFill>
   );
 };

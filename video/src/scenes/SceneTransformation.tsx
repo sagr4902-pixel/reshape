@@ -77,7 +77,7 @@ export const SceneTransformation: React.FC = () => {
       </Sequence>
 
       {/* ---------- type */}
-      <div style={{ position: "absolute", left: 90, right: 140, top: 300 }}>
+      <div style={{ position: "absolute", left: 115, right: 115, top: 300 }}>
         <div
           style={{
             transform: `translateY(${-dim * 40}px) scale(${1 - dim * 0.22})`,
@@ -99,7 +99,7 @@ export const SceneTransformation: React.FC = () => {
           />
         </div>
       </div>
-      <div style={{ position: "absolute", left: 90, right: 140, top: 640 }}>
+      <div style={{ position: "absolute", left: 115, right: 115, top: 640 }}>
         <KineticWords
           fontSize={155}
           gap={0.24}
@@ -113,7 +113,8 @@ export const SceneTransformation: React.FC = () => {
       </div>
 
       {/* ---------- accents */}
-      <Flash at={0} color="#ffa36b" peak={0.15} length={9} />
+      {/* the group scene ends on a white-out: fade down out of it instead of snapping to dark */}
+      <Flash at={0} color="#fff1e6" peak={0.75} length={9} />
       <LightLeak from={52} to={112} intensity={0.32} y={62} />
       <Flash at={CUT_REP} color="#ffb98f" peak={0.2} length={7} />
       {REP_NOTES.slice(1).map((at) => (

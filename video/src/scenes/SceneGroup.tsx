@@ -52,9 +52,12 @@ const FILL_CUTS = [FILL, 216, 222, 227, 231, 234];
 
 /**
  * Scene "group" (12.0-20.0 s, 240 frames) - group energy shown as equipment moving in unison.
- * f0-44    kettlebell formation (3x3) swinging phase-locked to the beat, low 3/4 push (drop flash)
- * f45-89   four pairs of battle ropes waving in sync, three-quarter side view, orange rim
- * f90-149  slam balls hitting the floor on every beat (dust puffs); crash at f120 cuts to floor level
+ * f0-44    kettlebell formation (3x4) swinging phase-locked to the beat; close 3/4 from just above
+ *          the top of the swing so every handle reads open, contact shadows on the floor (drop flash)
+ * f45-89   four pairs of battle ropes waving in sync, three-quarter side view, orange floor pool
+ * f90-119  slam balls: two rows down an aisle (one-point perspective), every ball hits the floor
+ *          on the beat (squash, contact shadow, shock ring, floor reflection)
+ * f120-149 crash: floor-level hero on the front ball; the hit is a burst on the impact, below the type
  * f150-209 montage: new angle on every beat
  * f210-239 tom fill flash cuts, whip + white-out into the breakdown
  */
@@ -100,28 +103,58 @@ export const SceneGroup: React.FC = () => {
         }}
       />
 
-      {/* ---- light & flashes on the hits */}
-      <LightLeak from={0} to={36} intensity={0.32} y={28} />
-      <LightLeak from={CRASH - 2} to={CRASH + 40} intensity={0.42} y={62} />
-      <Flash at={0} peak={0.9} length={7} />
-      <Flash at={45} peak={0.22} length={4} />
-      <Flash at={SYNC_END} peak={0.3} length={5} />
-      <Flash at={CRASH} peak={0.85} length={10} />
+      {/* ---- light & flashes on the hits: every whitening is <= 3 frames, then straight back to black.
+           They sit UNDER the type, so the words keep full contrast through every hit. */}
+      <LightLeak from={2} to={30} intensity={0.22} y={72} />
+      {/* two stacked flashes = a hard 1-frame peak with a fast tail (f0 .8, f1 .13, f2 0) */}
+      <Flash at={0} peak={0.55} length={1} />
+      <Flash at={0} peak={0.25} length={2} />
+      <Flash at={45} peak={0.16} length={2} />
+      <Flash at={SYNC_END} peak={0.22} length={2} />
+      <ImpactFlash at={CRASH} />
       {MONTAGE_CUTS.map((at) => (
-        <Flash key={at} at={at} peak={0.26} length={4} />
+        <Flash key={at} at={at} peak={0.16} length={2} />
       ))}
       {FILL_CUTS.map((at, i) => (
-        <Flash key={at} at={at} peak={0.42} length={3} color={i % 2 ? COLORS.orange : COLORS.white} />
+        <Flash key={at} at={at} peak={0.3} length={2} color={i % 2 ? COLORS.orange : COLORS.white} />
       ))}
 
       {/* ---- kinetic type: one card at a time, two stacked words, upper-middle of the safe area */}
       <Card from={0} to={CARD1_OUT + 10} out={CARD1_OUT} style="rise" line1={["حصص", VO.hisas]} line2={["جماعية", VO.jamaiya]} />
       <Card from={CARD1_OUT + 8} to={CARD2_OUT + 10} out={CARD2_OUT} style="rise" line1={["طاقة", VO.ajwaa]} line2={["أعلى", VO.hamasiya]} />
-      <Card from={CARD2_OUT + 8} to={CARD3_OUT + 10} out={CARD3_OUT} style="slam" line1={["تحدٍّ", VO.tahaddi]} line2={["جديد", VO.yikhallik]} />
+      <Card
+        from={CARD2_OUT + 8}
+        to={CARD3_OUT + 10}
+        out={CARD3_OUT}
+        style="slam"
+        line1={["تحدٍّ", VO.tahaddi]}
+        line2={["جديد", VO.yikhallik]}
+        punch={CRASH}
+      />
 
       {/* ---- white-out into the breakdown */}
       {white > 0.001 ? <AbsoluteFill style={{ background: "#fff6ef", opacity: white }} /> : null}
     </AbsoluteFill>
+  );
+};
+
+/**
+ * Crash hit: a hot burst centred on the floor impact (lower two thirds) instead of a full-frame
+ * white-out, so the type zone stays dark. 1-frame peak, gone after 3 frames.
+ */
+const ImpactFlash: React.FC<{ at: number }> = ({ at }) => {
+  const frame = useCurrentFrame();
+  const k = frame < at || frame > at + 2 ? 0 : [1, 0.38, 0.12][frame - at];
+  if (k <= 0) return null;
+  return (
+    <AbsoluteFill
+      style={{
+        mixBlendMode: "screen",
+        pointerEvents: "none",
+        opacity: k,
+        background: `radial-gradient(ellipse 95% 48% at 50% 74%, rgba(255,244,236,0.92) 0%, rgba(255,150,96,0.55) 45%, rgba(255,84,32,0.18) 70%, rgba(0,0,0,0) 100%)`,
+      }}
+    />
   );
 };
 
@@ -136,10 +169,29 @@ const Card: React.FC<{
   style: "rise" | "slam";
   line1: [string, number];
   line2: [string, number];
-}> = ({ from, to, out, style, line1, line2 }) => (
+  /** scene frame of a music hit: the settled card kicks once (scale punch) */
+  punch?: number;
+}> = ({ from, to, out, style, line1, line2, punch }) => (
   <Sequence from={from} durationInFrames={to - from} layout="none" name={`card ${line1[0]} ${line2[0]}`}>
+    <CardBody from={from} out={out} style={style} line1={line1} line2={line2} punch={punch} />
+  </Sequence>
+);
+
+const CardBody: React.FC<{
+  from: number;
+  out: number;
+  style: "rise" | "slam";
+  line1: [string, number];
+  line2: [string, number];
+  punch?: number;
+}> = ({ from, out, style, line1, line2, punch }) => {
+  const lf = useCurrentFrame(); // relative to the card's Sequence
+  const k = punch === undefined || lf + from < punch ? 0 : Math.exp(-(lf + from - punch) / 3.5);
+  return (
     <div
       style={{
+        transform: k > 0.002 ? `scale(${1 + 0.07 * k})` : undefined,
+        transformOrigin: `50% ${TEXT_SIZE}px`,
         position: "absolute",
         left: TEXT_LEFT,
         width: TEXT_W,
@@ -160,5 +212,5 @@ const Card: React.FC<{
         />
       </div>
     </div>
-  </Sequence>
-);
+  );
+};

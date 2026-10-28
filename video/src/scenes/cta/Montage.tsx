@@ -78,7 +78,7 @@ export const MarkPunch: React.FC = () => {
 };
 
 const Block: React.FC<{ top: number; children: React.ReactNode }> = ({ top, children }) => (
-  <div style={{ position: "absolute", left: 90, width: 850, top }}>{children}</div>
+  <div style={{ position: "absolute", left: 115, width: 850, top }}>{children}</div>
 );
 
 /** "غيّر أداءك" then "وارفع مستواك", word-synced to the VO, big and centred. */
@@ -86,12 +86,12 @@ export const MontageCopy: React.FC = () => (
   <>
     <Sequence from={T.ghayyir - 2} durationInFrames={T.warfa - T.ghayyir} layout="none">
       <Block top={640}>
-        <KineticWords fontSize={150} style="rise" out={T.warfa - T.ghayyir - 10} words={[{ text: "غيّر", at: 2 }]} />
+        <KineticWords fontSize={150} style="rise" out={T.warfa - T.ghayyir - 4} words={[{ text: "غيّر", at: 2 }]} />
         <div style={{ marginTop: -40 }}>
           <KineticWords
             fontSize={222}
             style="slam"
-            out={T.warfa - T.ghayyir - 10}
+            out={T.warfa - T.ghayyir - 4}
             words={[{ text: "أداءك", at: T.adaak - T.ghayyir + 2, color: COLORS.orange }]}
           />
         </div>

@@ -20,23 +20,39 @@ export const swingAngle = (f: number) => {
 /** Battle-rope wave clock: one wave per beat (2 Hz). */
 export const ROPE_FREQ = 2;
 
-/** Slam ball: lifted overhead (ease-out), slammed down (accelerating), impact exactly on each beat. */
-export const SLAM_H = 1.05;
-export const slamPhase = (f: number) => (((f % BEAT) + BEAT) % BEAT) / BEAT;
+/**
+ * Slam ball, one slam per beat with the impact exactly ON the beat (t = 0):
+ *  t 0-2   dead on the floor, squashed (slam balls do not bounce)
+ *  t 2-9   snatched back up (ease-out) to the apex
+ *  t 9-15  slammed down, accelerating like gravity + throw, hits the floor on the next beat
+ */
+export const SLAM_H = 0.44;
+const SLAM_REST = 2;
+const SLAM_APEX = 9;
+export const sinceImpact = (f: number) => ((f % BEAT) + BEAT) % BEAT;
+export const slamPhase = (f: number) => sinceImpact(f) / BEAT;
 export const slamHeight = (f: number) => {
-  const p = slamPhase(f);
-  const up = 0.58;
-  if (p < up) return SLAM_H * (1 - Math.pow(1 - p / up, 3));
-  const q = (p - up) / (1 - up);
+  const t = sinceImpact(f);
+  if (t <= SLAM_REST) return 0;
+  if (t <= SLAM_APEX) {
+    const u = (t - SLAM_REST) / (SLAM_APEX - SLAM_REST);
+    return SLAM_H * (1 - Math.pow(1 - u, 2.4));
+  }
+  const q = (t - SLAM_APEX) / (BEAT - SLAM_APEX);
   return SLAM_H * (1 - q * q);
 };
-/** 0..1 squash right after impact. */
+/** 0..1 squash while the ball sits on the floor after impact. */
 export const slamSquash = (f: number) => {
-  const t = (((f % BEAT) + BEAT) % BEAT);
-  return t < 3 ? (1 - t / 3) * 0.14 : 0;
+  const t = sinceImpact(f);
+  return t <= SLAM_REST + 0.5 ? 0.13 * Math.exp(-t / 1.4) : 0;
 };
-/** Frames since the last impact (0 on the beat). */
-export const sinceImpact = (f: number) => (((f % BEAT) + BEAT) % BEAT);
+/** Stretch along the fall direction while the ball is slammed down (speed read). */
+export const slamStretch = (f: number) => {
+  const t = sinceImpact(f);
+  if (t <= SLAM_APEX) return 0;
+  const q = (t - SLAM_APEX) / (BEAT - SLAM_APEX);
+  return 0.16 * q * q;
+};
 
 /** Deterministic hand-held shake that decays after `at` (pure function copy of useShake). */
 export const shakeAt = (frame: number, at: number, amount = 26, decay = 10) => {

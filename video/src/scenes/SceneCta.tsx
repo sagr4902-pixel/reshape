@@ -11,7 +11,7 @@ import { DROP, END_CARD } from "./cta/timing";
 //          slam, kettlebell row, battle ropes, slam ball, lift-off, plate loading, the floor),
 //          the mark punches in on "ريشيب…", then "غيّر أداءك" / "وارفع مستواك" on the VO.
 // f105-269 END CARD: lockup, in-club group classes line, "سجّل الآن" on the VO, URL + handle;
-//          one pulse + glint on the final hit (f180), then everything holds still to be read.
+//          a glint across the logo on the final hit (f180), then everything holds still to be read.
 
 /** Mounts children from `from` on, keeping scene-relative frame numbers (the end card uses them). */
 const From: React.FC<{ from: number; children: React.ReactNode }> = ({ from, children }) => {
@@ -36,8 +36,7 @@ export const SceneCta: React.FC = () => (
     <From from={END_CARD}>
       <EndCard />
     </From>
-    {/* impact into the end card */}
-    <Flash at={END_CARD} color={COLORS.white} peak={0.8} length={8} />
-    <Flash at={END_CARD} color={COLORS.orange} peak={0.25} length={12} />
+    {/* no white-out on the end card: it must read cleanly as the VO says "سجّل" */}
+    <Flash at={END_CARD} color={COLORS.orange} peak={0.12} length={5} />
   </AbsoluteFill>
 );

@@ -188,19 +188,17 @@ const Logo: React.FC = () => {
   );
 };
 
-// ---------------------------------------------------------------- CTA button
-const Button: React.FC = () => {
+// ---------------------------------------------------------------- CTA label
+// A flat, slanted brand bar (angle borrowed from the mark), deliberately NOT a button:
+// no shadow, bevel, sheen or pulse, so nothing in the MP4 pretends to be tappable.
+const CtaLabel: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   // starts 3 frames early so it has landed as the VO says "سجّل"
   const at = T.sajjil - 3;
-  const s = spring({ frame: frame - at, fps, config: { damping: 12, stiffness: 190, mass: 0.7 }, durationInFrames: 18 });
+  const s = spring({ frame: frame - at, fps, config: { damping: 200, stiffness: 170 }, durationInFrames: 16 });
   if (frame < at) return null;
-  const hit = interpolate(frame, [FINAL_HIT, STILL_FROM], [0, 1], clamp);
-  const pulse = hit > 0 && hit < 1 ? 0.055 * Math.sin(hit * Math.PI) * (1 - hit * 0.3) : 0;
-  const scale = interpolate(s, [0, 1], [0.62, 1]) + pulse;
-  const sheen = hit > 0 && hit < 1 ? hit : -1;
-  const ring = hit > 0 && hit < 1 ? hit : 0;
+  const wipe = interpolate(s, [0, 1], [0, 100]);
   return (
     <div
       style={{
@@ -214,34 +212,17 @@ const Button: React.FC = () => {
         alignItems: "center",
       }}
     >
-      {/* the single pulse ring on the final hit */}
-      {ring > 0 ? (
-        <div
-          style={{
-            position: "absolute",
-            width: 560,
-            height: 156,
-            borderRadius: 78,
-            border: `3px solid ${COLORS.orange}`,
-            transform: `scale(${1 + ring * 0.22}, ${1 + ring * 0.55})`,
-            opacity: 0.8 * (1 - ring),
-          }}
-        />
-      ) : null}
       <div
         style={{
           position: "relative",
-          height: 156,
-          padding: "0 92px",
-          borderRadius: 78,
-          background: `linear-gradient(180deg, #ff6a3a 0%, ${COLORS.orange} 55%, ${COLORS.orangeDeep} 100%)`,
-          boxShadow: `0 22px 60px rgba(255,84,32,${0.22 + pulse * 3}), inset 0 2px 0 rgba(255,255,255,0.18)`,
+          height: 150,
+          padding: "0 84px",
+          background: COLORS.orange,
+          transform: "skewX(-12deg)",
+          clipPath: `inset(0 0 0 ${100 - wipe}%)`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          overflow: "hidden",
-          transform: `scale(${scale})`,
-          opacity: Math.min(1, s * 2.2),
         }}
       >
         <span
@@ -253,24 +234,12 @@ const Button: React.FC = () => {
             lineHeight: 1,
             color: COLORS.black,
             whiteSpace: "nowrap",
-            transform: "translateY(4px)",
+            transform: `skewX(12deg) translateY(4px) translateX(${(1 - s) * 30}px)`,
+            opacity: Math.min(1, s * 1.6),
           }}
         >
           سجّل الآن
         </span>
-        {sheen >= 0 ? (
-          <div
-            style={{
-              position: "absolute",
-              top: -20,
-              bottom: -20,
-              width: 120,
-              left: `${-25 + sheen * 150}%`,
-              transform: "skewX(-22deg)",
-              background: "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0) 100%)",
-            }}
-          />
-        ) : null}
       </div>
     </div>
   );
@@ -294,7 +263,7 @@ const Line: React.FC<{ y: number; at: number; size: number; weight: number; colo
     <div
       style={{
         position: "absolute",
-        left: 90,
+        left: 115,
         width: 850,
         top: y - size * 0.62,
         textAlign: "center",
@@ -319,7 +288,7 @@ export const EndCard: React.FC = () => (
   <AbsoluteFill>
     <Background />
     <Logo />
-    <div style={{ position: "absolute", left: 90, width: 850, top: CLASS_Y - 55 }}>
+    <div style={{ position: "absolute", left: 115, width: 850, top: CLASS_Y - 55 }}>
       <KineticWords
         fontSize={72}
         weight={800}
@@ -332,7 +301,7 @@ export const EndCard: React.FC = () => (
         ]}
       />
     </div>
-    <Button />
+    <CtaLabel />
     <Line y={URL_Y} at={URL_IN} size={66} weight={700} color={COLORS.white}>
       {DISPLAY_URL}
     </Line>

@@ -11,13 +11,14 @@ import { STEP_NOTES } from "./timing";
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
 /** From thin change plates (bottom step) to heavy bumper plates (top step). */
+// Few, thick plates per step so the stacks read as gym plates, not coins.
 export const STEPS: StackDef[] = [
-  { r: 0.1, t: 0.018, n: 5, kind: "iron" },
-  { r: 0.13, t: 0.022, n: 9, kind: "iron" },
-  { r: 0.16, t: 0.03, n: 11, kind: "iron" },
-  { r: 0.19, t: 0.04, n: 12, kind: "rubber" },
-  { r: 0.225, t: 0.05, n: 12, kind: "rubber" },
-  { r: 0.225, t: 0.075, n: 10, kind: "rubber" },
+  { r: 0.13, t: 0.032, n: 3, kind: "iron" },
+  { r: 0.16, t: 0.038, n: 5, kind: "iron" },
+  { r: 0.2, t: 0.05, n: 6, kind: "rubber" },
+  { r: 0.225, t: 0.065, n: 6, kind: "rubber" },
+  { r: 0.225, t: 0.08, n: 7, kind: "rubber" },
+  { r: 0.225, t: 0.095, n: 8, kind: "rubber" },
 ];
 
 /** Step centres on the floor: the staircase climbs away from camera (-Z) with a gentle drift. */

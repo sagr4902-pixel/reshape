@@ -92,7 +92,9 @@ export const KineticWords: React.FC<Props> = ({
             style={{
               display: "inline-block",
               // a little room above/below so Arabic marks and descenders are never clipped
-              padding: `${fontSize * 0.12}px 0.04em`,
+              // horizontal room (cancelled by the negative margin) so the shadow is not cut at the sides
+              padding: `${fontSize * 0.12}px 0.3em`,
+              margin: "0 -0.26em",
               overflow: style === "rise" ? "hidden" : "visible",
             }}
           >
@@ -103,7 +105,10 @@ export const KineticWords: React.FC<Props> = ({
                 opacity: visible ? Math.min(1, p * 1.6) : 0,
                 transform: `translateY(${y * 100}%) scale(${scale})`,
                 filter: blur > 0.05 ? `blur(${blur}px)` : undefined,
-                textShadow: shadow ? "0 6px 40px rgba(0,0,0,0.55)" : undefined,
+                // the shadow fades in as the word settles, so the rise mask never shows a hard shadow edge
+                textShadow: shadow
+                  ? `0 6px 40px rgba(0,0,0,${(0.55 * Math.min(1, Math.max(0, (p - 0.6) / 0.4))).toFixed(3)})`
+                  : undefined,
               }}
             >
               {w.text}

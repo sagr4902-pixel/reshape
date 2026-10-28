@@ -44,7 +44,20 @@ Other lines, the Saudi accent and the delivery are unchanged from the approved V
 
 ## QA results (final MP4)
 
-QA_RESULTS_PLACEHOLDER
+Measured on `RESHAPE_Premium_Motion_Graphics_35s.mp4` itself with `video/scripts/qa_motion.py`, plus a 2 fps frame-by-frame review of the final encode.
+
+| # | Check | Result |
+| --- | --- | --- |
+| 1 | No music | **Pass.** With the VO and SFX stems subtracted from the encoded audio, the residual is −41 dB (AAC coding noise only; no bed, pad, beat or tone). Wherever there is no VO and no SFX event, the level is −80 dBFS or lower (digital silence). |
+| 2 | Every «RESHAPE» pronounced ree-SHAYP /riːˈʃeɪp/ | **Pass, both occurrences.** At 6.28 s the vowel is 145 ms, F1 404→450→359 Hz, F2 1981→2093→2174 Hz. At 25.2 s it is 125 ms, F1 417→492→450 Hz, F2 2036→2078→2254 Hz. Both show mid F1 with F2 rising, the /eɪ/ glide of the speaker's own "shape": not ريشِب (clipped), not ريشيب (/iː/, F1 ≈ 270 Hz), not ريشاب (/aː/). Blind transcription hears "Reshape". |
+| 3 | Saudi accent, Arabic delivery | Same Saudi voice and colloquial script as the approved VO, with natural pace. No pitch-shift, time-stretch, echo, reverb or bass boost. |
+| 4 | Content preserved | Same script (48 words), same five-scene order, same CTA and registration details, in-club only. The SRT matches the VO word for word. |
+| 5 | Smoothness and sync | Each headline word lands on its spoken word, taken from the word-level VO timings. Brand wipes cover the cuts. There are no black frames and no frozen segments. |
+| 6 | No footage | 100 % vector motion graphics rendered from code: no video, stock images, CGI renders or AI-generated people. |
+| 7 | CTA readable | The end card is complete by ~29.4 s and holds to 35.0 s (≈ 5.6 s), with all copy inside the mobile safe area. |
+| 8 | In-club only | «الحصص الجماعية بالنادي» is on screen; there is no online, app or remote wording anywhere. |
+| 9 | Specs | H.264 High, 1080×1920, 30 fps, 1050 frames, 35.0 s, yuv420p BT.709; AAC-LC 48 kHz stereo 320 kb/s; 15.0 MB. |
+| 10 | Levels | −14.2 LUFS integrated, −1.4 dBTP true peak, LRA 5 LU (social-platform ready). |
 
 ## Notes
 

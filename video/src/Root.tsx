@@ -2,6 +2,9 @@ import React from "react";
 import { AbsoluteFill, Composition } from "remotion";
 import { Lab } from "./cgi/Lab";
 import { TypeTest } from "./components/TypeTest";
+import { MotionLab } from "./motion/Lab";
+import { MotionCommercial, M_SCENES, Stage } from "./motion/MotionCommercial";
+import { M_DURATION, mscene } from "./motion/timeline";
 import { Commercial, SCENES } from "./Commercial";
 import { Grain, Vignette } from "./components/Finish";
 import { VIDEO } from "./lib/brand";
@@ -40,6 +43,31 @@ export const RemotionRoot = () => {
         />
       ))}
       <Composition id="TypeTest" component={TypeTest} durationInFrames={1} fps={30} width={1080} height={1920} />
+      <Composition
+        id="ReshapeMotionGraphics"
+        component={MotionCommercial}
+        durationInFrames={M_DURATION}
+        fps={VIDEO.fps}
+        width={VIDEO.width}
+        height={VIDEO.height}
+      />
+      {M_SCENES.map(({ id, Component }) => (
+        <Composition
+          key={`m-${id}`}
+          id={`Motion-${id}`}
+          component={() => (
+            <AbsoluteFill>
+              <Stage />
+              <Component />
+            </AbsoluteFill>
+          )}
+          durationInFrames={mscene(id).duration}
+          fps={VIDEO.fps}
+          width={VIDEO.width}
+          height={VIDEO.height}
+        />
+      ))}
+      <Composition id="MotionLab" component={MotionLab} durationInFrames={60} fps={30} width={1080} height={1920} />
       <Composition id="Lab" component={Lab} durationInFrames={60} fps={30} width={1080} height={1920} defaultProps={{ shot: 0 }} />
     </>
   );

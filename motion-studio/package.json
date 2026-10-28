@@ -1,0 +1,56 @@
+{
+  "name": "reshape-motion-studio",
+  "version": "1.0.0",
+  "description": "RESHAPE Motion Studio — autonomous Arabic motion-graphics ad production (Remotion + ElevenLabs + FFmpeg)",
+  "repository": {},
+  "license": "UNLICENSED",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
+  "private": true,
+  "dependencies": {
+    "@elevenlabs/elevenlabs-js": "^2.75.0",
+    "@remotion/bundler": "4.0.539",
+    "@remotion/cli": "4.0.539",
+    "@remotion/fonts": "4.0.539",
+    "@remotion/media": "4.0.539",
+    "@remotion/paths": "4.0.539",
+    "@remotion/renderer": "4.0.539",
+    "@remotion/shapes": "4.0.539",
+    "@remotion/transitions": "4.0.539",
+    "lucide-react": "^1.63.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.539",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.539",
+    "@types/node": "^22.20.5",
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "eslint": "10.12.0",
+    "prettier": "3.8.1",
+    "tsx": "^4.23.15",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "verify": "tsx scripts/verify-tools.ts",
+    "timeline": "tsx scripts/build-timeline.ts",
+    "sheet": "tsx scripts/qc/contact-sheet.ts",
+    "music": "tsx scripts/make-music.ts",
+    "mix": "tsx scripts/mix-audio.ts",
+    "qc": "tsx scripts/qc/inspect-video.ts",
+    "pronunciation": "tsx scripts/qc/check-pronunciation.ts",
+    "produce": "tsx scripts/produce.ts",
+    "el": "tsx scripts/elevenlabs.ts",
+    "build": "remotion bundle",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc",
+    "render": "tsx scripts/render.ts"
+  },
+  "allowScripts": {
+    "esbuild": false
+  }
+}

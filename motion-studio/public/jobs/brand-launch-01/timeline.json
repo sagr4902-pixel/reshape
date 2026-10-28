@@ -1,0 +1,753 @@
+{
+  "id": "brand-launch-01",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "durationInFrames": 1024,
+  "transitionFrames": 12,
+  "audio": {
+    "mix": "jobs/brand-launch-01/mix.wav",
+    "voice": "jobs/brand-launch-01/vo.mp3"
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "template": "sports-impact",
+      "from": 0,
+      "durationInFrames": 96,
+      "cues": {
+        "w1": 4,
+        "w2": 14,
+        "echo": 29,
+        "slam": 61
+      },
+      "words": [
+        {
+          "text": "جسمك",
+          "from": 4,
+          "to": 14
+        },
+        {
+          "text": "يتغير",
+          "from": 14,
+          "to": 28
+        },
+        {
+          "text": "بالتكرار،",
+          "from": 29,
+          "to": 47
+        },
+        {
+          "text": "مو",
+          "from": 61,
+          "to": 64
+        },
+        {
+          "text": "بالحماس.",
+          "from": 64,
+          "to": 83
+        }
+      ],
+      "props": {
+        "eyebrow": "RE-SHAPE YOUR BODY",
+        "backdrop": "RE-SHAPE",
+        "lead": [
+          {
+            "text": "جسمك",
+            "cue": "w1"
+          },
+          {
+            "text": "يتغيّر",
+            "cue": "w2"
+          }
+        ],
+        "echo": {
+          "text": "بالتكرار",
+          "cue": "echo",
+          "count": 3
+        },
+        "slam": {
+          "text": "مو بالحماس.",
+          "cue": "slam"
+        }
+      }
+    },
+    {
+      "id": "promise",
+      "template": "kinetic-lines",
+      "from": 96,
+      "durationInFrames": 158,
+      "cues": {
+        "lead": 10,
+        "k1": 43,
+        "k2": 60,
+        "k3": 74,
+        "k4": 80,
+        "footer": 108
+      },
+      "words": [
+        {
+          "text": "مع",
+          "from": 10,
+          "to": 15
+        },
+        {
+          "text": "Reshape،",
+          "from": 16,
+          "to": 31
+        },
+        {
+          "text": "برنامجك",
+          "from": 43,
+          "to": 59
+        },
+        {
+          "text": "مصمم",
+          "from": 60,
+          "to": 73
+        },
+        {
+          "text": "لك",
+          "from": 74,
+          "to": 78
+        },
+        {
+          "text": "خصيصًا",
+          "from": 80,
+          "to": 99
+        },
+        {
+          "text": "من",
+          "from": 108,
+          "to": 115
+        },
+        {
+          "text": "أي",
+          "from": 117,
+          "to": 121
+        },
+        {
+          "text": "مكان",
+          "from": 123,
+          "to": 133
+        },
+        {
+          "text": "في",
+          "from": 134,
+          "to": 136
+        },
+        {
+          "text": "العالم.",
+          "from": 137,
+          "to": 149
+        }
+      ],
+      "props": {
+        "lead": {
+          "text": "مع",
+          "cue": "lead",
+          "withWordmark": true
+        },
+        "lines": [
+          [
+            {
+              "text": "برنامجك",
+              "cue": "k1"
+            }
+          ],
+          [
+            {
+              "text": "مصمّم",
+              "cue": "k2"
+            },
+            {
+              "text": "لك",
+              "cue": "k3"
+            }
+          ],
+          [
+            {
+              "text": "خصيصاً",
+              "cue": "k4",
+              "accent": true
+            }
+          ]
+        ],
+        "footer": {
+          "text": "من أي مكان في العالم",
+          "cue": "footer",
+          "icon": "Globe"
+        },
+        "sideLabel": "ONLINE COACHING"
+      }
+    },
+    {
+      "id": "how",
+      "template": "service-steps",
+      "from": 254,
+      "durationInFrames": 193,
+      "cues": {
+        "t": 6,
+        "i1": 11,
+        "i2": 55,
+        "i3": 117
+      },
+      "words": [
+        {
+          "text": "فيديو",
+          "from": 11,
+          "to": 21
+        },
+        {
+          "text": "لكل",
+          "from": 22,
+          "to": 31
+        },
+        {
+          "text": "تمرين،",
+          "from": 32,
+          "to": 44
+        },
+        {
+          "text": "تسجيل",
+          "from": 55,
+          "to": 66
+        },
+        {
+          "text": "مباشر",
+          "from": 68,
+          "to": 83
+        },
+        {
+          "text": "لكل",
+          "from": 84,
+          "to": 93
+        },
+        {
+          "text": "مجموعة،",
+          "from": 95,
+          "to": 108
+        },
+        {
+          "text": "ومتابعة",
+          "from": 117,
+          "to": 135
+        },
+        {
+          "text": "من",
+          "from": 136,
+          "to": 138
+        },
+        {
+          "text": "الكابتن",
+          "from": 139,
+          "to": 161
+        },
+        {
+          "text": "أول",
+          "from": 163,
+          "to": 172
+        },
+        {
+          "text": "بأول.",
+          "from": 174,
+          "to": 186
+        }
+      ],
+      "props": {
+        "eyebrow": "HOW IT WORKS",
+        "title": [
+          {
+            "text": "كيف",
+            "cue": "t"
+          },
+          {
+            "text": "يعمل",
+            "cue": "t"
+          },
+          {
+            "text": "التدريب",
+            "cue": "t"
+          }
+        ],
+        "items": [
+          {
+            "icon": "Clapperboard",
+            "title": "فيديو لكل تمرين",
+            "caption": "طريقة الأداء الصحيحة أمامك قبل أن تبدأ",
+            "cue": "i1"
+          },
+          {
+            "icon": "ListChecks",
+            "title": "تسجيل مباشر",
+            "caption": "كل مجموعة تعلّمها تصل الكابتن لحظتها",
+            "cue": "i2"
+          },
+          {
+            "icon": "UserCheck",
+            "title": "متابعة من الكابتن",
+            "caption": "يرى تقدّمك ويعدّل حملك حسب أدائك",
+            "cue": "i3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "days",
+      "template": "week-infographic",
+      "from": 447,
+      "durationInFrames": 207,
+      "cues": {
+        "a": 11,
+        "b": 22,
+        "c": 44,
+        "d": 52,
+        "r1": 84,
+        "r2": 102,
+        "r3": 108,
+        "footer": 155
+      },
+      "words": [
+        {
+          "text": "وأيام",
+          "from": 11,
+          "to": 20
+        },
+        {
+          "text": "تمرينك",
+          "from": 22,
+          "to": 42
+        },
+        {
+          "text": "أنت",
+          "from": 44,
+          "to": 49
+        },
+        {
+          "text": "تحددها،",
+          "from": 52,
+          "to": 67
+        },
+        {
+          "text": "من",
+          "from": 79,
+          "to": 83
+        },
+        {
+          "text": "يومين",
+          "from": 84,
+          "to": 100
+        },
+        {
+          "text": "إلى",
+          "from": 102,
+          "to": 106
+        },
+        {
+          "text": "ستة",
+          "from": 108,
+          "to": 119
+        },
+        {
+          "text": "أيام",
+          "from": 119,
+          "to": 128
+        },
+        {
+          "text": "بالأسبوع",
+          "from": 130,
+          "to": 146
+        },
+        {
+          "text": "حسب",
+          "from": 155,
+          "to": 163
+        },
+        {
+          "text": "هدفك",
+          "from": 164,
+          "to": 182
+        },
+        {
+          "text": "ووقتك.",
+          "from": 182,
+          "to": 197
+        }
+      ],
+      "props": {
+        "title": [
+          {
+            "text": "أيام",
+            "cue": "a"
+          },
+          {
+            "text": "تمرينك",
+            "cue": "b"
+          },
+          {
+            "text": "أنت",
+            "cue": "c",
+            "accent": true
+          },
+          {
+            "text": "تحدّدها",
+            "cue": "d",
+            "accent": true
+          }
+        ],
+        "days": [
+          "سبت",
+          "أحد",
+          "اثنين",
+          "ثلاثاء",
+          "أربعاء",
+          "خميس",
+          "جمعة"
+        ],
+        "rows": [
+          {
+            "value": "2-3",
+            "caption": "وقت محدود",
+            "on": [
+              0,
+              3
+            ],
+            "optional": [
+              5
+            ],
+            "cue": "r1"
+          },
+          {
+            "value": "4",
+            "caption": "الأكثر شيوعاً",
+            "on": [
+              0,
+              1,
+              3,
+              4
+            ],
+            "cue": "r2"
+          },
+          {
+            "value": "5-6",
+            "caption": "أهداف متقدمة",
+            "on": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "optional": [
+              5
+            ],
+            "cue": "r3"
+          }
+        ],
+        "legend": {
+          "training": "يوم تمرين",
+          "optional": "اختياري",
+          "note": "التوزيع للتوضيح"
+        },
+        "footer": {
+          "text": "حسب هدفك ووقتك",
+          "cue": "footer",
+          "icons": [
+            "Target",
+            "Clock"
+          ]
+        }
+      }
+    },
+    {
+      "id": "coach",
+      "template": "stat-counters",
+      "from": 654,
+      "durationInFrames": 207,
+      "cues": {
+        "h1": 14,
+        "h2": 29,
+        "h3": 40,
+        "years": 83,
+        "athletes": 143,
+        "foot": 185
+      },
+      "words": [
+        {
+          "text": "مع",
+          "from": 11,
+          "to": 14
+        },
+        {
+          "text": "الكابتن",
+          "from": 14,
+          "to": 28
+        },
+        {
+          "text": "محمد",
+          "from": 29,
+          "to": 40
+        },
+        {
+          "text": "الصقر،",
+          "from": 40,
+          "to": 53
+        },
+        {
+          "text": "أكثر",
+          "from": 66,
+          "to": 76
+        },
+        {
+          "text": "من",
+          "from": 77,
+          "to": 82
+        },
+        {
+          "text": "10",
+          "from": 83,
+          "to": 93
+        },
+        {
+          "text": "سنين",
+          "from": 94,
+          "to": 101
+        },
+        {
+          "text": "خبرة،",
+          "from": 104,
+          "to": 113
+        },
+        {
+          "text": "وأكثر",
+          "from": 125,
+          "to": 136
+        },
+        {
+          "text": "من",
+          "from": 137,
+          "to": 142
+        },
+        {
+          "text": "100",
+          "from": 143,
+          "to": 152
+        },
+        {
+          "text": "متدرب",
+          "from": 154,
+          "to": 172
+        },
+        {
+          "text": "وصلوا",
+          "from": 174,
+          "to": 184
+        },
+        {
+          "text": "لهدفهم.",
+          "from": 185,
+          "to": 200
+        }
+      ],
+      "props": {
+        "eyebrow": "COACH ALSAGR",
+        "heading": [
+          {
+            "text": "الكابتن",
+            "cue": "h1"
+          },
+          {
+            "text": "محمد",
+            "cue": "h2"
+          },
+          {
+            "text": "الصقر",
+            "cue": "h3"
+          }
+        ],
+        "stats": [
+          {
+            "value": 10,
+            "prefix": "+",
+            "label": "سنوات خبرة",
+            "cue": "years",
+            "source": "index.html coach stats: +10 سنوات خبرة"
+          },
+          {
+            "value": 100,
+            "prefix": "+",
+            "label": "متدرب وصل لهدفه",
+            "cue": "athletes",
+            "accent": true,
+            "source": "index.html coach stats: +100 متدرب وصل لهدفه"
+          }
+        ],
+        "footnote": {
+          "text": "منذ 2018 · شهادة NCSF معتمدة",
+          "cue": "foot",
+          "icon": "ShieldCheck"
+        }
+      }
+    },
+    {
+      "id": "cta",
+      "template": "brand-reveal",
+      "from": 861,
+      "durationInFrames": 163,
+      "cues": {
+        "logo": 11,
+        "cta": 43,
+        "sub": 85
+      },
+      "words": [
+        {
+          "text": "Reshape،",
+          "from": 11,
+          "to": 27
+        },
+        {
+          "text": "ابدأ",
+          "from": 43,
+          "to": 49
+        },
+        {
+          "text": "التسجيل",
+          "from": 50,
+          "to": 63
+        },
+        {
+          "text": "الحين",
+          "from": 64,
+          "to": 76
+        },
+        {
+          "text": "بدقيقتين",
+          "from": 85,
+          "to": 105
+        },
+        {
+          "text": "بس",
+          "from": 106,
+          "to": 115
+        }
+      ],
+      "props": {
+        "tagline": "RE-SHAPE YOUR BODY",
+        "logoCue": "logo",
+        "cta": {
+          "label": "ابدأ التسجيل الآن",
+          "cue": "cta"
+        },
+        "sub": {
+          "text": "دقيقتان · ٥ خطوات",
+          "cue": "sub"
+        },
+        "url": "reshape-online.com"
+      }
+    }
+  ],
+  "sfx": [
+    {
+      "kind": "hit",
+      "src": "sfx/hit.mp3",
+      "gainDb": -4,
+      "frame": 61
+    },
+    {
+      "kind": "whoosh",
+      "src": "sfx/whoosh.mp3",
+      "gainDb": -10,
+      "frame": 94
+    },
+    {
+      "kind": "tick",
+      "src": "sfx/tick.mp3",
+      "gainDb": 4,
+      "frame": 176
+    },
+    {
+      "kind": "whoosh",
+      "src": "sfx/whoosh.mp3",
+      "gainDb": -10,
+      "frame": 252
+    },
+    {
+      "kind": "tick",
+      "src": "sfx/tick.mp3",
+      "gainDb": 4,
+      "frame": 265
+    },
+    {
+      "kind": "tick",
+      "src": "sfx/tick.mp3",
+      "gainDb": 4,
+      "frame": 309
+    },
+    {
+      "kind": "tick",
+      "src": "sfx/tick.mp3",
+      "gainDb": 4,
+      "frame": 371
+    },
+    {
+      "kind": "whoosh",
+      "src": "sfx/whoosh.mp3",
+      "gainDb": -10,
+      "frame": 445
+    },
+    {
+      "kind": "tick",
+      "src": "sfx/tick.mp3",
+      "gainDb": 4,
+      "frame": 531
+    },
+    {
+      "kind": "tick",
+      "src": "sfx/tick.mp3",
+      "gainDb": 4,
+      "frame": 549
+    },
+    {
+      "kind": "tick",
+      "src": "sfx/tick.mp3",
+      "gainDb": 4,
+      "frame": 555
+    },
+    {
+      "kind": "whoosh",
+      "src": "sfx/whoosh.mp3",
+      "gainDb": -10,
+      "frame": 652
+    },
+    {
+      "kind": "tick",
+      "src": "sfx/tick.mp3",
+      "gainDb": 4,
+      "frame": 737
+    },
+    {
+      "kind": "tick",
+      "src": "sfx/tick.mp3",
+      "gainDb": 4,
+      "frame": 797
+    },
+    {
+      "kind": "whoosh",
+      "src": "sfx/whoosh.mp3",
+      "gainDb": -10,
+      "frame": 859
+    },
+    {
+      "kind": "logo",
+      "src": "sfx/logo-sting.mp3",
+      "gainDb": -5,
+      "frame": 870
+    },
+    {
+      "kind": "tick",
+      "src": "sfx/tick.mp3",
+      "gainDb": 4,
+      "frame": 904
+    }
+  ]
+}

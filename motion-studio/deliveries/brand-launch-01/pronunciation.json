@@ -1,0 +1,19 @@
+{
+  "id": "brand-launch-01",
+  "passed": true,
+  "echoed": false,
+  "expected": 2,
+  "hits": [
+    {
+      "at": 3.72,
+      "heard": "Reshape،",
+      "ok": true
+    },
+    {
+      "at": 29.06,
+      "heard": "Reshape،",
+      "ok": true
+    }
+  ],
+  "method": "blind speech-to-text proxy (not a human listening test)"
+}

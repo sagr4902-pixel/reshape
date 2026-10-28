@@ -1,0 +1,30 @@
+{
+  "test": "RESHAPE brand pronunciation — target رِي شَيْب (ree-shape)",
+  "date": "2026-10-28",
+  "voice": { "id": "o0I5dklyITreiSjxYrIt", "name": "RESHAPE Official Voice (workspace voice)" },
+  "model": "eleven_v4",
+  "prompt": "واحد: رِي شَيْب. [pause] اثنين: /ɹiː ʃeɪp/. [pause] ثلاثة: RESHAPE.",
+  "takes": ["take-a.mp3", "take-b.mp3"],
+  "checks": [
+    {
+      "method": "Speech-to-text on the generation node (eleven_scribe_v1)",
+      "result": "Returned the TTS prompt verbatim, including [pause] tags and IPA slashes, at 0 credits.",
+      "valid_as_verification": false,
+      "why": "This is alignment of the known source text, not independent listening."
+    },
+    {
+      "method": "Blind speech-to-text: take A re-imported as a plain library asset (no prompt metadata), eleven_scribe_v1",
+      "result": "واحد Reshape. اثنين Reshape. ثلاثة Reshape.",
+      "language_probability": 0.845,
+      "valid_as_verification": true,
+      "interpretation": "All three spellings were heard as the English word 'Reshape' (ree-shape), not 'ريشيب' (ree-sheeb) or 'ريشاب' (ree-shaab)."
+    },
+    {
+      "method": "Spectrogram (spec-a.png)",
+      "result": "Brand-name segments show a high-F2 /iː/ onset, a broadband /ʃ/ frication, then a mid front vowel — consistent with /eɪ/, not /aː/.",
+      "valid_as_verification": "supporting evidence only"
+    }
+  ],
+  "decision": "Use the Arabic diacritized spelling رِي شَيْب in narration scripts.",
+  "limits": "Automated checks only. No human listener has confirmed this audio. Re-run the blind check on every final narration (scripts/qc/check-pronunciation)."
+}

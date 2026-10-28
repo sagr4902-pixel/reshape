@@ -1,0 +1,70 @@
+{
+  "id": "brand-launch-01",
+  "file": "/home/user/reshape/motion-studio/out/brand-launch-01/brand-launch-01-preview-540x960.mp4",
+  "label": "qc-preview",
+  "passed": true,
+  "checks": [
+    {
+      "name": "video codec h264",
+      "ok": true,
+      "detail": "h264"
+    },
+    {
+      "name": "pixel format yuv420p",
+      "ok": true,
+      "detail": "yuv420p"
+    },
+    {
+      "name": "aspect 9:16 preserved",
+      "ok": true,
+      "detail": "540x960 (scale 0.5)"
+    },
+    {
+      "name": "frame rate",
+      "ok": true,
+      "detail": "30"
+    },
+    {
+      "name": "audio stream present (aac)",
+      "ok": true,
+      "detail": "aac 48000Hz 2ch"
+    },
+    {
+      "name": "duration matches timeline",
+      "ok": true,
+      "detail": "34.133s vs 34.133s"
+    },
+    {
+      "name": "audio/video aligned",
+      "ok": true,
+      "detail": "a 34.133 / v 34.133"
+    },
+    {
+      "name": "no black frames",
+      "ok": true,
+      "detail": "none"
+    },
+    {
+      "name": "no frozen stretches mid-ad (>1.2s)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "integrated loudness",
+      "ok": true,
+      "detail": "-14 LUFS (target -14)"
+    },
+    {
+      "name": "true peak",
+      "ok": true,
+      "detail": "-1 dBFS (max -1)"
+    }
+  ],
+  "frames": "/home/user/reshape/motion-studio/out/brand-launch-01/qc-preview-frames.png",
+  "loudness": {
+    "I": -14,
+    "TP": -1
+  },
+  "freezes": [],
+  "black": []
+}

@@ -155,9 +155,9 @@ export const M2Brand: React.FC = () => {
       </svg>
 
       {/* "كلّ حصّة… خطوة جديدة" with a step graphic that builds on the VO */}
-      <div style={{ position: "absolute", left: 115, width: 850, top: 760 }}>
+      <div style={{ position: "absolute", left: 40, width: 1000, top: 752 }}>
         <KineticWords
-          fontSize={66}
+          fontSize={76}
           weight={800}
           out={LINE_OUT}
           words={[

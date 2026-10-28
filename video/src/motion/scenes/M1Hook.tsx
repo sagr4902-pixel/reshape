@@ -62,7 +62,7 @@ export const M1Hook: React.FC = () => {
         <DrawPath d="M1120,980 L-40,980" at={2} dur={9} width={5} out={COPY1_OUT} />
         <DrawPath d="M1120,1010 L-40,1010" at={5} dur={9} width={2} stroke={MCOLORS.white} opacity={0.6} out={COPY1_OUT} />
       </svg>
-      <SlantBar x={150} y={860} w={780} h={22} inAt={T.mo - 6} outAt={COPY1_OUT} />
+      <SlantBar x={250} y={612} w={580} h={14} inAt={T.mo - 6} outAt={COPY1_OUT} />
       <SlantBar x={560} y={1060} w={360} h={160} inAt={T.yughayyirak - 2} outAt={COPY1_OUT} dur={8} />
       <SlantBar x={120} y={1250} w={240} h={40} inAt={T.yughayyirak + 2} outAt={COPY1_OUT} dur={8} color={MCOLORS.white} />
       {frame >= T.yughayyirak - 2 && frame < COPY1_OUT + 10 ? <Glow x={760} y={1140} r={420} opacity={0.3 * (1 - prog(frame, COPY1_OUT, COPY1_OUT + 10))} /> : null}
@@ -71,9 +71,9 @@ export const M1Hook: React.FC = () => {
       </svg>
 
       {/* COPY 1 */}
-      <div style={{ position: "absolute", left: 115, width: 850, top: 470 }}>
+      <div style={{ position: "absolute", left: 40, width: 1000, top: 440 }}>
         <KineticWords
-          fontSize={150}
+          fontSize={124}
           out={COPY1_OUT}
           words={[
             { text: "مو", at: T.mo },

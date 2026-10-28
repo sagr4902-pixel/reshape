@@ -622,9 +622,11 @@ def main():
     g = gain_to(mix, -14.0)
     vo, music, sfx, mix = vo * g, music * g, sfx * g, mix * g
 
-    # linked peak limiter (-1 dBFS ceiling), the same gain curve applied to every stem
-    ceiling = 10 ** (-1 / 20)
-    peak = np.max(np.abs(mix), axis=0)
+    # linked true-peak limiter (-1.5 dBTP, peaks measured 4x oversampled so the AAC encode
+    # cannot overshoot to 0 dBFS); the same gain curve is applied to every stem
+    ceiling = 10 ** (-1.5 / 20)
+    up = signal.resample_poly(mix, 4, 1, axis=1)
+    peak = np.max(np.abs(up), axis=0)[: N * 4].reshape(N, 4).max(axis=1)
     need = np.minimum(1.0, ceiling / np.maximum(peak, 1e-9))
     look = int(0.005 * SR)
     # smooth gain reduction: 5 ms look-ahead (min-filter), 80 ms release

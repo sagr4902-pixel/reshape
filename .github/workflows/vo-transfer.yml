@@ -1,0 +1,30 @@
+# Transient helper: fetches ElevenLabs voice-over takes (signed URLs passed at dispatch time, never stored)
+# and commits them to this branch so the Motion Studio editing session can pull them.
+name: vo-transfer
+on:
+  workflow_dispatch:
+    inputs:
+      url_a: { description: "signed URL of take A", required: true, type: string }
+      url_b: { description: "signed URL of take B", required: false, type: string, default: "" }
+      dest:  { description: "destination folder", required: false, type: string, default: "motion-studio/vo" }
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download takes
+        env:
+          URL_A: ${{ inputs.url_a }}
+          URL_B: ${{ inputs.url_b }}
+          DEST: ${{ inputs.dest }}
+        run: |
+          mkdir -p "$DEST"
+          curl -fsSL --retry 3 -o "$DEST/takeA.mp3" "$URL_A"
+          if [ -n "$URL_B" ]; then curl -fsSL --retry 3 -o "$DEST/takeB.mp3" "$URL_B"; fi
+          ls -la "$DEST"; md5sum "$DEST"/*.mp3 > "$DEST/md5.txt"; cat "$DEST/md5.txt"
+      - name: Commit
+        run: |
+          git config user.name "motion-studio-bot"; git config user.email "bot@users.noreply.github.com"
+          git add -A; git commit -m "vo: add voice-over takes (transfer)"; git push origin HEAD

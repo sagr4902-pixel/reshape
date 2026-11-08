@@ -56,7 +56,7 @@ def place(buf, path, frame, gain_db=0.0, dur_f=None, fade_in=0.01, fade_out=0.05
 
 
 # ---- voice-over (normalised takes, -16 LUFS each)
-for line, frame in [(1, 18), (2, 102), (4, 362), (5, 476), (6, 566), (7, 748), (8, 880), (9, 1056), (10, 1182)]:
+for line, frame in [(1, 18), (2, 102), (4, 362), (5, 476), (6, 566), (7, 748), (8, 880), (9, 1056), (10, 1160)]:
     place(vo, f"{ROOT}/vo/l{line}.wav", frame, 0.0, fade_in=0.005, fade_out=0.03)
 
 S = f"{ROOT}/sfx"
@@ -68,7 +68,7 @@ place(bed, f"{S}/amb_hotel.wav", 558, -6, dur_f=60, fade_in=0.05, fade_out=0.12,
 place(bed, f"{S}/amb_park.wav", 618, -8, dur_f=60, fade_in=0.05, fade_out=0.12, loop=True)
 place(bed, f"{S}/amb_sea.wav", 678, -8, dur_f=62, fade_in=0.05, fade_out=0.2, loop=True)
 place(bed, f"{S}/amb_roof.wav", 736, -24, dur_f=310, fade_in=0.3, fade_out=0.3, loop=True)
-place(bed, f"{S}/amb_roof.wav", 1044, -9, dur_f=216, fade_in=0.2, fade_out=1.2, loop=True)
+place(bed, f"{S}/amb_roof.wav", 1044, -10, dur_f=214, fade_in=0.2, fade_out=1.6, loop=True)   # fades to silence before the end card
 
 # ---- foley + accents
 for path, frame, g in [
@@ -76,7 +76,7 @@ for path, frame, g in [
     ("breath", 238, -12), ("sand", 300, -7), ("whoosh1", 340, -9), ("phone_wake", 350, -7),
     ("tap", 486, -9), ("whoosh2", 552, -10), ("boom2", 558, -8), ("whoosh1", 734, -10),
     ("tap", 800, -13), ("whoosh2", 866, -10), ("medal", 990, -4), ("boom1", 1044, -7),
-    ("bar_creak", 1076, -11), ("breath", 1100, -14), ("riser", 1170, -13), ("logo_hit", 1260, -3),
+    ("bar_creak", 1076, -11), ("breath", 1100, -14), ("logo_hit", 1262, -3),
 ]:
     place(fx, f"{S}/{path}.wav", frame, g, fade_in=0.004, fade_out=0.08)
 

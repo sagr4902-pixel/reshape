@@ -1,0 +1,56 @@
+{
+ "about": "Generated media for the RESHAPE cinematic commercial (Higgsfield job IDs). Heavy files are not committed; download them from the Higgsfield account by job ID into the folders below.",
+ "keyframes_16x9 (public/ad/kf2/sNN.png)": {
+  "s01": "d6bc8da8-11e4-474e-b5fa-e76f6e08339f",
+  "s02": "0bfd8a85-ed16-4028-9d9f-0976e47b098f",
+  "s03": "418cbfdb-0a96-47f0-b9b2-65d4770832cb",
+  "s04": "7e9dbcbe-8f8d-41f1-9c26-db3c1089b319",
+  "s05": "9f1c1d47-b05c-4398-9b93-9e09a5a01662",
+  "s06": "b8996e3c-35b7-4408-b97e-4a8c479daa2e",
+  "s07": "8f57b34e-b7a8-4cf3-8bca-537ebf0cc9d3",
+  "s08": "86f069fd-a9d4-4696-8503-d8ad6ee2e9cd",
+  "s10": "b1dd2993-25dd-47c5-b325-eb5fb894aa70",
+  "s11": "4e712605-65d2-497a-aa35-eb20f34ccae6",
+  "s12": "1782f70b-f499-4972-bc7c-8e52dbe9f232"
+ },
+ "keyframes_9x16 (public/ad/kf916/vNN.png)": {
+  "1": "e4d0ca9a-c158-47ae-89f8-f0bc5ba4a6d4",
+  "2": "a84e5c2c-8fc3-40d2-8e12-dc53c9537696",
+  "3": "88a7b8fb-b3d1-4f8c-80da-abb82730e288",
+  "4": "521d0b8a-d69a-450e-ba11-6fa2483b72c5",
+  "5": "dfe70323-c719-4134-9880-106bbe04a7e4  (regenerated; replaces the first take)",
+  "6": "a6e8a5f2-1619-4f95-9108-9806e6e1ba31",
+  "7": "d6006a3a-2e0a-433d-86b1-a049054f1ecc",
+  "8": "b6ad77c8-0fd1-41d9-837a-62300bfb227c",
+  "10": "dffb6ce9-f164-4f8c-809d-33b62b75f2f2",
+  "11": "9bf5fbbe-a64c-4a8f-97af-a9cf51a1574b",
+  "12": "b47c5b8a-1b84-436c-8b22-b61e9804bf33"
+ },
+ "clips_16x9 kling3_0 pro (public/ad/final169/hNN.mp4)": {
+  "1": "b74a4d03-bf77-47a2-8c0e-7f800624b580",
+  "2": "acd94a00-805c-4835-b9ce-ec756f5b5279",
+  "3": "b10d3578-6931-45f7-8c70-9251fcc6f3f5",
+  "4": "ab2c838a-30ef-4f03-b3ff-a6b059e2a188",
+  "5": "a9ee79f0-c17b-4f74-98e1-bc66274cb37b",
+  "6": "1149069f-72ae-4b54-b066-411799c23a60",
+  "8": "02394a09-72c8-49c5-a8a4-6af0b7d7dc2c",
+  "10": "57e6e8ab-9ad2-45e2-b258-a8785938fa7a",
+  "11": "fe869671-de21-4266-9305-d97389523d9e",
+  "12": "68a373f1-aea4-462b-9ac1-d844791ae539"
+ },
+ "clips_9x16 kling3_0 pro (public/ad/final916/vNN.mp4)": {
+  "1": "39313453-d7dc-4496-9ee5-2c2e82eda324",
+  "2": "ce2f720a-0361-4af0-91e2-178150d3bd67",
+  "3": "99dd94fe-7397-4c79-9330-4a01e3d66cc8",
+  "4": "b22e96e4-015b-4b62-b8ea-4cddf5c750cc",
+  "5": "f9a41bfd-48d0-4aae-b7f4-525d767423c0",
+  "6": "f979c6ee-6681-454d-b475-b43f256e20ac",
+  "8": "b66ac106-fd0d-4bc9-998f-cbb2239af85a",
+  "10": "1d33b021-b160-40d9-b166-f128117ef975",
+  "11": "c8bd6aa7-5290-443f-9f4f-bf14bb0f83df",
+  "12": "7a8becbb-28e9-4e41-9ae2-26c930d13aaa"
+ },
+ "app_sequences": "public/ad/app/seq_* are captured from the live trainee UI with synthetic data (tour/seq capture scripts)",
+ "sfx": "ElevenLabs flow m04xmkuLaYLxBQP3sYUS (eleven_text_to_sound_v2); selected takes are in public/ad/sfx",
+ "voice": "ElevenLabs voice mohammed alsagr, lines l1..l10 (a-takes), normalised in public/ad/vo"
+}

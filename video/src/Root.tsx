@@ -9,6 +9,8 @@ import { Commercial, SCENES } from "./Commercial";
 import { Grain, Vignette } from "./components/Finish";
 import { VIDEO } from "./lib/brand";
 import { DURATION_FRAMES, scene } from "./lib/timeline";
+import { Cinematic } from "./cine/Cinematic";
+import { CINE_DURATION } from "./cine/timeline";
 
 // A single scene rendered in isolation (with the global finish), for look-dev and review.
 const ScenePreview: React.FC<{ Component: React.FC }> = ({ Component }) => (
@@ -22,6 +24,8 @@ const ScenePreview: React.FC<{ Component: React.FC }> = ({ Component }) => (
 export const RemotionRoot = () => {
   return (
     <>
+      <Composition id="ReshapeCinematic169" component={Cinematic} durationInFrames={CINE_DURATION} fps={30} width={1920} height={1080} defaultProps={{ portrait: false }} />
+      <Composition id="ReshapeCinematic916" component={Cinematic} durationInFrames={CINE_DURATION} fps={30} width={1080} height={1920} defaultProps={{ portrait: true }} />
       <Composition
         id="ReshapeCommercial"
         component={Commercial}

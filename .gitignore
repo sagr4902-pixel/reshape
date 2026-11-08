@@ -1,3 +1,13 @@
 __pycache__/
 *.pyc
 .coverage
+# heavy generated media for the cinematic ad (see video/public/ad/MEDIA.json)
+video/public/ad/app/
+video/public/ad/clips/
+video/public/ad/kf/
+video/public/ad/kf2/
+video/public/ad/kf916/
+video/public/ad/final169/
+video/public/ad/final916/
+video/public/ad/*.png
+video/out/

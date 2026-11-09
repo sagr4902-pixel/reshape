@@ -150,7 +150,8 @@
    "C5b": "93dc1ea6-75d2-4d91-85b0-284d5a1a1306",
    "C9b": "b2830cf7-a4e8-4a58-b0f1-4fb0740dd489",
    "C3c": "eaca03a3-6b84-417c-b865-cb55635c48d7",
-   "C4c": "a48dcdbe-ca86-4e89-bcfe-3ddb759bb78e"
+   "C4c": "a48dcdbe-ca86-4e89-bcfe-3ddb759bb78e",
+   "C2d": "291e82cd-0bbc-4843-83c8-52da2ea780e6"
   },
   "clips_9x16": {
    "D12b": "a2c04fee-c5b3-4aa0-adf3-9b5f26272206",
@@ -164,7 +165,7 @@
   "used": {
    "h": {
     "c01": "C1b",
-    "c02": "C2b",
+    "c02": "C2d (C2b turned his head toward a three-quarter profile; replaced)",
     "c03": "C3c",
     "c04": "C4c",
     "c05": "C5b",

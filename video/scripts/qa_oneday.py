@@ -17,7 +17,7 @@ import vowel_probe  # noqa: E402
 
 video, models = sys.argv[1], sys.argv[2]
 FPS = 30
-BRAND_CUES = {"od4": (200, 1.4), "od11": (1333, 1.2)}  # cue frame, window (s) that holds the brand word
+BRAND_CUES = {"od4": (204, 1.4), "od11": (1333, 1.2)}  # cue frame, window (s) that holds the brand word
 
 probe = json.loads(subprocess.run(["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", video],
                                   capture_output=True, text=True, check=True).stdout)

@@ -36,7 +36,7 @@ export const CLIPS: ClipShot[] = [
 export const EDGE_LEN: Record<Edge, number> = { cut: 0, bloom: 10, whip: 6, black: 10, dissolve: 15 };
 
 /** "weeks later" title card on black */
-export const CARD = { from: 1017, dur: 27, text: "بعد 8 أسابيع", latin: "8 WEEKS LATER" };
+export const CARD = { from: 1010, dur: 40 };
 
 /** the website, full screen, continuing the dusk phone's screen track */
 export const WEB = { from: 1498, dur: 105, trackStart: 181, dir: "ad/v2/web", n: 330 };
@@ -45,10 +45,3 @@ export const WEB = { from: 1498, dur: 105, trackStart: 181, dir: "ad/v2/web", n:
 export const URL_TYPE = { from: 1329, typeFrames: 36, hold: 120, text: "reshape-online.com" };
 
 export const END = { from: 1603, dur: 120 };
-
-// On-screen supers for sound-off viewing. Placed where the frame has room and no phone.
-export const SUPERS = [
-  { text: "بدون نادي.", from: 560, dur: 90 },
-  { text: "وين ما كنت.", from: 700, dur: 180 },
-  { text: "خطوة بخطوة.", from: 1232, dur: 84 },
-];

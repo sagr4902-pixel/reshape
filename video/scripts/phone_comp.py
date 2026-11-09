@@ -107,7 +107,8 @@ raw_q = []
 for f in read_frames(a.clip):
     g = greenness(f)
     hsv = cv2.cvtColor(f, cv2.COLOR_BGR2HSV)
-    m = ((g > 40) & (hsv[..., 1] > 70) & (hsv[..., 2] > 60)).astype(np.uint8) * 255
+    # screen plate only: the chroma screen measures ~220 here, green spill on skin ~60-110
+    m = ((g > 150) & (hsv[..., 1] > 150) & (hsv[..., 2] > 120)).astype(np.uint8) * 255
     m = cv2.morphologyEx(m, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
     m = cv2.morphologyEx(m, cv2.MORPH_CLOSE, np.ones((9, 9), np.uint8))
     r = fit_quad(m)
@@ -166,13 +167,18 @@ def screen_at(t):
 
 def despill(img, band, blur):
     """The generated glow tints the hands green: clamp green to a skin-aware limit near the
-    screen (neutral greys and whites are unchanged) and give the energy back warm-neutral."""
+    screen (neutral greys and whites are unchanged) and give a little energy back as neutral light."""
     bandf = cv2.GaussianBlur(band.astype(np.float32) / 255, (0, 0), blur)[..., None]
     b_, g_, r_ = img[..., 0], img[..., 1], img[..., 2]
     lim = np.maximum(b_, 0.88 * r_ + 0.12 * b_)
     g2 = np.where(g_ > lim, lim + (g_ - lim) * 0.06, g_)
     spill = g_ - g2
-    des = np.stack([b_ + spill * 0.22, g2 + spill * 0.30, r_ + spill * 0.36], -1)
+    # give a little of the removed energy back as neutral screen light (never warm: that read as yellow)
+    des = np.stack([b_ + spill * 0.14, g2 + spill * 0.12, r_ + spill * 0.12], -1)
+    # where a strong cast was removed, ease the saturation a little so skin reads as screen-lit, not olive
+    lum = (0.114 * des[..., 0] + 0.587 * des[..., 1] + 0.299 * des[..., 2])[..., None]
+    k = (np.clip(spill / 40.0, 0, 1) * 0.35)[..., None]
+    des = des * (1 - k) + lum * k
     return img * (1 - bandf) + des * bandf
 
 
@@ -194,11 +200,13 @@ for i, f in enumerate(read_frames(a.clip)):
         warp = cv2.warpPerspective(scr, Hm, (W, H), flags=cv2.INTER_AREA if SW > W else cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
         inner = cv2.erode(poly, np.ones((3, 3), np.uint8)).astype(np.float32) / 255
         inner = cv2.GaussianBlur(inner, (0, 0), 0.8)
-        # soft key: fully screen where strongly green, fingers (low greenness) stay on top
-        alpha = np.clip((g - 18) / 45.0, 0, 1) * inner
-        # fill the poly where the key leaks (compression noise) but keep dark finger pixels
-        lum = base.mean(2)
-        alpha = np.maximum(alpha, inner * (lum > 70) * (g > 8))
+        # soft key on strong green only (screen ~220, spill on skin ~60-110). Holes are closed inside
+        # the green area itself, never by brightness, so green-lit fingers and the bezel (inside the
+        # fitted quad but not screen-green) always stay in front of the app.
+        alpha = np.clip((g - 120) / 70.0, 0, 1) * inner
+        solid = cv2.morphologyEx(((g > 150) * 255).astype(np.uint8), cv2.MORPH_CLOSE, np.ones((5, 5), np.uint8))
+        solid = cv2.erode(solid, np.ones((3, 3), np.uint8)).astype(np.float32) / 255
+        alpha = np.maximum(alpha, solid * inner * 0.97)
         alpha = cv2.GaussianBlur(alpha, (0, 0), 0.7)[..., None]
         out = out * (1 - alpha) + warp.astype(np.float32) * a.glow * alpha
     else:

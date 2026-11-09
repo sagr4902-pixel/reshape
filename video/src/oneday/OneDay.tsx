@@ -16,7 +16,10 @@ import { Grain, Vignette } from "../components/Finish";
 import { LogoLockup } from "../components/Logo";
 import { COLORS, FONTS } from "../lib/brand";
 import { loadBrandFonts } from "../lib/fonts";
-import { CARD, CLIPS, ClipShot, EDGE_LEN, END, SUPERS, URL_TYPE, WEB } from "./timeline";
+import { CLIPS, ClipShot, EDGE_LEN, END, WEB } from "./timeline";
+import { CaptionLayer } from "./CaptionLayer";
+import { Icon, IconName } from "./icons";
+import { WORDS } from "./words";
 import { SCREEN_QUADS } from "./screenQuads";
 
 loadBrandFonts();
@@ -89,85 +92,6 @@ const Bloom: React.FC<{ at: number }> = ({ at }) => {
   );
 };
 
-/* ----------------------------------------------------------------- text */
-const TimeCard: React.FC = () => {
-  const f = useCurrentFrame();
-  const { height } = useVideoConfig();
-  const o = interpolate(f, [0, 6, CARD.dur - 6, CARD.dur], [0, 1, 1, 0], clamp);
-  const ls = interpolate(f, [0, CARD.dur], [0.5, 0.62]);
-  return (
-    <AbsoluteFill style={{ background: "#000", alignItems: "center", justifyContent: "center" }}>
-      <div style={{ opacity: o, textAlign: "center", transform: `scale(${interpolate(f, [0, CARD.dur], [1.03, 1])})` }}>
-        <div style={{ direction: "rtl", fontFamily: FONTS.display, fontWeight: 900, fontSize: height * 0.085, color: "#fff" }}>{CARD.text}</div>
-        <div style={{ fontFamily: FONTS.latin, fontWeight: 600, fontSize: height * 0.022, letterSpacing: `${ls}em`, color: COLORS.orange, marginTop: height * 0.012 }}>
-          {CARD.latin}
-        </div>
-      </div>
-    </AbsoluteFill>
-  );
-};
-
-const Super: React.FC<{ text: string; dur: number; portrait: boolean }> = ({ text, dur, portrait }) => {
-  const f = useCurrentFrame();
-  const { height } = useVideoConfig();
-  const inP = interpolate(f, [0, 14], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
-  const outP = interpolate(f, [dur - 10, dur], [0, 1], clamp);
-  const size = portrait ? 100 : 84;
-  return (
-    <div style={{ position: "absolute", left: 0, right: 0, top: portrait ? height * 0.7 : undefined, bottom: portrait ? undefined : height * 0.12, textAlign: "center", direction: "rtl", opacity: 1 - outP }}>
-      <span
-        style={{
-          display: "inline-block",
-          whiteSpace: "nowrap",
-          fontFamily: FONTS.display,
-          fontWeight: 900,
-          fontSize: size,
-          lineHeight: 1.15,
-          color: "#fff",
-          textShadow: "0 6px 40px rgba(0,0,0,.6)",
-          clipPath: `inset(0 0 0 ${(1 - inP) * 100}%)`,
-          transform: `translateY(${(1 - inP) * 18}px)`,
-        }}
-      >
-        {text}
-      </span>
-      <div style={{ height: 6, width: interpolate(inP, [0, 1], [0, portrait ? 120 : 96]), background: COLORS.orange, borderRadius: 4, margin: "16px auto 0" }} />
-    </div>
-  );
-};
-
-/** reshape-online.com typed on screen in sync with his thumb on the phone (the site "speaks") */
-const UrlType: React.FC<{ portrait: boolean }> = ({ portrait }) => {
-  const f = useCurrentFrame();
-  const { width, height } = useVideoConfig();
-  const n = Math.min(URL_TYPE.text.length, Math.max(0, Math.floor((f / URL_TYPE.typeFrames) * URL_TYPE.text.length)));
-  const typed = URL_TYPE.text.slice(0, n);
-  const done = f >= URL_TYPE.typeFrames;
-  const o = interpolate(f, [0, 4, URL_TYPE.hold - 14, URL_TYPE.hold], [0, 1, 1, 0], clamp);
-  const caretOn = !done || Math.floor(f / 8) % 2 === 0;
-  const under = interpolate(f, [URL_TYPE.typeFrames, URL_TYPE.typeFrames + 14], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
-  const size = portrait ? 78 : 92;
-  return (
-    <div
-      style={{
-        position: "absolute",
-        left: portrait ? 0 : width * 0.06,
-        right: portrait ? 0 : undefined,
-        top: portrait ? height * 0.12 : height * 0.11,
-        textAlign: portrait ? "center" : "left",
-        direction: "ltr",
-        opacity: o,
-      }}
-    >
-      <span style={{ fontFamily: FONTS.latin, fontWeight: 700, fontSize: size, color: "#fff", letterSpacing: "0.01em", textShadow: "0 4px 30px rgba(0,0,0,.55)" }}>
-        {typed}
-        <span style={{ display: "inline-block", width: size * 0.06, height: size * 0.92, marginLeft: size * 0.05, background: COLORS.orange, verticalAlign: "-0.12em", opacity: caretOn ? 1 : 0 }} />
-      </span>
-      <div style={{ height: 6, width: under * (portrait ? 220 : 260), background: COLORS.orange, borderRadius: 4, margin: portrait ? "14px auto 0" : "14px 0 0 0" }} />
-    </div>
-  );
-};
-
 /* ----------------------------------------------------- the website, full screen */
 type Geo = { cx: number; cy: number; w: number; h: number; rot: number };
 
@@ -210,7 +134,12 @@ const WebStage: React.FC<{ portrait: boolean }> = ({ portrait }) => {
   const bgFade = interpolate(f, [0, 9], [1, 0], { ...clamp, easing: Easing.out(Easing.quad) });
   const tiltY = portrait ? 0 : interpolate(k, [0, 1], [0, -7]);
   const exit = interpolate(f, [WEB.dur - 8, WEB.dur], [0, 1], clamp);
-  const chips = ["برنامجك", "فيديو لكل تمرين", "تغذيتك", "تقدّمك"];
+  const chips: { t: string; i: IconName }[] = [
+    { t: "برنامجك", i: "calendarCheck" },
+    { t: "فيديو لكل تمرين", i: "play" },
+    { t: "تغذيتك", i: "food" },
+    { t: "تقدّمك", i: "progress" },
+  ];
   return (
     <AbsoluteFill style={{ background: "#07080A", opacity: 1 - exit * 0.0 }}>
       {/* stage: deep dusk blue into the brand's dark, with a warm glow behind the phone */}
@@ -249,13 +178,16 @@ const WebStage: React.FC<{ portrait: boolean }> = ({ portrait }) => {
               const o = interpolate(f, [24 + i * 9, 36 + i * 9], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
               return (
                 <span
-                  key={c}
+                  key={c.t}
                   style={{
                     fontFamily: FONTS.body,
                     fontWeight: 600,
                     fontSize: 34,
                     color: "#fff",
-                    padding: "10px 24px",
+                    padding: "10px 22px 10px 26px",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 12,
                     borderRadius: 999,
                     background: "rgba(255,255,255,.07)",
                     border: "1.5px solid rgba(255,255,255,.16)",
@@ -263,7 +195,10 @@ const WebStage: React.FC<{ portrait: boolean }> = ({ portrait }) => {
                     transform: `translateY(${(1 - o) * 14}px)`,
                   }}
                 >
-                  {c}
+                  <span style={{ width: 34, height: 34, borderRadius: "50%", background: COLORS.orange, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                    <Icon name={c.i} size={20} draw={o} />
+                  </span>
+                  {c.t}
                 </span>
               );
             })}
@@ -305,7 +240,9 @@ const EndCard: React.FC<{ portrait: boolean }> = ({ portrait }) => {
   const { fps } = useVideoConfig();
   const pop = spring({ frame: f - 2, fps, config: { damping: 14, stiffness: 120 } });
   const word = interpolate(f, [8, 30], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
-  const cta = interpolate(f, [18, 34], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
+  const w = WORDS.od12.map((x) => x.s - END.from);
+  const cta = spring({ frame: f - (w[0] - 2), fps, config: { damping: 12, stiffness: 170 } });
+  const cta2 = spring({ frame: f - (w[2] - 2), fps, config: { damping: 10, stiffness: 190 } });
   const url = interpolate(f, [30, 46], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
   const logoW = portrait ? 820 : 760;
   return (
@@ -315,8 +252,9 @@ const EndCard: React.FC<{ portrait: boolean }> = ({ portrait }) => {
         <div style={{ transform: `scale(${interpolate(pop, [0, 1], [0.86, 1])})`, opacity: Math.min(1, pop * 1.5) }}>
           <LogoLockup width={logoW} wordReveal={word} wordColor="#FFFFFF" />
         </div>
-        <div style={{ direction: "rtl", fontFamily: FONTS.display, fontWeight: 900, fontSize: portrait ? 92 : 78, color: "#fff", opacity: cta, transform: `translateY(${(1 - cta) * 22}px)`, textAlign: "center" }}>
-          اشترك اليوم… <span style={{ color: COLORS.orange }}>ولا تتردد.</span>
+        <div style={{ direction: "ltr", fontFamily: FONTS.display, fontWeight: 900, fontSize: portrait ? 92 : 78, color: "#fff", opacity: Math.min(1, cta * 1.5), transform: `translateY(${(1 - cta) * 22}px)`, textAlign: "center" }}>
+          <span style={{ display: "inline-block", transform: `scale(${0.7 + 0.3 * cta2})`, opacity: Math.min(1, cta2 * 1.5), color: COLORS.orange, paddingBottom: "0.25em", marginBottom: "-0.25em" }}>ولا تتردد.</span>{" "}
+          <span style={{ display: "inline-block", paddingBottom: "0.25em", marginBottom: "-0.25em" }}>اشترك اليوم…</span>
         </div>
         <div
           style={{
@@ -360,17 +298,6 @@ export const OneDay: React.FC<OneDayProps> = ({ portrait }) => {
         </Sequence>
       ))}
       <Bloom at={CLIPS[1].from} />
-      <Sequence from={CARD.from} durationInFrames={CARD.dur}>
-        <TimeCard />
-      </Sequence>
-      {SUPERS.map((sp, i) => (
-        <Sequence key={`s${i}`} from={sp.from} durationInFrames={sp.dur}>
-          <Super text={sp.text} dur={sp.dur} portrait={portrait} />
-        </Sequence>
-      ))}
-      <Sequence from={URL_TYPE.from} durationInFrames={URL_TYPE.hold}>
-        <UrlType portrait={portrait} />
-      </Sequence>
       <Sequence from={WEB.from} durationInFrames={WEB.dur} premountFor={30}>
         <WebStage portrait={portrait} />
       </Sequence>
@@ -378,6 +305,7 @@ export const OneDay: React.FC<OneDayProps> = ({ portrait }) => {
         <EndCard portrait={portrait} />
       </Sequence>
       <Vignette strength={0.45} />
+      <CaptionLayer portrait={portrait} />
       <Grain opacity={0.055} />
       <Audio src={staticFile("ad/oneday_mix.wav")} />
     </AbsoluteFill>

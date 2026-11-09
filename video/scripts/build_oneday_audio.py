@@ -60,7 +60,7 @@ def place(buf, path, frame, gain_db=0.0, dur_f=None, fade_in=0.01, fade_out=0.05
 # Takes are trimmed to speech, so each frame is where the line starts to be heard.
 for line, frame in [
     ("od1", 24), ("od2", 104),           # bedroom: notification -> Account page
-    ("od4", 200), ("od5", 314),          # rooftop: today's workout, the session video
+    ("od4", 204), ("od5", 314),          # rooftop: today's workout, the session video
     ("od6a", 628), ("od6b", 786), ("od6c", 837),  # at home (rooftop) / travelling (hotel) / wherever (corniche)
     ("od7", 896),                        # kitchen: his food
     ("od8", 1048),                       # weeks later: progress, the medal lands right after the line
@@ -114,6 +114,14 @@ for path, frame, g in [
     (f"{S}/tap.wav", 1531, -16),
     (f"{S}/tap.wav", 1599, -16),
     (f"{S}/logo_hit.wav", 1604, -3),
+    # caption graphics: quiet UI ticks as chips appear and the travel list checks off
+    (f"{S}/tap.wav", 16, -20),          # reminder chip
+    (f"{S}/tap.wav", 268, -20),         # "today's workout" chip
+    (f"{S}/tap.wav", 642, -19),         # ✓ home
+    (f"{S}/tap.wav", 801, -19),         # ✓ travel
+    (f"{S}/tap.wav", 851, -19),         # ✓ anywhere
+    (f"{S}/tap.wav", 939, -20),         # meals chip
+    (f"{S}/tap.wav", 962, -20),         # alternatives chip
 ]:
     place(fx, path, frame, g, fade_in=0.004, fade_out=0.08)
 

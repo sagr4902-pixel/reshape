@@ -120,5 +120,66 @@
   },
   "voice_new": "ElevenLabs flow OxtfFSQpAiFxBEpOW59v, voice mohammed alsagr, eleven_v4, premium Saudi white dialect (not Fusha), tags [Saudi accent] [deep voice]: od1 «التمرين… ما يبي له نادي.», od2 «يبي له قرار… وخطة واضحة.», od4 «مع /riːˈʃeɪp/… برنامجك جاهز لك كل يوم.», od5 «وكل تمرين معه فيديو يشرح لك الأداء.», od6a/b/c «في البيت… في السفر… وين ما كنت.», od7 «وأكلك واضح… وجباتك وبدايلها.», od8 «وتشوف تقدّمك بعينك… أسبوع ورا أسبوع.», od9 «وأنا معك… خطوة بخطوة.», od11 «/riːˈʃeɪp/ أونلاين… دوت كوم.», od12 «اشترك اليوم… ولا تتردد.» (brand vowel /eɪ/ verified on od4, od11)",
   "sfx_new": "ElevenLabs flow m04xmkuLaYLxBQP3sYUS -> public/ad/sfx2 (buzz, heartbeat, door, steps, typing, run, amb_dusk, amb_kitchen, amb_bedroom)"
+ },
+ "v3_fixes": {
+  "about": "Revision after review notes: bedroom push-in without a forced end frame (man stays seated), dawn take rebuilt with one fixed pull-up station and a single bench outside the left post (phone placed on it), kitchen watch natural, dusk push-in without a forced end frame (watch stays put). Clips replace public/ad/v2/{h,v}/c01-c05, c09, c12.",
+  "keyframes_16x9": {
+   "K01b": "27c65634-30ea-4194-b673-5bbf8c50911c",
+   "K03b": "9401b795-6fd8-4b2d-8597-10158a548101",
+   "K04b": "523756ce-c3cb-457a-a51d-999fb1264c0d",
+   "K05b": "b06dcd56-3876-4a78-9093-a7890ecacf48",
+   "K06b": "97eeae47-8b9e-4a1a-b146-a75391ba904f",
+   "K11b": "1192047e-9d0c-4b76-85f0-d6deac0757c3",
+   "K05c": "fab086d9-a2da-42ea-8a79-8c7790e78866"
+  },
+  "keyframes_9x16": {
+   "V01b": "c5d3f82f-24ba-4cf9-b055-3a3349c5dd8e",
+   "V03b": "a854fa31-fb42-4975-b7a4-f906bcf70469",
+   "V04b": "359de047-1fb8-4656-a972-976bb3e8c68d",
+   "V05b": "f9922b5e-edd0-4bab-80ce-1c2cffb9d804",
+   "V06b": "a7607683-e9eb-4bf2-bc44-fa7179095890",
+   "V11b": "e5680970-c88e-4e38-bfde-c9f1e2133385",
+   "V05c": "643fd487-d25b-4b02-b15e-91749c39137c"
+  },
+  "clips_16x9": {
+   "C12b": "a69ee05c-857e-4f7b-95ab-c5956be4620b",
+   "C1b": "38a05a44-567b-4337-96e8-8e5e5daca041",
+   "C2b": "d9c1282a-0c75-4657-8272-1a8692504d0b",
+   "C3b": "a4d6e58f-2ebc-4720-9fe7-5923b7ad408c",
+   "C4b": "e236ec5f-001f-4885-b812-f18a911cdb1f",
+   "C5b": "93dc1ea6-75d2-4d91-85b0-284d5a1a1306",
+   "C9b": "b2830cf7-a4e8-4a58-b0f1-4fb0740dd489",
+   "C3c": "eaca03a3-6b84-417c-b865-cb55635c48d7",
+   "C4c": "a48dcdbe-ca86-4e89-bcfe-3ddb759bb78e"
+  },
+  "clips_9x16": {
+   "D12b": "a2c04fee-c5b3-4aa0-adf3-9b5f26272206",
+   "D1b": "94d075d6-3859-4987-a71c-1a4963cf92c0",
+   "D2b": "1abc5441-3d3d-418e-bf8d-76c968986f34",
+   "D5b": "4e78d585-183e-401a-9ce5-e401fff96cc4",
+   "D9b": "9a139673-92f5-435b-b24f-c0583fb84b96",
+   "D3c": "dcf0c5c7-5472-474d-b8a8-a757ef2ca18e",
+   "D4c": "bacf74c3-1257-4c72-9e63-7db45f34a4aa"
+  },
+  "used": {
+   "h": {
+    "c01": "C1b",
+    "c02": "C2b",
+    "c03": "C3c",
+    "c04": "C4c",
+    "c05": "C5b",
+    "c09": "C9b",
+    "c12": "C12b"
+   },
+   "v": {
+    "c01": "D1b",
+    "c02": "D2b",
+    "c03": "D3c",
+    "c04": "D4c",
+    "c05": "D5b",
+    "c09": "D9b",
+    "c12": "D12b"
+   }
+  }
  }
 }

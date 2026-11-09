@@ -1,4 +1,4 @@
-"""Pre-mix RESHAPE "One Day" (v2): dry Saudi VO + sound design only (NO MUSIC).
+"""Pre-mix RESHAPE "One Day" (v2): dry Saudi white-dialect VO + sound design only (NO MUSIC).
 
 Cue frames mirror src/oneday/timeline.ts (30 fps). Location beds follow the picture and duck
 under the voice; the master is loudness-normalised for social (-14 LUFS, -1 dBTP).
@@ -56,16 +56,17 @@ def place(buf, path, frame, gain_db=0.0, dur_f=None, fade_in=0.01, fade_out=0.05
     buf[start:end] += x[: end - start] * db(gain_db)
 
 
-# ---- voice-over: his voice carries the day (normalised takes, -16 LUFS each)
+# ---- voice-over: his voice carries the day, in a premium Saudi "white" dialect (not Fusha).
+# Takes are trimmed to speech, so each frame is where the line starts to be heard.
 for line, frame in [
-    ("l1", 30), ("l2", 104),            # bedroom: notification -> Account page
-    ("l4", 226), ("l5", 300),           # rooftop: today's workout, the session video
-    ("l6a", 628), ("l6b", 790), ("l6c", 842),  # at home (rooftop) / travelling (hotel) / wherever (corniche)
-    ("l7", 900),                        # kitchen: nutrition
-    ("l8", 1052),                       # weeks later: progress, medal lands on the last word
-    ("l9", 1222),                       # sunset pull-up: the coach
-    ("l11", 1333),                      # dusk: he types it, the voice says it
-    ("l12", 1622),                      # end card
+    ("od1", 24), ("od2", 104),           # bedroom: notification -> Account page
+    ("od4", 200), ("od5", 314),          # rooftop: today's workout, the session video
+    ("od6a", 628), ("od6b", 786), ("od6c", 837),  # at home (rooftop) / travelling (hotel) / wherever (corniche)
+    ("od7", 896),                        # kitchen: his food
+    ("od8", 1048),                       # weeks later: progress, the medal lands right after the line
+    ("od9", 1214),                       # sunset pull-up: the coach
+    ("od11", 1333),                      # dusk: he types it, the voice says it
+    ("od12", 1620),                      # end card
 ]:
     place(vo, f"{VO}/{line}.wav", frame, 0.0, fade_in=0.005, fade_out=0.03)
 

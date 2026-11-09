@@ -49,6 +49,6 @@ export const END = { from: 1603, dur: 120 };
 // On-screen supers for sound-off viewing. Placed where the frame has room and no phone.
 export const SUPERS = [
   { text: "بدون نادي.", from: 560, dur: 90 },
-  { text: "في أي مكان.", from: 700, dur: 180 },
+  { text: "وين ما كنت.", from: 700, dur: 180 },
   { text: "خطوة بخطوة.", from: 1232, dur: 84 },
 ];

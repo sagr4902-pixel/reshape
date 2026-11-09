@@ -1,9 +1,11 @@
 """Assemble the per-shot phone-screen timelines (30 fps, 1170x2532 JPEG frames) for the v2 film.
 
-  python3 scripts/build_screen_tracks.py <captures_dir> <out_dir>
+  python3 scripts/build_screen_tracks.py <captures_dir> <out_dir> <light_captures_dir>
 
-captures_dir holds seq_lock, seq_me, seq_web (Playwright captures); the v1 sequences come from
-public/ad/app. Each track is a folder of frames that scripts/phone_comp.py warps into a clip.
+The morning screens are dark (captures_dir: seq_lock, seq_me, seq_home_dawn, seq_session_dawn) and
+the evening ones light (light_captures_dir: seq_food, seq_progress, seq_medal, seq_web), so the
+phone reads against each scene's light. Each track is a folder of frames that
+scripts/phone_comp.py warps into a clip.
 """
 import os
 import subprocess
@@ -12,7 +14,7 @@ import sys
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
-CAP, OUT = sys.argv[1], sys.argv[2]
+CAP, OUT, LIGHT = sys.argv[1], sys.argv[2], sys.argv[3]
 APP = "public/ad/app"
 W, H = 1170, 2532
 
@@ -87,10 +89,13 @@ for i in range(150):
 home_part = [home[0]] * (151 - len(home)) + home  # 151 frames
 write("t_dawn", home_part + zoom_cross(home[-1], sess[0], 8, a_zoom=1.04, b_from=0.95) + sess_frames)
 
-# ---- C10 sunset: progress scroll -> medal pop
-prog = seq(os.path.join(APP, "seq_progress"))
-medal = seq(os.path.join(APP, "seq_medal"))
+# ---- C09 kitchen (evening, light): today's meals
+write("t_food", seq(os.path.join(LIGHT, "seq_food")))
+
+# ---- C10 sunset (evening, light): progress scroll -> medal pop
+prog = seq(os.path.join(LIGHT, "seq_progress"))
+medal = seq(os.path.join(LIGHT, "seq_medal"))
 write("t_sunset", [prog[0]] * 6 + prog + medal + [medal[-1]] * 20)
 
 # ---- C12 dusk + full-screen: the browser types reshape-online.com and walks the landing page
-write("t_web", seq(os.path.join(CAP, "seq_web")))
+write("t_web", seq(os.path.join(LIGHT, "seq_web")))

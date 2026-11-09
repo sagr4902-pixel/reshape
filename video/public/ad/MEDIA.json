@@ -118,7 +118,7 @@
    "D11": "ffd20399-f4d3-4554-94b5-2c738ea29e53",
    "D12": "7581ee52-ece8-4246-aaee-3965059cbed5"
   },
-  "voice_new": "ElevenLabs flow OxtfFSQpAiFxBEpOW59v, voice mohammed alsagr, eleven_v4: l11 \"/riːˈʃeɪp/ أونلاين… دوت كوم.\" (formant check: /eɪ/ ok), l12 \"اشْتَرِك اليوم… ولا تِتْرَدَّد.\"; l6 split into l6a/l6b/l6c at its pauses",
+  "voice_new": "ElevenLabs flow OxtfFSQpAiFxBEpOW59v, voice mohammed alsagr, eleven_v4, premium Saudi white dialect (not Fusha), tags [Saudi accent] [deep voice]: od1 «التمرين… ما يبي له نادي.», od2 «يبي له قرار… وخطة واضحة.», od4 «مع /riːˈʃeɪp/… برنامجك جاهز لك كل يوم.», od5 «وكل تمرين معه فيديو يشرح لك الأداء.», od6a/b/c «في البيت… في السفر… وين ما كنت.», od7 «وأكلك واضح… وجباتك وبدايلها.», od8 «وتشوف تقدّمك بعينك… أسبوع ورا أسبوع.», od9 «وأنا معك… خطوة بخطوة.», od11 «/riːˈʃeɪp/ أونلاين… دوت كوم.», od12 «اشترك اليوم… ولا تتردد.» (brand vowel /eɪ/ verified on od4, od11)",
   "sfx_new": "ElevenLabs flow m04xmkuLaYLxBQP3sYUS -> public/ad/sfx2 (buzz, heartbeat, door, steps, typing, run, amb_dusk, amb_kitchen, amb_bedroom)"
  }
 }

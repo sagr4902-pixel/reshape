@@ -10,6 +10,26 @@ Two versions live in this project:
 | `ReshapeMotionGraphics` | **Current version.** 100 % 2D/2.5D motion graphics, Saudi VO with the corrected brand pronunciation (ree-SHAYP), soft SFX only, **no music** | `RESHAPE_Premium_Motion_Graphics_35s.mp4` |
 | `ReshapeCommercial` | Original v1 (CGI equipment + original score), kept unchanged | `RESHAPE_Club_Commercial_35s.mp4` |
 
+## reshape-online.com films
+
+| Composition | What it is |
+| --- | --- |
+| `ReshapeOneDay169` / `ReshapeOneDay916` | **"One Day" (v2), ~57 s.** One actor (always from behind) through one day, shot as if by one camera: chained Kling clips, his phone showing the real app (Account page, today's workout, session video, nutrition, progress + medal), and at dusk he types reshape-online.com while the voice says it; the site then fills the frame before the end card. SFX only, no music. |
+| `ReshapeCinematic169` / `ReshapeCinematic916` | The first 45 s cinematic cut (v1), kept unchanged. |
+
+How "One Day" is built (job IDs for every generated image and clip are in `public/ad/MEDIA.json` → `v2_one_day`):
+
+1. **Continuity.** A back-view character reference feeds every keyframe; each Kling 3.0 clip gets the previous shot's keyframe as `start_image` and the next as `end_image`, so the dawn sequence (`c02`–`c06`) cuts on identical frames and reads as one take, ending in a push into his shirt that opens onto the desert.
+2. **Phone screens.** Keyframes carry a flat chroma-green screen. `scripts/build_screen_tracks.py` assembles each shot's screen timeline from Playwright captures of the real site (mocked backend, synthetic trainee), and `scripts/phone_comp.py` tracks the green quad per frame, warps the capture in with a homography, keeps fingers in front through a soft key and removes the green spill from the hands. `--quads` exports the tracked corners; `scripts/write_screen_quads.py` turns the dusk shot's last corners into `src/oneday/screenQuads.ts` so the website stage starts exactly on the hand-held phone.
+3. **Edit.** `src/oneday/timeline.ts` (shots, rates, transitions, supers) and `src/oneday/OneDay.tsx` (bloom, whips, "8 weeks later" card, typed URL, website stage, end card). Clips live in `public/ad/v2/{h,v}/cNN.mp4` (git-ignored; re-download by job ID).
+4. **Sound.** `python3 scripts/build_oneday_audio.py` → `public/ad/oneday_mix.wav` (−14 LUFS, −1 dBTP). Voice lines are in `public/ad/vo` (`l11` speaks the address; the brand vowel was checked with `scripts/vowel_probe.py`); new foley and beds are in `public/ad/sfx2`.
+5. **QA.** `python3 scripts/qa_faces.py <clip> <models_dir> <out_dir>` on every clip (no face, no eyes; hits are reviewed by eye).
+
+```
+npx remotion render ReshapeOneDay169 out/oneday/RESHAPE_OneDay_16x9.mp4 --codec=h264 --crf=17 --audio-codec=aac --audio-bitrate=320k --pixel-format=yuv420p --color-space=bt709
+npx remotion render ReshapeOneDay916 out/oneday/RESHAPE_OneDay_9x16.mp4 --codec=h264 --crf=17 --audio-codec=aac --audio-bitrate=320k --pixel-format=yuv420p --color-space=bt709
+```
+
 ## Motion-graphics version
 
 ```

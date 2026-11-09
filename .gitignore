@@ -11,3 +11,5 @@ video/public/ad/final169/
 video/public/ad/final916/
 video/public/ad/*.png
 video/out/
+# v2 "One Day" clips, composites and screen frames (job IDs in MEDIA.json)
+video/public/ad/v2/

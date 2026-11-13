@@ -64,15 +64,15 @@
    "db": -11
   },
   {
-   "s": "word_accent",
-   "f": 144,
-   "db": -11
-  },
-  {
    "s": "cloth_1",
    "f": 118,
    "db": -16,
    "pan": 0.1
+  },
+  {
+   "s": "word_accent",
+   "f": 144,
+   "db": -11
   },
   {
    "s": "cloth_2",
@@ -198,37 +198,128 @@
   },
   {
    "s": "riser_air",
-   "f": 600,
+   "f": 597,
    "db": -12
-  },
-  {
-   "s": "converge_swirl",
-   "f": 1100,
-   "db": -8
-  },
-  {
-   "s": "riser_air",
-   "f": 1120,
-   "db": -13
-  },
-  {
-   "s": "logo_impact",
-   "f": 1120,
-   "db": -3
   },
   {
    "s": "whoosh_light_3",
-   "f": 1148,
-   "db": -14
+   "f": 598,
+   "db": -9
   },
   {
-   "s": "glow_shimmer",
-   "f": 1186,
-   "db": -12
+   "s": "split_whoosh",
+   "f": 604,
+   "db": -8
   },
   {
    "s": "marker_tick",
-   "f": 1262,
+   "f": 616,
+   "db": -15,
+   "pan": -0.3
+  },
+  {
+   "s": "whoosh_deep_2",
+   "f": 620,
+   "db": -15
+  },
+  {
+   "s": "cloth_1",
+   "f": 623,
+   "db": -21,
+   "pan": 0.2
+  },
+  {
+   "s": "marker_tick",
+   "f": 625,
+   "db": -15,
+   "pan": 0.3
+  },
+  {
+   "s": "glow_shimmer",
+   "f": 656,
+   "db": -17
+  },
+  {
+   "s": "cloth_2",
+   "f": 669,
+   "db": -21,
+   "pan": 0.2
+  },
+  {
+   "s": "whoosh_light_1",
+   "f": 672,
+   "db": -17
+  },
+  {
+   "s": "kid_steps",
+   "f": 684,
+   "db": -16,
+   "align": "start",
+   "dur": 1.5,
+   "fade": 0.2
+  },
+  {
+   "s": "kids_area_air",
+   "f": 696,
+   "db": -22,
+   "align": "start",
+   "fadein": 0.6,
+   "dur": 5.6,
+   "fade": 0.8,
+   "bus": "amb"
+  },
+  {
+   "s": "glow_shimmer",
+   "f": 708,
+   "db": -17
+  },
+  {
+   "s": "cloth_1",
+   "f": 715,
+   "db": -22,
+   "pan": 0.2
+  },
+  {
+   "s": "kid_steps",
+   "f": 726,
+   "db": -18,
+   "align": "start",
+   "dur": 1.0,
+   "fade": 0.2
+  },
+  {
+   "s": "hoop_hop",
+   "f": 773,
+   "db": -12
+  },
+  {
+   "s": "hoop_hop",
+   "f": 786,
+   "db": -12
+  },
+  {
+   "s": "hoop_hop",
+   "f": 799,
+   "db": -13
+  },
+  {
+   "s": "high_five",
+   "f": 808,
+   "db": -8
+  },
+  {
+   "s": "whoosh_deep_1",
+   "f": 832,
+   "db": -13
+  },
+  {
+   "s": "sub_impact_soft",
+   "f": 846,
+   "db": -10
+  },
+  {
+   "s": "glow_shimmer",
+   "f": 850,
    "db": -16
   },
   {
@@ -247,14 +338,14 @@
    "db": -18
   },
   {
-   "s": "cloth_2",
-   "f": 937,
-   "db": -19
-  },
-  {
    "s": "marker_tick",
    "f": 930,
    "db": -12
+  },
+  {
+   "s": "cloth_2",
+   "f": 937,
+   "db": -19
   },
   {
    "s": "check_stamp",
@@ -300,6 +391,36 @@
    "s": "whoosh_deep_1",
    "f": 1062,
    "db": -11
+  },
+  {
+   "s": "converge_swirl",
+   "f": 1100,
+   "db": -8
+  },
+  {
+   "s": "riser_air",
+   "f": 1120,
+   "db": -13
+  },
+  {
+   "s": "logo_impact",
+   "f": 1120,
+   "db": -3
+  },
+  {
+   "s": "whoosh_light_3",
+   "f": 1148,
+   "db": -14
+  },
+  {
+   "s": "glow_shimmer",
+   "f": 1186,
+   "db": -12
+  },
+  {
+   "s": "marker_tick",
+   "f": 1262,
+   "db": -16
   }
  ]
 }

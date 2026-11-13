@@ -49,7 +49,8 @@ export const camKeys: Array<[number, V3, V3, number?]> = [
   [250, [160, 230, -410], [0, 214, 0], 40],
   [284, [165, 208, -425], [0, 188, 0], 40],
   [300, [205, 240, -640], [85, 212, 0], 42],
-  [322, [380, 360, -1250], [420, 360, 0], 42],
+  [314, [215, 300, -1060], [160, 262, 0], 42],
+  [330, [420, 400, -1450], [430, 380, 0], 42],
   [346, [510, 470, -1500], [510, 470, 0], 42],
   [366, [560, 560, -1360], [600, 560, 0], 42],
   [386, [780, T + 240, -700], [800, T + 140, 300], 42],
@@ -157,7 +158,7 @@ const PROG_CTRL: V3[] = (() => {
     [P.strength.x + 60, P.strength.y, P.strength.z + 60], [P.strength.x - 120, P.strength.y + 30, P.strength.z + 420],
     [P.control.x + 60, P.control.y, P.control.z - 140], [P.control.x - 60, P.control.y, P.control.z + 80],
     [P.control.x + 120, P.control.y + 40, P.control.z + 430], [P.skill.x - 120, P.skill.y, P.skill.z - 120],
-    [P.skill.x - 150, P.skill.y, P.skill.z + 100], [P.skill.x - 40, P.skill.y + 10, P.skill.z + 260], [P.skill.x + 20, P.skill.y + 420, P.skill.z + 300], [P.skill.x + 20, P.skill.y + 1900, P.skill.z + 300],
+    [P.skill.x - 150, P.skill.y, P.skill.z + 60], [P.skill.x - 60, P.skill.y + 6, P.skill.z + 120], [P.skill.x + 10, P.skill.y + 420, P.skill.z + 130], [P.skill.x + 10, P.skill.y + 1900, P.skill.z + 130],
   );
   return pts;
 })();
@@ -372,7 +373,7 @@ export const World: React.FC<{f: number; cam?: Cam}> = ({f, cam: camOverride}) =
   // --- the bar splits into four glowing segments that land as the platforms' front edges ---
   if (f >= 290 && f < 360) {
     BLOCKS.forEach((b, i) => {
-      const k = seg(f, 300 + i * 5, 330 + i * 5, E.inOutCubic);
+      const k = seg(f, 298 + i * 4, 324 + i * 4, E.inOutCubic);
       const z0 = -POST_Z + (i * 2 * POST_Z) / 4, z1 = -POST_Z + ((i + 1) * 2 * POST_Z) / 4;
       const A0: V3 = [0, BAR_Y, z0], A1: V3 = [0, BAR_Y, z1];
       const B0: V3 = [b.x0 + 2, b.top, EDGE_Z], B1: V3 = [b.x1 - 2, b.top, EDGE_Z];
@@ -527,8 +528,9 @@ export const World: React.FC<{f: number; cam?: Cam}> = ({f, cam: camOverride}) =
     const to = progTo(f);
     const sub = sub3(PROG, PROG_L, 0, to);
     if (sub.length > 1) {
-      const {p2, w} = project(sub, cam, 2.4, 1.5, 16);
-      items.push({z: -1e7, layer: 1, node: <MotionPathW key="prog" pts={p2} widths={w} to={1} head={to < 0.999 ? 16 : 0} glow={0.5} />});
+      const boost = seg(f, 540, 584, E.inOutSine); // the closing rise gets bolder
+      const {p2, w} = project(sub, cam, lerp(2.4, 5.2, boost), 1.5, lerp(16, 30, boost));
+      items.push({z: -1e7, layer: f > 572 ? 3 : 1, node: <MotionPathW key="prog" pts={p2} widths={w} to={1} head={to < 0.999 ? lerp(16, 26, boost) : 0} glow={lerp(0.5, 0.75, boost)} />});
     }
   }
 

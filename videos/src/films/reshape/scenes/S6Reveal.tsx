@@ -6,7 +6,7 @@ import {Word} from '../../../kit/Text';
 import {C, FONT} from '../../../kit/theme';
 import type {SceneProps} from '../Film';
 import contour from '../logo_contour.json';
-import {lineEnd} from '../timeline';
+import {lineEnd, wordAt} from '../timeline';
 
 /** Finale: every path converges, traces the RESHAPE mark, and resolves into the official logo. */
 const LW = 560; // logo display width (official PNG, unmodified)
@@ -113,6 +113,28 @@ export const S6Reveal: React.FC<SceneProps> = ({f}) => {
           </div>
         ) : null}
       </AbsoluteFill>
+
+      {/* campaign line, word by word with the narration, then hands over to the end card */}
+      {(() => {
+        const ws = [
+          {t: 'من', i: 1}, {t: 'أول', i: 2}, {t: 'حركة…', i: 3}, {t: 'لأقوى', i: 4, c: C.orange}, {t: 'نسخة', i: 5}, {t: 'منك', i: 6},
+        ];
+        const out = seg(f, endAt - 14, endAt - 2, E.inCubic);
+        if (out >= 1) return null;
+        return (
+          <div style={{position: 'absolute', left: 0, right: 0, top: 1100, transform: 'translateY(-50%)', display: 'flex', justifyContent: 'center',
+            direction: 'rtl', gap: 18, opacity: 1 - out, filter: `blur(${out * 6}px)`}}>
+            {ws.map((w) => {
+              const at = wordAt('L6', w.i);
+              const pe = E.outCubic(seg(f, at - 3, at + 11, E.linear));
+              return (
+                <span key={w.i} style={{fontFamily: FONT.display, fontWeight: 800, fontSize: 62, color: w.c ?? C.sand, opacity: Math.min(1, pe * 1.6),
+                  transform: `translateY(${(1 - pe) * 18}px)`, filter: `blur(${(1 - pe) * 6}px)`, clipPath: `inset(-30% 0 -30% ${(1 - pe) * 100}%)`, display: 'inline-block'}}>{w.t}</span>
+              );
+            })}
+          </div>
+        );
+      })()}
 
       {/* end card */}
       <Word text="ابدأ رحلتك اليوم" p={seg(f, endAt, endAt + 16, E.linear)} size={96} x={540} y={1100} color={C.light} weight={800} />

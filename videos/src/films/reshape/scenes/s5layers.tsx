@@ -161,7 +161,7 @@ export const S5Text: React.FC<{f: number}> = ({f}) => {
   const at = (x: number, y: number) => toScreen(cam, pr(RA, cam.x, x, y, 1));
   const size = 112 * kd(1) * cam.z;
   const ph = [
-    {words: [{t: 'تدريب', at: w(0)}, {t: 'حضوري', at: w(1), color: C.orange}], out: w(2) - 12, x: -380, y: 210},
+    {words: [{t: 'تدريب', at: 899}, {t: 'حضوري', at: 905, color: C.orange}], out: w(2) - 10, x: -380, y: 210},
     {words: [{t: 'خطوات', at: w(2)}, {t: 'واضحة', at: w(3), color: C.orange}], out: w(4) - 12, x: -300, y: 210},
     {words: [{t: 'تطوّر', at: w(4)}, {t: 'ينشاف', at: w(5), color: C.orange}], out: 1052, x: -260, y: 210},
   ];

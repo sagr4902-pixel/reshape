@@ -30,7 +30,7 @@ export const voLines = () => (Object.keys(VO_AT) as Array<keyof typeof VO_AT>).m
 
 /** Motion-blur samples per frame: more where the camera or subject moves fast, fewer on calm frames. */
 const FAST: Array<[number, number]> = [
-  [14, 62], [196, 216], [284, 336], [368, 416], [434, 464], [482, 514], [556, 640], [1076, 1128], [1134, 1166],
+  [14, 62], [196, 216], [284, 336], [368, 416], [434, 464], [482, 514], [556, 640], [818, 926], [1054, 1128], [1134, 1166],
 ];
 export const blurSamplesAt = (f: number, extraFast: Array<[number, number]> = []) =>
   [...FAST, ...extraFast].some(([a, b]) => f >= a && f <= b) ? 10 : 4;

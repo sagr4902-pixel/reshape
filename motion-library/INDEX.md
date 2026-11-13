@@ -10,3 +10,4 @@
 | 006 | فيلم إطلاق بأسلوب مختبرات AI + تعليق صوتي ElevenLabs + زجاج سائل (1:1، 22 ث) | editing-styles | HTML Canvas + ElevenLabs + Whisper + ffmpeg | [006](prompts/editing-styles/006-ai-lab-launch-film-voiceover.md) | 2026-11-13 |
 | 007 | مقدمة لموقع/منتج + موسيقى مؤلّفة ومتزامنة (Ultracode) | intros-outros | عام (Remotion / HTML) | [007](prompts/intros-outros/007-site-intro-with-original-music.md) | 2026-11-13 |
 | 008 | حملة RESHAPE «من أول حركة… إلى أقوى نسخة منك» (9:16، 45 ث، تعليق صوتي بدون موسيقى) | brand-campaigns | Remotion + ElevenLabs + SFX | [008](prompts/brand-campaigns/008-reshape-premium-campaign.md) | 2026-11-13 |
+| 009 | قالب «اختبار سريع» بتايبوقرافي متحرك (مرجع أسلوب، مطبّق في RESHAPE v2) | editing-styles | Remotion | [009](prompts/editing-styles/009-quiz-kinetic-typography-format.md) | 2026-11-13 |

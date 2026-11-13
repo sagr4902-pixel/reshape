@@ -6,3 +6,4 @@ public/audio/mix/
 public/audio/sfx/_takes/
 deliverables/**/*.wav
 deliverables/**/*_1080x1920_30fps.mp4
+public/audio/mix2/

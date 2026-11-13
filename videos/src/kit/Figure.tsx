@@ -70,8 +70,8 @@ type Part = {d: string; fill: string; shade: string; g?: {a: V2; b: V2}};
 
 export const Figure: React.FC<{
   j: Joints; P: Props; o: Outfit; x?: number; y?: number; scale?: number; flip?: boolean;
-  light?: V2; rim?: {color: string; dx: number; dy: number; opacity: number} | null; opacity?: number; far?: number;
-}> = ({j, P, o, x = 0, y = 0, scale = 1, flip = false, light = [-0.6, -0.8], rim = null, opacity = 1, far = 0.78}) => {
+  light?: V2; rim?: {color: string; dx: number; dy: number; opacity: number} | null; opacity?: number; far?: number; flat?: boolean;
+}> = ({j, P, o, x = 0, y = 0, scale = 1, flip = false, light = [-0.6, -0.8], rim = null, opacity = 1, far = 0.78, flat = false}) => {
   const uid = useId().replace(/[:«»]/g, '');
   const L = norm2(light);
   const parts: Part[] = [];
@@ -173,7 +173,7 @@ export const Figure: React.FC<{
         </g>
       ) : null}
       {parts.slice(0, nearStart).map((p, i) => (
-        <path key={i} d={p.d} fill={p.g ? `url(#g${uid}_${i})` : p.fill} />
+        <path key={i} d={p.d} fill={p.g && !flat ? `url(#g${uid}_${i})` : p.fill} />
       ))}
       <g clipPath={`url(#hc${uid})`}>
         {o.hairStyle === 'cap' && o.cap ? (
@@ -190,7 +190,7 @@ export const Figure: React.FC<{
       ) : null}
       {parts.slice(nearStart).map((p, k) => {
         const i = nearStart + k;
-        return <path key={i} d={p.d} fill={p.g ? `url(#g${uid}_${i})` : p.fill} />;
+        return <path key={i} d={p.d} fill={p.g && !flat ? `url(#g${uid}_${i})` : p.fill} />;
       })}
     </g>
   );

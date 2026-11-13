@@ -45,7 +45,7 @@ def main():
     vo_bus = np.zeros((N, 2), np.float32)
     fx_bus = np.zeros((N, 2), np.float32)
     amb_bus = np.zeros((N, 2), np.float32)
-    timing = json.loads((ROOT / "src" / "vo_timing.json").read_text())
+    timing = json.loads((ROOT / cues.get("timing", "src/vo_timing.json")).read_text())
     for lid, frame in cues["vo"].items():
         v = load(ROOT / "public" / timing["lines"][lid]["file"], mono=True)[:, 0] * 10 ** (cues.get("vo_db", 0) / 20)
         s = int(frame / FPS * SR)
@@ -89,16 +89,17 @@ def main():
     mix = vo_bus + fx_bus + amb_bus
     # gentle tail fade
     tf = int(0.6 * SR); mix[-tf:] *= np.linspace(1, 0, tf)[:, None]
-    out_dir = ROOT / "public" / "audio" / "mix"; out_dir.mkdir(parents=True, exist_ok=True)
-    pre = out_dir / "reshape_premaster.wav"
+    out_dir = ROOT / cues.get("out_dir", "public/audio/mix"); out_dir.mkdir(parents=True, exist_ok=True)
+    name = cues.get("out_name", "reshape_mix")
+    pre = out_dir / f"{name}_premaster.wav"
     write(pre, mix / max(1.0, np.max(np.abs(mix)) / 0.98))
-    for name, bus in (("stem_vo.wav", vo_bus), ("stem_sfx.wav", fx_bus + amb_bus)):
-        write(out_dir / name, bus)
+    for stem, bus in (("stem_vo.wav", vo_bus), ("stem_sfx.wav", fx_bus + amb_bus)):
+        write(out_dir / stem, bus)
     # two-pass loudnorm to -14 LUFS / -1.5 dBTP
     r = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(pre), "-af", "loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json", "-f", "null", "-"], capture_output=True, text=True)
     js = r.stderr[r.stderr.rindex("{"): r.stderr.rindex("}") + 1]
     m = json.loads(js)
-    final = out_dir / "reshape_mix.wav"
+    final = out_dir / f"{name}.wav"
     af = (f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}"
           f":measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(pre), "-af", af, "-ar", str(SR), "-c:a", "pcm_s24le", str(final)], check=True)

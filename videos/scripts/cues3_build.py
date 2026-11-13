@@ -69,7 +69,8 @@ add("whoosh_light_1", CUTS["toKids"] - 4, -12)            # slide
 # ── F: kids — hops → high five ──
 five = jsround(W("V6", 3))
 add("kids_area_air", CUTS["toKids"] - TR["toKids"], -27, align="start", dur=(CUTS["toPills"] - CUTS["toKids"] + TR["toKids"]) / FPS, fade=0.25, fadein=0.1, bus="amb")
-for h0, h1 in ((296, 318), (318, 338)):
+HOP_END = five - 8; HOP2 = HOP_END - 20; HOP1 = HOP2 - 22  # mirrors scenes.tsx
+for h0, h1 in ((HOP1, HOP2), (HOP2, HOP_END)):
     add("jump_takeoff", h0 + 0.3 * (h1 - h0), -18)
     add("hoop_hop", h0 + 0.84 * (h1 - h0), -11)
 add("high_five", five, -4)
@@ -86,7 +87,7 @@ full = jsround(W("V8", 1))
 slam = AT["V9"] + 1
 add("whoosh_deep_2", CUTS["toFinale"], -12)
 add("sub_impact_soft", CUTS["toFinale"], -14)
-for k, f in enumerate((455, 462, 469, 476)):
+for k, f in enumerate((full - 27, full - 20, full - 13, full - 6)):  # bar steps (scenes.tsx LEVEL_FRAMES)
     add("marker_tick", f, -17 + 2 * k)
     add("block_rise_2", f + 1, -21 + k)
 add("riser_air", full, -15, skip=1.25, fadein=0.12)

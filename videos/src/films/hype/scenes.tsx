@@ -270,7 +270,9 @@ const KG = 1460, KS = 1.8; // floor y, figure scale (both figures)
 const KX0 = 190, HOPL = 185; // kid start x, hop length (the rings sit where each hop lands)
 const CX = 790; // coach x (faces left)
 const H5: V2 = [640, KG - 400]; // where the palms meet
-const HOP1 = 296, HOP2 = 318, HOP_END = 338;
+// hops are timed back from the high five on «بثقة!», so a new take re-times them automatically
+const FIVE = Math.round(wAt('V6', 3));
+const HOP_END = FIVE - 8, HOP2 = HOP_END - 20, HOP1 = HOP2 - 22;
 const angTo = (a: V2, b: V2) => Math.atan2(b[0] - a[0], -(b[1] - a[1]));
 /** FK angles that put the near hand on `target` (rig space). */
 const reach = (P: Props, pose: PoseCtl, target: V2, bend: 1 | -1): [number, number] => {
@@ -282,7 +284,7 @@ const fkOf = (l: PoseCtl['aN']): [number, number] => ('fk' in l ? l.fk : [Math.P
 const lerpFK = (a: [number, number], b: [number, number], t: number): [number, number] => [lerp(a[0], b[0], t), lerp(a[1], b[1], t)];
 
 export const KidsScene: React.FC<SP> = ({F}) => {
-  const five = Math.round(wAt('V6', 3));
+  const five = FIVE;
   // ── kid ──
   let kx = KX0, kPose: PoseCtl = stand(CHILD, F / 30), kdy = 0;
   if (F >= HOP1 && F < HOP2) { const hp = hop((F - HOP1) / (HOP2 - HOP1), CHILD); kPose = hp.pose; kdy = hp.dy; kx = KX0 + hp.dx * HOPL; }
@@ -360,7 +362,9 @@ const NN = heroPts.length;
 const BAR = {x0: 170, x1: 910, y: 1010, h: 78};
 const BW = BAR.x1 - BAR.x0;
 /** RTL progress: the bar fills from the right in steps, snapping full on «ينشاف!». */
-const LEVELS: Array<[number, number]> = [[455, 0.2], [462, 0.42], [469, 0.63], [476, 0.8], [481, 1]];
+const FULL = Math.round(wAt('V8', 1)); // «ينشاف!»
+export const LEVEL_FRAMES = [FULL - 27, FULL - 20, FULL - 13, FULL - 6, FULL - 1];
+const LEVELS: Array<[number, number]> = LEVEL_FRAMES.map((f, i) => [f, [0.2, 0.42, 0.63, 0.8, 1][i]]);
 const barFill = (F: number) => LEVELS.reduce((acc, [t, v], i) => acc + (v - (i ? LEVELS[i - 1][1] : 0)) * E.outCubic(clamp((F - t) / (i === LEVELS.length - 1 ? 3 : 4))), 0);
 const SEGC: V2[] = [0, 1, 2, 3, 4].map((i) => [BAR.x1 - ((i + 0.5) * BW) / 5, BAR.y]);
 const ROUTES = [0, 1, 2, 3, 4].map((i) => {
@@ -390,7 +394,7 @@ const ROUTES = [0, 1, 2, 3, 4].map((i) => {
 export const FinaleScene: React.FC<SP> = ({F}) => {
   const slam = AT.V9 + 1; // «ريشيب»
   const t0 = CUTS.toFinale;
-  const full = Math.round(wAt('V8', 1)); // «ينشاف!»
+  const full = FULL;
   const fill = seg(F, slam - 3, slam + 2);
   const logoIn = seg(F, slam + 8, slam + 13);
   const res = E.inOutCubic(seg(F, slam + 4, slam + 14, E.linear));

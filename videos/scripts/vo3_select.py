@@ -3,7 +3,7 @@ import json, pathlib, shutil, subprocess
 import numpy as np
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 T = ROOT / "public/audio/vo3/takes"; OUT = ROOT / "public/audio/vo3"
-CHOICE = {"V1": "x", "V2": "x", "V3": "x", "V4": "a", "V5": "b", "V6": "x", "V7": "a", "V8": "x", "V9": "a"}
+CHOICE = {"V1": "x", "V2": "x", "V3": "qf", "V4": "qz", "V5": "b", "V6": "qx", "V7": "a", "V8": "qx", "V9": "a"}  # q*: standard ق (v3.1)
 def words(al):
     out, cur, cs, ce = [], "", None, None
     for ch, s, e in zip(al["characters"], al["character_start_times_seconds"], al["character_end_times_seconds"]):

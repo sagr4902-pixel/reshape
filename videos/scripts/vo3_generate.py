@@ -1,12 +1,14 @@
-"""v3 hype voice-over: python3 vo3_generate.py <tag> <stability> [tagword]"""
-import base64, json, subprocess, sys, pathlib
+"""v3 hype voice-over: python3 vo3_generate.py <tag> <stability> [tagword]   (ONLY=V3,V4 to limit lines)"""
+import base64, json, os, subprocess, sys, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 S = json.loads((ROOT / "scripts" / "vo3_script.json").read_text())
 OUT = ROOT / "public" / "audio" / "vo3" / "takes"
 tag, stab = sys.argv[1], float(sys.argv[2])
 prefix = (sys.argv[3] + " ") if len(sys.argv) > 3 else ""
 lines = S["lines"]
+only = set(filter(None, os.environ.get("ONLY", "").split(",")))
 for i, l in enumerate(lines):
+    if only and l["id"] not in only: continue
     body = {"text": prefix + l["text"], "model_id": "eleven_v4",
             "voice_settings": {"stability": stab, "similarity_boost": 0.88, "style": 0.0, "use_speaker_boost": True}}
     if i > 0: body["previous_text"] = lines[i - 1]["text"]

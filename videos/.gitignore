@@ -1,0 +1,7 @@
+node_modules/
+out/
+.cache/
+*.log
+public/audio/mix/
+public/audio/sfx/_takes/
+deliverables/**/*.wav

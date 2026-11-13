@@ -5,8 +5,8 @@ import numpy as np
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 TAKES = ROOT / "public" / "audio" / "vo2" / "takes"
 OUT = ROOT / "public" / "audio" / "vo2"
-CHOICE = {"H1": "a", "H2": "b", "H3": "a", "H4": "b", "R1a": "a", "R1b": "b", "R1c": "a", "R2a": "b", "R2b": "a", "R2c": "a",
-          "R3a": "b", "R3b": "a", "R3c": "a", "A1": "a", "A2": "a", "A3": "b", "A4": "a", "T1": "a", "P1": "a", "P2": "a", "P3": "a", "C1": "a"}
+CHOICE = {"H1": "c", "H2": "c", "H3": "d", "H4": "c", "R1a": "c", "R1b": "c", "R1c": "c", "R2a": "d", "R2b": "d", "R2c": "c",
+          "R3a": "d", "R3b": "d", "R3c": "c", "A1": "c", "A2": "c", "A3": "d", "A4": "d", "T1": "d", "P1": "d", "P2": "c", "P3": "d", "C1": "c"}
 FPS = 30
 
 def words_from_alignment(al):

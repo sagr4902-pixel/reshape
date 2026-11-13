@@ -12,6 +12,7 @@ def norm(s):
     s = re.sub(r"(?i)\breshape\b", "ريشيب", s)
     s = re.sub(r"(?i)(الـ\s*)?\bcalisthenics\b", "الكالستنكس", s)
     s = DIAC.sub("", s)
+    s = s.replace("گ", "ق").replace("إنت", "أنت")
     s = re.sub(r"[أإآ]", "ا", s).replace("ى", "ي").replace("ة", "ه")
     s = re.sub(r"[^\w\s]", " ", s)
     return " ".join(s.split())

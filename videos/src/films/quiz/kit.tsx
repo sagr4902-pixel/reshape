@@ -5,7 +5,7 @@ import {AT, END, FPS, LINES, wordAt, type LineId} from './timeline';
 import {ar, Q, QF} from './style';
 
 /** Display text: drop short vowels/sukun (keep shadda), keep punctuation. */
-export const clean = (s: string) => s.replace(/[ً-ِْ]/g, '');
+export const clean = (s: string) => s.replace(/[ً-ِْ]/g, '').replace(/گ/g, 'ق').replace(/إنت/g, 'أنت');
 
 /* ─────────────── backgrounds & transitions ─────────────── */
 export const Paper: React.FC<{color?: string; vignette?: number}> = ({color = Q.paper, vignette = 0.16}) => (

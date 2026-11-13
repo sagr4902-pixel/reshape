@@ -13,7 +13,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 SETTINGS = {
     "eleven_multilingual_v2": {"stability": 0.45, "similarity_boost": 0.85, "style": 0.2, "use_speaker_boost": True, "speed": 1.0},
     "eleven_v3": {"stability": 0.5, "similarity_boost": 0.85, "style": 0.0, "use_speaker_boost": True},
-    "eleven_v4": {"stability": 0.5, "similarity_boost": 0.85, "style": 0.0, "use_speaker_boost": True},
+    "eleven_v4": {"stability": 0.62, "similarity_boost": 0.88, "style": 0.0, "use_speaker_boost": True},
 }
 
 def call(model, line, prev_text, next_text, use_context=True):

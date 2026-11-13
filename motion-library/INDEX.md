@@ -6,3 +6,4 @@
 | 002 | شوريل موشن 15 ثانية — ViralGrow | transitions | عام | [002](prompts/transitions/002-showreel-viralgrow.md) | 2026-11-13 |
 | 003 | شوريل موشن 15 ثانية — إطلاق dub.co | transitions | عام | [003](prompts/transitions/003-showreel-saas-launch-dub.md) | 2026-11-13 |
 | 004 | مهارة Product Film — فيلم منتج/إطلاق بـ Remotion (مثبتة) | skills | Remotion + Bun + uv | [004](skills/004-product-film.md) | 2026-11-13 |
+| 005 | كرة بيضاء تقود الانتقالات بين عناصر الواجهة (16:9، 10 ث، لوب) | transitions | HTML/seek(t) + Playwright | [005](prompts/transitions/005-ball-guided-ui-loop.md) | 2026-11-13 |

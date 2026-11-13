@@ -6,7 +6,7 @@ import {coachGesture, squat, stand, walk} from '../../../kit/poses';
 import {ADULT, d2r as A, solve, type PoseCtl} from '../../../kit/rig';
 import {C} from '../../../kit/theme';
 import {wordAt} from '../timeline';
-import {camAt, camT, kd, Phrase, pr, RA, toScreen, type Cam} from './s45parts';
+import {camAt, camT, kd, PATH_D, pathW, Phrase, pr, RA, toScreen, UL, type Cam} from './s45parts';
 
 /**
  * S5 content, drawn in the facility's world space (upper floor, left zone x < 80):
@@ -17,7 +17,7 @@ const FIG = 1.05;
 const TRAINER = {x: -575, d: 0.55};
 const TRAINEE0 = {x: -360, d: 0.2};
 const NODES = [{x: -205}, {x: -85}, {x: 40}];
-const ND = 0.2; // depth of the progress path / nodes
+const ND = PATH_D; // depth of the progress path / nodes (same as the facility path)
 const STEP_H = 34; // rise of the last node's step (world units)
 
 const w = (i: number) => wordAt('L5', i);
@@ -77,20 +77,18 @@ const Check: React.FC<{x: number; y: number; r: number; p: number}> = ({x, y, r,
 
 export const S5World: React.FC<{f: number}> = ({f}) => {
   const cam = camAt(f);
-  const fadeIn = seg(f, 862, 886);
+  const dimK = 0.64 * E.inOutSine(clamp((f - 1058) / 32)); // recede with the building at the exit (the path stays bright)
   const at = [w(2) + 2, w(3) + 2, w(4) + 4]; // milestones light on «خطوات», «واضحة», «وتطوّر»
   const rise = E.outCubic(seg(f, at[2] + 4, at[2] + 18));
-  // progress path along the floor at depth ND: from the trainee through the three markers, then on to the right
+  // progress path along the floor at depth ND: from the trainee through the three markers into the facility path (starts at x = UL)
+  const x0 = TRAINEE0.x + 40;
   const pathPts: V2[] = [];
-  for (let x = TRAINEE0.x + 40; x <= 1080; x += 20) {
-    const y = floorAt(cam, x, ND)[1];
-    pathPts.push([floorAt(cam, x, ND)[0], y]);
-  }
-  const totalLen = 1080 - (TRAINEE0.x + 40);
-  const fracOf = (x: number) => clamp((x - (TRAINEE0.x + 40)) / totalLen);
+  for (let x = x0; x <= UL + 0.01; x += 12) pathPts.push(floorAt(cam, x, ND));
+  pathPts.push(floorAt(cam, UL, ND));
+  const fracOf = (x: number) => clamp((x - x0) / (UL - x0));
   const pathTo = kf<number>(f, [
     [922, 0, E.linear], [at[0], fracOf(NODES[0].x), E.inOutSine], [at[1], fracOf(NODES[1].x), E.inOutSine],
-    [at[2], fracOf(NODES[2].x), E.inOutSine], [1062, 1, E.inOutCubic],
+    [at[2], fracOf(NODES[2].x), E.inOutSine], [at[2] + 16, 1, E.inOutCubic],
   ]);
   const tr = trainee(f);
   const coach = trainer(f);
@@ -103,13 +101,21 @@ export const S5World: React.FC<{f: number}> = ({f}) => {
   const align = seg(f, 972, 979) * (1 - seg(f, 990, 998));
   const jT = solve(tr.pose, ADULT);
   return (
-    <g transform={camT(cam)} opacity={fadeIn}>
+    <g transform={camT(cam)}>
+      <defs>
+        <filter id="s5dim" x="-20%" y="-20%" width="140%" height="140%">
+          <feComponentTransfer>
+            <feFuncR type="linear" slope={1 - dimK} />
+            <feFuncG type="linear" slope={1 - dimK} />
+            <feFuncB type="linear" slope={1 - dimK} />
+          </feComponentTransfer>
+        </filter>
+      </defs>
+      <g filter={dimK > 0.001 ? 'url(#s5dim)' : undefined}>
       <polygon points={mat.map((p) => p.join(',')).join(' ')} fill="#26272B" opacity={0.95} />
       <polygon points={mat.map((p) => p.join(',')).join(' ')} fill="none" stroke="#4A4B51" strokeWidth={2} />
       {/* soft key light on the training zone */}
       <LightPool x={pT[0] - 90} y={pT[1] - 10} rx={420} ry={90} color={C.light} opacity={0.12} />
-      {/* progress path + markers */}
-      <MotionPath pts={pathPts} to={pathTo} width={7} head={pathTo < 0.995 ? 11 : 0} glow={0.55} />
       {NODES.map((n, i) => {
         const on = seg(f, at[i], at[i] + 8, E.outCubic);
         const appear = seg(f, at[i] - 10, at[i]);
@@ -142,6 +148,9 @@ export const S5World: React.FC<{f: number}> = ({f}) => {
         <line x1={pT[0] + jT.pelvis[0] * sT} y1={pT[1] + jT.pelvis[1] * sT} x2={pT[0] + (jT.pelvis[0] + (jT.neckBase[0] - jT.pelvis[0]) * 1.25) * sT} y2={pT[1] + (jT.pelvis[1] + (jT.neckBase[1] - jT.pelvis[1]) * 1.25) * sT}
           stroke={C.orangeHot} strokeWidth={3} opacity={0.9 * align} strokeLinecap="round" />
       ) : null}
+      </g>
+      {/* progress path (stays bright like the facility path) — drawn under the cast would hide it at the feet, so it sits on top at floor level */}
+      <MotionPath pts={pathPts} to={pathTo} width={pathW(cam.z)} head={pathTo < 0.995 ? 11 / Math.pow(cam.z, 0.55) : 0} glow={0.55} />
     </g>
   );
 };
@@ -166,12 +175,12 @@ export const S5Text: React.FC<{f: number}> = ({f}) => {
   );
 };
 
-export const S5Overlay: React.FC<{f: number}> = ({f}) => (
+export const S5Overlay: React.FC<{f: number; withText?: boolean}> = ({f, withText = true}) => (
   <>
     <svg width={1080} height={1920} viewBox="0 0 1080 1920" style={{position: 'absolute', left: 0, top: 0}}>
       <GlowDefs />
       <S5World f={f} />
     </svg>
-    <S5Text f={f} />
+    {withText ? <S5Text f={f} /> : null}
   </>
 );

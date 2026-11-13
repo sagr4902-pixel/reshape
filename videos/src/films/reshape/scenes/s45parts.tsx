@@ -111,3 +111,63 @@ export const Phrase: React.FC<{
     </div>
   );
 };
+
+/* ───────────────────────── rooms & building ───────────────────────── */
+type RoomStyle = {wallTop: string; wallBot: string; floorBack: string; floorFront: string; ceil: string; side: string; lip: string; ao: string};
+const ST_A: RoomStyle = {wallTop: '#202125', wallBot: '#36373C', floorBack: '#2B2C30', floorFront: '#3E3F44', ceil: '#18191C', side: '#1D1E21', lip: '#55565C', ao: '#000000'};
+const ST_K: RoomStyle = {wallTop: '#EEE5DF', wallBot: '#DDD1C9', floorBack: '#C8BAB1', floorFront: '#DCCFC7', ceil: '#E4DAD3', side: '#D2C5BD', lip: '#F1E9E4', ao: '#6B5A50'};
+const SECTION = '#141518';
+
+const RoomShell: React.FC<{r: Room; camX: number; st: RoomStyle; id: string}> = ({r, camX, st, id}) => {
+  const P = (x: number, y: number, d: number) => pr(r, camX, x, y, d);
+  const fl = [P(WX0, r.floor, 0), P(WX1, r.floor, 0), P(WX1, r.floor, 1), P(WX0, r.floor, 1)];
+  const ce = [P(WX0, r.ceil, 0), P(WX1, r.ceil, 0), P(WX1, r.ceil, 1), P(WX0, r.ceil, 1)];
+  const bw = [P(WX0, r.ceil, 1), P(WX1, r.ceil, 1), P(WX1, r.floor, 1), P(WX0, r.floor, 1)];
+  const lw = [P(WX0, r.ceil, 0), P(WX0, r.ceil, 1), P(WX0, r.floor, 1), P(WX0, r.floor, 0)];
+  const rw = [P(WX1, r.ceil, 0), P(WX1, r.ceil, 1), P(WX1, r.floor, 1), P(WX1, r.floor, 0)];
+  const yb0 = bw[0][1], yb1 = bw[2][1];
+  return (
+    <g>
+      <defs>
+        <linearGradient id={`${id}w`} x1="0" y1={yb0} x2="0" y2={yb1} gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor={st.wallTop} />
+          <stop offset="1" stopColor={st.wallBot} />
+        </linearGradient>
+        <linearGradient id={`${id}f`} x1="0" y1={yb1} x2="0" y2={r.floor} gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor={st.floorBack} />
+          <stop offset="1" stopColor={st.floorFront} />
+        </linearGradient>
+        <linearGradient id={`${id}ao`} x1="0" y1={yb1 - 90} x2="0" y2={yb1} gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor={st.ao} stopOpacity={0} />
+          <stop offset="1" stopColor={st.ao} stopOpacity={0.22} />
+        </linearGradient>
+        <linearGradient id={`${id}c`} x1="0" y1={r.ceil} x2="0" y2={yb0} gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor={st.ceil} />
+          <stop offset="1" stopColor={st.wallTop} />
+        </linearGradient>
+      </defs>
+      <polygon points={pts(bw)} fill={`url(#${id}w)`} />
+      <rect x={bw[0][0]} y={yb1 - 90} width={bw[1][0] - bw[0][0]} height={90} fill={`url(#${id}ao)`} />
+      <polygon points={pts(ce)} fill={`url(#${id}c)`} />
+      <polygon points={pts(lw)} fill={st.side} />
+      <polygon points={pts(rw)} fill={st.side} />
+      <polygon points={pts(fl)} fill={`url(#${id}f)`} />
+      <line x1={fl[3][0]} y1={fl[3][1]} x2={fl[2][0]} y2={fl[2][1]} stroke={st.ao} strokeOpacity={0.25} strokeWidth={2} />
+    </g>
+  );
+};
+
+/** The cut section of the building (roof, slab between floors, base, outer walls) — one even-odd shape. */
+const Section: React.FC = () => {
+  const ox0 = WX0 - WALL, ox1 = WX1 + WALL;
+  const rect = (x0: number, y0: number, x1: number, y1: number) => `M${x0} ${y0}H${x1}V${y1}H${x0}Z`;
+  const d = rect(ox0, ROOF_TOP, ox1, BASE_BOT) + rect(WX0, RA.ceil, WX1, RA.floor) + rect(WX0, RK.ceil, WX1, RK.floor);
+  return (
+    <g>
+      <path d={d} fillRule="evenodd" fill={SECTION} />
+      <path d={d} fillRule="evenodd" fill="none" stroke="#3A3B40" strokeWidth={2} />
+      <line x1={WX0} x2={WX1} y1={RA.floor + 1.5} y2={RA.floor + 1.5} stroke={ST_A.lip} strokeWidth={3} />
+      <line x1={WX0} x2={WX1} y1={RK.floor + 1.5} y2={RK.floor + 1.5} stroke="#8F8178" strokeWidth={3} />
+    </g>
+  );
+};

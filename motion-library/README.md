@@ -18,8 +18,10 @@
 | `prompts/captions/` | الترجمة والكابشن المتحرك |
 | `prompts/editing-styles/` | أساليب المونتاج الكاملة (YouTube, Reels, Ads, Documentary…) |
 | `prompts/ai-video-generation/` | برومتات توليد الفيديو بالذكاء الاصطناعي |
+| `prompts/brand-campaigns/` | إعلانات وحملات كاملة لعلاماتنا (RESHAPE…) |
 | `prompts/general/` | أي شيء لا يندرج تحت ما سبق |
 | `skills/` | المهارات المحفوظة + فهرس الأدوات المتاحة في البيئة |
+| `brands/` | ملفات الهوية لكل علامة (شعار، ألوان، خطوط، صوت، روابط) — تبدأ بـ `brands/reshape/BRAND.md` |
 | `_templates/` | قالب حفظ البرومت |
 
 ## 📑 الفهارس

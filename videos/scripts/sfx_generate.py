@@ -56,6 +56,12 @@ SPECS = {
     "grip_bar_d": ("grip_bar", "Two hands slap onto a metal chin-up bar and grip it, quick skin-on-steel impact with a faint chalk rub, single action, dry, close, no music.", 1.0, 0.5, {}),
     "cloth_c": ("cloth", "Close foley of a sports jersey sleeve swishing past the body in one quick arm movement: crisp synthetic fabric rustle, no body impact, no thump, no footsteps, no music.", 1.0, 0.5, {}),
     "cloth_d": ("cloth", "Athletic training clothes rustling as a person quickly turns: short soft polyester swish and rustle, light and clean, close mic, no impacts, no music.", 1.0, 0.5, {}),
+    "jump_takeoff_c": ("jump_takeoff", "Close foley: one quick sneaker push-off on a rubber gym floor right before a jump, a short crisp sole scuff and grip, light, very short, dry, no squeak, no heavy thud, no music.", 0.8, 0.55, {}),
+    "jump_takeoff_d": ("jump_takeoff", "A single athletic shoe twisting and pushing off a sports hall floor, short gritty rubber scrape, crisp and light, close mic, no landing, no voice, no music.", 0.8, 0.5, {}),
+    "kid_steps_c": ("kid_steps", "A small child in sneakers runs quickly across a gym floor: six or seven light, crisp, soft footsteps, close and dry, no heavy thuds, no voices, no squeaks, no music.", 2.0, 0.5, {}),
+    "kid_steps_d": ("kid_steps", "Quick light pitter-patter of a young kid's sneakers on a rubber sports floor, a short run of soft footsteps, no voices, no music.", 2.0, 0.5, {}),
+    "grip_bar_e": ("grip_bar", "Foley: one hand grabs a steel pull-up bar firmly, a dull skin-on-metal grab with a tiny metallic tick, single action, close and dry, no voice, no breath, no music.", 1.0, 0.5, {}),
+    "grip_bar_f": ("grip_bar", "Close foley of chalky palms gripping a cold metal bar: a quick soft slap, then a short squeeze of skin on knurled steel, no vocal sounds, dry, no music.", 1.0, 0.5, {}),
     # --- ambiences ------------------------------------------------------------------------------
     "room_tone_gym_a": ("room_tone_gym", "Quiet empty indoor training facility room tone: soft steady air-conditioning airflow, large room air, faint distant creaks, no voices, no music, no footsteps, no rhythm.", 14.0, 0.4, {}),
     "room_tone_gym_b": ("room_tone_gym", "Steady indoor gym ambience: calm ventilation air and soft large-room tone, very quiet and constant, no voices, no music, no beat.", 12.0, 0.4, {"loop": True}),

@@ -4,14 +4,14 @@
     "duration_s": 0.327,
     "peak_time_s": 0.016,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> tick_spark() (numpy/scipy, fixed seed)",
-    "flatness": 0.4239,
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_tick_spark, fixed seed): 0.45 ms broadband snap (HP 1.8 kHz) + 0.6-3.5 kHz body tick + 6 micro-crackles in the first 90 ms (HP 3 kHz, decaying) + 6.5 kHz sizzle tail (28 ms) + 0.35 s bright room at -17 dB",
+    "flatness": 0.4423,
     "notes": "Snap + 6 decaying micro-crackles + 6.5 kHz sizzle + tiny bright room; no resonant filters, so no pitch.",
     "qa": {
-      "band_flatness": 0.5,
-      "harmonicity": 0.105,
-      "longest_tonal_line_s": 0.043,
-      "tonal_line_hz": 1593.8,
+      "band_flatness": 0.538,
+      "harmonicity": 0.097,
+      "longest_tonal_line_s": 0.011,
+      "tonal_line_hz": 445.3,
       "peak_dbfs": -1.0,
       "processing": "trim to 10 ms pre-roll, fade-out 0.06 s, peak -1 dBFS"
     }
@@ -21,14 +21,14 @@
     "duration_s": 0.659,
     "peak_time_s": 0.238,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> whoosh_light_1() (numpy/scipy, fixed seed)",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_whoosh_light_1, fixed seed): pass-by whoosh engine: STFT-shaped noise, log-Gaussian band (fc 1.7 kHz, sigma 1.15 oct) with proximity brightening + Doppler shift, 1/r^2.2 envelope (approach 75 ms / recede 90 ms), pan -0.65 -> +0.65, decorrelated width layer -9 dB, 28 Hz turbulence flutter",
     "flatness": 0.317,
     "notes": "Symmetric fast pass-by, pans left -> right. Peak = closest approach.",
     "qa": {
       "band_flatness": 0.566,
       "harmonicity": 0.14,
-      "longest_tonal_line_s": 0.021,
-      "tonal_line_hz": 8730.5,
+      "longest_tonal_line_s": 0.064,
+      "tonal_line_hz": 281.2,
       "peak_dbfs": -1.0,
       "processing": "trim to 10 ms pre-roll, fade-out 0.06 s, peak -1 dBFS"
     }
@@ -38,7 +38,7 @@
     "duration_s": 0.542,
     "peak_time_s": 0.084,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> whoosh_light_2() (numpy/scipy, fixed seed)",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_whoosh_light_2, fixed seed): pass-by engine: fc 2.6 kHz, fast approach (35 ms) / airy recede (110 ms), strong Doppler, pan 0 -> +0.35, air layer -10 dB",
     "flatness": 0.2911,
     "notes": "Sharp swipe: fast approach, airy receding tail, slightly right of centre.",
     "qa": {
@@ -55,14 +55,14 @@
     "duration_s": 0.806,
     "peak_time_s": 0.614,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> whoosh_light_3() (numpy/scipy, fixed seed)",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_whoosh_light_3, fixed seed): pass-by engine: slow approach (260 ms) / quick release (55 ms), fc 1.3 kHz with strong proximity brightening, pan +0.55 -> 0",
     "flatness": 0.3253,
     "notes": "Swell-in: long brightening build, quick release (element arriving), right -> centre. Peak is late.",
     "qa": {
       "band_flatness": 0.566,
       "harmonicity": 0.142,
-      "longest_tonal_line_s": 0.032,
-      "tonal_line_hz": 23882.8,
+      "longest_tonal_line_s": 0.021,
+      "tonal_line_hz": 4125.0,
       "peak_dbfs": -1.0,
       "processing": "trim to 10 ms pre-roll, fade-out 0.06 s, peak -1 dBFS"
     }
@@ -72,14 +72,14 @@
     "duration_s": 1.298,
     "peak_time_s": 0.652,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> whoosh_deep_1() (numpy/scipy, fixed seed)",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_whoosh_deep_1, fixed seed): pass-by engine: fc 330 Hz (sigma 1.4 oct), approach 240 ms / recede 300 ms, sub layer at 55 Hz (-6 dB), wide room layer -5 dB, pan +0.45 -> -0.45",
     "flatness": 0.0643,
     "notes": "Deep smooth camera-move pass-by with light sub layer, right -> left.",
     "qa": {
       "band_flatness": 0.598,
       "harmonicity": 0.227,
-      "longest_tonal_line_s": 0.032,
-      "tonal_line_hz": 21375.0,
+      "longest_tonal_line_s": 0.064,
+      "tonal_line_hz": 169.9,
       "peak_dbfs": -1.0,
       "processing": "trim to 10 ms pre-roll, fade-out 0.12 s, peak -1 dBFS"
     }
@@ -89,14 +89,14 @@
     "duration_s": 1.125,
     "peak_time_s": 0.629,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> whoosh_deep_2() (numpy/scipy, fixed seed)",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_whoosh_deep_2, fixed seed): pass-by engine: fc 260 Hz, approach 320 ms / recede 200 ms, sub layer at 50 Hz (-4 dB), wide (-3 dB room layer), centred",
     "flatness": 0.0726,
     "notes": "Deep swell with later peak, wide and centred, more sub.",
     "qa": {
       "band_flatness": 0.592,
       "harmonicity": 0.236,
-      "longest_tonal_line_s": 0.043,
-      "tonal_line_hz": 70.3,
+      "longest_tonal_line_s": 0.021,
+      "tonal_line_hz": 187.5,
       "peak_dbfs": -1.0,
       "processing": "trim to 10 ms pre-roll, fade-out 0.12 s, peak -1 dBFS"
     }
@@ -106,14 +106,14 @@
     "duration_s": 2.498,
     "peak_time_s": 0.457,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> line_draw() (numpy/scipy, fixed seed)",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_line_draw, fixed seed): STFT-shaped noise centred ~3.6 kHz (sigma 1.25 oct, slow random centre drift) + 850 Hz breath layer (-10 dB), 6 Hz random amplitude flutter, very sparse 6 kHz micro-grain fizz (-15 dB), 0.4 s / 0.65 s cosine fades, HP 400 Hz",
     "flatness": 0.2716,
     "notes": "Continuous soft air/hiss (centre ~3.6 kHz, slowly drifting) + very sparse faint fizz; 0.4 s fade-in / 0.65 s fade-out built in. Trim/loop freely in the middle.",
     "qa": {
       "band_flatness": 0.568,
       "harmonicity": 0.148,
-      "longest_tonal_line_s": 0.043,
-      "tonal_line_hz": 23953.1,
+      "longest_tonal_line_s": 0.032,
+      "tonal_line_hz": 16312.5,
       "peak_dbfs": -1.0,
       "processing": "trim to 10 ms pre-roll, fade-out 0.00 s, peak -1 dBFS"
     }
@@ -123,14 +123,14 @@
     "duration_s": 1.01,
     "peak_time_s": 0.032,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> sub_impact_soft() (numpy/scipy, fixed seed)",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_sub_impact_soft, fixed seed): 85 -> 42 Hz knock (85 ms decay) + LP-170 Hz noise body (110 ms) + 140-550 Hz presence (-11 dB) + faint click, dark 0.8-1.0 s room at -15 dB",
     "flatness": 0.0,
     "notes": "Short pitch-falling knock (85->42 Hz, 85 ms decay) + low-passed noise body + 140-550 Hz presence so it still reads on phone speakers; dark short room.",
     "qa": {
       "band_flatness": 0.723,
       "harmonicity": 0.478,
-      "longest_tonal_line_s": 0.405,
-      "tonal_line_hz": 58.6,
+      "longest_tonal_line_s": 0.139,
+      "tonal_line_hz": 152.3,
       "peak_dbfs": -1.0,
       "processing": "trim to 10 ms pre-roll, fade-out 0.20 s, peak -1 dBFS"
     }
@@ -149,41 +149,41 @@
       "longest_tonal_line_s": 0.192,
       "tonal_line_hz": 2753.9,
       "peak_dbfs": -1.0,
-      "processing": "no clipping; 200 Hz-comb de-whine; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.16 s, peak -1 dBFS"
+      "processing": "no clipping; de-whine of the 200 Hz codec comb; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.16 s, peak -1 dBFS"
     }
   },
   "grip_bar": {
     "file": "audio/sfx/grip_bar.wav",
-    "duration_s": 0.408,
-    "peak_time_s": 0.058,
+    "duration_s": 0.404,
+    "peak_time_s": 0.06,
     "source": "elevenlabs",
-    "prompt_or_recipe": "ElevenLabs sound-generation (eleven_text_to_sound_v2, 1.0 s, prompt_influence 0.5; take 'grip_bar_c'): \"Close foley of a gymnast's chalked hands catching and gripping a steel pull-up bar: a firm palm slap on metal followed by a short tight squeeze, no voice, no music.\"",
-    "flatness": 0.0714,
-    "notes": "Palm slap onto steel bar + short grip squeeze.",
+    "prompt_or_recipe": "ElevenLabs sound-generation (eleven_text_to_sound_v2, 1.0 s, prompt_influence 0.5; take 'grip_bar_e'): \"Foley: one hand grabs a steel pull-up bar firmly, a dull skin-on-metal grab with a tiny metallic tick, single action, close and dry, no voice, no breath, no music.\"",
+    "flatness": 0.152,
+    "notes": "Hand grabs a steel bar: light skin-on-metal grab with a tiny metallic tick (short physical partials ~0.7-2.5 kHz). A hand-approach touch before it is trimmed off.",
     "qa": {
-      "band_flatness": 0.497,
-      "harmonicity": 0.29,
-      "longest_tonal_line_s": 0.107,
-      "tonal_line_hz": 117.2,
+      "band_flatness": 0.454,
+      "harmonicity": 0.305,
+      "longest_tonal_line_s": 0.139,
+      "tonal_line_hz": 1722.7,
       "peak_dbfs": -1.0,
-      "processing": "no clipping; 200 Hz-comb de-whine; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.10 s, peak -1 dBFS"
+      "processing": "no clipping; de-whine of the 200 Hz codec comb; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.10 s, peak -1 dBFS"
     }
   },
   "jump_takeoff": {
     "file": "audio/sfx/jump_takeoff.wav",
-    "duration_s": 0.35,
+    "duration_s": 0.312,
     "peak_time_s": 0.018,
     "source": "elevenlabs",
-    "prompt_or_recipe": "ElevenLabs sound-generation (eleven_text_to_sound_v2, 0.8 s, prompt_influence 0.5; take 'jump_takeoff_b'): \"Single explosive jump take-off on a rubberized sports floor, short shoe grip scrape and thump of the push, close mic, no voice, no music.\"",
-    "flatness": 0.0014,
-    "notes": "Sneaker scuffs + push-off thump (90 Hz HP keeps it from turning into a stomp). The take began on the sound itself, so 10 ms of silence is prepended with a 2 ms fade-in.",
+    "prompt_or_recipe": "ElevenLabs sound-generation (eleven_text_to_sound_v2, 0.8 s, prompt_influence 0.55; take 'jump_takeoff_c'): \"Close foley: one quick sneaker push-off on a rubber gym floor right before a jump, a short crisp sole scuff and grip, light, very short, dry, no squeak, no heavy thud, no music.\"",
+    "flatness": 0.0004,
+    "notes": "Sneaker push-off thump with a little sole scuff (the take's soft load-in noise before it is trimmed off). Chosen over takes a/b, whose low end carried a 50 Hz-periodic codec buzz (comb +4 dB vs +1.3 dB here).",
     "qa": {
-      "band_flatness": 0.658,
-      "harmonicity": 0.422,
-      "longest_tonal_line_s": 0.16,
-      "tonal_line_hz": 117.2,
+      "band_flatness": 0.677,
+      "harmonicity": 0.156,
+      "longest_tonal_line_s": 0.021,
+      "tonal_line_hz": 4101.6,
       "peak_dbfs": -1.0,
-      "processing": "no clipping; 200 Hz-comb de-whine; HP 90 Hz; trim to 10 ms pre-roll, fade-out 0.08 s, peak -1 dBFS"
+      "processing": "no clipping; de-whine of the 200 Hz codec comb; HP 60 Hz; trim to 10 ms pre-roll, fade-out 0.08 s, peak -1 dBFS"
     }
   },
   "land_mat": {
@@ -197,10 +197,10 @@
     "qa": {
       "band_flatness": 0.766,
       "harmonicity": 0.366,
-      "longest_tonal_line_s": 0.117,
-      "tonal_line_hz": 117.2,
+      "longest_tonal_line_s": 0.064,
+      "tonal_line_hz": 152.3,
       "peak_dbfs": -1.0,
-      "processing": "no clipping; 200 Hz-comb de-whine; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.12 s, peak -1 dBFS"
+      "processing": "no clipping; de-whine of the 200 Hz codec comb; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.12 s, peak -1 dBFS"
     }
   },
   "cloth_1": {
@@ -217,7 +217,7 @@
       "longest_tonal_line_s": 0.064,
       "tonal_line_hz": 15937.5,
       "peak_dbfs": -1.0,
-      "processing": "declipped 4 short runs; 200 Hz-comb de-whine; HP 160 Hz; trim to 10 ms pre-roll, fade-out 0.12 s, peak -1 dBFS"
+      "processing": "declipped 4 short runs; de-whine of the 200 Hz codec comb; HP 160 Hz; trim to 10 ms pre-roll, fade-out 0.12 s, peak -1 dBFS"
     }
   },
   "cloth_2": {
@@ -234,41 +234,41 @@
       "longest_tonal_line_s": 0.032,
       "tonal_line_hz": 351.6,
       "peak_dbfs": -1.0,
-      "processing": "declipped 5 short runs; 200 Hz-comb de-whine; HP 160 Hz; trim to 10 ms pre-roll, fade-out 0.10 s, peak -1 dBFS"
+      "processing": "declipped 5 short runs; de-whine of the 200 Hz codec comb; HP 160 Hz; trim to 10 ms pre-roll, fade-out 0.10 s, peak -1 dBFS"
     }
   },
   "exhale_effort": {
     "file": "audio/sfx/exhale_effort.wav",
-    "duration_s": 0.618,
+    "duration_s": 0.619,
     "peak_time_s": 0.136,
     "source": "elevenlabs",
     "prompt_or_recipe": "ElevenLabs sound-generation (eleven_text_to_sound_v2, 1.2 s, prompt_influence 0.5; take 'exhale_effort_d'): \"A fit male athlete exhales once sharply through the mouth at the effort of a lift: brief airy breath, calm and controlled, no vocal sound, close, dry, no music.\"",
-    "flatness": 0.0055,
-    "notes": "Single controlled unvoiced exhale (no stable pitch: f0 autocorrelation < 0.8 on every frame). Inhale before it trimmed off; 110 Hz HP removes mic breath-blast rumble.",
+    "flatness": 0.0164,
+    "notes": "Single controlled unvoiced exhale (no stable pitch). The take had narrow whistle-like resonances (1248 Hz and ~470-530 Hz, ~20-30 Hz wide, +17 dB, also present in the other takes) - notched with peaking cuts so it reads as breath, not a 'hoo' tone. Inhale before it trimmed off; 110 Hz HP removes mic breath-blast rumble.",
     "qa": {
-      "band_flatness": 0.281,
-      "harmonicity": 0.574,
-      "longest_tonal_line_s": 0.16,
-      "tonal_line_hz": 1253.9,
+      "band_flatness": 0.498,
+      "harmonicity": 0.359,
+      "longest_tonal_line_s": 0.085,
+      "tonal_line_hz": 562.5,
       "peak_dbfs": -1.0,
-      "processing": "no clipping; 200 Hz-comb de-whine; HP 110 Hz; trim to 10 ms pre-roll, fade-out 0.12 s, peak -1 dBFS"
+      "processing": "no clipping; de-whine of the 200 Hz codec comb; HP 110 Hz; EQ 1248 Hz -12 dB Q10, 470 Hz -10 dB Q7, 530 Hz -6 dB Q10, 856 Hz -6 dB Q10; trim to 10 ms pre-roll, fade-out 0.12 s, peak -1 dBFS"
     }
   },
   "block_rise_1": {
     "file": "audio/sfx/block_rise_1.wav",
-    "duration_s": 0.617,
-    "peak_time_s": 0.044,
+    "duration_s": 0.618,
+    "peak_time_s": 0.046,
     "source": "elevenlabs",
     "prompt_or_recipe": "ElevenLabs sound-generation (eleven_text_to_sound_v2, 1.0 s, prompt_influence 0.5; take 'block_rise_a'): \"A padded wooden training block platform rises quickly from the floor and locks into place: short smooth slide ending in a soft muted mechanical clunk. Close, dry, no beeps, no music.\"",
-    "flatness": 0.0013,
-    "notes": "Heavier clunk with two small settle knocks; deep body (45 Hz HP trims sub rumble).",
+    "flatness": 0.0015,
+    "notes": "Heavier clunk with two small settle knocks. 80 Hz HP: the take's ~50 Hz body mode rang for ~0.4 s (a sub 'boom'), now trimmed so it stays a soft mechanical clunk.",
     "qa": {
-      "band_flatness": 0.586,
+      "band_flatness": 0.588,
       "harmonicity": 0.431,
-      "longest_tonal_line_s": 0.309,
+      "longest_tonal_line_s": 0.149,
       "tonal_line_hz": 46.9,
       "peak_dbfs": -1.0,
-      "processing": "declipped 2 short runs; 200 Hz-comb de-whine; HP 45 Hz; trim to 10 ms pre-roll, fade-out 0.12 s, peak -1 dBFS"
+      "processing": "declipped 2 short runs; de-whine of the 200 Hz codec comb; HP 80 Hz; trim to 10 ms pre-roll, fade-out 0.12 s, peak -1 dBFS"
     }
   },
   "block_rise_2": {
@@ -277,15 +277,15 @@
     "peak_time_s": 0.106,
     "source": "elevenlabs",
     "prompt_or_recipe": "ElevenLabs sound-generation (eleven_text_to_sound_v2, 1.0 s, prompt_influence 0.5; take 'block_rise_b'): \"Soft mechanical clunk of a sturdy platform popping up and latching, muted thud with a small latch click, short, foley, no music.\"",
-    "flatness": 0.0686,
-    "notes": "Latch click then muted thunk ~0.1 s later (peak_time points at the thunk).",
+    "flatness": 0.0718,
+    "notes": "Latch click then muted thunk ~0.1 s later (peak_time points at the thunk). 75 Hz HP trims a ~53 Hz body ring.",
     "qa": {
       "band_flatness": 0.638,
-      "harmonicity": 0.227,
-      "longest_tonal_line_s": 0.256,
-      "tonal_line_hz": 46.9,
+      "harmonicity": 0.228,
+      "longest_tonal_line_s": 0.171,
+      "tonal_line_hz": 90.8,
       "peak_dbfs": -1.0,
-      "processing": "no clipping; 200 Hz-comb de-whine; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.12 s, peak -1 dBFS"
+      "processing": "no clipping; de-whine of the 200 Hz codec comb; HP 75 Hz; trim to 10 ms pre-roll, fade-out 0.12 s, peak -1 dBFS"
     }
   },
   "block_rise_3": {
@@ -299,10 +299,10 @@
     "qa": {
       "band_flatness": 0.658,
       "harmonicity": 0.272,
-      "longest_tonal_line_s": 0.192,
-      "tonal_line_hz": 82.0,
+      "longest_tonal_line_s": 0.149,
+      "tonal_line_hz": 257.8,
       "peak_dbfs": -1.0,
-      "processing": "no clipping; 200 Hz-comb de-whine; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.10 s, peak -1 dBFS"
+      "processing": "no clipping; de-whine of the 200 Hz codec comb; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.10 s, peak -1 dBFS"
     }
   },
   "hands_floor": {
@@ -316,10 +316,10 @@
     "qa": {
       "band_flatness": 0.596,
       "harmonicity": 0.163,
-      "longest_tonal_line_s": 0.128,
-      "tonal_line_hz": 105.5,
+      "longest_tonal_line_s": 0.043,
+      "tonal_line_hz": 3468.8,
       "peak_dbfs": -1.0,
-      "processing": "declipped 6 short runs; 200 Hz-comb de-whine; HP 60 Hz; trim to 10 ms pre-roll, fade-out 0.08 s, peak -1 dBFS"
+      "processing": "declipped 6 short runs; de-whine of the 200 Hz codec comb; HP 60 Hz; trim to 10 ms pre-roll, fade-out 0.08 s, peak -1 dBFS"
     }
   },
   "word_accent": {
@@ -327,14 +327,14 @@
     "duration_s": 0.41,
     "peak_time_s": 0.021,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> word_accent() (numpy/scipy, fixed seed)",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_word_accent, fixed seed): LP 800 Hz / HP 110 Hz noise thud (16 ms) + 230 -> 120 Hz knock (20 ms, -8 dB) + 1.5-4.5 kHz tick (-12 dB) + dark small room (-18 dB)",
     "flatness": 0.0002,
     "notes": "Soft 'thock': low-passed noise thud (110-800 Hz) + very short 230->120 Hz knock (20 ms) + faint 1.5-4.5 kHz tick + small dark room.",
     "qa": {
       "band_flatness": 0.637,
       "harmonicity": 0.387,
-      "longest_tonal_line_s": 0.075,
-      "tonal_line_hz": 175.8,
+      "longest_tonal_line_s": 0.085,
+      "tonal_line_hz": 123.0,
       "peak_dbfs": -1.0,
       "processing": "trim to 10 ms pre-roll, fade-out 0.08 s, peak -1 dBFS"
     }
@@ -344,7 +344,7 @@
     "duration_s": 1.177,
     "peak_time_s": 0.258,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> split_whoosh() (numpy/scipy, fixed seed)",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_split_whoosh, fixed seed): two independent pass-by layers (fc 1.9 kHz, Doppler recede) starting together in the centre and panning to -0.98 / +0.98, small 0.6-6 kHz onset puff, 0.85 s room at -15 dB",
     "flatness": 0.328,
     "notes": "Two independent air layers start together (L/R correlation 0.94) and recede to hard left / hard right (correlation 0.09 by the end).",
     "qa": {
@@ -370,24 +370,24 @@
       "longest_tonal_line_s": 0.128,
       "tonal_line_hz": 2941.4,
       "peak_dbfs": -1.0,
-      "processing": "declipped 6 short runs; 200 Hz-comb de-whine; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.12 s, peak -1 dBFS"
+      "processing": "declipped 6 short runs; de-whine of the 200 Hz codec comb; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.12 s, peak -1 dBFS"
     }
   },
   "kid_steps": {
     "file": "audio/sfx/kid_steps.wav",
-    "duration_s": 1.516,
-    "peak_time_s": 0.381,
+    "duration_s": 1.569,
+    "peak_time_s": 0.643,
     "source": "elevenlabs",
-    "prompt_or_recipe": "ElevenLabs sound-generation (eleven_text_to_sound_v2, 2.0 s, prompt_influence 0.5; take 'kid_steps_a'): \"Light quick footsteps of a small child running a few steps in sneakers across a rubber gym floor, close, dry, no voices, no squeaks, no music.\"",
-    "flatness": 0.0214,
-    "notes": "Quick light child footsteps on a sports floor (~8 steps). Cadence is natural, not a beat.",
+    "prompt_or_recipe": "ElevenLabs sound-generation (eleven_text_to_sound_v2, 2.0 s, prompt_influence 0.5; take 'kid_steps_c'): \"A small child in sneakers runs quickly across a gym floor: six or seven light, crisp, soft footsteps, close and dry, no heavy thuds, no voices, no squeaks, no music.\"",
+    "flatness": 0.0021,
+    "notes": "Seven light child footsteps on a sports floor (~0.3 s cadence, natural, not a beat); clean gaps between steps.",
     "qa": {
-      "band_flatness": 0.734,
-      "harmonicity": 0.205,
-      "longest_tonal_line_s": 0.171,
-      "tonal_line_hz": 82.0,
+      "band_flatness": 0.846,
+      "harmonicity": 0.264,
+      "longest_tonal_line_s": 0.149,
+      "tonal_line_hz": 76.2,
       "peak_dbfs": -1.0,
-      "processing": "no clipping; 200 Hz-comb de-whine; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.10 s, peak -1 dBFS"
+      "processing": "no clipping; de-whine of the 200 Hz codec comb; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.10 s, peak -1 dBFS"
     }
   },
   "hoop_hop": {
@@ -401,10 +401,10 @@
     "qa": {
       "band_flatness": 0.845,
       "harmonicity": 0.523,
-      "longest_tonal_line_s": 0.053,
-      "tonal_line_hz": 93.8,
+      "longest_tonal_line_s": 0.021,
+      "tonal_line_hz": 164.1,
       "peak_dbfs": -1.0,
-      "processing": "no clipping; 200 Hz-comb de-whine; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.10 s, peak -1 dBFS"
+      "processing": "no clipping; de-whine of the 200 Hz codec comb; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.10 s, peak -1 dBFS"
     }
   },
   "high_five": {
@@ -418,10 +418,10 @@
     "qa": {
       "band_flatness": 0.644,
       "harmonicity": 0.119,
-      "longest_tonal_line_s": 0.128,
-      "tonal_line_hz": 46.9,
+      "longest_tonal_line_s": 0.064,
+      "tonal_line_hz": 17097.7,
       "peak_dbfs": -1.0,
-      "processing": "declipped 11 short runs; 200 Hz-comb de-whine; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.08 s, peak -1 dBFS"
+      "processing": "declipped 11 short runs; de-whine of the 200 Hz codec comb; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.08 s, peak -1 dBFS"
     }
   },
   "room_tone_gym": {
@@ -429,16 +429,16 @@
     "duration_s": 12.0,
     "peak_time_s": 10.329,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> room_tone_gym() (numpy/scipy, fixed seed)",
-    "flatness": 0.0441,
-    "notes": "Seamless 12 s loop (frequency-domain synthesis, exact period). HVAC-like air bed with slow drift + two barely audible distant reverberant thuds (from ElevenLabs foley takes land_mat_a and block_rise_b, low-passed and reverberated). No tonal lines, no rhythm.",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_room_tone_gym, fixed seed): exact-period (12 s) frequency-domain noise: low bed (HP 38 Hz, pink above 70 Hz, LP 420 Hz, L/R coherence 0.75 at LF) + air bed (300 Hz-7 kHz, pink, +2.5 kHz bump, coherence 0.15), each with periodic 0.3-0.4 Hz drift (+-0.7 dB); 2 distant synthetic events through a 1.1-1.5 s room; circular HP 30 Hz",
+    "flatness": 0.0442,
+    "notes": "Seamless 12 s loop (frequency-domain synthesis, exact period). HVAC-like air bed with slow drift + two barely audible distant reverberant events (a soft thud at ~3.1 s, a light equipment clatter at ~8.35 s), all synthetic noise-based, so no modal ringing. No tonal lines, no rhythm.",
     "qa": {
-      "band_flatness": 0.62,
-      "harmonicity": 0.259,
-      "longest_tonal_line_s": 0.448,
-      "tonal_line_hz": 82.0,
-      "peak_dbfs": -9.46,
-      "processing": "gain to -20 LUFS (was -11.6 at -1 dBFS peak)",
+      "band_flatness": 0.619,
+      "harmonicity": 0.258,
+      "longest_tonal_line_s": 0.149,
+      "tonal_line_hz": 41.0,
+      "peak_dbfs": -9.73,
+      "processing": "gain to -20 LUFS (was -11.3 at -1 dBFS peak)",
       "integrated_lufs": -20.0
     },
     "loop": true
@@ -446,18 +446,18 @@
   "kids_area_air": {
     "file": "audio/sfx/kids_area_air.wav",
     "duration_s": 8.0,
-    "peak_time_s": 7.155,
+    "peak_time_s": 3.758,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> kids_area_air() (numpy/scipy, fixed seed)",
-    "flatness": 0.159,
-    "notes": "Bright soft air bed + distant light activity (steps, a hop, a mat pat: ElevenLabs foley takes kid_steps_a/b, hoop_hop_a, hands_floor_b, low-passed + hall reverb). No voices. Also loops seamlessly (8 s).",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_kids_area_air, fixed seed): exact-period (8 s) frequency-domain noise: HP 90 Hz, -2.7 dB/oct with +3.5 dB around 3.8 kHz, LP 9 kHz, periodic drift; distant synthetic steps / hop / mat pat (noise bursts, LP 2.2-2.8 kHz) through a 0.9-1.3 s hall; circular HP 60 Hz",
+    "flatness": 0.1616,
+    "notes": "Bright soft air bed + distant light activity (a short run of light steps at ~0.9 s, a two-foot hop at ~3.65 s, a mat pat at ~5.4 s, another run at ~6.6 s that wraps over the loop point), synthetic and reverberated. No voices. Loops seamlessly (8 s).",
     "qa": {
-      "band_flatness": 0.599,
-      "harmonicity": 0.201,
-      "longest_tonal_line_s": 0.117,
-      "tonal_line_hz": 93.8,
-      "peak_dbfs": -8.95,
-      "processing": "gain to -20 LUFS (was -12.1 at -1 dBFS peak)",
+      "band_flatness": 0.585,
+      "harmonicity": 0.194,
+      "longest_tonal_line_s": 0.107,
+      "tonal_line_hz": 114.3,
+      "peak_dbfs": -9.32,
+      "processing": "gain to -20 LUFS (was -11.7 at -1 dBFS peak)",
       "integrated_lufs": -20.0
     },
     "loop": true
@@ -467,14 +467,14 @@
     "duration_s": 0.307,
     "peak_time_s": 0.016,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> marker_tick() (numpy/scipy, fixed seed)",
-    "flatness": 0.0487,
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_marker_tick, fixed seed): 2 ms noise tick band-passed 1.2-6 kHz (0.9 ms decay) + 280-1300 Hz body (-10 dB) + faint 3.5-9 kHz glow swell (160 ms) + tiny room, LP 9 kHz",
+    "flatness": 0.0518,
     "notes": "Soft noise tick (1.2-6 kHz burst, 0.9 ms decay) + light body + faint airy glow; no resonant filter, no pitch.",
     "qa": {
-      "band_flatness": 0.513,
-      "harmonicity": 0.141,
-      "longest_tonal_line_s": 0.085,
-      "tonal_line_hz": 281.2,
+      "band_flatness": 0.518,
+      "harmonicity": 0.11,
+      "longest_tonal_line_s": 0.021,
+      "tonal_line_hz": 257.8,
       "peak_dbfs": -1.0,
       "processing": "trim to 10 ms pre-roll, fade-out 0.06 s, peak -1 dBFS"
     }
@@ -490,10 +490,10 @@
     "qa": {
       "band_flatness": 0.592,
       "harmonicity": 0.387,
-      "longest_tonal_line_s": 0.171,
-      "tonal_line_hz": 46.9,
+      "longest_tonal_line_s": 0.085,
+      "tonal_line_hz": 1957.0,
       "peak_dbfs": -1.0,
-      "processing": "declipped 6 short runs; 200 Hz-comb de-whine; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.10 s, peak -1 dBFS"
+      "processing": "declipped 6 short runs; de-whine of the 200 Hz codec comb; HP 40.0 Hz; trim to 10 ms pre-roll, fade-out 0.10 s, peak -1 dBFS"
     }
   },
   "riser_air": {
@@ -501,14 +501,14 @@
     "duration_s": 2.51,
     "peak_time_s": 2.472,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> riser_air() (numpy/scipy, fixed seed)",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_riser_air, fixed seed): STFT-shaped noise band sweeping 320 Hz -> 9 kHz (sigma 1.15 -> 0.8 oct) rising 36 dB, L/R coherence 0.35, + reversed 2.2 s reverb swell, + HP 5.5 kHz hiss (t^5), + 55-190 Hz rumble; 6 ms end cut",
     "flatness": 0.4221,
     "notes": "Non-tonal noise riser: band sweeps 320 Hz -> 9 kHz, widening, + reversed-reverb swell, rising hiss and light rumble. Ends at full level (6 ms cut) - place the hit at the file end (peak_time_s).",
     "qa": {
       "band_flatness": 0.548,
       "harmonicity": 0.134,
-      "longest_tonal_line_s": 0.309,
-      "tonal_line_hz": 70.3,
+      "longest_tonal_line_s": 0.16,
+      "tonal_line_hz": 152.3,
       "peak_dbfs": -1.0,
       "processing": "trim to 10 ms pre-roll, fade-out 0.00 s, peak -1 dBFS"
     }
@@ -518,14 +518,14 @@
     "duration_s": 2.01,
     "peak_time_s": 1.612,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> converge_swirl() (numpy/scipy, fixed seed)",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_converge_swirl, fixed seed): 3 orbiting air layers (0/-3/-6 dB, rotation 0.65 -> 3.2 Hz, front/back brightness +-28 %), band rising 2.6 oct, radius collapsing to 0 at 1.6 s, then a soft LP-300 Hz + 0.9-6 kHz air 'whump' and 60 ms decay; 1 s room at -12 dB",
     "flatness": 0.1938,
     "notes": "Three air layers orbit (accelerating 0.65 -> 3.2 Hz, front/back brightness) and collapse to centre at ~1.6 s with a soft air 'whump'; short tail.",
     "qa": {
       "band_flatness": 0.574,
       "harmonicity": 0.177,
-      "longest_tonal_line_s": 0.053,
-      "tonal_line_hz": 58.6,
+      "longest_tonal_line_s": 0.043,
+      "tonal_line_hz": 152.3,
       "peak_dbfs": -1.0,
       "processing": "trim to 10 ms pre-roll, fade-out 0.10 s, peak -1 dBFS"
     }
@@ -535,14 +535,14 @@
     "duration_s": 2.51,
     "peak_time_s": 0.035,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> logo_impact() (numpy/scipy, fixed seed)",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_logo_impact, fixed seed): crack (HP 300 / LP 9 kHz, 3 ms) + LP-3 kHz punch (13 ms) + LP-300 Hz body (120 ms) + LP-90 Hz noise sub (200 ms) + 60 -> 34 Hz knock (70 ms, -7 dB) + 120-600 Hz low-mid (160 ms) + 0.9-6 kHz air release (220 ms) + dark hall (RT 1.3/1.4/1.0/0.55 s) at -11 dB",
     "flatness": 0.0068,
     "notes": "Crack + punch + low-passed-noise body/sub (textured, no sustained sine; 60->34 Hz knock decays in 70 ms) + air release + dark hall tail (~1.3 s).",
     "qa": {
       "band_flatness": 0.643,
       "harmonicity": 0.383,
-      "longest_tonal_line_s": 0.213,
-      "tonal_line_hz": 35.2,
+      "longest_tonal_line_s": 0.064,
+      "tonal_line_hz": 32.2,
       "peak_dbfs": -1.0,
       "processing": "trim to 10 ms pre-roll, fade-out 0.50 s, peak -1 dBFS"
     }
@@ -552,14 +552,14 @@
     "duration_s": 1.496,
     "peak_time_s": 0.461,
     "source": "procedural",
-    "prompt_or_recipe": "procedural: scripts/sfx_synth.py -> glow_shimmer() (numpy/scipy, fixed seed)",
+    "prompt_or_recipe": "procedural (scripts/sfx_synth.py d_glow_shimmer, fixed seed): STFT-shaped airy band 4.2 -> 10.7 kHz (sigma 0.75 oct) + Poisson noise micro-grains (0.8-3 ms, HP 5.2 kHz, up to 340/s, random pan) dry and through a bright 0.8 s reverb; HP 900 Hz",
     "flatness": 0.0842,
     "notes": "Airy 4 -> 10.7 kHz band sweep + sparse noise micro-grain sparkle through a bright short reverb; no sinusoids, so no pitch.",
     "qa": {
       "band_flatness": 0.565,
       "harmonicity": 0.136,
-      "longest_tonal_line_s": 0.043,
-      "tonal_line_hz": 23964.8,
+      "longest_tonal_line_s": 0.021,
+      "tonal_line_hz": 2027.3,
       "peak_dbfs": -1.0,
       "processing": "trim to 10 ms pre-roll, fade-out 0.20 s, peak -1 dBFS"
     }

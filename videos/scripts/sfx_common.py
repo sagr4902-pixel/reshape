@@ -153,33 +153,35 @@ def fade(x, fade_in_s=0.0, fade_out_s=0.0, sr=SR, shape="cos"):
 
 
 def decomb(x, sr=SR, f0=200.0, nfft=4800, hop=600, thr_db=6.0, extra_lines_hz=(), fmin=150.0,
-           target_db=-6.0, keep_hz=()):
-    """Remove the ElevenLabs decoder artifact: a faint whine made of narrow lines at exact multiples
-    of 200 Hz (the model's 240-sample frame rate). STFT with 10 Hz bins puts every comb line on an
-    exact bin; in each frame, comb bins that stick out more than `thr_db` above the local spectral floor
-    (median of the neighbouring bins) are pulled down to `target_db` below that floor (below, so the
-    phase-coherent residual does not re-emerge as a line in finer analyses). Transient frames
-    (broadband) are left untouched because the comb bins do not stick out there. `extra_lines_hz` adds
-    other stationary lines (e.g. a hum) to treat the same way; `keep_hz` protects real partials."""
+           target_db=-6.0, keep_hz=(), fmax=None, half=2, nb=(4, 10)):
+    """Remove the ElevenLabs decoder artifact: faint narrow lines at exact multiples of f0 (200 Hz =
+    the model's 240-sample frame rate; a weaker 50 Hz family also exists). The STFT size puts every
+    comb line on an exact bin; in each frame, comb bins (+-`half`) that stick out more than `thr_db`
+    above the local floor (median of bins `nb[0]`..`nb[1]` away, i.e. between the lines) are pulled
+    down to `target_db` below that floor (below, so the phase-coherent residual does not re-emerge as
+    a line in finer analyses). Broadband transient frames are left untouched because the comb bins do
+    not stick out there. `extra_lines_hz` adds other stationary lines (e.g. a hum); `keep_hz` protects
+    real partials."""
     bpk = int(round(f0 * nfft / sr))
+    fmax = fmax or sr / 2
     out = np.empty_like(x)
     for c in range(x.shape[1]):
         f, t, Z = signal.stft(x[:, c], fs=sr, window="hann", nperseg=nfft, noverlap=nfft - hop)
         A = np.abs(Z)
-        nb = A.shape[0]
+        nbins = A.shape[0]
         G = np.ones_like(A)
-        centers = [k * bpk for k in range(1, nb // bpk + 1) if k * f0 >= fmin]
+        centers = [k * bpk for k in range(1, nbins // bpk + 1) if fmin <= k * f0 <= fmax]
         centers += [int(round(h * nfft / sr)) for h in extra_lines_hz]
         keep = [int(round(h * nfft / sr)) for h in keep_hz]
         tg = 10 ** (target_db / 20)
         for cb in centers:
-            if any(abs(cb - kb) <= 3 for kb in keep):
+            if any(abs(cb - kb) <= half + 1 for kb in keep):
                 continue
-            if cb - 10 < 0 or cb + 10 >= nb:
+            if cb - nb[1] < 0 or cb + nb[1] >= nbins:
                 continue
-            neigh = np.r_[cb - 10:cb - 3, cb + 4:cb + 11]
+            neigh = np.r_[cb - nb[1]:cb - nb[0] + 1, cb + nb[0]:cb + nb[1] + 1]
             floor = np.median(A[neigh], axis=0) + 1e-12
-            for b in range(cb - 2, cb + 3):
+            for b in range(cb - half, cb + half + 1):
                 ratio = A[b] / floor
                 g = np.where(ratio > 10 ** (thr_db / 20), tg * floor / (A[b] + 1e-12), 1.0)
                 G[b] = np.minimum(G[b], g)
@@ -189,6 +191,62 @@ def decomb(x, sr=SR, f0=200.0, nfft=4800, hop=600, thr_db=6.0, extra_lines_hz=()
             y = np.pad(y, (0, len(x) - len(y)))
         out[:, c] = y
     return out
+
+
+def el_clean(x):
+    """De-whine for an ElevenLabs take: removes the 200 Hz codec comb (the strong, audible one: lines
+    +20-30 dB above the floor in quiet tails). The weaker 50 Hz family (+3-5 dB in 100-600 Hz) is left
+    alone: notching it on short LF-heavy one-shots changed their envelopes by 2-10 dB (it sits on real
+    body modes), which is worse than the artifact."""
+    return decomb(x)
+
+
+def persistent_peaks(x, sr=SR, fmin=80.0, fmax=12000.0, min_med_db=10.0, min_frac=0.7):
+    """Narrow spectral peaks that stay >= min_med_db above the local (+-200 Hz, excluding +-30 Hz) median
+    in most active frames: candidate whistles / hums (or real physical partials - judge by context).
+    Returns [(freq_hz, median_prominence_db, fraction_of_frames)]."""
+    m = mono(x)
+    f, t, Z = signal.stft(m, fs=sr, nperseg=4096, noverlap=4096 - 512)
+    D = 20 * np.log10(np.abs(Z) + 1e-12)
+    e = (np.abs(Z) ** 2).sum(0)
+    act = e > e.max() * 1e-2
+    if act.sum() < 3:
+        return []
+    df = f[1] - f[0]
+    k_in, k_out = int(30 / df), int(200 / df)
+    kern = np.ones(2 * k_out + 1)
+    kern[k_out - k_in:k_out + k_in + 1] = 0
+    out = []
+    Da = D[:, act]
+    from scipy.ndimage import median_filter as _mf
+    fp = np.zeros(2 * k_out + 1, bool)
+    fp[:k_out - k_in] = True
+    fp[k_out + k_in + 1:] = True
+    med = _mf(Da, footprint=fp[:, None], mode="nearest")
+    pk = maximum_filter(Da, size=(3, 1))
+    prom = pk - med
+    medp = np.median(prom, axis=1)
+    frac = np.mean(prom > 8, axis=1)
+    cand = np.flatnonzero((medp > min_med_db) & (frac >= min_frac) & (f >= fmin) & (f <= fmax))
+    for i in cand:
+        if medp[i] == medp[max(0, i - 3):i + 4].max():
+            out.append((round(float(f[i]), 1), round(float(medp[i]), 1), round(float(frac[i]), 2)))
+    return out
+
+
+def peq(x, f0, gain_db, q, sr=SR):
+    """RBJ peaking EQ, zero-phase (applied forward+backward, each pass with half the gain)."""
+    A = 10 ** (gain_db / 2 / 40)
+    w0 = 2 * np.pi * f0 / sr
+    alpha = np.sin(w0) / (2 * q)
+    b = np.array([1 + alpha * A, -2 * np.cos(w0), 1 - alpha * A])
+    a = np.array([1 + alpha / A, -2 * np.cos(w0), 1 - alpha / A])
+    return signal.filtfilt(b / a[0], a / a[0], x, axis=0)
+
+
+def suppress_lines(x, freqs_hz, thr_db=6.0, target_db=-6.0):
+    """Pull specific narrow stationary lines (whistles / hum) down to the surrounding noise floor."""
+    return decomb(x, f0=1e9, extra_lines_hz=tuple(freqs_hz), thr_db=thr_db, target_db=target_db)
 
 
 def decomb_sync(x, period=240, win_s=0.8, sr=SR):
@@ -296,33 +354,41 @@ def harmonicity(x, sr=SR, fmin=70.0, fmax=500.0):
     return hm, float(np.mean(vals[act] > 0.8))
 
 
-def tonal_lines(x, sr=SR):
-    """Longest-lasting narrow spectral peak (>= 12 dB above the local spectral median).
-    Returns (longest_run_s, freq_hz_of_that_run, tonal_energy_fraction)."""
-    m = mono(x)
-    nfft, hop = 4096, 512
+def _tonal_pass(m, sr, nfft, hop, med_bins, fmin, fmax):
+    if len(m) < 2 * nfft:
+        m = np.pad(m, (0, 2 * nfft - len(m)))
     f, t, M = _stft(m, sr, nfft, hop)
     D = db(M)
     e = (M ** 2).sum(axis=0)
     act = e >= e.max() * 10 ** (-40 / 10)
-    base = median_filter(D, size=(41, 1), mode="nearest")
-    resid = D - base
+    base = median_filter(D, size=(med_bins, 1), mode="nearest")
     locmax = D >= maximum_filter(D, size=(5, 1))
     loud = D >= D.max(axis=0, keepdims=True) - 45
-    pk = (resid > 12) & locmax & loud & act[None, :] & (f[:, None] > 25)
+    band = ((f >= fmin) & (f <= fmax))[:, None]
+    pk = ((D - base) > 12) & locmax & loud & act[None, :] & band
     mask = maximum_filter(pk.astype(np.uint8), size=(3, 1)) > 0
     best, best_f = 0, 0.0
     for i in np.flatnonzero(mask.any(axis=1)):
-        row = mask[i].astype(np.int8)
-        d = np.diff(np.r_[0, row, 0])
-        s, en = np.flatnonzero(d == 1), np.flatnonzero(d == -1)
-        r = (en - s).max()
+        d = np.diff(np.r_[0, mask[i].astype(np.int8), 0])
+        r = (np.flatnonzero(d == -1) - np.flatnonzero(d == 1)).max()
         if r > best:
             best, best_f = r, f[i]
     P = M ** 2
     pk_d = maximum_filter(pk.astype(np.uint8), size=(5, 1)) > 0
     frac = float(P[pk_d].sum() / (P[:, act].sum() + 1e-20))
     return best * hop / sr, float(best_f), frac
+
+
+def tonal_lines(x, sr=SR):
+    """Longest-lasting narrow spectral peak (>= 12 dB above the local spectral median, a local maximum,
+    within 45 dB of the frame maximum). Two resolutions: 150 Hz-20 kHz with 11.7 Hz bins (median over
+    +-240 Hz) and 25-300 Hz with 2.9 Hz bins (median over +-30 Hz, so the steep low end of thumps is not
+    mistaken for a tone while a sustained sub sine still is). Returns (longest_run_s, freq_hz, energy
+    fraction of the flagged peaks in that pass)."""
+    m = mono(x)
+    hi = _tonal_pass(m, sr, 4096, 512, 41, 150.0, 20000.0)
+    lo = _tonal_pass(m, sr, 16384, 1024, 21, 25.0, 300.0)
+    return hi if hi[0] >= lo[0] else lo
 
 
 def rhythm_score(x, sr=SR):

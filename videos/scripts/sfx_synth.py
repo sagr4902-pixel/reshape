@@ -16,7 +16,7 @@ import sys
 import numpy as np
 from scipy import signal
 
-from sfx_common import SR, TAKES, butter, butter_zp, declip, decomb, load, save
+from sfx_common import SR, TAKES, butter, butter_zp, save
 
 
 # ----------------------------------------------------------------------------- primitives
@@ -352,8 +352,10 @@ def d_tick_spark(rng):
     # sizzle tail
     sz = butter(burst(0.25, 0.028, rng, attack=0.0005), "highpass", 6500, 2) * 0.08
     y = place(y, np.stack([sz, butter(burst(0.25, 0.028, rng, attack=0.0005), "highpass", 6500, 2) * 0.08], 1), pre / SR)
-    ir = reverb_ir(rng, rt=(0.3, 0.35, 0.35, 0.25), predelay=0.004)
-    wet = convolve(y, ir)[:n]
+    # room tail = the (smooth-spectrum) IR itself, not the IR coloured by this one random snap,
+    # so the tail carries no fixed spectral peaks
+    ir = butter(reverb_ir(rng, rt=(0.3, 0.35, 0.35, 0.25), predelay=0.004), "highpass", 1500, 2)
+    wet = place(np.zeros((n, 2)), ir, pre / SR)
     y = y + g(-17) * wet / (np.abs(wet).max() + 1e-9) * np.abs(y).max()
     return finish(tail_fade(y, 0.08), hp=250)
 
@@ -371,8 +373,8 @@ def d_marker_tick(rng):
     gl_ = butter(rng.standard_normal((int(0.16 * SR), 2)), "bandpass", [3500, 9000], 2)
     gl_ *= np.hanning(len(gl_))[:, None] * 0.028
     y = place(y, gl_, pre + 0.01)
-    ir = reverb_ir(rng, rt=(0.2, 0.22, 0.2, 0.15), predelay=0.003)
-    wet = convolve(y, ir)[:n]
+    ir = butter(reverb_ir(rng, rt=(0.2, 0.22, 0.2, 0.15), predelay=0.003), "bandpass", [900, 8000], 2)
+    wet = place(np.zeros((n, 2)), ir, pre)
     y = y + g(-20) * wet / (np.abs(wet).max() + 1e-9) * np.abs(y).max()
     y = butter(y, "lowpass", 9000, 2)
     return finish(tail_fade(y, 0.08), hp=200)
@@ -483,20 +485,44 @@ def circ_place(dst, src, at_s):
     return dst
 
 
-def el_event(take, t0, t1, rng_unused=None):
-    """A segment of an ElevenLabs foley take, declipped and de-whined (used only as distant events)."""
-    x = load(TAKES / f"{take}.flac")
-    x, _, _ = declip(x)
-    x = decomb(x)
-    seg = x[int(t0 * SR):int(t1 * SR)].copy()
-    k = int(0.01 * SR)
-    seg[:k] *= np.linspace(0, 1, k)[:, None]
-    seg[-k * 3:] *= np.linspace(1, 0, k * 3)[:, None]
-    return seg
+def ev_thud(rng, tau=0.05, lp=600.0):
+    """Soft distant thud (mat / body weight), smooth spectrum."""
+    b = burst(0.6, tau, rng, attack=0.002)
+    return butter(butter(b, "lowpass", lp, 2), "highpass", 70, 2)
+
+
+def ev_step(rng):
+    heel = butter(burst(0.15, rng.uniform(0.012, 0.02), rng, attack=0.001), "bandpass", [120, 1800], 2)
+    sc = butter(burst(0.06, 0.008, rng, attack=0.0005), "bandpass", [1500, 5000], 2)
+    heel[:len(sc)] += 0.25 * sc * np.abs(heel).max() / (np.abs(sc).max() + 1e-12)
+    return heel
+
+
+def ev_steps(rng, n=5, spacing=0.27, jitter=0.035):
+    y = np.zeros(int((n * spacing + 0.4) * SR))
+    t0 = 0.0
+    for _ in range(n):
+        s = ev_step(rng) * rng.uniform(0.55, 1.0)
+        i0 = int(t0 * SR)
+        y[i0:i0 + len(s)] += s[:len(y) - i0]
+        t0 += spacing + rng.uniform(-jitter, jitter)
+    return y
+
+
+def ev_clatter(rng, n=4):
+    """Small piece of equipment set down: a few quick light knocks (band-passed noise, no modes)."""
+    y = np.zeros(int(0.5 * SR))
+    for _ in range(n):
+        b = butter(burst(0.05, rng.uniform(0.004, 0.01), rng, attack=0.0003), "bandpass", [400, 3500], 2)
+        i0 = int(rng.uniform(0, 0.25) * SR)
+        y[i0:i0 + len(b)] += b[:len(y) - i0] * rng.uniform(0.3, 1.0)
+    return y
 
 
 def distance(seg, lp, ir, wet_db=0.0, dry_db=-14.0):
     """Push a close sound far away: low-pass (air), mostly reverb, little direct sound."""
+    if seg.ndim == 1:
+        seg = np.stack([seg, seg], 1)
     d = butter(seg, "lowpass", lp, 2)
     w = convolve(d, ir)
     w = w / (np.abs(w).max() + 1e-12)
@@ -524,10 +550,10 @@ def d_room_tone_gym(rng):
     high *= periodic_mod(n, rng, 0.4, 0.07)[:, None]
     bed = low + g(-1) * high
     # two barely-there distant events (far reverberant thuds), placed circularly so the loop stays seamless
-    ir = reverb_ir(rng, rt=(2.0, 1.8, 1.2, 0.6), predelay=0.03, dur=2.4)
+    ir = reverb_ir(rng, rt=(1.1, 1.5, 1.1, 0.5), predelay=0.03, dur=2.0)
     ev = np.zeros((n, 2))
-    ev = circ_place(ev, distance(el_event("land_mat_a", 0.09, 0.45), 900, ir), 3.1)
-    ev = circ_place(ev, distance(el_event("block_rise_b", 0.38, 0.75), 1400, ir), 8.35)
+    ev = circ_place(ev, distance(ev_thud(rng, 0.06, 650), 900, ir), 3.1)
+    ev = circ_place(ev, distance(ev_clatter(rng), 1600, ir), 8.35)
     bed, ev = bed / np.abs(bed).max(), ev / (np.abs(ev).max() + 1e-12)
     if PARTS:
         return bed, g(EV_DB.get("room_tone_gym", -16)) * ev
@@ -545,13 +571,17 @@ def d_kids_area_air(rng):
 
     bed = periodic_noise(dur, shape, rng, corr_fn=lambda f: 0.5 * np.exp(-f / 250) + 0.1)
     bed *= periodic_mod(n, rng, 0.45, 0.08)[:, None]
-    ir = reverb_ir(rng, rt=(1.4, 1.5, 1.2, 0.8), predelay=0.025, dur=2.0)
+    ir = reverb_ir(rng, rt=(0.9, 1.3, 1.1, 0.7), predelay=0.025, dur=1.8)
     ev = np.zeros((n, 2))
-    # distant light activity: a few quick light steps, a soft hop landing, a mat pat - nothing voiced
-    ev = circ_place(ev, distance(el_event("kid_steps_a", 0.05, 0.95), 2600, ir, dry_db=-12), 0.9)
-    ev = circ_place(ev, distance(el_event("hoop_hop_a", 0.13, 0.5), 2400, ir, dry_db=-12), 3.65)
-    ev = circ_place(ev, distance(el_event("hands_floor_b", 0.09, 0.4), 2800, ir, dry_db=-12), 5.4)
-    ev = circ_place(ev, distance(el_event("kid_steps_b", 0.55, 1.25), 2200, ir, dry_db=-12), 6.6)
+    # distant light activity: a short run of light steps, a two-foot hop, a mat pat, another run
+    hop = ev_thud(rng, 0.03, 900)
+    hop2 = np.zeros(len(hop) + int(0.045 * SR))
+    hop2[:len(hop)] += hop
+    hop2[int(0.045 * SR):] += 0.7 * ev_thud(rng, 0.03, 900)
+    ev = circ_place(ev, distance(ev_steps(rng, 5, 0.26), 2600, ir, dry_db=-12), 0.9)
+    ev = circ_place(ev, distance(hop2, 2400, ir, dry_db=-12), 3.65)
+    ev = circ_place(ev, distance(ev_thud(rng, 0.02, 1500), 2800, ir, dry_db=-12), 5.4)
+    ev = circ_place(ev, distance(ev_steps(rng, 4, 0.3), 2200, ir, dry_db=-12), 6.6)
     bed, ev = bed / np.abs(bed).max(), ev / (np.abs(ev).max() + 1e-12)
     if PARTS:
         return bed, g(EV_DB.get("kids_area_air", -9)) * ev
@@ -560,7 +590,7 @@ def d_kids_area_air(rng):
 
 
 PARTS = False                     # analysis hook: ambience designs return (bed, events)
-EV_DB = {"room_tone_gym": -7.0, "kids_area_air": 0.0}   # distant-event level vs bed peak (dB)
+EV_DB = {"room_tone_gym": -7.0, "kids_area_air": -2.0}   # distant-event level vs bed peak (dB)
 
 DESIGNS = {
     "tick_spark": (d_tick_spark, 11),

@@ -62,7 +62,9 @@ export const HomeVideo: React.FC<SP> = ({F}) => {
   const zoom = F < FREEZE ? 1 : lerp(1, 1.25, E.outCubic(clamp((F - FREEZE) / 6))) * (F > dragA ? lerp(1, 0.8, E.inOutCubic(clamp((F - dragA) / 22))) : 1);
   const focus = FOCUS;
   const color = seg(F, 98, 108);
-  const rewinding = F >= dragA - 2 && F <= dragB + 2;
+  // eased (not switched) freeze dim and rewind look, so no single-frame jumps
+  const dimK = seg(F, FREEZE, FREEZE + 3, E.linear) * (1 - seg(F, dragA - 2, dragA + 6, E.linear));
+  const rw = seg(F, dragA - 3, dragA + 1, E.linear) * (1 - seg(F, dragB, dragB + 4, E.linear));
   const playerIn = E.outCubic(clamp((F - 48) / 8));
   const head = F < dragA ? 0.34 : F < dragB ? lerp(0.34, 0.02, E.inOutCubic((F - dragA) / (dragB - dragA))) : 0.02;
   const barX0 = 160, barW = 760;
@@ -71,11 +73,11 @@ export const HomeVideo: React.FC<SP> = ({F}) => {
     : F < 86 ? [barX0 + head * barW, 1660] : [lerp(barX0 + head * barW, playX, E.inOutCubic(clamp((F - 86) / 8))), 1660];
   const press = F >= 58 && F < dragB ? 1 : F >= 95 && F < 99 ? 1 : 0;
   const morph = E.outBack(clamp((F - 97) / 7)); // the play button swells into the orange ball
-  const circleP = E.outCubic(clamp((F - FREEZE - 1) / 9));
+  const circleP = E.outCubic(clamp((F - FREEZE - 1) / 9)) * (1 - E.inCubic(clamp((F - (dragA - 3)) / 9))); // draws on, then un-draws as the rewind starts
   return (
     <AbsoluteFill style={{background: '#CFCAC4', overflow: 'hidden'}}>
       <AbsoluteFill style={{transform: `translate(${jx}px, ${jy}px) scale(${zoom * punch(F, FREEZE, 0.05)})`, transformOrigin: `${focus[0]}px ${focus[1]}px`}}>
-        <AbsoluteFill style={{filter: `grayscale(${1 - color}) contrast(${lerp(1.15, 1, color)}) brightness(${lerp(frozen ? 0.9 : 1.02, 1, color)})`}}>
+        <AbsoluteFill style={{filter: `grayscale(${1 - color}) contrast(${lerp(1.15, 1, color)}) brightness(${lerp(1.02 - 0.12 * dimK, 1, color)})`}}>
           {/* plain room */}
           <AbsoluteFill style={{background: 'linear-gradient(180deg, #D9D4CE 0%, #CEC8C2 62%, #B9B2AB 62.2%, #A9A29B 100%)'}} />
           <div style={{position: 'absolute', left: 700, top: 380, width: 260, height: 330, border: '14px solid #E8E4DF', background: '#BFC6CC'}} />
@@ -88,7 +90,7 @@ export const HomeVideo: React.FC<SP> = ({F}) => {
           </svg>
         </AbsoluteFill>
         {/* the red "this is you" circle stays in color over the grey footage */}
-        {F >= FREEZE + 1 && F < dragA ? (
+        {F >= FREEZE + 1 && circleP > 0.001 ? (
           <svg width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
             <ellipse cx={focus[0]} cy={focus[1]} rx={190} ry={F_RY} fill="none" stroke="#E2241B" strokeWidth={13} strokeLinecap="round"
               strokeDasharray={2200} strokeDashoffset={2200 * (1 - circleP)} transform={`rotate(${F_ANG} ${focus[0]} ${focus[1]})`} />
@@ -107,10 +109,10 @@ export const HomeVideo: React.FC<SP> = ({F}) => {
           <div key={i} style={{position: 'absolute', left: x - (sx < 0 ? 60 : 0), top: y - (sy < 0 ? 60 : 0), width: 60, height: 60,
             borderLeft: sx > 0 ? '6px solid #fff' : undefined, borderRight: sx < 0 ? '6px solid #fff' : undefined, borderTop: sy > 0 ? '6px solid #fff' : undefined, borderBottom: sy < 0 ? '6px solid #fff' : undefined, opacity: 0.8}} />
         ))}
-        {rewinding ? <div style={{position: 'absolute', right: 70, top: 220, fontSize: 90, color: '#fff', textShadow: '0 4px 12px rgba(0,0,0,0.5)', fontFamily: FONT.data}}>◀◀</div> : null}
+        {rw > 0 ? <div style={{position: 'absolute', right: 70, top: 220, fontSize: 90, color: '#fff', textShadow: '0 4px 12px rgba(0,0,0,0.5)', fontFamily: FONT.data, opacity: rw}}>◀◀</div> : null}
       </AbsoluteFill>
-      <Scanlines o={rewinding ? 0.6 : 0.18 * (1 - color)} f={F} />
-      {rewinding ? <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.18) 31%, rgba(255,255,255,0) 34%)', transform: `translateY(${((F * 53) % 1900) - 900}px)`}} /> : null}
+      <Scanlines o={lerp(0.18 * (1 - color), 0.6, rw)} f={F} />
+      {rw > 0 ? <AbsoluteFill style={{opacity: rw, background: 'linear-gradient(180deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.18) 31%, rgba(255,255,255,0) 34%)', transform: `translateY(${((F * 53) % 1900) - 900}px)`}} /> : null}
       <Flash f={F} at={FREEZE} color="#FFFFFF" max={0.35} />
       {/* «هذا إنت؟» */}
       <Punch text="هذا إنت؟" f={F} at={21} out={dragA - 6} size={190} y={470} color="#FFFFFF" shadow="#E2241B" rot={-4} />

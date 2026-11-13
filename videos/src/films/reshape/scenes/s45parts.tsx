@@ -171,3 +171,128 @@ const Section: React.FC = () => {
     </g>
   );
 };
+
+/* ───────────────────────── facility (skeleton; detailed layers added below) ───────────────────────── */
+export const Stage: React.FC<{f: number; cam: Cam; uid: string}> = ({cam, uid}) => {
+  const c = toScreen(cam, [BCX, BCY]);
+  return (
+    <g>
+      <defs>
+        <radialGradient id={`${uid}stg`} cx={c[0]} cy={c[1]} r={1150} gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#2A2B30" />
+          <stop offset="0.55" stopColor="#1A1B1F" />
+          <stop offset="1" stopColor={C.ink} />
+        </radialGradient>
+      </defs>
+      <rect width={1080} height={1920} fill={`url(#${uid}stg)`} />
+    </g>
+  );
+};
+
+/* ───────────────────────── facility composition ───────────────────────── */
+export const Facility: React.FC<{f: number; uid: string}> = ({f, uid}) => {
+  const cam = camAt(f);
+  return (
+    <svg width={1080} height={1920} viewBox="0 0 1080 1920" style={{position: 'absolute', left: 0, top: 0}}>
+      {f >= 632 ? <Stage f={f} cam={cam} uid={uid} /> : null}
+      <g transform={camT(cam)}>
+        <RoomShell r={RA} camX={cam.x} st={ST_A} id={`${uid}A`} />
+        <RoomShell r={RK} camX={cam.x} st={ST_K} id={`${uid}K`} />
+        <Section />
+      </g>
+    </svg>
+  );
+};
+
+export const S4Text: React.FC<{f: number}> = () => null;
+export const S5Text: React.FC<{f: number}> = () => null;
+
+/* ───────────────────────── poses & gaits ───────────────────────── */
+const legLen = (P: Props) => P.thigh + P.shin;
+const ankleY = (P: Props) => -(P.rShin[1] + 2.6);
+
+/** Parallel-bar dip. Grip (bar top under the hands) at (0,0). d: 0 arms locked → 1 bottom (elbows back). */
+export const dipPose = (d: number, P: Props = ADULT, sway = 0): PoseCtl => {
+  const e = E.inOutSine(clamp(d));
+  const sh: V2 = [lerp(-4, 30, e), lerp(-(P.upper + P.fore - 6), -70, e)];
+  const torso = A(lerp(4, 24, e));
+  const pelvis = sub2(sh, mul2(dir(torso), P.spine - P.shoulderDrop));
+  const th = lerp(170, 160, e) + sway, sn = lerp(252, 244, e) + sway * 0.6;
+  return {
+    pelvis, torso, head: A(lerp(-2, -16, e)),
+    aN: {ik: [0, -P.handR], bend: 1}, aF: {ik: [-2, -P.handR - 3], bend: 1},
+    lN: {fk: [A(th), A(sn)]}, lF: {fk: [A(th + 5), A(sn + 6)]},
+    footN: A(sn - 48), footF: A(sn - 44),
+  };
+};
+
+/** Body x of a walk at phase ph (cycles) so the stance foot stays planted; 0 at ph = 0. Footfall m lands at m·step. */
+export const walkX = (ph: number, P: Props, stride: number) => {
+  const L = legLen(P), sS = Math.sin(A(stride)), step = 2 * L * sS;
+  const n = Math.floor((ph - 0.25) * 2);
+  const inner = L * Math.sin(A(stride) * Math.sin(ph * Math.PI * 2));
+  const odd = ((n % 2) + 2) % 2 === 1;
+  return n * step + L * sS + (odd ? inner : -inner) + (step - L * sS);
+};
+export const stepLen = (P: Props, stride: number) => 2 * legLen(P) * Math.sin(A(stride));
+
+export type Gait = {stride?: number; hBase?: number; hurdles?: number[]; hurdleH?: number; armsOut?: number;
+  beam?: [number, number, number]};
+/** Planted-foot IK walk (rig space, facing +x, ground y = 0). Swing feet follow arcs that clear hurdles / step onto a beam. */
+export const ikWalk = (ph: number, P: Props, o: Gait = {}): Joints => {
+  const stride = o.stride ?? 18, L = legLen(P), step = stepLen(P, stride);
+  const bx = walkX(ph, P, stride);
+  const base = walk(ph, P, {stride});
+  const arms = o.armsOut ? walk(ph, P, {stride, armsOut: true}) : base;
+  const aw = o.armsOut ?? 0;
+  const ay = ankleY(P);
+  const surf = (x: number) => (o.beam && x >= o.beam[0] && x <= o.beam[1] ? o.beam[2] : 0);
+  const m = Math.round(2 * ph);
+  const u = clamp((ph - (m / 2 - 0.25)) / 0.5);
+  const stanceX = m * step, from = (m - 1) * step, to = (m + 1) * step;
+  const ue = E.inOutSine(u);
+  let h = (o.hBase ?? 0.1 * L) * Math.sin(Math.PI * u);
+  for (const hx of o.hurdles ?? []) if (hx > from && hx < to) h += ((o.hurdleH ?? 0) + 0.12 * L) * Math.pow(Math.sin(Math.PI * u), 0.55);
+  const swingY = lerp(surf(from), surf(to), E.inOutSine(clamp((u - 0.15) / 0.7)));
+  let lift = 0;
+  if (o.beam) {
+    const [b0, b1, bh] = o.beam;
+    const sm = (a: number, b: number, x: number) => E.inOutSine(clamp((x - a) / (b - a)));
+    lift = bh * sm(b0 - step * 0.5, b0 + step * 0.5, bx) * (1 - sm(b1 - step * 0.5, b1 + step * 0.5, bx));
+  }
+  const s = Math.sin(ph * Math.PI * 2);
+  const pelvisY = ay - L * Math.cos(A(stride * Math.abs(s))) + 4 - lift;
+  const stanceT: V2 = [stanceX, ay - surf(stanceX)];
+  const swingT: V2 = [lerp(from, to, ue), ay - swingY - h];
+  const nearStance = ((m % 2) + 2) % 2 === 1;
+  const swingFoot = A(90 + 26 * Math.sin(Math.PI * u));
+  const pose: PoseCtl = {
+    pelvis: [bx, pelvisY], torso: base.torso, head: base.head,
+    aN: aw > 0 ? lerpLimb(base.aN, arms.aN, aw) : base.aN, aF: aw > 0 ? lerpLimb(base.aF, arms.aF, aw) : base.aF,
+    lN: {ik: nearStance ? stanceT : swingT, bend: -1}, lF: {ik: nearStance ? swingT : stanceT, bend: -1},
+    footN: nearStance ? A(90) : swingFoot, footF: nearStance ? swingFoot : A(90),
+  };
+  return solve(pose, P);
+};
+const lerpLimb = (a: PoseCtl['aN'], b: PoseCtl['aN'], t: number): PoseCtl['aN'] =>
+  'fk' in a && 'fk' in b ? {fk: [lerp(a.fk[0], b.fk[0], t), lerp(a.fk[1], b.fk[1], t)]} : t < 0.5 ? a : b;
+
+/** Trapezoidal-velocity progress 0→1 (accelerates over fraction a, cruises, decelerates over a). */
+export const trap = (f: number, f0: number, f1: number, a = 0.2) => {
+  const t = clamp((f - f0) / (f1 - f0));
+  const v = 1 / (1 - a);
+  if (t < a) return (v * t * t) / (2 * a);
+  if (t > 1 - a) return 1 - (v * (1 - t) * (1 - t)) / (2 * a);
+  return v * (t - a / 2);
+};
+
+/** A walk from standing (ph 0) to standing (ph = phEnd, a multiple of 0.5) with joint-space ease in/out. */
+export const walker = (ph: number, phEnd: number, P: Props, o: Gait, idleT: number): {j: Joints; bx: number} => {
+  const stride = o.stride ?? 18;
+  const bx = walkX(ph, P, stride);
+  const w = E.inOutSine(Math.min(clamp(ph / 0.3), clamp((phEnd - ph) / 0.3)));
+  const st = shiftJ(solve(stand(P, idleT), P), bx, 0);
+  if (w >= 0.999) return {j: ikWalk(ph, P, o), bx};
+  if (w <= 0.001) return {j: st, bx};
+  return {j: mixJ(st, ikWalk(ph, P, o), w), bx};
+};

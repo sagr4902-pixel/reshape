@@ -230,6 +230,76 @@
    "s": "marker_tick",
    "f": 1262,
    "db": -16
+  },
+  {
+   "s": "room_tone_gym",
+   "f": 866,
+   "db": -20,
+   "align": "start",
+   "fadein": 0.6,
+   "dur": 7.6,
+   "fade": 1.0,
+   "bus": "amb"
+  },
+  {
+   "s": "cloth_1",
+   "f": 902,
+   "db": -18
+  },
+  {
+   "s": "cloth_2",
+   "f": 937,
+   "db": -19
+  },
+  {
+   "s": "marker_tick",
+   "f": 930,
+   "db": -12
+  },
+  {
+   "s": "check_stamp",
+   "f": 941,
+   "db": -15
+  },
+  {
+   "s": "marker_tick",
+   "f": 950,
+   "db": -12
+  },
+  {
+   "s": "check_stamp",
+   "f": 961,
+   "db": -15
+  },
+  {
+   "s": "cloth_1",
+   "f": 965,
+   "db": -19
+  },
+  {
+   "s": "marker_tick",
+   "f": 977,
+   "db": -11
+  },
+  {
+   "s": "block_rise_2",
+   "f": 986,
+   "db": -11
+  },
+  {
+   "s": "check_stamp",
+   "f": 989,
+   "db": -14
+  },
+  {
+   "s": "land_mat",
+   "f": 1021,
+   "db": -14
+  },
+  {
+   "s": "whoosh_deep_1",
+   "f": 1062,
+   "db": -11
   }
  ]
 }

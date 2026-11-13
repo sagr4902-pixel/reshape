@@ -9,6 +9,7 @@
 | الوسوم | #reshape #brand-ad #calisthenics #kids #orange-path #arabic-voiceover #no-music #2.5d #logo-reveal |
 | ملف الهوية | [brands/reshape/BRAND.md](../../brands/reshape/BRAND.md) |
 | تاريخ الحفظ | 2026-11-13 |
+| الحالة | **تم الإنتاج — v1** (`reshape/videos/`، المخرجات في `videos/deliverables/reshape-campaign-v1/`) |
 
 ## البرومت الأصلي (حرفيًا)
 

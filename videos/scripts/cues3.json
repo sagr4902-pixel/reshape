@@ -1,0 +1,426 @@
+{
+ "total_frames": 621,
+ "timing": "src/vo3_timing.json",
+ "out_dir": "public/audio/mix3",
+ "out_name": "hype_mix",
+ "vo": {
+  "V1": 20,
+  "V2": 53,
+  "V3": 110,
+  "V4": 152,
+  "V5": 209,
+  "V6": 272,
+  "V7": 370,
+  "V8": 448,
+  "V9": 514
+ },
+ "duck_db": -6.0,
+ "sfx": [
+  {
+   "s": "room_tone_gym",
+   "f": 0,
+   "db": -27,
+   "align": "start",
+   "dur": 3.6333333333333333,
+   "fade": 0.02,
+   "fadein": 0.05,
+   "bus": "amb"
+  },
+  {
+   "s": "hands_floor",
+   "f": 1,
+   "db": -17
+  },
+  {
+   "s": "cloth_1",
+   "f": 4,
+   "db": -21
+  },
+  {
+   "s": "whoosh_light_2",
+   "f": 15,
+   "db": -19,
+   "pan": 0.3
+  },
+  {
+   "s": "record_scratch",
+   "f": 18,
+   "db": -5
+  },
+  {
+   "s": "sub_impact_soft",
+   "f": 18,
+   "db": -13
+  },
+  {
+   "s": "line_draw",
+   "f": 19,
+   "db": -21,
+   "align": "start",
+   "dur": 0.32,
+   "fade": 0.08,
+   "fadein": 0.03
+  },
+  {
+   "s": "word_accent",
+   "f": 21,
+   "db": -9
+  },
+  {
+   "s": "whoosh_light_1",
+   "f": 51,
+   "db": -19
+  },
+  {
+   "s": "marker_tick",
+   "f": 58,
+   "db": -13
+  },
+  {
+   "s": "tape_rewind",
+   "f": 59,
+   "db": -9,
+   "align": "start",
+   "dur": 0.86,
+   "fade": 0.12
+  },
+  {
+   "s": "marker_tick",
+   "f": 95,
+   "db": -11
+  },
+  {
+   "s": "tick_spark",
+   "f": 100,
+   "db": -15
+  },
+  {
+   "s": "whoosh_light_3",
+   "f": 106,
+   "db": -14,
+   "pan": -0.2
+  },
+  {
+   "s": "whoosh_deep_1",
+   "f": 109,
+   "db": -12
+  },
+  {
+   "s": "sub_impact_soft",
+   "f": 109,
+   "db": -9
+  },
+  {
+   "s": "grip_bar",
+   "f": 115,
+   "db": -19
+  },
+  {
+   "s": "ball_bounce",
+   "f": 121,
+   "db": -10
+  },
+  {
+   "s": "impact_hit",
+   "f": 124,
+   "db": -7
+  },
+  {
+   "s": "ball_bounce",
+   "f": 141,
+   "db": -15,
+   "pan": 0.4
+  },
+  {
+   "s": "whoosh_light_1",
+   "f": 146,
+   "db": -12
+  },
+  {
+   "s": "cloth_2",
+   "f": 170,
+   "db": -20
+  },
+  {
+   "s": "impact_hit",
+   "f": 178,
+   "db": -7
+  },
+  {
+   "s": "tick_spark",
+   "f": 179,
+   "db": -17
+  },
+  {
+   "s": "whoosh_deep_2",
+   "f": 202,
+   "db": -13
+  },
+  {
+   "s": "grip_bar",
+   "f": 205,
+   "db": -19
+  },
+  {
+   "s": "whoosh_light_2",
+   "f": 218,
+   "db": -18,
+   "pan": -0.3
+  },
+  {
+   "s": "impact_hit",
+   "f": 222,
+   "db": -6
+  },
+  {
+   "s": "sub_impact_soft",
+   "f": 222,
+   "db": -13
+  },
+  {
+   "s": "word_accent",
+   "f": 241,
+   "db": -9,
+   "pan": 0.25
+  },
+  {
+   "s": "marker_tick",
+   "f": 241,
+   "db": -19
+  },
+  {
+   "s": "word_accent",
+   "f": 245,
+   "db": -10,
+   "pan": -0.25
+  },
+  {
+   "s": "marker_tick",
+   "f": 245,
+   "db": -19
+  },
+  {
+   "s": "word_accent",
+   "f": 249,
+   "db": -10,
+   "pan": 0.25
+  },
+  {
+   "s": "marker_tick",
+   "f": 249,
+   "db": -19
+  },
+  {
+   "s": "word_accent",
+   "f": 253,
+   "db": -10,
+   "pan": -0.25
+  },
+  {
+   "s": "marker_tick",
+   "f": 253,
+   "db": -19
+  },
+  {
+   "s": "word_accent",
+   "f": 257,
+   "db": -10,
+   "pan": 0.25
+  },
+  {
+   "s": "marker_tick",
+   "f": 257,
+   "db": -19
+  },
+  {
+   "s": "word_accent",
+   "f": 261,
+   "db": -10,
+   "pan": -0.25
+  },
+  {
+   "s": "marker_tick",
+   "f": 261,
+   "db": -19
+  },
+  {
+   "s": "kids_area_air",
+   "f": 263,
+   "db": -27,
+   "align": "start",
+   "dur": 3.433333333333333,
+   "fade": 0.25,
+   "fadein": 0.1,
+   "bus": "amb"
+  },
+  {
+   "s": "whoosh_light_1",
+   "f": 268,
+   "db": -12
+  },
+  {
+   "s": "jump_takeoff",
+   "f": 302.6,
+   "db": -18
+  },
+  {
+   "s": "hoop_hop",
+   "f": 314.48,
+   "db": -11
+  },
+  {
+   "s": "jump_takeoff",
+   "f": 324.0,
+   "db": -18
+  },
+  {
+   "s": "hoop_hop",
+   "f": 334.8,
+   "db": -11
+  },
+  {
+   "s": "high_five",
+   "f": 343,
+   "db": -4
+  },
+  {
+   "s": "sub_impact_soft",
+   "f": 343,
+   "db": -15
+  },
+  {
+   "s": "whoosh_deep_1",
+   "f": 360,
+   "db": -12
+  },
+  {
+   "s": "glow_shimmer",
+   "f": 362,
+   "db": -18
+  },
+  {
+   "s": "word_accent",
+   "f": 373.0,
+   "db": -14
+  },
+  {
+   "s": "marker_tick",
+   "f": 373.0,
+   "db": -18
+  },
+  {
+   "s": "word_accent",
+   "f": 414.0,
+   "db": -14
+  },
+  {
+   "s": "marker_tick",
+   "f": 414.0,
+   "db": -18
+  },
+  {
+   "s": "whoosh_deep_2",
+   "f": 446,
+   "db": -12
+  },
+  {
+   "s": "sub_impact_soft",
+   "f": 446,
+   "db": -14
+  },
+  {
+   "s": "marker_tick",
+   "f": 455,
+   "db": -17
+  },
+  {
+   "s": "block_rise_2",
+   "f": 456,
+   "db": -21
+  },
+  {
+   "s": "marker_tick",
+   "f": 462,
+   "db": -15
+  },
+  {
+   "s": "block_rise_2",
+   "f": 463,
+   "db": -20
+  },
+  {
+   "s": "marker_tick",
+   "f": 469,
+   "db": -13
+  },
+  {
+   "s": "block_rise_2",
+   "f": 470,
+   "db": -19
+  },
+  {
+   "s": "marker_tick",
+   "f": 476,
+   "db": -11
+  },
+  {
+   "s": "block_rise_2",
+   "f": 477,
+   "db": -18
+  },
+  {
+   "s": "riser_air",
+   "f": 482,
+   "db": -15,
+   "skip": 1.25,
+   "fadein": 0.12
+  },
+  {
+   "s": "impact_hit",
+   "f": 482,
+   "db": -6
+  },
+  {
+   "s": "check_stamp",
+   "f": 483,
+   "db": -14
+  },
+  {
+   "s": "converge_swirl",
+   "f": 512,
+   "db": -10,
+   "skip": 0.75,
+   "fadein": 0.06
+  },
+  {
+   "s": "logo_impact",
+   "f": 515,
+   "db": -3
+  },
+  {
+   "s": "glow_shimmer",
+   "f": 529,
+   "db": -14
+  },
+  {
+   "s": "word_accent",
+   "f": 550,
+   "db": -13
+  },
+  {
+   "s": "marker_tick",
+   "f": 577,
+   "db": -8
+  },
+  {
+   "s": "check_stamp",
+   "f": 580,
+   "db": -8
+  },
+  {
+   "s": "tick_spark",
+   "f": 585,
+   "db": -18
+  }
+ ]
+}

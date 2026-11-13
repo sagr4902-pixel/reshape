@@ -2,7 +2,7 @@
 
 Usage: python3 scripts/mix.py [cues.json]
 - VO placements come from src/films/reshape/timeline.ts values passed in cues.json ("vo": {"L1": frame, ...}).
-- Each SFX cue: {"s": name, "f": frame, "db": gain_dB, "pan": -1..1, "align": "peak"|"start", "dur": optional seconds (trim), "fade": seconds}
+- Each SFX cue: {"s": name, "f": frame, "db": gain_dB, "pan": -1..1, "align": "peak"|"start", "skip": seconds cut from the start, "dur": optional seconds (trim), "fade": seconds}
   With align=peak the sound's measured transient (manifest peak_time_s) lands exactly on frame f.
 - Effects are ducked under the voice (sidechain-style envelope), then the whole mix is loudness-normalised
   to -14 LUFS integrated / -1.5 dBTP (two-pass ffmpeg loudnorm).
@@ -60,6 +60,9 @@ def main():
         if name not in cache:
             cache[name] = load(ROOT / "public" / manifest[name]["file"])
         a = cache[name].copy()
+        skip = c.get("skip", 0.0)  # drop the first `skip` seconds (e.g. the quiet start of a long riser)
+        if skip:
+            a = a[int(skip * SR):]
         if c.get("dur"):
             a = a[: int(c["dur"] * SR)]
         fade = c.get("fade", 0.03)
@@ -72,7 +75,7 @@ def main():
         pan = c.get("pan", 0.0)
         a = a * g
         a[:, 0] *= np.sqrt((1 - pan) / 2) * np.sqrt(2); a[:, 1] *= np.sqrt((1 + pan) / 2) * np.sqrt(2)
-        offset = manifest[name].get("peak_time_s", 0.0) if c.get("align", "peak") == "peak" else 0.0
+        offset = manifest[name].get("peak_time_s", 0.0) - skip if c.get("align", "peak") == "peak" else 0.0
         s = int((c["f"] / FPS - offset) * SR)
         if s < 0:
             a = a[-s:]; s = 0

@@ -567,10 +567,10 @@
  "record_scratch": {
   "file": "audio/sfx/record_scratch.wav",
   "duration_s": 0.417,
-  "peak_time_s": 0.096,
+  "peak_time_s": 0.025,
   "source": "elevenlabs",
   "prompt_or_recipe": "Short DJ vinyl record scratch, comedic freeze-frame stop, dry, no music, no drums",
-  "notes": "v3 hype set, take 1"
+  "notes": "v3 hype set, take 1 | sync point 0.025 s so the scratch starts on the freeze frame"
  },
  "tape_rewind": {
   "file": "audio/sfx/tape_rewind.wav",
@@ -583,10 +583,10 @@
  "impact_hit": {
   "file": "audio/sfx/impact_hit.wav",
   "duration_s": 0.811,
-  "peak_time_s": 0.047,
+  "peak_time_s": 0.006,
   "source": "elevenlabs",
   "prompt_or_recipe": "Punchy cinematic impact hit, deep boom with sharp transient, short tail, no music, no melody",
-  "notes": "v3 hype set, take 1"
+  "notes": "v3 hype set, take 1 | sync point moved to the attack (0.006 s; the 0.138 s sample max is the boom body)"
  },
  "ball_bounce": {
   "file": "audio/sfx/ball_bounce.wav",

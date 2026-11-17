@@ -53,7 +53,11 @@ export const Starburst: React.FC<{p: number; x: number; y: number; color?: strin
 };
 
 /** Big punchline word(s): slam in with an offset print shadow and a brief chromatic split on impact. */
+/** Inside a preview window (slot.tsx) scenes render without their punch words. */
+export const NoPunch = React.createContext(false);
+
 export const Punch: React.FC<{text: string; f: number; at: number; out?: number; size: number; x?: number; y: number; color?: string; shadow?: string; rot?: number}> = ({text, f, at, out = 1e9, size, x = 540, y, color = C.light, shadow = C.orange, rot = -3}) => {
+  if (React.useContext(NoPunch)) return null;
   const d = f - at;
   if (d < -1 || f > out + 8) return null;
   const pin = E.outBack(clamp((d + 1) / 6));

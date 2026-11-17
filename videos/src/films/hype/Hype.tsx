@@ -8,8 +8,8 @@ import {wipe} from '@remotion/transitions/wipe';
 import {CameraMotionBlur} from '@remotion/motion-blur';
 import {ensureFonts} from '../../kit/fonts';
 import {Grain} from '../../kit/Stage';
-import {FinaleScene, FlashScene, HomeVideo} from './scenes';
-import {HandstandPhoto, KidsPhoto, LeverPhoto, PullUpPhoto, SlotScene} from './photoScenes';
+import {FinaleScene, FlashScene, HandstandScene, HomeVideo, KidsScene, LeverScene, PullUpScene} from './scenes';
+import {SlotScene} from './slot';
 import {AT, CUTS, LINES, TOTAL, TR, type VId} from './timeline';
 
 ensureFonts();
@@ -17,11 +17,11 @@ ensureFonts();
 /** Sequence starts (absolute) for each scene; transitions overlap the end of one scene and the start of the next. */
 const SEQ = [
   {id: 'a', start: 0, end: CUTS.drop, C: HomeVideo},
-  {id: 'b', start: CUTS.drop, end: CUTS.toHand, C: PullUpPhoto},
-  {id: 'c', start: CUTS.toHand - TR.toHand, end: CUTS.toLever, C: HandstandPhoto},
-  {id: 'd', start: CUTS.toLever - TR.toLever, end: CUTS.toFlash, C: LeverPhoto},
+  {id: 'b', start: CUTS.drop, end: CUTS.toHand, C: PullUpScene},
+  {id: 'c', start: CUTS.toHand - TR.toHand, end: CUTS.toLever, C: HandstandScene},
+  {id: 'd', start: CUTS.toLever - TR.toLever, end: CUTS.toFlash, C: LeverScene},
   {id: 'e', start: CUTS.toFlash, end: CUTS.toKids, C: FlashScene},
-  {id: 'f', start: CUTS.toKids - TR.toKids, end: CUTS.toPills, C: KidsPhoto},
+  {id: 'f', start: CUTS.toKids - TR.toKids, end: CUTS.toPills, C: KidsScene},
   {id: 'g', start: CUTS.toPills - TR.toPills, end: CUTS.toFinale, C: SlotScene},
   {id: 'h', start: CUTS.toFinale, end: TOTAL, C: FinaleScene},
 ] as const;

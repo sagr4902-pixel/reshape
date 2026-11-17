@@ -9,6 +9,7 @@ import {C, FONT} from '../../kit/theme';
 import contour from '../reshape/logo_contour.json';
 import {Ball, Cursor, Flash, GlassPill, LightLeak, punch, Punch, Scanlines, Starburst} from './fx';
 import {AT, CUTS, END, wAt} from './timeline';
+import {CoachBackdrop, StudioBackdrop} from './photoScenes';
 
 type SP = {F: number};
 const RIM = {color: C.orange, dx: 2.6, dy: -1.2, opacity: 0.9};
@@ -344,6 +345,7 @@ export const PillsScene: React.FC<SP & {render: (id: string, F: number) => React
           </div>
         ))}
       </AbsoluteFill>
+      <CoachBackdrop F={F} />
       <GlassPill text="في ريشيب…" p={seg(F, wAt('V7', 0) - 2, wAt('V7', 1) + 6)} x={540} y={800 + bob(0)} size={112} tint="rgba(255,84,32,0.55)" />
       <GlassPill text="تدريب حضوري" p={seg(F, wAt('V7', 2) - 2, wAt('V7', 3) + 6)} x={540} y={1030 + bob(1)} size={128} />
       <LightLeak p={seg(F, st + 4, st + 30, E.linear)} seed={5} strength={0.7} />
@@ -417,6 +419,7 @@ export const FinaleScene: React.FC<SP> = ({F}) => {
   const headX = clamp(BAR.x1 - BW * fv, BAR.x0 + 70, BAR.x1 - 70);
   return (
     <AbsoluteFill style={{background: `radial-gradient(ellipse 70% 45% at 50% 42%, #3A3B40 0%, ${C.dark} 45%, ${C.ink} 100%)`, overflow: 'hidden'}}>
+      <StudioBackdrop F={F} until={full + 4} />
       {barO > 0 ? (
         <AbsoluteFill style={{opacity: barO, transform: `scale(${punch(F, full, 0.05)})`}}>
           <div style={{position: 'absolute', left: BAR.x0, top: BAR.y - BAR.h / 2, width: BW, height: BAR.h, borderRadius: BAR.h / 2, background: 'rgba(255,255,255,0.10)',

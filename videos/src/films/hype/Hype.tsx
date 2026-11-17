@@ -8,7 +8,8 @@ import {wipe} from '@remotion/transitions/wipe';
 import {CameraMotionBlur} from '@remotion/motion-blur';
 import {ensureFonts} from '../../kit/fonts';
 import {Grain} from '../../kit/Stage';
-import {FinaleScene, FlashScene, HandstandScene, HomeVideo, KidsScene, LeverScene, PillsScene, PullUpScene} from './scenes';
+import {FinaleScene, FlashScene, HomeVideo, PillsScene} from './scenes';
+import {HandstandPhoto, KidsPhoto, LeverPhoto, PullUpPhoto} from './photoScenes';
 import {AT, CUTS, LINES, TOTAL, TR, type VId} from './timeline';
 
 ensureFonts();
@@ -16,11 +17,11 @@ ensureFonts();
 /** Sequence starts (absolute) for each scene; transitions overlap the end of one scene and the start of the next. */
 const SEQ = [
   {id: 'a', start: 0, end: CUTS.drop, C: HomeVideo},
-  {id: 'b', start: CUTS.drop, end: CUTS.toHand, C: PullUpScene},
-  {id: 'c', start: CUTS.toHand - TR.toHand, end: CUTS.toLever, C: HandstandScene},
-  {id: 'd', start: CUTS.toLever - TR.toLever, end: CUTS.toFlash, C: LeverScene},
+  {id: 'b', start: CUTS.drop, end: CUTS.toHand, C: PullUpPhoto},
+  {id: 'c', start: CUTS.toHand - TR.toHand, end: CUTS.toLever, C: HandstandPhoto},
+  {id: 'd', start: CUTS.toLever - TR.toLever, end: CUTS.toFlash, C: LeverPhoto},
   {id: 'e', start: CUTS.toFlash, end: CUTS.toKids, C: FlashScene},
-  {id: 'f', start: CUTS.toKids - TR.toKids, end: CUTS.toPills, C: KidsScene},
+  {id: 'f', start: CUTS.toKids - TR.toKids, end: CUTS.toPills, C: KidsPhoto},
   {id: 'g', start: CUTS.toPills - TR.toPills, end: CUTS.toFinale, C: PillsScene},
   {id: 'h', start: CUTS.toFinale, end: TOTAL, C: FinaleScene},
 ] as const;
@@ -28,8 +29,8 @@ const SEQ = [
 const renderAt = (id: string, F: number) => {
   const s = SEQ.find((x) => x.id === id);
   if (!s || id === 'g') return null;
-  const Comp = s.C as React.FC<{F: number}>;
-  return <Comp F={F} />;
+  const Comp = s.C as React.FC<{F: number; tile?: boolean}>;
+  return <Comp F={F} tile />;
 };
 
 const Scene: React.FC<{start: number; C: React.FC<any>}> = ({start, C}) => {

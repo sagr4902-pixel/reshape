@@ -69,10 +69,8 @@ add("whoosh_light_1", CUTS["toKids"] - 4, -12)            # slide
 # ── F: kids — hops → high five ──
 five = jsround(W("V6", 3))
 add("kids_area_air", CUTS["toKids"] - TR["toKids"], -27, align="start", dur=(CUTS["toPills"] - CUTS["toKids"] + TR["toKids"]) / FPS, fade=0.25, fadein=0.1, bus="amb")
-HOP_END = five - 8; HOP2 = HOP_END - 20; HOP1 = HOP2 - 22  # mirrors scenes.tsx
-for h0, h1 in ((HOP1, HOP2), (HOP2, HOP_END)):
-    add("jump_takeoff", h0 + 0.3 * (h1 - h0), -18)
-    add("hoop_hop", h0 + 0.84 * (h1 - h0), -11)
+vstart = five - jsround(1.71 * 30 / 0.8)            # real high-five clip at 0.8x (photoScenes.tsx KIDS_VSTART)
+add("hoop_hop", vstart + jsround(0.875 * 30 / 0.8), -11)  # the kid lands between the rings
 add("high_five", five, -4)
 add("sub_impact_soft", five, -15)
 add("whoosh_deep_1", CUTS["toPills"] - 6, -12)            # clock wipe

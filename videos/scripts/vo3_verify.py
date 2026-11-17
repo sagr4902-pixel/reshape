@@ -1,6 +1,6 @@
 """Check v3 takes: Scribe transcript + how each qaf is voiced.
 
-python3 vo3_verify.py V3_qx V4_qa ...   (take stems in public/audio/vo3/takes)
+python3 vo3_verify.py V3_qx V4_qa ...   (take stems in public/audio/vo3/takes; TAKES_DIR=public/audio/vo2/takes for v2)
 
 For every ق / گ in the take's alignment it measures the quietest 15 ms inside the consonant
 (relative to the take's loudest 15 ms). A standard /q/ is a voiceless stop, so its closure is
@@ -11,7 +11,8 @@ import json, subprocess, sys, pathlib
 import numpy as np
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-T = ROOT / "public/audio/vo3/takes"
+import os
+T = ROOT / os.environ.get("TAKES_DIR", "public/audio/vo3/takes")
 SR = 48000
 
 def transcribe(path):

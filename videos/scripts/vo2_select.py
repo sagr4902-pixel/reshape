@@ -5,8 +5,9 @@ import numpy as np
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 TAKES = ROOT / "public" / "audio" / "vo2" / "takes"
 OUT = ROOT / "public" / "audio" / "vo2"
-CHOICE = {"H1": "c", "H2": "c", "H3": "d", "H4": "c", "R1a": "c", "R1b": "c", "R1c": "c", "R2a": "d", "R2b": "d", "R2c": "c",
-          "R3a": "d", "R3b": "d", "R3c": "c", "A1": "c", "A2": "c", "A3": "d", "A4": "d", "T1": "d", "P1": "d", "P2": "c", "P3": "d", "C1": "c"}
+# q*/r*: standard ق takes (2026-11-17); R2c/R3c reuse R1c_q2 (same refrain, verified /q/)
+CHOICE = {"H1": "c", "H2": "c", "H3": "q2", "H4": "c", "R1a": "c", "R1b": "q2", "R1c": "q2", "R2a": "d", "R2b": "r2", "R2c": "qr",
+          "R3a": "d", "R3b": "q1", "R3c": "qr", "A1": "c", "A2": "c", "A3": "q2", "A4": "q2", "T1": "q1", "P1": "q1", "P2": "c", "P3": "q1", "C1": "c"}
 FPS = 30
 
 def words_from_alignment(al):

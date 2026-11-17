@@ -3,7 +3,7 @@
 Usage: python3 vo_generate.py <model_id> <take_tag> [line_ids...]
 The API key is injected by the session's network proxy; nothing is read from env.
 """
-import base64, json, subprocess, sys, pathlib
+import base64, json, os, subprocess, sys, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SCRIPT = json.loads((ROOT / "scripts" / "vo2_script.json").read_text())
@@ -17,7 +17,9 @@ SETTINGS = {
 }
 
 def call(model, line, prev_text, next_text, use_context=True):
-    body = {"text": line["text"], "model_id": model, "voice_settings": SETTINGS.get(model, SETTINGS["eleven_v3"])}
+    vs = dict(SETTINGS.get(model, SETTINGS["eleven_v3"]))
+    if os.environ.get("STAB"): vs["stability"] = float(os.environ["STAB"])  # e.g. STAB=0.3 keeps the standard ق
+    body = {"text": line["text"], "model_id": model, "voice_settings": vs}
     if use_context:
         if prev_text: body["previous_text"] = prev_text
         if next_text: body["next_text"] = next_text
@@ -39,7 +41,7 @@ def main():
             continue
         prev_text = lines[i - 1]["text"] if i > 0 else None
         next_text = lines[i + 1]["text"] if i + 1 < len(lines) else None
-        d = call(model, line, prev_text, next_text)
+        d = call(model, line, prev_text, next_text, use_context=not os.environ.get("NOCTX"))
         if "audio_base64" not in d:
             d = call(model, line, prev_text, next_text, use_context=False)
         if "audio_base64" not in d:

@@ -104,6 +104,19 @@ const Num: React.FC<{v: string; size: number; color: string; style?: React.CSSPr
   <div style={{fontFamily: FONT.body, fontWeight: 700, fontSize: size, color, lineHeight: 1, direction: 'rtl', ...style}}>{v}</div>
 );
 
+/** End-card tile: same shape, shadow and spring as the board tiles, drawn flat in screen space. */
+const EndTile: React.FC<{x: number; y: number; w: number; h: number; at: number; f: number; dark?: boolean; fill?: string; children?: React.ReactNode}> = ({x, y, w, h, at, f, dark, fill, children}) => {
+  if (f < at - 1) return null;
+  const p = spring01((f - at) / 18, 2.2, 0.6);
+  return (
+    <div style={{position: 'absolute', left: x, top: y, width: w, height: h, borderRadius: 48, overflow: 'hidden', background: fill ?? (dark ? DARK : LIGHT),
+      transform: `translateY(${(1 - clamp(p)) * 120}px) scale(${lerp(0.84, 1, clamp(p))})`, opacity: clamp(p * 2),
+      boxShadow: dark || fill ? '0 26px 50px rgba(30,25,22,0.32), inset 0 1px 0 rgba(255,255,255,0.12)' : '0 26px 50px rgba(30,25,22,0.18), inset 0 2px 0 #FFFFFF, inset 0 -3px 0 rgba(0,0,0,0.05)'}}>
+      {children}
+    </div>
+  );
+};
+
 /* ── W1: training-day calendar ── */
 const TRAIN_DAYS = [1, 3, 5, 6, 8, 10, 12, 13, 15, 17, 19, 20]; // 12 sessions out of 21 days
 const Calendar: React.FC<{f: number}> = ({f}) => {
@@ -302,13 +315,13 @@ const WIDGETS: Array<[keyof typeof B, React.FC<{f: number}>]> = [
 const BoardScene: React.FC<{f: number}> = ({f}) => {
   const [fx, fy, z] = cam(f);
   const tilt = lerp(22, 16, seg(f, T.pull, T.pull + 26));
-  const endO = seg(f, T.end - 6, T.end + 2, E.linear);
+  const endO = seg(f, T.end - 8, T.end + 6, E.inOutSine);
   const head = seg(f, 6, 16) * (1 - seg(f, T.cal - 6, T.cal + 4));
   const outro = seg(f, AT.B7 - 4, AT.B7 + 6);
   const hotO = seg(f, OUT_HOT - 2, OUT_HOT + 4);
   return (
     <AbsoluteFill style={{background: `radial-gradient(ellipse 80% 60% at 50% 45%, #EFE7E1 0%, ${C.sand} 70%, #CDBFB5 100%)`, overflow: 'hidden'}}>
-      <AbsoluteFill style={{perspective: 2400, perspectiveOrigin: '540px 960px'}}>
+      <AbsoluteFill style={{perspective: 2400, perspectiveOrigin: '540px 960px', opacity: lerp(1, 0.32, endO), filter: endO > 0 ? `blur(${endO * 9}px)` : undefined}}>
         <div style={{position: 'absolute', left: 0, top: 0, width: BW, height: BH, transformOrigin: '0 0',
           transform: `translate(540px, 960px) rotateX(${tilt}deg) rotateZ(-9deg) scale(${z}) translate(${-fx}px, ${-fy}px)`}}>
           {WIDGETS.map(([k, W], i) => (
@@ -320,15 +333,26 @@ const BoardScene: React.FC<{f: number}> = ({f}) => {
       <div style={{position: 'absolute', left: 0, right: 0, top: 230, textAlign: 'center', direction: 'rtl', fontFamily: FONT.display, fontWeight: 900, fontSize: 120, color: DARK,
         opacity: head, transform: `translateY(${(1 - head) * 30}px)`}}>لوحة تقدّمك</div>
       <div style={{position: 'absolute', left: 0, right: 0, top: 150, textAlign: 'center', direction: 'rtl', fontFamily: FONT.display, fontWeight: 900, fontSize: 116, color: DARK,
-        opacity: outro, transform: `scale(${lerp(0.9, 1, outro)})`}}>تقدّمك… <span style={{color: C.orange, opacity: hotO, display: 'inline-block', transform: `scale(${f >= OUT_HOT - 2 ? pop(f, OUT_HOT - 2, 7) : 0.6})`}}>ينشاف.</span></div>
-      {/* end card */}
+        opacity: outro * (1 - endO), transform: `scale(${lerp(0.9, 1, outro)})`}}>تقدّمك… <span style={{color: C.orange, opacity: hotO, display: 'inline-block', transform: `scale(${f >= OUT_HOT - 2 ? pop(f, OUT_HOT - 2, 7) : 0.6})`}}>ينشاف.</span></div>
+      {/* end card: closing tiles in the board's own style over the dimmed board */}
       {endO > 0 ? (
-        <AbsoluteFill style={{opacity: endO, background: `radial-gradient(ellipse 70% 45% at 50% 42%, #3A3B40 0%, ${C.dark} 45%, ${C.ink} 100%)`}}>
-          <Img src={staticFile('brand/reshape-logo.png')} style={{position: 'absolute', left: 540 - 290, top: 600, width: 580, transform: `scale(${pop(f, T.end, 8)})`}} />
-          <div style={{position: 'absolute', left: 0, right: 0, top: 820, textAlign: 'center', direction: 'rtl', fontFamily: FONT.display, fontWeight: 900, fontSize: 64, color: C.light, letterSpacing: 1, opacity: seg(f, AT.B8 + wf('B8', 1) - 4, AT.B8 + wf('B8', 1) + 4)}}>ريشيب <span style={{color: C.orange}}>أونلاين</span></div>
-          <div style={{position: 'absolute', left: 540, top: 1080, transform: `translate(-50%, -50%) scale(${f >= BTN_AT - 3 ? pop(f, BTN_AT - 3, 9) : 0})`, padding: '30px 90px', borderRadius: 80, background: C.orange,
-            fontFamily: FONT.display, fontWeight: 900, fontSize: 84, color: '#FFF', direction: 'rtl', whiteSpace: 'nowrap', boxShadow: '0 20px 40px rgba(0,0,0,0.35)'}}>ابدأ اليوم</div>
-          <div style={{position: 'absolute', left: 0, right: 0, top: 1240, textAlign: 'center', fontFamily: FONT.data, fontWeight: 600, fontSize: 52, color: C.sand, opacity: seg(f, BTN_AT + 8, BTN_AT + 16)}}>reshape-online.com</div>
+        <AbsoluteFill>
+          <EndTile x={80} y={600} w={920} h={300} at={T.end} f={f}>
+            <Img src={staticFile('brand/reshape-logo.png')} style={{position: 'absolute', left: 460 - 270, top: 60, width: 540}} />
+          </EndTile>
+          <EndTile x={452} y={924} w={548} h={200} at={AT.B8 + wf('B8', 1) - 6} f={f} dark>
+            <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', direction: 'rtl', fontFamily: FONT.display, fontWeight: 900, fontSize: 70, color: C.light}}>
+              ريشيب&nbsp;<span style={{color: C.orange}}>أونلاين</span>
+            </div>
+          </EndTile>
+          <EndTile x={80} y={924} w={348} h={200} at={BTN_AT - 3} f={f} fill={C.orange}>
+            <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', direction: 'rtl', fontFamily: FONT.display, fontWeight: 900, fontSize: 62, color: '#FFF', whiteSpace: 'nowrap'}}>ابدأ اليوم</div>
+          </EndTile>
+          <EndTile x={80} y={1148} w={920} h={130} at={BTN_AT + 6} f={f}>
+            <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 18, fontFamily: FONT.data, fontWeight: 600, fontSize: 52, color: DARK}}>
+              <span style={{width: 16, height: 16, borderRadius: 8, background: C.orange, display: 'inline-block'}} />reshape-online.com
+            </div>
+          </EndTile>
         </AbsoluteFill>
       ) : null}
     </AbsoluteFill>

@@ -570,24 +570,34 @@
    "db": -16
   },
   {
-   "s": "whoosh_deep_2",
-   "f": 683,
-   "db": -14
+   "s": "whoosh_light_3",
+   "f": 681,
+   "db": -18
   },
   {
    "s": "logo_impact",
    "f": 685,
-   "db": -9
-  },
-  {
-   "s": "word_accent",
-   "f": 735,
    "db": -11
   },
   {
    "s": "marker_tick",
-   "f": 747,
-   "db": -16
+   "f": 700,
+   "db": -13
+  },
+  {
+   "s": "word_accent",
+   "f": 734,
+   "db": -11
+  },
+  {
+   "s": "marker_tick",
+   "f": 734,
+   "db": -15
+  },
+  {
+   "s": "marker_tick",
+   "f": 743,
+   "db": -15
   }
  ]
 }

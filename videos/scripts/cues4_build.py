@@ -48,7 +48,11 @@ add("check_stamp", T["route"] + 55, -12)
 # pull-back + line
 add("whoosh_deep_1", T["pull"] + 10, -12); add("word_accent", AT["B7"] - 2, -14); add("word_accent", OUT_HOT - 1, -12); add("sub_impact_soft", OUT_HOT - 1, -16)
 # end card
-add("whoosh_deep_2", T["end"] - 2, -14); add("logo_impact", T["end"], -9); add("word_accent", BTN_AT - 2, -11); add("marker_tick", BTN_AT + 10, -16)
+# end card tiles (logo → «ريشيب أونلاين» → «ابدأ اليوم» → site), same pops as the board tiles
+add("whoosh_light_3", T["end"] - 4, -18); add("logo_impact", T["end"], -11)
+add("marker_tick", AT["B8"] + wf("B8", 1) - 6, -13)
+add("word_accent", BTN_AT - 3, -11); add("marker_tick", BTN_AT - 3, -15)
+add("marker_tick", BTN_AT + 6, -15)
 cues = {"total_frames": T["total"], "timing": "src/vo4_timing.json", "out_dir": "public/audio/mix4", "out_name": "board_mix", "timing_override": None, "vo": AT, "duck_db": -6.0,
         "sfx": sorted(c, key=lambda x: x["f"])}
 (ROOT / "scripts/cues4.json").write_text(json.dumps(cues, ensure_ascii=False, indent=1))

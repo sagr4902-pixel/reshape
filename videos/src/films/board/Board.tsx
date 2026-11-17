@@ -1,5 +1,6 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Img, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, Img, Sequence, staticFile, useCurrentFrame} from 'remotion';
+import vo from '../../vo4_timing.json';
 import {CameraMotionBlur} from '@remotion/motion-blur';
 import {ensureFonts} from '../../kit/fonts';
 import {ContactShadow, Figure, OUTFITS} from '../../kit/Figure';
@@ -20,10 +21,33 @@ export const FPS = 30;
 const toAr = (n: number) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[Number(d)]);
 const LIGHT = '#F7F2EE', DARK = C.dark, MUTED = '#9C938D', DIM = '#55565C';
 
-/* ── timeline (frames) ── */
-export const T = {
-  build: 0, cal: 45, str: 118, clock: 178, skill: 236, next: 318, ring: 376, route: 426, pull: 486, end: 546, total: 612,
-};
+/* ── voice-over (Mohammed Al-Saqr) drives the timeline; scripts/cues4_build.py mirrors this math ── */
+type VLine = {file: string; duration: number; words: Array<{w: string; start: number; end: number}>};
+export type VId = 'B1' | 'B2' | 'B3' | 'B4' | 'B5' | 'B6' | 'B7' | 'B8';
+export const LINES = (vo as unknown as {lines: Record<VId, VLine>}).lines;
+const dur = (id: VId) => Math.round(LINES[id].duration * FPS);
+const wf = (id: VId, k: number) => Math.round(LINES[id].words[k].start * FPS);
+export const AT = {} as Record<VId, number>;
+export const T = {build: 0, cal: 45} as Record<'build' | 'cal' | 'str' | 'clock' | 'skill' | 'next' | 'ring' | 'route' | 'pull' | 'end' | 'total', number>;
+AT.B1 = 8;
+AT.B2 = Math.max(T.cal + 16, AT.B1 + dur('B1') + 4);
+T.str = AT.B2 + dur('B2') + 2;
+AT.B3 = T.str + 4;
+T.clock = AT.B3 + dur('B3') + 2;
+T.skill = T.clock + 54;
+AT.B4 = T.skill + 62 - wf('B4', 2); // «صارت» lands on «✓ أتقنتها»
+T.next = Math.max(T.skill + 82, AT.B4 + dur('B4') + 2);
+AT.B5 = T.next + 4;
+T.ring = AT.B5 + dur('B5') + 2;
+T.route = T.ring + 46;
+AT.B6 = T.route + 4;
+T.pull = AT.B6 + dur('B6') + 2;
+AT.B7 = T.pull + 16;
+T.end = AT.B7 + dur('B7') + 4;
+AT.B8 = T.end + 2;
+T.total = AT.B8 + dur('B8') + 30;
+const OUT_HOT = AT.B7 + wf('B7', 1); // «ينشاف.»
+const BTN_AT = AT.B8 + wf('B8', 2); // «ابدأ»
 
 /* ── board layout (board px) ── */
 const G = 24, BW = 1040;
@@ -108,14 +132,15 @@ const Calendar: React.FC<{f: number}> = ({f}) => {
       })}
       <div style={{position: 'absolute', right: 40, bottom: 34, display: 'flex', alignItems: 'baseline', gap: 14, direction: 'rtl'}}>
         <Num v={toAr(count)} size={64} color={C.orange} style={{transform: `scale(${count ? pop(f, lit(TRAIN_DAYS[count - 1]), 6) : 1})`}} />
-        <div style={{fontFamily: FONT.display, fontWeight: 800, fontSize: 34, color: C.light}}>حصة هالشهر</div>
+        <div style={{fontFamily: FONT.display, fontWeight: 800, fontSize: 34, color: C.light}}>تمرين هالشهر</div>
       </div>
     </>
   );
 };
 
 /* ── W2: pull-up strength (battery bars) ── */
-const STEPS: Array<[number, number]> = [[T.str + 4, 2], [T.str + 20, 5], [T.str + 36, 8]];
+// 2 on «ثنتين», 5 between, 8 on «لثمان»
+const STEPS: Array<[number, number]> = [[AT.B3 + wf('B3', 3), 2], [Math.round((AT.B3 + wf('B3', 3) + AT.B3 + wf('B3', 4)) / 2), 5], [AT.B3 + wf('B3', 4), 8]];
 const Strength: React.FC<{f: number}> = ({f}) => {
   let v = 0, at = -99;
   for (const [t, n] of STEPS) if (f >= t) { v = n; at = t; }
@@ -134,7 +159,7 @@ const Strength: React.FC<{f: number}> = ({f}) => {
           return <div key={i} style={{flex: 1, borderRadius: 12, background: on ? C.orange : '#E6DDD6', transform: `scaleY(${on ? lerp(0.4, 1, E.outBack(g)) : 1})`, transformOrigin: 'bottom'}} />;
         })}
       </div>
-      <div style={{position: 'absolute', right: 40, bottom: 34, fontFamily: FONT.body, fontWeight: 600, fontSize: 26, color: MUTED, direction: 'rtl', opacity: seg(f, T.str + 38, T.str + 46)}}>
+      <div style={{position: 'absolute', right: 40, bottom: 34, fontFamily: FONT.body, fontWeight: 600, fontSize: 26, color: MUTED, direction: 'rtl', opacity: seg(f, STEPS[2][0] + 2, STEPS[2][0] + 10)}}>
         +{toAr(6)} خلال {toAr(8)} أسابيع
       </div>
     </>
@@ -198,15 +223,15 @@ const Next: React.FC<{f: number}> = ({f}) => {
   const line = clamp((f - (a + 10)) / 14);
   return (
     <>
-      <Title text="حصتك الجاية" dark />
+      <Title text="متابعتك الجاية" dark />
       <svg width={620} height={380} style={{position: 'absolute', inset: 0}}>
         <circle cx={560} cy={168} r={12} fill={C.orange} opacity={seg(f, a, a + 4)} />
         <line x1={560} y1={184} x2={560} y2={184 + 100 * line} stroke="#5E5F64" strokeWidth={4} strokeDasharray="8 10" />
         <circle cx={560} cy={296} r={12} fill="none" stroke={C.light} strokeWidth={4} opacity={seg(f, a + 22, a + 26)} />
       </svg>
       <div style={{position: 'absolute', right: 96, top: 142, direction: 'rtl', fontFamily: FONT.body, fontWeight: 700, fontSize: 40, color: C.light}}>{typed('الأحد · ٥:٣٠ م', f, a + 2)}</div>
-      <div style={{position: 'absolute', right: 96, top: 192, direction: 'rtl', fontFamily: FONT.body, fontWeight: 600, fontSize: 26, color: MUTED}}>{typed('تدريب حضوري', f, a + 12)}</div>
-      <div style={{position: 'absolute', right: 96, top: 270, direction: 'rtl', fontFamily: FONT.display, fontWeight: 800, fontSize: 40, color: C.light}}>{typed('مع مدربك', f, a + 24)}</div>
+      <div style={{position: 'absolute', right: 96, top: 192, direction: 'rtl', fontFamily: FONT.body, fontWeight: 600, fontSize: 26, color: MUTED}}>{typed('مكالمة فيديو', f, a + 12)}</div>
+      <div style={{position: 'absolute', right: 96, top: 270, direction: 'rtl', fontFamily: FONT.display, fontWeight: 800, fontSize: 40, color: C.light}}>{typed('مع مدربك أونلاين', f, a + 24)}</div>
       <div style={{position: 'absolute', left: 40, top: 262, width: 64, height: 64, borderRadius: 32, background: C.orange, display: 'flex', alignItems: 'center', justifyContent: 'center',
         transform: `scale(${pop(f, a + 34, 8)})`, color: '#FFF', fontSize: 34, fontFamily: FONT.display, fontWeight: 900}}>✓</div>
     </>
@@ -279,7 +304,8 @@ const BoardScene: React.FC<{f: number}> = ({f}) => {
   const tilt = lerp(22, 16, seg(f, T.pull, T.pull + 26));
   const endO = seg(f, T.end - 6, T.end + 2, E.linear);
   const head = seg(f, 6, 16) * (1 - seg(f, T.cal - 6, T.cal + 4));
-  const outro = seg(f, T.pull + 18, T.pull + 30);
+  const outro = seg(f, AT.B7 - 4, AT.B7 + 6);
+  const hotO = seg(f, OUT_HOT - 2, OUT_HOT + 4);
   return (
     <AbsoluteFill style={{background: `radial-gradient(ellipse 80% 60% at 50% 45%, #EFE7E1 0%, ${C.sand} 70%, #CDBFB5 100%)`, overflow: 'hidden'}}>
       <AbsoluteFill style={{perspective: 2400, perspectiveOrigin: '540px 960px'}}>
@@ -294,14 +320,15 @@ const BoardScene: React.FC<{f: number}> = ({f}) => {
       <div style={{position: 'absolute', left: 0, right: 0, top: 230, textAlign: 'center', direction: 'rtl', fontFamily: FONT.display, fontWeight: 900, fontSize: 120, color: DARK,
         opacity: head, transform: `translateY(${(1 - head) * 30}px)`}}>لوحة تقدّمك</div>
       <div style={{position: 'absolute', left: 0, right: 0, top: 150, textAlign: 'center', direction: 'rtl', fontFamily: FONT.display, fontWeight: 900, fontSize: 116, color: DARK,
-        opacity: outro, transform: `scale(${lerp(0.9, 1, outro)})`}}>تقدّمك… <span style={{color: C.orange}}>ينشاف.</span></div>
+        opacity: outro, transform: `scale(${lerp(0.9, 1, outro)})`}}>تقدّمك… <span style={{color: C.orange, opacity: hotO, display: 'inline-block', transform: `scale(${f >= OUT_HOT - 2 ? pop(f, OUT_HOT - 2, 7) : 0.6})`}}>ينشاف.</span></div>
       {/* end card */}
       {endO > 0 ? (
         <AbsoluteFill style={{opacity: endO, background: `radial-gradient(ellipse 70% 45% at 50% 42%, #3A3B40 0%, ${C.dark} 45%, ${C.ink} 100%)`}}>
-          <Img src={staticFile('brand/reshape-logo.png')} style={{position: 'absolute', left: 540 - 290, top: 640, width: 580, transform: `scale(${pop(f, T.end, 8)})`}} />
-          <div style={{position: 'absolute', left: 540, top: 1080, transform: `translate(-50%, -50%) scale(${pop(f, T.end + 10, 9)})`, padding: '30px 90px', borderRadius: 80, background: C.orange,
+          <Img src={staticFile('brand/reshape-logo.png')} style={{position: 'absolute', left: 540 - 290, top: 600, width: 580, transform: `scale(${pop(f, T.end, 8)})`}} />
+          <div style={{position: 'absolute', left: 0, right: 0, top: 820, textAlign: 'center', direction: 'rtl', fontFamily: FONT.display, fontWeight: 900, fontSize: 64, color: C.light, letterSpacing: 1, opacity: seg(f, AT.B8 + wf('B8', 1) - 4, AT.B8 + wf('B8', 1) + 4)}}>ريشيب <span style={{color: C.orange}}>أونلاين</span></div>
+          <div style={{position: 'absolute', left: 540, top: 1080, transform: `translate(-50%, -50%) scale(${f >= BTN_AT - 3 ? pop(f, BTN_AT - 3, 9) : 0})`, padding: '30px 90px', borderRadius: 80, background: C.orange,
             fontFamily: FONT.display, fontWeight: 900, fontSize: 84, color: '#FFF', direction: 'rtl', whiteSpace: 'nowrap', boxShadow: '0 20px 40px rgba(0,0,0,0.35)'}}>ابدأ اليوم</div>
-          <div style={{position: 'absolute', left: 0, right: 0, top: 1240, textAlign: 'center', fontFamily: FONT.data, fontWeight: 600, fontSize: 52, color: C.sand, opacity: seg(f, T.end + 20, T.end + 28)}}>reshape-sa.com</div>
+          <div style={{position: 'absolute', left: 0, right: 0, top: 1240, textAlign: 'center', fontFamily: FONT.data, fontWeight: 600, fontSize: 52, color: C.sand, opacity: seg(f, BTN_AT + 8, BTN_AT + 16)}}>reshape-online.com</div>
         </AbsoluteFill>
       ) : null}
     </AbsoluteFill>
@@ -316,7 +343,9 @@ export const Board: React.FC<{mixFile?: string; blur?: boolean}> = ({mixFile, bl
     <AbsoluteFill style={{background: C.sand}}>
       {blur && MOVING(f) ? <CameraMotionBlur shutterAngle={160} samples={5}><Now /></CameraMotionBlur> : <Now />}
       <Grain frame={f} opacity={0.05} />
-      {mixFile ? <Audio src={staticFile(mixFile)} /> : null}
+      {mixFile ? <Audio src={staticFile(mixFile)} /> : (Object.keys(AT) as VId[]).map((id) => (
+        <Sequence key={id} from={AT[id]} durationInFrames={dur(id) + 4}><Audio src={staticFile(LINES[id].file)} /></Sequence>
+      ))}
     </AbsoluteFill>
   );
 };

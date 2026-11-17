@@ -1,10 +1,20 @@
 {
- "total_frames": 612,
- "timing": "src/vo3_timing.json",
+ "total_frames": 799,
+ "timing": "src/vo4_timing.json",
  "out_dir": "public/audio/mix4",
  "out_name": "board_mix",
- "vo": {},
- "duck_db": 0.0,
+ "timing_override": null,
+ "vo": {
+  "B1": 8,
+  "B2": 62,
+  "B3": 123,
+  "B4": 270,
+  "B5": 348,
+  "B6": 491,
+  "B7": 607,
+  "B8": 687
+ },
+ "duck_db": -6.0,
  "sfx": [
   {
    "s": "marker_tick",
@@ -142,78 +152,43 @@
   },
   {
    "s": "whoosh_light_1",
-   "f": 112,
+   "f": 113,
    "db": -22
   },
   {
    "s": "block_rise_1",
-   "f": 122,
+   "f": 157,
    "db": -15
   },
   {
    "s": "word_accent",
-   "f": 122,
+   "f": 157,
    "db": -17
   },
   {
    "s": "block_rise_2",
-   "f": 138,
+   "f": 165,
    "db": -15
   },
   {
    "s": "word_accent",
-   "f": 138,
+   "f": 165,
    "db": -17
   },
   {
    "s": "block_rise_3",
-   "f": 154,
+   "f": 173,
    "db": -15
   },
   {
    "s": "word_accent",
-   "f": 154,
+   "f": 173,
    "db": -17
   },
   {
    "s": "whoosh_light_1",
-   "f": 172,
-   "db": -22
-  },
-  {
-   "s": "marker_tick",
-   "f": 184,
-   "db": -20
-  },
-  {
-   "s": "marker_tick",
-   "f": 187,
-   "db": -20
-  },
-  {
-   "s": "marker_tick",
-   "f": 190,
-   "db": -20
-  },
-  {
-   "s": "marker_tick",
    "f": 193,
-   "db": -20
-  },
-  {
-   "s": "marker_tick",
-   "f": 196,
-   "db": -20
-  },
-  {
-   "s": "marker_tick",
-   "f": 199,
-   "db": -20
-  },
-  {
-   "s": "marker_tick",
-   "f": 202,
-   "db": -20
+   "db": -22
   },
   {
    "s": "marker_tick",
@@ -231,283 +206,318 @@
    "db": -20
   },
   {
+   "s": "marker_tick",
+   "f": 214,
+   "db": -20
+  },
+  {
+   "s": "marker_tick",
+   "f": 217,
+   "db": -20
+  },
+  {
+   "s": "marker_tick",
+   "f": 220,
+   "db": -20
+  },
+  {
+   "s": "marker_tick",
+   "f": 223,
+   "db": -20
+  },
+  {
+   "s": "marker_tick",
+   "f": 226,
+   "db": -20
+  },
+  {
+   "s": "marker_tick",
+   "f": 229,
+   "db": -20
+  },
+  {
+   "s": "marker_tick",
+   "f": 232,
+   "db": -20
+  },
+  {
    "s": "check_stamp",
-   "f": 212,
+   "f": 233,
    "db": -13
   },
   {
    "s": "whoosh_light_1",
-   "f": 230,
+   "f": 247,
    "db": -22
   },
   {
    "s": "tick_spark",
-   "f": 244,
+   "f": 261,
    "db": -20
   },
   {
    "s": "tick_spark",
-   "f": 250,
+   "f": 267,
    "db": -20
   },
   {
    "s": "tick_spark",
-   "f": 256,
+   "f": 273,
    "db": -20
   },
   {
    "s": "tick_spark",
-   "f": 262,
+   "f": 279,
    "db": -20
   },
   {
    "s": "tick_spark",
-   "f": 268,
+   "f": 285,
    "db": -20
   },
   {
    "s": "tick_spark",
-   "f": 274,
+   "f": 291,
    "db": -20
   },
   {
    "s": "tick_spark",
-   "f": 280,
+   "f": 297,
    "db": -20
   },
   {
    "s": "tick_spark",
-   "f": 286,
+   "f": 303,
    "db": -20
   },
   {
    "s": "tick_spark",
-   "f": 292,
+   "f": 309,
    "db": -20
   },
   {
    "s": "check_stamp",
-   "f": 298,
+   "f": 315,
    "db": -11
   },
   {
    "s": "glow_shimmer",
-   "f": 299,
+   "f": 316,
    "db": -17
   },
   {
    "s": "whoosh_light_1",
-   "f": 312,
+   "f": 338,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 324.0,
+   "f": 350.0,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 325.4,
+   "f": 351.4,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 326.8,
+   "f": 352.8,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 328.2,
+   "f": 354.2,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 329.6,
+   "f": 355.6,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 331.0,
+   "f": 357.0,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 332.4,
+   "f": 358.4,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 333.8,
+   "f": 359.8,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 334.0,
+   "f": 360.0,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 335.2,
+   "f": 361.2,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 335.4,
+   "f": 361.4,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 336.6,
+   "f": 362.6,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 336.8,
+   "f": 362.8,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 338.0,
+   "f": 364.0,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 338.2,
+   "f": 364.2,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 339.4,
+   "f": 365.4,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 339.6,
+   "f": 365.6,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 341.0,
+   "f": 367.0,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 342.4,
+   "f": 368.4,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 343.8,
+   "f": 369.8,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 346.0,
+   "f": 372.0,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 347.4,
+   "f": 373.4,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 348.8,
+   "f": 374.8,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 350.2,
+   "f": 376.2,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 351.6,
+   "f": 377.6,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 353.0,
+   "f": 379.0,
    "db": -22
   },
   {
    "s": "check_stamp",
-   "f": 356,
+   "f": 382,
    "db": -11
   },
   {
    "s": "whoosh_light_1",
-   "f": 370,
+   "f": 435,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 382,
+   "f": 447,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 385,
+   "f": 450,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 388,
+   "f": 453,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 391,
+   "f": 456,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 394,
+   "f": 459,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 397,
+   "f": 462,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 400,
+   "f": 465,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 403,
+   "f": 468,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 406,
+   "f": 471,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 409,
+   "f": 474,
    "db": -22
   },
   {
    "s": "marker_tick",
-   "f": 412,
+   "f": 477,
    "db": -22
   },
   {
    "s": "word_accent",
-   "f": 414,
+   "f": 479,
    "db": -12
   },
   {
    "s": "whoosh_light_1",
-   "f": 420,
+   "f": 481,
    "db": -22
   },
   {
    "s": "line_draw",
-   "f": 434,
+   "f": 495,
    "db": -17,
    "align": "start",
    "dur": 1.6,
@@ -516,62 +526,67 @@
   },
   {
    "s": "marker_tick",
-   "f": 434.0,
+   "f": 495.0,
    "db": -11
   },
   {
    "s": "marker_tick",
-   "f": 449.18,
+   "f": 510.18,
    "db": -11
   },
   {
    "s": "marker_tick",
-   "f": 464.36,
+   "f": 525.36,
    "db": -11
   },
   {
    "s": "marker_tick",
-   "f": 480.0,
+   "f": 541.0,
    "db": -11
   },
   {
    "s": "check_stamp",
-   "f": 481,
+   "f": 542,
    "db": -12
   },
   {
    "s": "whoosh_deep_1",
-   "f": 498,
+   "f": 601,
    "db": -12
   },
   {
    "s": "word_accent",
-   "f": 506,
+   "f": 605,
    "db": -14
   },
   {
+   "s": "word_accent",
+   "f": 644,
+   "db": -12
+  },
+  {
    "s": "sub_impact_soft",
-   "f": 506,
+   "f": 644,
    "db": -16
   },
   {
    "s": "whoosh_deep_2",
-   "f": 544,
+   "f": 683,
    "db": -14
   },
   {
    "s": "logo_impact",
-   "f": 546,
+   "f": 685,
    "db": -9
   },
   {
    "s": "word_accent",
-   "f": 556,
+   "f": 735,
    "db": -11
   },
   {
    "s": "marker_tick",
-   "f": 566,
+   "f": 747,
    "db": -16
   }
  ]

@@ -16,3 +16,4 @@
 | 012 | Instaloader — تنزيل منشورات/ريلز إنستقرام مع الكابشن والبيانات (مراجع + أرشفة حساب ريشيب) — أداة | skills | Python CLI (instaloader 4.16) | [012](skills/012-instaloader.md) | 2026-11-17 |
 | 013 | تحليل ريل «Showreel» لـ erth_motion — بدون قطعات: مؤشر يقود، نافذة بين الكلمات، دوّامة كلمات، شبكة كروت (16:9، 19.6 ث) | editing-styles | تحليل مرجعي (Instaloader + ffmpeg) | [013](prompts/editing-styles/013-erth-motion-showreel-analysis.md) | 2026-11-17 |
 | 014 | yt-dlp — تنزيل فيديو/صوت/ترجمة من يوتيوب وتيك توك وإنستقرام وX وآلاف المواقع (أفضل جودة لفيديو مرجعي واحد) — أداة | skills | Python CLI (yt-dlp 2026.10.26) + ffmpeg | [014](skills/014-yt-dlp.md) | 2026-11-17 |
+| 015 | تحليل تيك توك «widget animation» لـ refined.motion — لقطة واحدة على شبكة ودجتس مائلة تتعبّى، بدون موسيقى (9:16، 60fps) | editing-styles | تحليل مرجعي (yt-dlp + ffmpeg) | [015](prompts/editing-styles/015-refined-motion-widget-bento.md) | 2026-11-17 |

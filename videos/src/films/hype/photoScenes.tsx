@@ -115,6 +115,8 @@ export const LeverPhoto: React.FC<SP> = ({F}) => {
 /* ═════════ F — kids: the real high-five clip, palms meeting on «بثقة!» ═════════ */
 const FIVE = Math.round(wAt('V6', 3));
 const RATE = 0.8; // light slow motion: the landing falls on «أول», the palms on «بثقة!»
+// 04_kids_highfive_slow30.mp4 is the clip pre-slowed to 0.8x with motion-interpolated frames at 30 fps (no repeated frames)
+const SLOW = '04_kids_highfive_slow30.mp4';
 const CONTACT_S = 1.71; // palms meet 1.71 s into 04_kids_highfive.mp4
 export const KIDS_VSTART = FIVE - Math.round((CONTACT_S * 30) / RATE);
 export const KIDS_LAND = KIDS_VSTART + Math.round((0.875 * 30) / RATE);
@@ -130,12 +132,12 @@ export const KidsPhoto: React.FC<SP> = ({F, tile}) => {
         {tile ? <Img src={SRC('04_kids_highfive.png')} style={{position: 'absolute', left: 0, top: -5, width: 1080, height: 1930}} /> : null}
         {!tile && !playing ? (
           <Freeze frame={0}>
-            <OffthreadVideo src={SRC('04_kids_highfive.mp4')} muted style={VIDEO_STYLE} />
+            <OffthreadVideo src={SRC(SLOW)} muted style={VIDEO_STYLE} />
           </Freeze>
         ) : null}
         {!tile ? (
           <Sequence from={KIDS_VSTART - off} premountFor={30}>
-            <OffthreadVideo src={SRC('04_kids_highfive.mp4')} playbackRate={RATE} muted style={VIDEO_STYLE} />
+            <OffthreadVideo src={SRC(SLOW)} muted style={VIDEO_STYLE} />
           </Sequence>
         ) : null}
         <Starburst p={seg(F, FIVE - 1, FIVE + 13, E.linear)} x={576} y={435} r0={50} r1={320} rays={14} />

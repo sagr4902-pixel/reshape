@@ -50,7 +50,8 @@ instaloader --post-filter="is_video and likes > 1000" reshape.sa
   - ✅ بيانات حساب (مثلًا `reshape.sa`: عام، 1,514 متابع).
   - ✅ بيانات منشور واحد بالـ shortcode (`Post.from_shortcode`).
   - ❌ قائمة منشورات حساب: إنستقرام يحوّل لصفحة الدخول (`LoginRequiredException`) → تحتاج جلسة دخول.
-- **تنزيل ملفات الصور/الفيديو:** يجي من سيرفرات إقليمية أسماؤها تتغير (مثل `scontent-ord5-1.cdninstagram.com`) → محجوب حتى يضيف المستخدم النمط `*.cdninstagram.com` (ويُفضّل `*.fbcdn.net`) من إعدادات البيئة: Network access → Allowed domains. الخطوات: https://code.claude.com/docs/en/cloud-environments#network-access
+- **تنزيل ملفات الصور/الفيديو:** ✅ يشتغل بعد إضافة `*.cdninstagram.com` و `*.fbcdn.net` للبيئة (كل نمط في خانة مستقلة). جُرّب على منشور الوثائق `B_K4CykAOtf`: الصورة 1349×1687 + الكابشن.
+- **الخلاصة:** أي منشور أو ريل عام من رابطه → `instaloader -- -<SHORTCODE>` بدون دخول. أرشفة حساب كامل أو ستوريز → تحتاج جلسة دخول.
 
 ## مرتبط بـ
 - 009 (تحليل فيديو مرجعي وبناء قالب منه)، 008 / 010 (حملات RESHAPE).

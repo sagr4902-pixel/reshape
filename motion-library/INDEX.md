@@ -13,3 +13,4 @@
 | 009 | قالب «اختبار سريع» بتايبوقرافي متحرك (مرجع أسلوب، مطبّق في RESHAPE v2) | editing-styles | Remotion | [009](prompts/editing-styles/009-quiz-kinetic-typography-format.md) | 2026-11-13 |
 | 010 | قالب «هذا إنت؟» — هوك فشل + ريل حماسي قصير (9:16، 20 ث، بدون موسيقى، مطبّق في RESHAPE v3) | editing-styles | Remotion + transitions + ElevenLabs | [010](prompts/editing-styles/010-fail-hook-hype-short.md) | 2026-11-13 |
 | 011 | OpenHiggsfield — استوديو مفتوح المصدر لتوليد الصور والفيديو (38 نموذج: Kling، Seedance، Wan، Flux…) — مرجع أداة | skills | Next.js / Higgsfield API | [011](skills/011-open-higgsfield.md) | 2026-11-17 |
+| 012 | Instaloader — تنزيل منشورات/ريلز إنستقرام مع الكابشن والبيانات (مراجع + أرشفة حساب ريشيب) — أداة | skills | Python CLI (instaloader 4.16) | [012](skills/012-instaloader.md) | 2026-11-17 |

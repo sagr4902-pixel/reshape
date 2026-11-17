@@ -45,7 +45,12 @@ instaloader --post-filter="is_video and likes > 1000" reshape.sa
 
 ## حالة البيئة الحالية (2026-11-17)
 - مثبّتة وتشتغل (`instaloader --version` → 4.16).
-- **إنستقرام محجوب في شبكة هذه البيئة السحابية** (`www.instagram.com` مرفوض من البروكسي). عشان نستخدمها هنا لازم تنضاف نطاقات إنستقرام لقائمة المسموح في إعدادات البيئة، أو نشغّلها على جهاز المستخدم وترفع الملفات.
+- انضاف للبيئة «Sanad studio»: `instagram.com`، `www.instagram.com`، `i.instagram.com`، `scontent.cdninstagram.com`.
+- **بدون تسجيل دخول:**
+  - ✅ بيانات حساب (مثلًا `reshape.sa`: عام، 1,514 متابع).
+  - ✅ بيانات منشور واحد بالـ shortcode (`Post.from_shortcode`).
+  - ❌ قائمة منشورات حساب: إنستقرام يحوّل لصفحة الدخول (`LoginRequiredException`) → تحتاج جلسة دخول.
+- **تنزيل ملفات الصور/الفيديو:** يجي من سيرفرات إقليمية أسماؤها تتغير (مثل `scontent-ord5-1.cdninstagram.com`) → محجوب حتى يضيف المستخدم النمط `*.cdninstagram.com` (ويُفضّل `*.fbcdn.net`) من إعدادات البيئة: Network access → Allowed domains. الخطوات: https://code.claude.com/docs/en/cloud-environments#network-access
 
 ## مرتبط بـ
 - 009 (تحليل فيديو مرجعي وبناء قالب منه)، 008 / 010 (حملات RESHAPE).

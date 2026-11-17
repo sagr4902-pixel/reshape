@@ -5,6 +5,7 @@ import {Cover} from './films/reshape/Cover';
 import {Quiz} from './films/quiz/Quiz';
 import {QuizCover} from './films/quiz/QuizCover';
 import {Hype} from './films/hype/Hype';
+import {Board, T as BOARD_T} from './films/board/Board';
 import {TOTAL as HYPE_TOTAL} from './films/hype/timeline';
 import {TOTAL as QUIZ_TOTAL} from './films/quiz/timeline';
 import {Film, ScenePreview} from './films/reshape/Film';
@@ -27,6 +28,8 @@ export const Root: React.FC = () => (
     <Composition id="HypeV3" component={Hype} width={1080} height={1920} fps={30} durationInFrames={HYPE_TOTAL} defaultProps={{withAudio: true}} />
     <Composition id="HypeV3Silent" component={Hype} width={1080} height={1920} fps={30} durationInFrames={HYPE_TOTAL} defaultProps={{withAudio: false}} />
     <Composition id="HypeV3Final" component={Hype} width={1080} height={1920} fps={30} durationInFrames={HYPE_TOTAL} defaultProps={{withAudio: true, mixFile: 'audio/mix3/hype_mix.wav', blur: true}} />
+    <Composition id="BoardV1" component={Board} width={1080} height={1920} fps={30} durationInFrames={BOARD_T.total} defaultProps={{}} />
+    <Composition id="BoardV1Final" component={Board} width={1080} height={1920} fps={30} durationInFrames={BOARD_T.total} defaultProps={{mixFile: 'audio/mix4/board_mix.wav', blur: true}} />
     <Composition id="Cover" component={Cover} width={1080} height={1920} fps={30} durationInFrames={1} />
     <Composition id="RigTest" component={RigTest} width={1080} height={1920} fps={30} durationInFrames={60} />
   </>

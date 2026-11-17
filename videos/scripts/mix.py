@@ -35,7 +35,10 @@ def env_follow(x, attack_s, release_s):
         c = a if v > e else r
         e = c * e + (1 - c) * v
         out[i] = e
-    return np.repeat(out, 64)[: len(x)] if n else np.zeros(len(x))
+    if not n:
+        return np.zeros(len(x))
+    r = np.repeat(out, 64)
+    return np.pad(r, (0, max(0, len(x) - len(r))), mode='edge')[: len(x)]  # pad the tail when len(x) is not a multiple of 64
 
 def main():
     cues_path = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "scripts" / "cues.json"

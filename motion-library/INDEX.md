@@ -14,3 +14,4 @@
 | 010 | قالب «هذا إنت؟» — هوك فشل + ريل حماسي قصير (9:16، 20 ث، بدون موسيقى، مطبّق في RESHAPE v3) | editing-styles | Remotion + transitions + ElevenLabs | [010](prompts/editing-styles/010-fail-hook-hype-short.md) | 2026-11-13 |
 | 011 | OpenHiggsfield — استوديو مفتوح المصدر لتوليد الصور والفيديو (38 نموذج: Kling، Seedance، Wan، Flux…) — مرجع أداة | skills | Next.js / Higgsfield API | [011](skills/011-open-higgsfield.md) | 2026-11-17 |
 | 012 | Instaloader — تنزيل منشورات/ريلز إنستقرام مع الكابشن والبيانات (مراجع + أرشفة حساب ريشيب) — أداة | skills | Python CLI (instaloader 4.16) | [012](skills/012-instaloader.md) | 2026-11-17 |
+| 013 | تحليل ريل «Showreel» لـ erth_motion — بدون قطعات: مؤشر يقود، نافذة بين الكلمات، دوّامة كلمات، شبكة كروت (16:9، 19.6 ث) | editing-styles | تحليل مرجعي (Instaloader + ffmpeg) | [013](prompts/editing-styles/013-erth-motion-showreel-analysis.md) | 2026-11-17 |

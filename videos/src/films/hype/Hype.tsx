@@ -8,8 +8,8 @@ import {wipe} from '@remotion/transitions/wipe';
 import {CameraMotionBlur} from '@remotion/motion-blur';
 import {ensureFonts} from '../../kit/fonts';
 import {Grain} from '../../kit/Stage';
-import {FinaleScene, FlashScene, HomeVideo, PillsScene} from './scenes';
-import {HandstandPhoto, KidsPhoto, LeverPhoto, PullUpPhoto} from './photoScenes';
+import {FinaleScene, FlashScene, HomeVideo} from './scenes';
+import {HandstandPhoto, KidsPhoto, LeverPhoto, PullUpPhoto, SlotScene} from './photoScenes';
 import {AT, CUTS, LINES, TOTAL, TR, type VId} from './timeline';
 
 ensureFonts();
@@ -22,7 +22,7 @@ const SEQ = [
   {id: 'd', start: CUTS.toLever - TR.toLever, end: CUTS.toFlash, C: LeverPhoto},
   {id: 'e', start: CUTS.toFlash, end: CUTS.toKids, C: FlashScene},
   {id: 'f', start: CUTS.toKids - TR.toKids, end: CUTS.toPills, C: KidsPhoto},
-  {id: 'g', start: CUTS.toPills - TR.toPills, end: CUTS.toFinale, C: PillsScene},
+  {id: 'g', start: CUTS.toPills - TR.toPills, end: CUTS.toFinale, C: SlotScene},
   {id: 'h', start: CUTS.toFinale, end: TOTAL, C: FinaleScene},
 ] as const;
 

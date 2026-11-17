@@ -284,24 +284,60 @@
    "db": -18
   },
   {
+   "s": "marker_tick",
+   "f": 382,
+   "db": -9
+  },
+  {
+   "s": "whoosh_light_1",
+   "f": 386,
+   "db": -13
+  },
+  {
+   "s": "tick_spark",
+   "f": 389,
+   "db": -23
+  },
+  {
+   "s": "tick_spark",
+   "f": 394,
+   "db": -23
+  },
+  {
+   "s": "tick_spark",
+   "f": 399,
+   "db": -23
+  },
+  {
+   "s": "tick_spark",
+   "f": 404,
+   "db": -23
+  },
+  {
+   "s": "tick_spark",
+   "f": 409,
+   "db": -23
+  },
+  {
    "s": "word_accent",
-   "f": 373.0,
-   "db": -14
+   "f": 412,
+   "db": -12
+  },
+  {
+   "s": "word_accent",
+   "f": 422,
+   "db": -13
   },
   {
    "s": "marker_tick",
-   "f": 373.0,
+   "f": 422,
    "db": -18
   },
   {
-   "s": "word_accent",
-   "f": 414.0,
-   "db": -14
-  },
-  {
-   "s": "marker_tick",
-   "f": 414.0,
-   "db": -18
+   "s": "whoosh_light_2",
+   "f": 439,
+   "db": -16,
+   "pan": 0.2
   },
   {
    "s": "whoosh_deep_2",

@@ -75,10 +75,16 @@ add("high_five", five, -4)
 add("sub_impact_soft", five, -15)
 add("whoosh_deep_1", CUTS["toPills"] - 6, -12)            # clock wipe
 
-# ── G: mosaic + glass pills ──
+# ── G: «في ريشيب… [window] تدريب حضوري» (photoScenes.tsx SlotScene) ──
 add("glow_shimmer", CUTS["toPills"] - 4, -18)
-add("word_accent", W("V7", 0) + 3, -14); add("marker_tick", W("V7", 0) + 3, -18)
-add("word_accent", W("V7", 2) + 2, -14); add("marker_tick", W("V7", 2) + 2, -18)
+split = jsround(W("V7", 1)) + 7; train = jsround(W("V7", 2)); hot = jsround(W("V7", 3)); close = CUTS["toFinale"] - 10
+add("marker_tick", split - 2, -9)                         # cursor clicks the gap
+add("whoosh_light_1", split + 2, -13)                     # the phrases part, the window opens
+for f in range(split + 5, train, 5):
+    add("tick_spark", f, -23)                             # each shot swap in the window
+add("word_accent", train, -12)                            # lands on the coaching shot
+add("word_accent", hot, -13); add("marker_tick", hot, -18)  # «حضوري» turns orange
+add("whoosh_light_2", close + 3, -16, pan=0.2)             # the window closes, phrases rejoin
 
 # ── H: progress bar → routes → logo slam → click ──
 full = jsround(W("V8", 1))

@@ -1,8 +1,8 @@
 # RESHAPE Dhahran — نادي ريشيب الظهران
 
 Arabic-first, bilingual marketing and lead-capture website for the RESHAPE club in Dhahran.
-Calisthenics leads; kids programs are a priority; visitors can **explore** an illustrated cutaway of the club or
-**act** by registering interest. Payments stay in the official store (https://reshape-sa.com/) — this site has no
+The homepage opens on the club facade exactly as designed. Calisthenics leads; kids programs are a priority; visitors
+can **explore** the club through its own design renders and an accurate map, or **act** by registering interest. Payments stay in the official store (https://reshape-sa.com/) — this site has no
 checkout.
 
 > Status: implementation complete and verified locally. Not deployed. See `docs/implementation-status.md` for the
@@ -52,7 +52,8 @@ of a form (there is no mock storage).
 | `npm run dev` / `build` / `start` | Next.js development server / production build / production server |
 | `npm run lint` · `npm run typecheck` | ESLint · `tsc --noEmit` |
 | `npm run content:validate` | Schemas, cross-references, assets, translation parity, publication rules |
-| `npm run scenes:build` · `scenes:check` | Regenerate the club illustrations · fail if committed files drift |
+| `npm run scenes:build` · `scenes:check` | Regenerate the club map drawings · fail if committed files drift |
+| `python3 scripts/dev/encode-renders.py` | Re-encode the design renders from `input-assets/` (needs Pillow with AVIF) |
 | `npm test` | Unit tests (no services needed) |
 | `npm run test:integration` | Lead service + API against a real PostgreSQL test database |
 | `npm run test:e2e` | Playwright: builds, starts on :3100, runs journeys, explorer, form, quality and axe checks |
@@ -67,16 +68,18 @@ override with `TEST_DATABASE_URL`. They refuse databases whose name does not con
 
 - Content: `src/content/` and `messages/` — see `docs/content-guide.md`.
 - Membership / price / purchase-link rules: `src/lib/catalog/resolve.ts`, `docs/catalog-verification.md`.
-- Explorer illustration generator: `src/features/explorer/scene/`, `scripts/build-scenes.ts`.
+- Homepage facade: `src/features/home/`. Design renders: `src/content/design.ts`, `public/assets/design/`.
+- Explorer map generator: `src/features/explorer/scene/`, `scripts/build-scenes.ts`.
 - Lead API and storage: `src/app/api/leads/route.ts`, `src/lib/server/leads.ts`, `db/`.
 - Staff workflow and privacy: `docs/privacy-operations.md`.
 - Architecture and decisions: `docs/architecture.md`. Design system: `docs/design-system.md`.
-- Evidence: `docs/sources.md`, `docs/assets/`. Tests and measurements: `docs/qa/`.
+- Design analysis and evidence: `docs/assets/visual-analysis.md`, `docs/sources.md`, `docs/assets/asset-manifest.json`. Tests and measurements: `docs/qa/`.
 - Deployment: `docs/deployment.md`. CI: `../.github/workflows/dhahran-ci.yml`.
 
 ## Notes
 
-- This folder lives inside `sagr4902-pixel/reshape`, which is a **public** repository. Owner-supplied drawings
-  (`input-assets/`) and the internal pricing worksheet (`internal/`) are git-ignored for that reason.
+- This folder lives inside `sagr4902-pixel/reshape`, which is a **public** repository. Owner-supplied source files
+  (`input-assets/`) and the internal pricing worksheet (`internal/`) are git-ignored for that reason; the selected
+  design renders are committed as optimised web images because the site publishes them anyway.
 - The root `index.html` (remote-coaching app) is a separate product and is untouched.
 - Designed & Developed by HIJA — https://hija-tech-sa.com/

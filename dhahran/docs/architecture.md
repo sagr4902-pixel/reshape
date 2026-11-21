@@ -60,22 +60,44 @@ force every page to render dynamically; `style-src 'unsafe-inline'` is needed fo
 This was tested with the real pages (no CSP violations in the E2E console checks). Moving to nonces is possible later
 at the cost of static prerendering.
 
+## Homepage facade
+
+`FacadeHero` (server component) renders the owner's facade render on a "plate" that keeps the render's aspect ratio.
+The view crops the plate per breakpoint by sliding it horizontally; hotspots and lettering are children of the plate
+positioned in percent, so they stay registered with no measuring script. `EnterLink` (small client island) adds the
+"walk in" zoom on click and otherwise behaves as a normal link.
+
 ## Explorer
 
-- **Scene pipeline:** `src/features/explorer/scene/{engine,model,themes}.ts` → `scripts/build-scenes.ts` →
-  `public/assets/scenes/*.svg` + `src/content/generated/scene-meta.json`. Output is deterministic and committed;
-  `npm run scenes:check` (also a unit test) fails on drift.
-- **Geometry without measuring:** the stage has the drawing's aspect ratio, so the SVG never letterboxes. Level
-  drawings and hotspots are positioned in percentages; the camera is a CSS transform whose values (per zone, per
-  layout) come from the generated metadata. Portrait vs landscape exploded layout is a media query. No
-  ResizeObserver, no JS hit-testing; an E2E test compares every hotspot with its anchor point inside the SVG after
-  zoom, resize and in both directions.
-- **State:** reducer with `overview / transitioning / focused`, plus `simple` and `failed`. Latest selection wins;
-  a timer guarantees leaving `transitioning`. History entries are created only for deliberate selections.
-- **Progressive enhancement:** every control is a link to `?zone=…`; the server renders the focused state, so the
-  explorer works without JavaScript. A server-rendered zone list sits below it as the equivalent alternative.
-- **Size:** two level drawings, 24 KiB + 15 KiB raw (≈ 6 KiB + 4 KiB gzip). With a scene this small, per-zone lazy
-  modules would add requests without saving bytes, so the scene is not split.
+Two complementary views of every zone:
+
+- **Design view** — the club's own renders for the zone (`DesignPicture`: AVIF at 240–1600 px with a WebP fallback,
+  chosen by `sizes`), with next/previous
+  (under the render on phones, over its lower edge from 640 px), thumbnails, caption and the concept label. This is the default once a zone is selected and is what the server
+  renders for `?zone=…`.
+- **Map view** — an accurate axonometric map generated from the working drawings.
+  - Pipeline: `src/features/explorer/scene/{engine,model,themes}.ts` → `scripts/build-scenes.ts` →
+    `public/assets/scenes/level-*.svg` + `src/content/generated/scene-meta.json`. Deterministic and committed;
+    `npm run scenes:check` (also a unit test) fails on drift.
+  - Camera: one isometric projection seen from the south-west (facade side). North and east walls are back walls;
+    everything else is cut at 1.4 m.
+  - Levels: the mezzanine drawing is registered 3.65 m above the ground drawing and shown as a switchable level, so
+    one layout fits every screen.
+  - Geometry without measuring: the stage has the drawing's aspect ratio, so the SVG never letterboxes. Level
+    drawings and hotspots are positioned in percentages; the camera is a CSS transform whose per-zone values come from
+    the generated metadata. No ResizeObserver, no JS hit-testing. An E2E test compares every hotspot with its anchor
+    point inside the SVG across levels, zoom, resize and both directions.
+- **State:** reducer with `overview / transitioning / focused`, `view` (map / design), `level`, image index, `simple`
+  and `failed`. Selecting from the map sweeps the camera to the zone, then switches to the design view; the latest
+  selection always wins and a timer guarantees leaving `transitioning`. History entries are created only for
+  deliberate zone selections. Entrance animations (render fade, panel slide) are enabled only for content swapped
+  in after the first render, so a deep link paints its render with the first frame.
+- **Progressive enhancement:** every zone control is a link to `?zone=…`; the server renders the zone, its first
+  image, panel and CTA, so the tour works without JavaScript. A server-rendered zone list sits below as the equivalent
+  alternative. If the map drawings fail to load, the design view and the list still work.
+- **Weights (measured):** level drawings 40 KiB + 12 KiB raw (10 KiB + 4 KiB transferred); a render in AVIF is
+  33–101 KiB at 1600 px (median 78), 22–64 KiB at 1200 px (median 50) and 12–31 KiB at 800 px; gallery thumbnails
+  are 3–7 KiB each. The viewer loads one render at a time.
 
 ## Decisions (ADRs)
 
@@ -86,17 +108,13 @@ The session is scoped to existing repositories and cannot create a new one. The 
 are git-ignored. Recommended: move `dhahran/` to a private `reshape-dhahran` repository (history can be kept with
 `git subtree split --prefix=dhahran`).
 
-### ADR-2 — 2D renderer
+### ADR-2 — Renderer for the tour
 | Option | Verdict |
 |---|---|
-| **SVG illustrations + HTML controls** | **Chosen.** Crisp at any zoom, tiny files, real links for interaction. |
-| DOM/CSS only | Used for panels, labels and controls; too fragile for the architecture itself. |
+| **Official renders + generated SVG map + HTML controls** | **Chosen.** The renders are the design, pixel for pixel; the map adds orientation; controls are real links. |
+| Hand-drawn / generated illustration only | Used for the first version; replaced once real designs arrived. |
 | Canvas / PixiJS | Rejected: separate hit-testing and accessibility work for no measured need. |
-| WebGL / 3D | Out of scope for a 2D marketing site. |
-| Raster + hotspots | Not needed; the SVGs are already smaller than a raster fallback would be. |
-
-The SVG is generated from metric coordinates rather than drawn by hand so the drawing stays consistent with the plans
-and can be corrected by editing numbers.
+| Real-time WebGL 3D | Deferred — see ADR-9. |
 
 ### ADR-3 — Animation
 CSS transitions only. Motion / GSAP were not added: the camera is one transform transition.
@@ -122,6 +140,13 @@ one pass. Form and explorer have their own loading/failure states.
 No verified brand story was supplied, so `/about` redirects to the homepage "Our approach" section instead of
 publishing a thin page.
 
+### ADR-9 — Real-time 3D
+The owner allowed a 3D site if needed. It was **not** needed to show the facade exactly: the supplied renders are
+already the 3D design, and a model rebuilt by hand from plans would be less faithful than the designer's own images.
+A walkable real-time scene becomes worthwhile once the designer exports the actual 3D model (GLB/FBX with baked
+lighting). It would then load on demand inside the existing explorer (the zone model, deep links, panel and fallback
+list stay as they are), with the renders as the poster and fallback.
+
 ### ADR-8 — No-JavaScript registration
 The form needs JavaScript (idempotency key, inline validation). Without it the page shows the official WhatsApp
 channel instead. All other content and navigation work without JavaScript.
@@ -130,7 +155,7 @@ channel instead. All other content and navigation work without JavaScript.
 
 ```
 src/app/[locale]/…        public routes          src/app/api/leads/route.ts   submission boundary
-src/components/           layout + small UI      src/features/{explorer,programs,memberships,leads}/
+src/components/           layout + small UI      src/features/{home,explorer,programs,memberships,leads}/
 src/content/              approved structured content (+ generated scene metadata)
 src/lib/catalog/          schemas, CTA resolver, store allow-list
 src/lib/server/           database + lead service  src/lib/{env,seo,phone,analytics}

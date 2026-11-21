@@ -2,23 +2,38 @@
 
 ## Concept — THE PROGRESSION HOUSE
 
-The club is shown as a building you can read: a cutaway drawing generated from the real plans, with training paths
-running through it. One line ties everything together — **the bar**: a horizontal accent rail with two posts, taken
-from a calisthenics bar. It appears under page titles, as the section marker (`01 ——`), as the pathway rail on the
-calisthenics pages, as the single accent bar inside the rig illustration, and above the closing invitation.
+The site opens **at the club's front door**: the homepage hero is the facade exactly as designed, and the visitor walks
+in through it. Inside, each zone is shown with the club's own design renders and located on an accurate map drawn from
+the working drawings.
+
+Two graphic motifs carry the identity:
+
+- **The bar** — a horizontal accent rail with two posts, from a calisthenics bar: under page titles, as the section
+  marker (`01 ——`), as the pathway rail.
+- **The chevron strip** — taken from the facade's chevron band and the mezzanine balustrade: the divider under the
+  hero and above the closing section (`.chevron-band`).
 
 "هنا تبدأ قوّتك / Your strength starts here" is **proposed campaign copy**, not an official slogan
-(`messages/*.json → home.hero.title`).
+(`messages/*.json → home.hero.title`). Progress is presented as personal: pathways are "directions, not mandatory
+stages".
 
-Progress is presented as personal: pathways are labelled "directions, not mandatory stages".
-
-## Three registers
+## Registers
 
 | Register | Where | Treatment |
 |---|---|---|
-| Control (calisthenics) | hero, calisthenics, explorer | Charcoal ground, blueprint grid, white line-art equipment, large Arabic headlines, generous space |
-| Discovery (kids) | kids chapter and page | Warm white, light illustration theme, 28–32 px radii, pastel mats, guardian-first copy |
+| Control (calisthenics) | hero, calisthenics, explorer | Charcoal ground, the design renders at full width, large Arabic headlines |
+| Discovery (kids) | kids chapter and page | Warm white surfaces, 28–32 px radii, guardian-first copy, plain answers. No invented kids space is shown. |
 | Purpose (performance) | hybrid, functional, football | Structured lists, explicit boundaries box, no dashboards or invented numbers |
+
+## Facade hero
+
+- The render sits on a plate with its own aspect ratio (1672 : 941). The view crops the plate per breakpoint by
+  sliding it (`--fx`): full image from 1100 px; 4 : 3 from 640 px; square on phones, centred on the entrance.
+- Hotspots and lettering are positioned in percent of the plate, so they stay registered at any size without script.
+- From 1100 px the copy is set as lettering on the blank wall left of the entrance, over a light fall-off
+  (`.facade-scrim`) that ends before the first facade element. Below that it sits under the image.
+- "Enter": the plate scales toward the door (`--door-x/y`) and fades, then the tour opens. Reduced motion, modified
+  clicks and no-JavaScript get a plain link.
 
 ## Colour tokens (`src/styles/globals.css → @theme`)
 
@@ -30,7 +45,7 @@ Progress is presented as personal: pathways are labelled "directions, not mandat
 | `sand`, `line` | `#E9DDD0`, `#DCCFC4` | Owner's app |
 | `accent` | `#FF5420` | Owner's app accent (dark theme). Used for fills, lines and text on dark. |
 | `accent-ink` | `#B8330C` | **Our derivation** — darker accent for small text on light surfaces (contrast). |
-| `steel` | `#E8822E` | Sampled from the supplied renders (steel columns); illustration and concept marker only. |
+| `steel` | `#E8822E` | Concept-marker diamond only. Structural red in the map (`#E0402A`) is sampled from the design deck. |
 | `mute`, `mute-dark` | `#645C55`, `#B4ADA6` | Adjusted from the app's muted tones to meet 4.5:1. |
 
 The store's machine-extracted colours (`#EC562E`, `#FF443A`) are close to the app accent; the logo itself is a redder
@@ -82,7 +97,8 @@ requests.
 | Use | Duration |
 |---|---|
 | Hover / press | 150 ms |
-| Panel entrance | 260 ms |
+| Panel entrance, render fade in the tour | 260 ms — only for content swapped in after the first render; server-rendered content paints at once |
+| Facade "enter" zoom | 820 ms, then the tour opens; skipped with reduced motion |
 | Explorer camera | 560 ms, `cubic-bezier(.2,.7,.2,1)`, interruptible (CSS transition retargets) |
 
 Transforms and opacity only. No parallax, autoplay, custom cursor, intro sequence or scroll hijacking.

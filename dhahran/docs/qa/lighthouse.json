@@ -1,20 +1,20 @@
 {
   "base": "http://localhost:3100",
   "tool": "lighthouse 13.6.0, Chrome/153.0.0.0",
-  "date": "2026-11-21T08:26:40.909Z",
+  "date": "2026-11-21T11:11:11.251Z",
   "runsPerUrl": 3,
   "preset": "mobile (default), simulated throttling",
   "results": {
     "/ar": {
       "median": {
-        "performance": 91,
+        "performance": 84,
         "accessibility": 100,
         "bestPractices": 100,
         "seo": 69,
-        "lcpMs": 3264,
+        "lcpMs": 3474,
         "cls": 0,
-        "tbtMs": 139,
-        "transferKiB": 396
+        "tbtMs": 326,
+        "transferKiB": 504
       },
       "failedSeo": [
         "is-crawlable"
@@ -24,14 +24,14 @@
     },
     "/en": {
       "median": {
-        "performance": 95,
+        "performance": 94,
         "accessibility": 100,
         "bestPractices": 100,
         "seo": 69,
-        "lcpMs": 2744,
+        "lcpMs": 2758,
         "cls": 0,
-        "tbtMs": 62,
-        "transferKiB": 319
+        "tbtMs": 178,
+        "transferKiB": 428
       },
       "failedSeo": [
         "is-crawlable"
@@ -45,10 +45,10 @@
         "accessibility": 100,
         "bestPractices": 100,
         "seo": 69,
-        "lcpMs": 3110,
-        "cls": 0.069,
-        "tbtMs": 156,
-        "transferKiB": 356
+        "lcpMs": 2817,
+        "cls": 0,
+        "tbtMs": 230,
+        "transferKiB": 381
       },
       "failedSeo": [
         "is-crawlable"
@@ -58,14 +58,14 @@
     },
     "/ar/programs/calisthenics": {
       "median": {
-        "performance": 93,
+        "performance": 90,
         "accessibility": 100,
         "bestPractices": 100,
         "seo": 69,
-        "lcpMs": 3067,
+        "lcpMs": 2791,
         "cls": 0,
-        "tbtMs": 138,
-        "transferKiB": 349
+        "tbtMs": 171,
+        "transferKiB": 377
       },
       "failedSeo": [
         "is-crawlable"
@@ -75,14 +75,14 @@
     },
     "/ar/memberships": {
       "median": {
-        "performance": 99,
+        "performance": 95,
         "accessibility": 100,
         "bestPractices": 100,
         "seo": 69,
-        "lcpMs": 764,
+        "lcpMs": 767,
         "cls": 0,
-        "tbtMs": 146,
-        "transferKiB": 363
+        "tbtMs": 263,
+        "transferKiB": 368
       },
       "failedSeo": [
         "is-crawlable"
@@ -92,14 +92,31 @@
     },
     "/ar/explore": {
       "median": {
-        "performance": 93,
+        "performance": 88,
         "accessibility": 100,
         "bestPractices": 100,
         "seo": 69,
-        "lcpMs": 3269,
-        "cls": 0.001,
-        "tbtMs": 116,
-        "transferKiB": 401
+        "lcpMs": 3432,
+        "cls": 0.003,
+        "tbtMs": 233,
+        "transferKiB": 525
+      },
+      "failedSeo": [
+        "is-crawlable"
+      ],
+      "failedA11y": [],
+      "failedBp": []
+    },
+    "/ar/explore?zone=rig": {
+      "median": {
+        "performance": 84,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 69,
+        "lcpMs": 3592,
+        "cls": 0.003,
+        "tbtMs": 295,
+        "transferKiB": 502
       },
       "failedSeo": [
         "is-crawlable"

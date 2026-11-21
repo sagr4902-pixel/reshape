@@ -4,7 +4,7 @@
 import { execFileSync } from 'node:child_process';
 import { writeFileSync, readFileSync, mkdirSync } from 'node:fs';
 const base = process.argv[2] ?? 'http://localhost:3100';
-const routes = ['/ar', '/en', '/ar/kids', '/ar/programs/calisthenics', '/ar/memberships', '/ar/explore'];
+const routes = (process.argv[3] ? process.argv[3].split(',') : ['/ar', '/en', '/ar/kids', '/ar/programs/calisthenics', '/ar/memberships', '/ar/explore', '/ar/explore?zone=rig']);
 const median = (a) => [...a].sort((x, y) => x - y)[Math.floor(a.length / 2)];
 const out = { base, tool: '', date: new Date().toISOString(), runsPerUrl: 3, preset: 'mobile (default), simulated throttling', results: {} };
 mkdirSync('/tmp/lh', { recursive: true });
@@ -37,4 +37,4 @@ for (const r of routes) {
   out.results[r] = { median: m, failedSeo: runs[0].failedSeo, failedA11y: runs[0].failedA11y, failedBp: runs[0].failedBp };
   console.log(r, JSON.stringify(out.results[r]));
 }
-writeFileSync('docs/qa/lighthouse.json', JSON.stringify(out, null, 2) + '\n');
+if (!process.argv[3]) writeFileSync('docs/qa/lighthouse.json', JSON.stringify(out, null, 2) + '\n');

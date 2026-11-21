@@ -80,7 +80,6 @@
     text-transform: uppercase;
     letter-spacing: 0.005em;
   }
-  p { text-wrap: pretty; }
   a { text-underline-offset: 0.22em; }
   :focus-visible {
     outline: 3px solid var(--color-accent);
@@ -177,6 +176,15 @@
   .bar::before { inset-inline-start: 12%; }
   .bar::after { inset-inline-end: 12%; }
 
+  /* Chevron strip — taken from the facade's chevron band and the mezzanine balustrade. */
+  .chevron-band {
+    height: 18px;
+    background-color: #f4f1eb;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='18' viewBox='0 0 36 18'%3E%3Cpath d='M0 0h9l9 9-9 9H0l9-9z' fill='%23e0402a'/%3E%3Cpath d='M18 0h9l9 9-9 9h-9l9-9z' fill='%2317181a'/%3E%3C/svg%3E");
+    background-size: 36px 18px;
+    background-repeat: repeat-x;
+  }
+
   .rail {
     display: flex;
     align-items: center;
@@ -254,6 +262,125 @@
   .check { display: flex; gap: 0.75rem; align-items: flex-start; }
   .check input { flex: none; width: 24px; height: 24px; margin-top: 0.3rem; accent-color: var(--color-ink); }
 
+  /* ── Facade hero ──────────────────────────────────────────────────────── */
+  .facade { position: relative; background: #0d0d0e; color: var(--color-paper); --door-x: 47.3%; --door-y: 70%; }
+  .facade-view { position: relative; overflow: hidden; aspect-ratio: 1 / 1; --fx: 0.42; }
+  .facade-plate {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    aspect-ratio: 1672 / 941;
+    transform: translateX(calc(-100% * var(--fx)));
+    transform-origin: var(--door-x) var(--door-y);
+    transition: transform 0.85s cubic-bezier(0.6, 0, 0.25, 1);
+  }
+  .facade-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .facade-scrim { display: none; }
+  .facade-fade { position: absolute; inset: 0; background: #0b0b0c; opacity: 0; pointer-events: none; transition: opacity 0.6s 0.22s; }
+  .facade.is-entering .facade-plate { transform: translateX(calc(-100% * var(--fx))) scale(3.6); }
+  .facade.is-entering .facade-fade { opacity: 1; }
+  .facade.is-entering .facade-hot, .facade.is-entering .facade-copy { opacity: 0; transition: opacity 0.25s; }
+  .facade-note {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    z-index: 3;
+    max-width: calc(100% - 1.5rem);
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: rgb(13 13 14 / 0.72);
+    color: #e6dfd8;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    direction: inherit;
+  }
+  [dir='rtl'] .facade-note { direction: rtl; }
+  .facade-hot {
+    position: absolute;
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%);
+    display: none;
+    place-items: center;
+    border-radius: 999px;
+    color: var(--color-ink);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.86rem;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .facade-hot.is-primary { display: grid; }
+  .facade-hot-ring {
+    position: relative;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 0 5px rgb(255 84 32 / 0.3), 0 2px 10px rgb(0 0 0 / 0.5);
+    transition: transform var(--dur-tap);
+  }
+  .facade-hot-ring::before, .facade-hot-ring::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12px;
+    height: 2.5px;
+    margin: -1.25px 0 0 -6px;
+    background: var(--color-ink);
+    border-radius: 2px;
+  }
+  .facade-hot-ring::after { transform: rotate(90deg); }
+  .facade-hot:hover .facade-hot-ring, .facade-hot:focus-visible .facade-hot-ring { transform: scale(1.14); background: #fff; }
+  .facade-hot-label {
+    position: absolute;
+    top: calc(100% - 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    background: var(--color-paper);
+    box-shadow: 0 2px 10px rgb(0 0 0 / 0.4);
+    direction: inherit;
+  }
+  [dir='rtl'] .facade-hot-label { direction: rtl; }
+  .facade-copy { padding: 1.4rem clamp(1.1rem, 4vw, 2.5rem) 2.5rem; }
+  .facade-copy .t-hero { font-size: clamp(2.7rem, 1.6rem + 6vw, 5.2rem); }
+  .facade-copy .lead { margin-top: 1.6rem; }
+  @media (min-width: 640px) {
+    .facade-view { aspect-ratio: 4 / 3; --fx: 0.56; }
+    .facade-hot { display: grid; }
+  }
+  @media (min-width: 1100px) {
+    .facade-view { aspect-ratio: 1672 / 941; --fx: 0.5; }
+    /* Light falls off toward the blank wall on the left; the facade itself is untouched. */
+    .facade-scrim {
+      display: block;
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 27%;
+      background: linear-gradient(90deg, rgb(13 13 14 / 0.86) 0%, rgb(13 13 14 / 0.74) 70%, rgb(13 13 14 / 0) 100%);
+      pointer-events: none;
+    }
+    /* Lettering on the blank wall beside the entrance */
+    .facade-copy {
+      position: absolute;
+      left: 2.6%;
+      top: 0;
+      width: 21.4%;
+      height: 100%;
+      padding: 7.2vw 0 0;
+      z-index: 2;
+    }
+    .facade-copy .t-hero { font-size: clamp(2.2rem, 3.9vw, 4.9rem); }
+    .facade-copy .lead { font-size: clamp(0.92rem, 1.08vw, 1.2rem); line-height: 1.7; }
+    .facade-copy .btn { width: 100%; }
+  }
+
   /* ── Explorer ─────────────────────────────────────────────────────────── */
   .xp-viewport {
     position: relative;
@@ -279,7 +406,32 @@
     height: var(--p-h);
   }
   .xp-level img { display: block; width: 100%; height: 100%; user-select: none; }
-  .xp-level[data-level='upper'] { z-index: 2; }
+  /* The mezzanine is a switchable level registered above the ground floor. */
+  .xp-level[data-level='ground'] img { transition: opacity var(--dur-panel); }
+  .xp-level[data-level='upper'] { z-index: 2; opacity: 0; visibility: hidden; transition: opacity var(--dur-panel), visibility var(--dur-panel); }
+  .xp-stage[data-level='upper'] .xp-level[data-level='upper'] { opacity: 1; visibility: visible; }
+  .xp-stage[data-level='upper'] .xp-level[data-level='ground'] img { opacity: 0.26; }
+  .xp-stage[data-level='upper'] .xp-level[data-level='ground'] .xp-hot { opacity: 0; visibility: hidden; }
+  .xp-seg {
+    inset-inline-start: 0.75rem;
+    display: inline-flex;
+    padding: 3px;
+    border-radius: var(--radius-sm);
+    background: rgb(247 240 233 / 0.94);
+  }
+  .xp-seg button {
+    min-height: 40px;
+    padding: 0.2rem 0.85rem;
+    border: 0;
+    border-radius: 3px;
+    background: transparent;
+    color: var(--color-ink);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .xp-seg button[aria-pressed='true'] { background: var(--color-ink); color: var(--color-paper); }
   @media (min-width: 800px) {
     .xp-viewport { aspect-ratio: var(--l-ar); }
     .xp-stage {
@@ -342,6 +494,9 @@
       box-shadow: 0 2px 10px rgb(0 0 0 / 0.35);
     }
   }
+  @media (min-width: 800px) {
+    .xp-hot[data-side='left'] .xp-hot-label { left: auto; right: calc(100% + 2px); }
+  }
   .xp-hot:hover .xp-hot-dot, .xp-hot[aria-current='true'] .xp-hot-dot { background: #fff; }
   .xp-hot[aria-current='true'] .xp-hot-dot { box-shadow: 0 0 0 4px var(--color-accent); }
   .xp-stage[data-focused='true'] .xp-hot:not([aria-current='true']) { opacity: 0; visibility: hidden; }
@@ -392,6 +547,85 @@
     cursor: pointer;
   }
   .xp-ctrl:hover { background: #fff; }
+  .xp-ctrl-dark { background: transparent; color: var(--color-paper); border: 1.5px solid var(--color-line-dark); }
+  .xp-ctrl-dark:hover { background: var(--color-coal-2); border-color: var(--color-paper); }
+  .xp-photo-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--color-deep);
+  }
+  .xp-photo-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  /* Phones: the render stays clear and previous / counter / next sit under it. From 640 px they lie over its lower edge. */
+  .xp-photo-wrap { display: grid; }
+  .xp-photo-wrap > .xp-photo-frame { grid-area: 1 / 1; }
+  .xp-photo-nav { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 0.6rem; }
+  @media (max-width: 639px) {
+    .xp-photo-nav .xp-ctrl { background: transparent; color: var(--color-paper); border: 1.5px solid var(--color-line-dark); }
+    .xp-photo-nav .xp-count { background: transparent; }
+  }
+  @media (min-width: 640px) {
+    .xp-photo-nav { grid-area: 1 / 1; align-self: end; z-index: 10; margin: 0 0.75rem 0.75rem; pointer-events: none; }
+    .xp-photo-nav > * { pointer-events: auto; }
+  }
+  /* Only for renders swapped in after the first paint; the server-rendered one must not fade (it is the LCP element). */
+  .xp-photo-in { animation: photo-in var(--dur-panel) var(--ease-move); }
+  @keyframes photo-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .xp-count {
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    background: rgb(17 17 19 / 0.78);
+    color: var(--color-paper);
+    font-family: var(--font-latin);
+    font-size: 0.95rem;
+  }
+  .xp-thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 0.5rem; }
+  /* A zone has at most four renders: keep them on one row on phones. */
+  @media (max-width: 479px) {
+    .xp-thumbs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  .xp-thumb {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--color-deep);
+    cursor: pointer;
+    opacity: 0.62;
+    transition: opacity var(--dur-tap), border-color var(--dur-tap);
+  }
+  .xp-thumb img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+  .xp-thumb:hover, .xp-thumb[aria-current='true'] { opacity: 1; }
+  .xp-thumb[aria-current='true'] { border-color: var(--color-accent); }
+  .xp-mini {
+    display: block;
+    width: 100%;
+    padding: 0.6rem;
+    border: 1.5px solid var(--color-line-dark);
+    border-radius: var(--radius-md);
+    background: var(--color-deep);
+    color: inherit;
+    cursor: pointer;
+  }
+  .xp-mini:hover { border-color: var(--color-paper); }
+  /* The wrapper takes the drawing's own aspect ratio, so the marker stays registered. */
+  .xp-mini-map { position: relative; display: block; width: min(100%, 280px); margin: 0 auto 0.4rem; }
+  .xp-mini-map img { display: block; width: 100%; height: auto; }
+  .xp-mini-dot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 0 4px rgb(255 84 32 / 0.35);
+  }
   .xp-panel-anim { animation: panel-in var(--dur-panel) var(--ease-move); }
   @keyframes panel-in {
     from { opacity: 0; transform: translateY(8px); }

@@ -3,7 +3,8 @@
  *
  * One projection for every drawing on the site: plan coordinates in metres
  * (x → east, y → south, z → up) are projected with a fixed isometric camera
- * looking from the south-east corner. Output is plain SVG markup with CSS
+ * looking from the south-west — the facade side — so the entrance wall and the
+ * glazed facade bays face the viewer. North and east walls are the back walls. Output is plain SVG markup with CSS
  * classes; colours come from a theme stylesheet embedded in the file.
  *
  * Pure functions only — used by scripts/build-scenes.ts and by unit tests.
@@ -17,8 +18,11 @@ const COS30 = Math.cos(Math.PI / 6);
 
 /** Project a point in metres to unshifted scene pixels. */
 export function project([x, y, z]: V3): V2 {
-  return [(x - y) * COS30 * SCALE, ((x + y) * 0.5 - z) * SCALE];
+  return [(x + y) * COS30 * SCALE, ((y - x) * 0.5 - z) * SCALE];
 }
+
+/** Painter depth: larger = closer to the camera (further south and west). */
+export const depthAt = (x: number, y: number, z = 0) => y - x + z * 0.02;
 
 const r = (n: number) => (Math.round(n * 10) / 10).toString();
 
@@ -57,7 +61,7 @@ export class SceneBuilder {
 
   private static depthOf(pts: readonly V3[]): number {
     let d = 0;
-    for (const [x, y, z] of pts) d += x + y + z * 0.02;
+    for (const [x, y, z] of pts) d += depthAt(x, y, z);
     return d / pts.length;
   }
 
@@ -93,7 +97,7 @@ export class SceneBuilder {
     const [x, y] = this.p(c);
     this.push(
       `<circle class="${cls}" cx="${r(x)}" cy="${r(y)}" r="${r(radius * SCALE)}"/>`,
-      depth ?? c[0] + c[1] + c[2] * 0.02,
+      depth ?? depthAt(c[0], c[1], c[2]),
     );
   }
 
@@ -102,18 +106,19 @@ export class SceneBuilder {
     const [x, y] = this.p(c);
     this.push(
       `<ellipse class="${cls}" cx="${r(x)}" cy="${r(y)}" rx="${r(rx * SCALE * COS30 * 1.15)}" ry="${r(ry * SCALE * 0.58)}"/>`,
-      c[0] + c[1] - 0.5,
+      depthAt(c[0], c[1]) - 0.5 + c[2] * 0.5,
     );
   }
 
-  /** Axis-aligned box. Draws the three faces visible from the south-east. */
+  /** Axis-aligned box. Draws the three faces visible from the south-west. */
   box(x: number, y: number, z: number, w: number, d: number, h: number, base: string) {
-    const depth = x + w / 2 + y + d / 2 + z * 0.02;
+    const depth = depthAt(x + w / 2, y + d / 2, z);
     const x1 = x + w;
     const y1 = y + d;
     const z1 = z + h;
-    this.poly([[x, y1, z], [x1, y1, z], [x1, y1, z1], [x, y1, z1]], `${base}-l`, depth);
-    this.poly([[x1, y, z], [x1, y1, z], [x1, y1, z1], [x1, y, z1]], `${base}-r`, depth);
+    // west face (left on screen), south face (right on screen), top
+    this.poly([[x, y, z], [x, y1, z], [x, y1, z1], [x, y, z1]], `${base}-l`, depth);
+    this.poly([[x, y1, z], [x1, y1, z], [x1, y1, z1], [x, y1, z1]], `${base}-r`, depth);
     this.poly([[x, y, z1], [x1, y, z1], [x1, y1, z1], [x, y1, z1]], `${base}-t`, depth + 0.001);
   }
 

@@ -34,8 +34,8 @@ export function pageMetadata(opts: {
       title,
       description: opts.description,
       locale: opts.locale === 'ar' ? 'ar_SA' : 'en_US',
-      images: [{ url: '/assets/brand/og.png', width: 1200, height: 630 }],
+      images: [{ url: '/assets/brand/og.jpg', width: 1200, height: 630 }],
     },
-    twitter: { card: 'summary_large_image', title, description: opts.description, images: ['/assets/brand/og.png'] },
+    twitter: { card: 'summary_large_image', title, description: opts.description, images: ['/assets/brand/og.jpg'] },
   };
 }

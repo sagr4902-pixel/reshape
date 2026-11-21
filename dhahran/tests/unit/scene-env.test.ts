@@ -6,13 +6,15 @@ import { scene } from '@/content';
 import { readEnv } from '@/lib/env';
 
 describe('scene geometry', () => {
-  it('uses one projection: plan axes map to the two isometric diagonals, z is vertical', () => {
+  it('uses one projection, seen from the facade side: east is up-right, south is down-right, z is vertical', () => {
     const [ox, oy] = project([0, 0, 0]);
-    const [xx, xy] = project([1, 0, 0]);
-    const [yx, yy] = project([0, 1, 0]);
+    const [ex, ey] = project([1, 0, 0]);
+    const [sx, sy] = project([0, 1, 0]);
     const [zx, zy] = project([0, 0, 1]);
-    expect(xx - ox).toBeCloseTo(-(yx - ox));
-    expect(xy - oy).toBeCloseTo(yy - oy);
+    expect(ex - ox).toBeGreaterThan(0);
+    expect(ey - oy).toBeLessThan(0);
+    expect(sx - ox).toBeCloseTo(ex - ox);
+    expect(sy - oy).toBeCloseTo(-(ey - oy));
     expect(zx).toBeCloseTo(ox);
     expect(zy).toBeLessThan(oy);
   });

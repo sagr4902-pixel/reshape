@@ -15,7 +15,7 @@ export const TEST_DB_URL = process.env.TEST_DATABASE_URL ?? 'postgresql://reshap
 if (!/test/.test(new URL(TEST_DB_URL).pathname)) throw new Error('Refusing to run integration tests against a database whose name does not contain "test".');
 
 export const SECRET = 'integration-test-secret-0000000000000000';
-export const allow = { programIds: ['calisthenics', 'kids', 'football-performance'], zoneIds: ['kids-pavilion'] };
+export const allow = { programIds: ['calisthenics', 'kids', 'football-performance'], zoneIds: ['rig'] };
 
 export async function openDb() {
   const pool = new Pool({ connectionString: TEST_DB_URL, max: 12 });

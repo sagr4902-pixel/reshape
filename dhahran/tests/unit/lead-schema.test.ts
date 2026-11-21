@@ -3,7 +3,7 @@ import { leadSchema } from '@/features/leads/schema';
 import { csvCell, groupKey, payloadHash } from '@/lib/server/leads';
 import { sanitizeProps } from '@/lib/analytics';
 
-const allow = { programIds: ['calisthenics', 'kids'], zoneIds: ['kids-pavilion'] };
+const allow = { programIds: ['calisthenics', 'kids'], zoneIds: ['rig'] };
 const valid = {
   name: '  سارة   أحمد ',
   phone: '٠٥١٢٣٤٥٦٧٨',
@@ -32,7 +32,7 @@ describe('lead schema (server authority)', () => {
     expect(r.success).toBe(true);
     expect(r.data?.zoneId).toBeUndefined();
     expect(r.data?.source).toBeUndefined();
-    expect(parse({ zoneId: 'kids-pavilion', source: 'explorer' }).data).toMatchObject({ zoneId: 'kids-pavilion', source: 'explorer' });
+    expect(parse({ zoneId: 'rig', source: 'explorer' }).data).toMatchObject({ zoneId: 'rig', source: 'explorer' });
   });
   it('requires the privacy acknowledgement and never infers marketing consent', () => {
     expect(parse({ privacyAcknowledged: false }).error?.issues[0].message).toBe('privacy');
@@ -80,7 +80,7 @@ describe('CSV export safety', () => {
 describe('analytics payload hygiene', () => {
   it('keeps only allow-listed identifier-like properties', () => {
     expect(
-      sanitizeProps({ locale: 'ar', programId: 'kids', zoneId: 'kids-pavilion', name: 'Sara', phone: '+966512345678', comment: 'hi', url: 'https://x/?a=1', intent: 'has spaces and more', ctaLocation: 'home' }),
-    ).toEqual({ locale: 'ar', programId: 'kids', zoneId: 'kids-pavilion', ctaLocation: 'home' });
+      sanitizeProps({ locale: 'ar', programId: 'kids', zoneId: 'rig', name: 'Sara', phone: '+966512345678', comment: 'hi', url: 'https://x/?a=1', intent: 'has spaces and more', ctaLocation: 'home' }),
+    ).toEqual({ locale: 'ar', programId: 'kids', zoneId: 'rig', ctaLocation: 'home' });
   });
 });

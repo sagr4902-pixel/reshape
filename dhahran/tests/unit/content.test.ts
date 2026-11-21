@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { memberships, programs, publicMemberships, registerHref, scene } from '@/content';
+import { designImages, memberships, programs, publicMemberships, registerHref, scene } from '@/content';
 import { validateAll } from '../../scripts/validate-content';
 
 describe('content integrity', () => {
@@ -24,15 +24,25 @@ describe('content integrity', () => {
     for (const m of memberships.filter((x) => x.productUrl)) expect(['dammam', 'unknown']).toContain(m.branchScope);
   });
 
-  it('nothing is presented as confirmed/open without evidence', () => {
+  it('programs stay planned until confirmed; the scene follows the supplied drawings', () => {
     for (const p of programs) expect(p.availability).toBe('planned');
-    expect(scene.status).toBe('concept');
-    expect(scene.spatialMode).toBe('conceptual-zones');
+    // Layout follows the owner's working drawings; imagery is still design visualisation.
+    expect(scene.status).toBe('reference-validated');
+    expect(scene.spatialMode).toBe('verified-layout');
+  });
+
+  it('every zone and program points at catalogued design renders with bilingual alt text', () => {
+    for (const z of scene.zones) for (const id of z.imageIds) expect(designImages[id]?.alt.ar, `${z.id}/${id}`).toBeTruthy();
+    for (const p of programs) expect(designImages[p.imageId]?.alt.en, p.id).toBeTruthy();
+    // zones invented for the earlier concept (no evidence in the approved designs) are gone
+    const zoneIds = scene.zones.map((z) => z.id);
+    for (const invented of ['kids-pavilion', 'track-loop', 'performance-deck', 'calisthenics-hall', 'changing']) expect(zoneIds).not.toContain(invented);
+    expect(zoneIds.sort()).toEqual(['entrance', 'juice-bar', 'lockers', 'overlook', 'reception', 'rig', 'strength', 'turf-cardio']);
   });
 
   it('registration links carry only identifiers', () => {
-    expect(registerHref({ program: 'kids', zone: 'kids-pavilion', intent: 'program-inquiry', src: 'explorer' })).toBe(
-      '/register?program=kids&zone=kids-pavilion&intent=program-inquiry&src=explorer',
+    expect(registerHref({ program: 'kids', zone: 'rig', intent: 'program-inquiry', src: 'explorer' })).toBe(
+      '/register?program=kids&zone=rig&intent=program-inquiry&src=explorer',
     );
     expect(registerHref()).toBe('/register');
   });

@@ -47,7 +47,8 @@ export const programSchema = z.object({
   faqs: z.array(faq),
   /** Default inquiry intent for this program's CTA. */
   ctaIntent: z.enum(['general-interest', 'program-inquiry', 'trial-request', 'membership-consultation', 'preopening-updates']),
-  image: z.string().startsWith('/assets/'),
+  /** Design image id (src/content/design.ts). */
+  imageId: id,
   evidence,
 });
 export type Program = z.infer<typeof programSchema>;
@@ -98,6 +99,10 @@ export const zoneSchema = z.object({
   /** What in this zone comes from the drawings vs. what is a concept. */
   basis: localized,
   sourceAssetIds: z.array(z.string()).min(1),
+  /** Design image ids shown for this zone, first = primary. */
+  imageIds: z.array(id).min(1),
+  /** Side of the map dot the label hangs on (physical). Default: right, or left near the right edge. */
+  labelSide: z.enum(['left', 'right']).optional(),
 });
 export type Zone = z.infer<typeof zoneSchema>;
 

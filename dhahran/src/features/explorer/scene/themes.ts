@@ -1,89 +1,64 @@
 /**
- * Scene colour themes. Material colours follow the supplied renders
- * (orange steel columns, fair-faced concrete, dark rubber floor, red track,
- * blue glazing); the accent bar uses the RESHAPE accent token.
+ * Map colours. Materials follow the owner-supplied design deck: red steel
+ * structure, fair-faced concrete, dark rubber floor, green turf lane,
+ * terrazzo and blue tile at reception, brass desk, blue lockers, orange and
+ * white chevron balustrade.
  */
-export type ThemeName = 'dark' | 'light';
+export type ThemeName = 'dark';
 
-interface Palette {
-  floor: string; floorUpper: string; lobby: string; tile: string;
-  wallN: string; wallW: string; joint: string;
-  slabL: string; slabR: string; slabD: string;
-  partN: string; partW: string; partD: string; cut: string;
-  colT: string; colL: string; colR: string;
-  steel: string; post: string; accent: string;
-  track: string; lane: string; glass: string; glassEdge: string;
-  matA: string; matB: string; matC: string;
-  softA: string; softB: string; softC: string;
-  gear: string; gearSide: string; desk: string; deskSide: string;
-  bench: string; stair: string; stairSide: string;
-  turf: string; turfLine: string;
-  fig: string; guide: string; door: string; screen: string; line: string; spot: string;
-}
-
-const dark: Palette = {
-  floor: '#26272B', floorUpper: '#2B2C31', lobby: '#4A4B50', tile: '#3F5560',
-  wallN: '#B4B3AD', wallW: '#8F8E89', joint: '#77767180',
+const p = {
+  floor: '#25262A', terrazzo: '#CFC9C0', tile: '#7FA7BD', tileGrey: '#B9B7B1',
+  wallN: '#B4B3AD', wallW: '#8F8E89', brick: '#9B553B', brickJoint: '#7C402B', joint: '#77767180',
   slabL: '#E9E2DA', slabR: '#C9C2BA', slabD: '#D9D2CA',
   partN: '#D8D3CCE6', partW: '#B9B4ADE6', partD: '#C8C3BCE6', cut: '#6B6A66',
-  colT: '#F5A25A', colL: '#E8822E', colR: '#B86420',
-  steel: '#F7F0E9', post: '#C9C2BA', accent: '#FF5420',
-  track: '#B3261E', lane: '#F3E3D6', glass: '#6FA8F033', glassEdge: '#9CC6FA',
-  matA: '#E9DDD0', matB: '#F2C9AD', matC: '#C9D8D2',
-  softA: '#F2C9AD', softB: '#D9CCC4', softC: '#9CC6FA',
-  gear: '#8A8B90', gearSide: '#5F6065', desk: '#F7F0E9', deskSide: '#CFC6BD',
-  bench: '#A58B74', stair: '#DAD5CE', stairSide: '#A9A49D',
-  turf: '#3E5A48', turfLine: '#F3E3D680',
-  fig: '#FFFFFF', guide: '#8A8B9099', door: '#55565B', screen: '#111113', line: '#FF542099', spot: '#FF5420',
+  red: '#E0402A', redTop: '#F0654A', redSide: '#A92C18',
+  post: '#9A9BA1', bar: '#FF5420', wood: '#E9A15C', steel: '#EDE6DE',
+  turf: '#2F7D48', turfLine: '#F3EFE6',
+  mach: '#55575D', machTop: '#6B6D74', machSide: '#3D3F44', belt: '#1A1B1D', seat: '#C9382A', pad: '#2B2C30', padTop: '#3A3B40',
+  plate: '#C9382A', kb: '#C9382A', plyo: '#E3B81C', plyoSide: '#B8930F',
+  gold: '#C9A54A', goldSide: '#9A7C2E', black: '#1B1B1D', blackTop: '#2C2D31', counter: '#8E8D88', counterTop: '#A5A49E',
+  shelf: '#34353A', shelfTop: '#4A4B51', table: '#3A3B40', tableTop: '#55565C',
+  chairA: '#F28B30', chairB: '#A9D6C9',
+  locker: '#2F4AA0', lockerTop: '#4463C4', lockerGrey: '#6C6E75', lockerGreyTop: '#8A8C93', bench: '#B56A3A', vanity: '#E3A996',
+  desk: '#F2EEE8', deskSide: '#CFC6BD',
+  stair: '#DAD5CE', stairSide: '#A9A49D',
+  glass: '#7FB4F02E', glassEdge: '#9CC6FA', frame: '#E0402A', doorLeaf: '#B9BCC2',
+  rail: '#F4F1EB', chevA: '#F47B20', chevB: '#E0402A',
+  fig: '#FFFFFF', door: '#55565B', tyre: '#141416', tyreTop: '#2E2F33',
 };
 
-const light: Palette = {
-  floor: '#E7DDD2', floorUpper: '#E2D7CB', lobby: '#D2C9C0', tile: '#C5D6DC',
-  wallN: '#FFFFFF', wallW: '#F0E8DF', joint: '#C9BDB080',
-  slabL: '#CFC4B8', slabR: '#B5A99C', slabD: '#C2B6AA',
-  partN: '#FFFFFFE6', partW: '#EDE4DAE6', partD: '#F6EEE6E6', cut: '#A89C90',
-  colT: '#F5A25A', colL: '#E8822E', colR: '#B86420',
-  steel: '#17181A', post: '#5C544E', accent: '#E8401D',
-  track: '#C8372D', lane: '#FFF5EC', glass: '#5B97E033', glassEdge: '#4F86CC',
-  matA: '#FFF8EF', matB: '#F7C9A9', matC: '#CFE2DA',
-  softA: '#F7B58C', softB: '#FFFFFF', softC: '#A9CDF5',
-  gear: '#6B635C', gearSide: '#4A433E', desk: '#FFFFFF', deskSide: '#DCCFC4',
-  bench: '#B08D6E', stair: '#FFFFFF', stairSide: '#D9CEC3',
-  turf: '#A9C7AE', turfLine: '#FFFFFFB3',
-  fig: '#17181A', guide: '#8B817A99', door: '#B9AEA3', screen: '#17181A', line: '#E8401D99', spot: '#E8401D',
-};
-
-export const PALETTES: Record<ThemeName, Palette> = { dark, light };
-
-export function stylesheet(theme: ThemeName): string {
-  const p = PALETTES[theme];
-  const edge = theme === 'dark' ? '#0E0F10' : '#8B817A';
+export function stylesheet(_theme: ThemeName = 'dark'): string {
+  void _theme;
+  const edge = '#0E0F10';
+  const box = (n: string, top: string, l: string, r: string) => `.${n}-t{fill:${top}}.${n}-l{fill:${l}}.${n}-r{fill:${r}}`;
   const css = `
 path,circle,ellipse{stroke-linejoin:round;stroke-linecap:round}
-.floor{fill:${p.floor}}.floor-upper{fill:${p.floorUpper}}.floor-lobby{fill:${p.lobby}}.floor-tile{fill:${p.tile}}
-.wall-n{fill:${p.wallN}}.wall-w{fill:${p.wallW}}.joint{fill:none;stroke:${p.joint};stroke-width:1}
+.floor{fill:${p.floor}}.terrazzo{fill:${p.terrazzo}}.tile{fill:${p.tile}}.tile-grey{fill:${p.tileGrey}}
+.wall-n{fill:${p.wallN}}.wall-w{fill:${p.wallW}}.wall-brick{fill:${p.brick}}.brick-joint{fill:none;stroke:${p.brickJoint};stroke-width:.8}
+.joint{fill:none;stroke:${p.joint};stroke-width:1}
 .slab-l{fill:${p.slabL}}.slab-r{fill:${p.slabR}}.slab-d{fill:${p.slabD}}
 .part-n{fill:${p.partN};stroke:${edge};stroke-width:.6}.part-w{fill:${p.partW};stroke:${edge};stroke-width:.6}.part-d{fill:${p.partD};stroke:${edge};stroke-width:.6}
-.cut-l,.cut-r,.cut-d{fill:${p.cut};stroke:${edge};stroke-width:.5}
-.col-t{fill:${p.colT}}.col-l{fill:${p.colL}}.col-r{fill:${p.colR}}
-.steel{fill:none;stroke:${p.steel};stroke-width:3}.steel-thin{fill:none;stroke:${p.steel};stroke-width:1.5}
-.post{fill:none;stroke:${p.post};stroke-width:2.4}.bar-accent{fill:none;stroke:${p.accent};stroke-width:4.5}
-.strap{fill:none;stroke:${p.post};stroke-width:1.2}.ring{fill:none;stroke:${p.steel};stroke-width:2}
-.track{fill:${p.track}}.lane{fill:none;stroke:${p.lane};stroke-width:1.4}
-.glass{fill:${p.glass};stroke:${p.glassEdge};stroke-width:.5;stroke-opacity:.5}.glass-edge{fill:none;stroke:${p.glassEdge};stroke-width:1.6}
-.mat-a{fill:${p.matA}}.mat-b{fill:${p.matB}}.mat-c{fill:${p.matC}}
-.soft-a-t{fill:${p.softA}}.soft-a-l{fill:${p.softA};filter:brightness(.86)}.soft-a-r{fill:${p.softA};filter:brightness(.72)}
-.soft-b-t{fill:${p.softB}}.soft-b-l{fill:${p.softB};filter:brightness(.86)}.soft-b-r{fill:${p.softB};filter:brightness(.72)}
-.soft-c-t{fill:${p.softC}}.soft-c-l{fill:${p.softC};filter:brightness(.86)}.soft-c-r{fill:${p.softC};filter:brightness(.72)}
-.beam-t{fill:${p.bench}}.beam-l{fill:${p.bench};filter:brightness(.82)}.beam-r{fill:${p.bench};filter:brightness(.7)}
-.gear-t{fill:${p.gear}}.gear-l,.gear-r{fill:${p.gearSide}}
-.desk-t{fill:${p.desk}}.desk-l{fill:${p.deskSide}}.desk-r{fill:${p.deskSide};filter:brightness(.88)}
-.bench-t{fill:${p.bench}}.bench-l{fill:${p.bench};filter:brightness(.82)}.bench-r{fill:${p.bench};filter:brightness(.7)}
-.stair-t{fill:${p.stair}}.stair-l{fill:${p.stairSide}}.stair-r{fill:${p.stairSide};filter:brightness(.85)}
-.turf{fill:${p.turf}}.turf-line{fill:none;stroke:${p.turfLine};stroke-width:1}
-.fig{fill:none;stroke:${p.fig};stroke-width:3.4}.fig.sm{stroke-width:2.5}.fig-head{fill:${p.fig}}
-.guide{fill:none;stroke:${p.guide};stroke-width:1;stroke-dasharray:3 5}
-.door{fill:${p.door}}.screen{fill:${p.screen}}.floor-line{fill:none;stroke:${p.line};stroke-width:2}
-.spot{fill:${p.spot}}.anchor{fill:none;stroke:none}`;
+.cut-l,.cut-r{fill:${p.cut};stroke:${edge};stroke-width:.5}
+${box('col', p.redTop, p.red, p.redSide)}
+.post{fill:none;stroke:${p.post};stroke-width:2.2}.bar{fill:none;stroke:${p.bar};stroke-width:3.4}.bar-wood{fill:none;stroke:${p.wood};stroke-width:3}
+.steel-thin{fill:none;stroke:${p.steel};stroke-width:1.6}.strap{fill:none;stroke:${p.post};stroke-width:1.2}.ring{fill:none;stroke:${p.wood};stroke-width:2}
+.ladder{fill:${p.redSide}}.ladder-rung{fill:none;stroke:${p.redTop};stroke-width:1.6}
+.turf{fill:${p.turf}}.turf-line{fill:none;stroke:${p.turfLine};stroke-width:2}
+${box('mach', p.machTop, p.mach, p.machSide)}.belt{fill:${p.belt}}.fan{fill:${p.belt};stroke:${p.post};stroke-width:1.6}
+${box('seat', p.seat, p.seat, '#8E2318')}${box('pad', p.padTop, p.pad, '#1E1F22')}
+.plate{fill:${p.plate};stroke:${edge};stroke-width:.6}${box('kb', '#E0564A', p.kb, '#8E2318')}
+${box('plyo', '#F0CC3E', p.plyo, p.plyoSide)}.platform{fill:#3A2F28;stroke:${p.wood};stroke-width:1}
+${box('gold', '#DEC06E', p.gold, p.goldSide)}${box('bar-black', p.blackTop, p.black, '#101012')}${box('counter', p.counterTop, p.counter, '#74736F')}
+${box('shelf', p.shelfTop, p.shelf, '#25262A')}${box('table', p.tableTop, p.table, '#2B2C30')}${box('table-base', p.table, '#2B2C30', '#222327')}
+${box('chair-a', '#F7A458', p.chairA, '#C76C1C')}${box('chair-b', '#C6E6DC', p.chairB, '#84B5A7')}
+${box('locker', p.lockerTop, p.locker, '#22367A')}.locker-line{fill:none;stroke:#22367A;stroke-width:1}
+${box('locker-grey', p.lockerGreyTop, p.lockerGrey, '#55575D')}${box('bench', '#CC8452', p.bench, '#8C4F28')}${box('vanity', '#F2C4B4', p.vanity, '#B98674')}
+${box('desk', p.desk, p.deskSide, '#B5ACA2')}${box('stair', p.stair, p.stairSide, '#8F8A84')}
+.glass{fill:${p.glass}}.glass-edge{fill:none;stroke:${p.glassEdge};stroke-width:1.6}.frame{fill:none;stroke:${p.frame};stroke-width:2.6}
+.door-leaf{fill:${p.doorLeaf};stroke:${p.frame};stroke-width:1.4}.door{fill:${p.door}}
+.rail{fill:${p.rail}}.chev-a{fill:${p.chevA}}.chev-b{fill:${p.chevB}}
+.tyre{fill:${p.tyre}}.tyre-top{fill:${p.tyreTop}}.tyre-hole{fill:${p.floor}}
+.fig{fill:none;stroke:${p.fig};stroke-width:3.2}.fig-head{fill:${p.fig}}
+.anchor{fill:none;stroke:none}`;
   return css.replace(/\n/g, '');
 }

@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import { pageMetadata } from '@/lib/seo';
-import { programById, registerHref } from '@/content';
+import { designImage, programById, registerHref } from '@/content';
 import { ProgramHero, ProgramSections } from '@/features/programs/ProgramSections';
 
 type Props = { params: Promise<{ locale: Locale }> };
@@ -27,7 +27,7 @@ export default async function FootballPage({ params }: Props) {
   const cta = registerHref({ program: program.id, intent: 'membership-consultation', src: 'football' });
   return (
     <>
-      <ProgramHero eyebrow={t('eyebrow')} title={program.title[locale]} summary={program.summary[locale]} zoneId="performance-deck" imageAlt={c('sceneAlt.performance-deck')} note={c('conceptNote')}>
+      <ProgramHero eyebrow={t('eyebrow')} title={program.title[locale]} summary={program.summary[locale]} imageId={program.imageId} imageAlt={designImage(program.imageId).alt[locale]} note={c('conceptNote')}>
         <Link href={cta} className="btn btn-primary mt-8" data-testid="football-cta">
           {t('cta')}
         </Link>

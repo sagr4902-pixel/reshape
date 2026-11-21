@@ -10,6 +10,7 @@ import { memberships } from '../src/content/memberships';
 import { pathways } from '../src/content/pathways';
 import { programs } from '../src/content/programs';
 import { scene } from '../src/content/scene';
+import { designImages } from '../src/content/design';
 import { site } from '../src/content/site';
 import { overdueVerifications, resolveMembershipAction } from '../src/lib/catalog/resolve';
 import { isOfficialStoreUrl } from '../src/lib/catalog/store-links';
@@ -47,7 +48,7 @@ export function validateAll(now = new Date()) {
     for (const z of p.zoneIds) if (!zoneIds.has(z)) err(`program ${p.id}: unknown zone ${z}`);
     for (const w of p.pathwayIds) if (!pathwayIds.has(w)) err(`program ${p.id}: unknown pathway ${w}`);
     for (const m of p.membershipIds) if (!membershipIds.has(m)) err(`program ${p.id}: unknown membership ${m}`);
-    if (!existsSync(join(root, 'public', p.image))) err(`program ${p.id}: missing image ${p.image}`);
+    if (!designImages[p.imageId]) err(`program ${p.id}: unknown design image ${p.imageId}`);
     if (p.themes.ar.length !== p.themes.en.length) err(`program ${p.id}: themes differ in length between locales`);
     if (p.benefits.ar.length !== p.benefits.en.length) err(`program ${p.id}: benefits differ in length between locales`);
     // Brand-use rule: protected names never appear in public copy.
@@ -57,9 +58,19 @@ export function validateAll(now = new Date()) {
   for (const w of pathways) if (!programIds.has(w.programId)) err(`pathway ${w.id}: unknown program ${w.programId}`);
   for (const z of scene.zones) {
     if (!meta.zones[z.id]) err(`zone ${z.id}: no generated geometry (run npm run scenes:build)`);
-    for (const t of ['dark', 'light']) if (!existsSync(join(root, `public/assets/scenes/zone-${z.id}-${t}.svg`))) err(`zone ${z.id}: missing ${t} illustration`);
+    if (!existsSync(join(root, `public/assets/scenes/level-${z.level}-dark.svg`))) err(`zone ${z.id}: missing level drawing`);
+    for (const id of z.imageIds) if (!designImages[id]) err(`zone ${z.id}: unknown design image ${id}`);
   }
   for (const id of Object.keys(meta.zones)) if (!zoneIds.has(id)) err(`generated zone ${id} has no content record`);
+
+  // Design renders: every catalogued image has both alt texts and all encoded files on disk.
+  for (const img of Object.values(designImages)) {
+    if (!img.alt.ar.trim() || !img.alt.en.trim()) err(`design image ${img.id}: missing alt text`);
+    for (const [ext, widths] of [['avif', img.widths], ['webp', img.webp]] as const)
+      for (const w of widths) if (!existsSync(join(root, `public/assets/design/${img.id}-${w}.${ext}`))) err(`design image ${img.id}: missing ${w}.${ext}`);
+    // The explorer gallery requests `<id>-240.webp` for every image of a zone.
+    if (!img.webp.includes(240)) err(`design image ${img.id}: missing 240 px thumbnail`);
+  }
 
   for (const m of memberships) {
     for (const p of m.programIds) if (!programIds.has(p)) err(`membership ${m.id}: unknown program ${p}`);

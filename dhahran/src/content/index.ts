@@ -8,6 +8,7 @@ import type { Locale, Membership, Program, Zone } from '@/lib/catalog/types';
 
 export { programs, pathways, memberships, scene, sceneMeta };
 export { site } from './site';
+export { designImage, designImages, type DesignImage } from './design';
 
 export const programById = (id: string): Program | undefined => programs.find((p) => p.id === id);
 export const programBySlug = (slug: string): Program | undefined => programs.find((p) => p.slug === slug);

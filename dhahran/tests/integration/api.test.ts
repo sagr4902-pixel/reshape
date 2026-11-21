@@ -22,7 +22,7 @@ const body = (over: Record<string, unknown> = {}) => ({
   programId: 'kids',
   intent: 'program-inquiry',
   locale: 'en',
-  zoneId: 'kids-pavilion',
+  zoneId: 'rig',
   source: 'explorer',
   noticeVersion: 'test-1',
   privacyAcknowledged: true,
@@ -56,7 +56,7 @@ describe('POST /api/leads', () => {
     expect(await res.json()).toEqual({ ok: true });
     expect(res.headers.get('cache-control')).toBe('no-store');
     const { rows } = await pool.query('select adult_name, mobile_e164, zone_id, source from lead_submissions');
-    expect(rows).toEqual([{ adult_name: 'Test Parent', mobile_e164: '+966500000010', zone_id: 'kids-pavilion', source: 'explorer' }]);
+    expect(rows).toEqual([{ adult_name: 'Test Parent', mobile_e164: '+966500000010', zone_id: 'rig', source: 'explorer' }]);
   });
 
   it('retry with the same key is a success replay; changed data with the same key is 409', async () => {

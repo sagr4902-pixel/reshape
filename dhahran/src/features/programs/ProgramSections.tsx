@@ -2,9 +2,9 @@ import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import type { Program } from '@/lib/catalog/types';
-import { membershipsForProgram, pathwaysFor, registerHref, zoneById } from '@/content';
+import { designImage, membershipsForProgram, pathwaysFor, registerHref, zoneById } from '@/content';
 import { FaqList } from '@/components/ui/Faq';
-import { ZoneScene } from '@/components/ui/Scene';
+import { DesignPicture } from '@/components/ui/DesignPicture';
 import { MembershipCta } from '@/features/memberships/MembershipCta';
 import { ProgramView } from './ProgramView';
 
@@ -116,8 +116,8 @@ export async function ProgramSections({ program, locale, source }: { program: Pr
             <ul className={`mt-8 grid gap-6 ${zones.length > 1 ? 'md:grid-cols-2' : ''}`}>
               {zones.map((z) => (
                 <li key={z.id} className={`overflow-hidden rounded-lg border border-line-dark bg-deep ${zones.length === 1 ? 'md:grid md:grid-cols-2 md:items-center' : ''}`}>
-                  <div dir="ltr">
-                    <ZoneScene zoneId={z.id} alt={c(`sceneAlt.${z.id}` as 'sceneAlt.club')} className="h-auto w-full" />
+                  <div className="aspect-video">
+                    <DesignPicture image={designImage(z.imageIds[0])} alt={designImage(z.imageIds[0]).alt[locale]} sizes="(min-width: 768px) 48vw, 100vw" className="h-full w-full object-cover" />
                   </div>
                   <div className="p-5">
                     <p className="eyebrow">{c(`levels.${z.level}`)}</p>
@@ -157,7 +157,7 @@ export function ProgramHero({
   title,
   summary,
   children,
-  zoneId,
+  imageId,
   imageAlt,
   note,
 }: {
@@ -165,24 +165,24 @@ export function ProgramHero({
   title: string;
   summary: string;
   children?: React.ReactNode;
-  zoneId?: string;
+  imageId?: string;
   imageAlt?: string;
   note?: string;
 }) {
   return (
     <section className="on-dark dark-sec blueprint">
       <div className="wrap grid items-center gap-8 pb-12 pt-10 lg:grid-cols-12 lg:pb-16 lg:pt-14">
-        <div className={zoneId ? 'lg:col-span-6' : 'lg:col-span-12'}>
+        <div className={imageId ? 'lg:col-span-6' : 'lg:col-span-12'}>
           <p className="eyebrow">{eyebrow}</p>
           <h1 className="t-1 mt-3 max-w-4xl">{title}</h1>
           <div className="bar mt-6 w-[min(100%,360px)] text-paper" aria-hidden="true" />
           <p className="lead mt-9 max-w-2xl">{summary}</p>
           {children}
         </div>
-        {zoneId && (
+        {imageId && (
           <figure className="lg:col-span-6">
-            <div className="overflow-hidden rounded-lg border border-line-dark bg-deep" dir="ltr">
-              <ZoneScene zoneId={zoneId} alt={imageAlt ?? ''} className="h-auto w-full" />
+            <div className="overflow-hidden rounded-lg border border-line-dark bg-deep">
+              <DesignPicture image={designImage(imageId)} alt={imageAlt ?? ''} sizes="(min-width: 1024px) 48vw, 100vw" priority className="h-auto w-full" />
             </div>
             {note && <figcaption className="concept-note mt-3">{note}</figcaption>}
           </figure>

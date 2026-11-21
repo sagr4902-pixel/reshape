@@ -31,13 +31,12 @@ for (const l of LOCALES) {
       expect(row).toMatchObject({ intent: 'membership-consultation', source: 'memberships', locale: l, status: 'new' });
     });
 
-    test('B — parent: kids → children’s zone → guardian inquiry stored with minimal data and separate consent', async ({ page }, info) => {
+    test('B — parent: kids page → guardian inquiry stored with minimal data and separate consent', async ({ page }, info) => {
       await page.goto(`/${l}/kids`);
-      await page.locator(`a[href="/${l}/explore?zone=kids-pavilion"]`).first().click();
-      await expect(page).toHaveURL(/explore\?zone=kids-pavilion/);
-      await expect(page.getByTestId('xp-panel')).toContainText(l === 'ar' ? 'جناح الأطفال' : 'Kids pavilion');
-      await page.getByTestId('xp-cta').click();
-      await expect(page).toHaveURL(/\/register\?program=kids&zone=kids-pavilion&intent=program-inquiry&src=explorer/);
+      // The approved designs have no dedicated kids area: the page links to the general tour, not an invented zone.
+      await expect(page.getByTestId('kids-tour')).toHaveAttribute('href', `/${l}/explore`);
+      await page.getByTestId('kids-cta').click();
+      await expect(page).toHaveURL(/\/register\?program=kids&intent=program-inquiry&src=kids/);
       await expect(page.getByTestId('register-context')).toContainText(l === 'ar' ? 'برامج الأطفال' : 'Kids Programs');
       // Guardian wording; no child fields exist at all.
       await expect(page.getByTestId('lead-form').locator('label').first()).toContainText(l === 'ar' ? 'وليّ الأمر' : 'Guardian');
@@ -49,7 +48,7 @@ for (const l of LOCALES) {
       await expect(page.getByTestId('lead-success')).toContainText(SUCCESS[l]);
       const rows = await leadByPhone(phone);
       expect(rows).toHaveLength(1);
-      expect(rows[0]).toMatchObject({ program_id: 'kids', zone_id: 'kids-pavilion', source: 'explorer', intent: 'program-inquiry', marketing: 'declined', processing: 'acknowledged', comment: null });
+      expect(rows[0]).toMatchObject({ program_id: 'kids', zone_id: null, source: 'kids', intent: 'program-inquiry', marketing: 'declined', processing: 'acknowledged', comment: null });
       expect(Object.keys(rows[0]).join()).not.toMatch(/child|birth|email|ip|agent/);
     });
 
@@ -80,16 +79,36 @@ for (const l of LOCALES) {
       expect((await leadByPhone(phone))[0]).toMatchObject({ program_id: 'football-performance', intent: 'membership-consultation' });
     });
 
-    test('E — explorer visitor: zone → correct program and working CTA', async ({ page }) => {
+    test('E — explorer visitor: zone → design images, correct program and a working, persisted CTA', async ({ page }, info) => {
       await page.goto(`/${l}/explore`);
-      await page.getByTestId('chip-track-loop').click();
-      await expect(page).toHaveURL(/zone=track-loop/);
+      await page.getByTestId('chip-rig').click();
+      await expect(page).toHaveURL(/zone=rig/);
       const panel = page.getByTestId('xp-panel');
-      await expect(panel).toContainText(l === 'ar' ? 'مسار الجري' : 'Running track');
-      await expect(panel.locator(`a[href="/${l}/programs/hybrid-endurance"]`)).toBeVisible();
-      await expect(page.getByTestId('xp-cta')).toHaveAttribute('href', `/${l}/register?program=hybrid-endurance&zone=track-loop&intent=program-inquiry&src=explorer`);
-      await panel.locator(`a[href="/${l}/programs/hybrid-endurance"]`).click();
-      await expect(page.locator('h1')).toContainText(l === 'ar' ? 'القوة والتحمّل' : 'Hybrid Endurance');
+      await expect(panel).toContainText(l === 'ar' ? 'العقلات والحلق' : 'Bars & rings');
+      await expect(page.getByTestId('xp-photo').locator('img').first()).toHaveAttribute('src', /\/assets\/design\/d25-/);
+      await expect(panel.locator(`a[href="/${l}/programs/calisthenics"]`)).toBeVisible();
+      await expect(page.getByTestId('xp-cta')).toHaveAttribute('href', `/${l}/register?program=calisthenics&zone=rig&intent=program-inquiry&src=explorer`);
+      await page.getByTestId('xp-cta').click();
+      await expect(page.getByTestId('register-context')).toContainText(l === 'ar' ? 'الكاليسثنكس' : 'Calisthenics');
+      const phone = testPhone(info.workerIndex);
+      await fillAndSubmit(page, { name: l === 'ar' ? 'عبدالله المطيري' : 'Test Explorer', phone });
+      await expect(page.getByTestId('lead-success')).toBeVisible();
+      expect((await leadByPhone(phone))[0]).toMatchObject({ program_id: 'calisthenics', zone_id: 'rig', source: 'explorer' });
+    });
+
+    test('F — the homepage is the club facade; its door leads into reception', async ({ page }) => {
+      await page.goto(`/${l}`);
+      const facade = page.locator('.facade');
+      await expect(facade.locator('img').first()).toHaveAttribute('src', /\/assets\/design\/facade-/);
+      await expect(facade.locator('img').first()).toHaveAttribute('alt', l === 'ar' ? /واجهة ريشيب الظهران/ : /RESHAPE Dhahran facade/);
+      await expect(page.locator('h1')).toHaveText(l === 'ar' ? 'هنا تبدأ قوّتك' : 'Your strength starts here');
+      await expect(page.locator('.facade-note')).toContainText(l === 'ar' ? 'تصوّر مبدئي للنادي' : 'Concept visualization');
+      const door = page.getByTestId('facade-hot-enter');
+      await expect(door).toHaveAttribute('href', `/${l}/explore?zone=reception`);
+      await door.click();
+      await expect(page).toHaveURL(/explore\?zone=reception/, { timeout: 10_000 });
+      await expect(page.getByTestId('xp-panel')).toContainText(l === 'ar' ? 'الاستقبال والمتجر' : 'Reception & store');
+      await expect(page.getByTestId('xp-photo')).toBeVisible();
     });
   });
 }

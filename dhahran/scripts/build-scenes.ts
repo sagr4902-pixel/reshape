@@ -1,9 +1,7 @@
 /**
- * Generates the club illustrations and their metadata.
- *   public/assets/scenes/level-{ground,upper}-{dark,light}.svg   one drawing per level
- *   public/assets/scenes/club-{landscape,portrait}-{dark,light}.svg  static exploded composites
- *   public/assets/scenes/zone-<id>-{dark,light}.svg               per-zone crops (4:3)
- *   src/content/generated/scene-meta.json                         layouts, cameras, anchors
+ * Generates the club map drawings and their metadata.
+ *   public/assets/scenes/level-{ground,upper}-dark.svg   one drawing per level
+ *   src/content/generated/scene-meta.json                layouts, cameras, anchors
  *
  * Output is deterministic; `npm run scenes:check` fails if committed files drift.
  */
@@ -47,30 +45,21 @@ const built = Object.fromEntries(
   }),
 ) as Record<Level, ReturnType<typeof buildLevel>>;
 
-// Same horizontal extent for both levels (identical plan outline) so they register when stacked.
 const gb = built.ground.bounds(MARGIN);
 const ub = built.upper.bounds(MARGIN);
-const x0 = Math.min(gb.x, ub.x);
-const x1 = Math.max(gb.x + gb.w, ub.x + ub.w);
-const box: Record<Level, Rect> = {
-  ground: { x: x0, y: gb.y, w: x1 - x0, h: gb.h },
-  upper: { x: x0, y: ub.y, w: x1 - x0, h: ub.h },
-};
+const box: Record<Level, Rect> = { ground: gb, upper: ub };
 
-const inner = (level: Level, theme: ThemeName, include?: (g: string) => boolean) =>
-  `<style>${stylesheet(theme)}</style>${built[level].render(GROUPS[level], include)}`;
+const inner = (level: Level, theme: ThemeName) => `<style>${stylesheet(theme)}</style>${built[level].render(GROUPS[level])}`;
 const open = (b: Rect) =>
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${round(b.x)} ${round(b.y)} ${round(b.w)} ${round(b.h)}" width="${Math.round(b.w)}" height="${Math.round(b.h)}">`;
 
 /**
- * Exploded layouts. Offsets are where each level's viewBox origin sits on the stage (px).
- * landscape: upper level slides up and to the right (desktop, tablet)
- * portrait:  upper level directly above the ground level (phones)
+ * The mezzanine drawing is registered above the ground drawing at its real
+ * height (3.65 m → 110 px) and shown as a switchable level, so one layout
+ * serves every screen size. Both layout keys are kept for the CSS contract.
  */
-const LAYOUTS = {
-  landscape: { upper: { dx: 560, dy: -292 } },
-  portrait: { upper: { dx: 0, dy: -610 } },
-} as const;
+const LIFT = { dx: 0, dy: -110 };
+const LAYOUTS = { landscape: { upper: LIFT }, portrait: { upper: LIFT } } as const;
 type LayoutName = keyof typeof LAYOUTS;
 
 function stageOf(layout: LayoutName) {
@@ -105,21 +94,8 @@ for (const [id, b] of Object.entries(ZONE_BOUNDS)) {
   zoneAnchor[id] = { x: ax, y: ay };
 }
 
-for (const theme of ['dark', 'light'] as ThemeName[]) {
-  for (const level of LEVELS) emit(`public/assets/scenes/level-${level}-${theme}.svg`, `${open(box[level])}${inner(level, theme)}</svg>\n`);
-  for (const layout of Object.keys(LAYOUTS) as LayoutName[]) {
-    const { stage, off } = stageOf(layout);
-    // nested <svg> keeps each level's own stylesheet scope identical to the level files
-    const body = LEVELS.map(
-      (level) => `<g transform="translate(${off[level].dx} ${off[level].dy})">${built[level].render(GROUPS[level])}</g>`,
-    ).join('');
-    emit(`public/assets/scenes/club-${layout}-${theme}.svg`, `${open(stage)}<style>${stylesheet(theme)}</style>${body}</svg>\n`);
-  }
-  for (const [id, rect] of Object.entries(zoneRect)) {
-    const level = ZONE_BOUNDS[id].level;
-    emit(`public/assets/scenes/zone-${id}-${theme}.svg`, `${open(fit(rect, 4 / 3))}${inner(level, theme)}</svg>\n`);
-  }
-}
+const theme: ThemeName = 'dark';
+for (const level of LEVELS) emit(`public/assets/scenes/level-${level}-${theme}.svg`, `${open(box[level])}${inner(level, theme)}</svg>\n`);
 
 const pct = (n: number) => round(n * 100, 3);
 const meta = {

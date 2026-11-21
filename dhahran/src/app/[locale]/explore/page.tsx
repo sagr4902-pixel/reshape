@@ -3,9 +3,9 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import { pageMetadata } from '@/lib/seo';
-import { programsForZone, registerHref, scene, sceneMeta, zoneIds } from '@/content';
+import { designImage, programsForZone, registerHref, scene, sceneMeta, zoneIds } from '@/content';
 import { Explorer, type ExplorerMeta, type ZoneView } from '@/features/explorer/Explorer';
-import { ZoneScene } from '@/components/ui/Scene';
+import { DesignPicture } from '@/components/ui/DesignPicture';
 
 type Props = { params: Promise<{ locale: Locale }>; searchParams: Promise<{ zone?: string | string[] }> };
 
@@ -38,9 +38,12 @@ export default async function ExplorePage({ params, searchParams }: Props) {
       title: z.title[locale],
       summary: z.summary[locale],
       basis: z.basis[locale],
-      image: `/assets/scenes/zone-${z.id}-dark.svg`,
-      imageAlt: c(`sceneAlt.${z.id}` as 'sceneAlt.club'),
-      programs: linked.map((p) => ({ id: p.id, title: p.title[locale], summary: p.summary[locale], href: p.route, status: c(`availability.${p.availability}`) })),
+      labelSide: z.labelSide,
+      images: z.imageIds.map((id) => {
+        const im = designImage(id);
+        return { id: im.id, w: im.w, h: im.h, widths: im.widths, webp: im.webp, alt: im.alt[locale] };
+      }),
+      programs: linked.map((p) => ({ id: p.id, title: p.title[locale], href: p.route, status: c(`availability.${p.availability}`) })),
       // Same program record and CTA policy as the conventional pages; only IDs travel in the URL.
       cta: primary
         ? { label: t('registerFor', { program: primary.shortTitle[locale] }), href: registerHref({ program: primary.id, zone: z.id, intent: primary.ctaIntent, src: 'explorer' }) }
@@ -52,8 +55,8 @@ export default async function ExplorePage({ params, searchParams }: Props) {
     zonesNav: t('zonesNav'),
     overview: t('overview'),
     back: t('back'),
-    next: t('next'),
-    prev: t('prev'),
+    nextZone: t('nextZone'),
+    prevZone: t('prevZone'),
     simpleOn: t('simpleOn'),
     simpleOff: t('simpleOff'),
     selected: t.raw('selected') as string,
@@ -65,7 +68,17 @@ export default async function ExplorePage({ params, searchParams }: Props) {
     failed: t('failed'),
     sceneLabel: t('sceneLabel'),
     conceptNote: c('conceptNote'),
+    mapNote: t('mapNote'),
     viewPrograms: c('viewPrograms'),
+    showMap: t('showMap'),
+    showDesign: t('showDesign'),
+    nextImage: t('nextImage'),
+    prevImage: t('prevImage'),
+    imageOf: t.raw('imageOf') as string,
+    gallery: t('gallery'),
+    whereInClub: t('whereInClub'),
+    levels: { ground: t('levels.ground'), upper: t('levels.upper') },
+    levelsLabel: t('levelsLabel'),
   };
 
   return (
@@ -98,8 +111,8 @@ export default async function ExplorePage({ params, searchParams }: Props) {
           <ol className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {zones.map((z, i) => (
               <li key={z.id} id={`zone-${z.id}`} className="flex flex-col overflow-hidden rounded-lg border border-line bg-panel">
-                <div className="bg-ink" dir="ltr">
-                  <ZoneScene zoneId={z.id} alt={z.imageAlt} className="h-auto w-full" />
+                <div className="aspect-video bg-ink">
+                  <DesignPicture image={z.images[0]} alt={z.images[0].alt} sizes="(min-width: 1280px) 32vw, (min-width: 768px) 48vw, 100vw" className="h-full w-full object-cover" />
                 </div>
                 <div className="flex flex-1 flex-col p-5">
                   <p className="text-[0.85rem] font-semibold text-mute">

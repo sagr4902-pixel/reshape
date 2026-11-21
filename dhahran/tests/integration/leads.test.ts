@@ -19,12 +19,12 @@ afterAll(() => pool.end());
 
 describe('lead persistence (real PostgreSQL)', () => {
   it('stores the inquiry and both consent records atomically', async () => {
-    const input = lead({ marketingConsent: true, zoneId: 'kids-pavilion', source: 'explorer', comment: 'سؤال عن المواعيد' });
+    const input = lead({ marketingConsent: true, zoneId: 'rig', source: 'explorer', comment: 'سؤال عن المواعيد' });
     expect(await submitLead(db, input, SECRET)).toEqual({ outcome: 'created' });
 
     const { rows } = await pool.query('select * from lead_submissions');
     expect(rows).toHaveLength(1);
-    expect(rows[0]).toMatchObject({ adult_name: 'مستخدم تجريبي', mobile_e164: '+966500000001', program_id: 'kids', intent: 'program-inquiry', zone_id: 'kids-pavilion', source: 'explorer', status: 'new', is_repeat: false, locale: 'ar', notice_version: 'test-1' });
+    expect(rows[0]).toMatchObject({ adult_name: 'مستخدم تجريبي', mobile_e164: '+966500000001', program_id: 'kids', intent: 'program-inquiry', zone_id: 'rig', source: 'explorer', status: 'new', is_repeat: false, locale: 'ar', notice_version: 'test-1' });
     expect(rows[0].created_at).toBeInstanceOf(Date); // server-generated timestamp
     const consents = (await pool.query('select purpose, choice, notice_version from consent_events order by purpose')).rows;
     expect(consents).toEqual([

@@ -63,7 +63,7 @@ test.describe('site quality', () => {
       test.setTimeout(120_000);
       // Measure settled colours, not mid-fade frames.
       await page.emulateMedia({ reducedMotion: 'reduce' });
-      for (const route of ['', '/explore?zone=kids-pavilion', '/programs/calisthenics', '/kids', '/football-performance', '/memberships', '/register', '/contact', '/privacy']) {
+      for (const route of ['', '/explore?zone=rig', '/programs/calisthenics', '/kids', '/football-performance', '/memberships', '/register', '/contact', '/privacy']) {
         await page.goto(`/${l}${route}`);
         const results = await new AxeBuilder({ page: page as never }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();
         const bad = results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical').map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`);
@@ -72,12 +72,48 @@ test.describe('site quality', () => {
     });
   }
 
+  test('renders are drawn from a file dense enough for their size (no upscaled, blurry pictures)', async ({ page }) => {
+    test.setTimeout(120_000);
+    for (const route of ['', '/explore?zone=rig', '/explore?zone=entrance', '/programs', '/programs/calisthenics', '/kids', '/football-performance']) {
+      await page.goto(`/ar${route}`, { waitUntil: 'load' });
+      // bring lazy pictures in, slowly enough for the browser to start them
+      await page.evaluate(async () => {
+        for (let y = 0; y < document.body.scrollHeight; y += 400) {
+          window.scrollTo({ top: y, behavior: 'instant' });
+          await new Promise((r) => setTimeout(r, 120));
+        }
+      });
+      await expect
+        .poll(() => page.evaluate(() => Array.from(document.querySelectorAll<HTMLImageElement>('picture img')).filter((i) => i.currentSrc && !i.complete).length), { timeout: 15_000 })
+        .toBe(0);
+      const soft = await page.evaluate(() => {
+        const dpr = window.devicePixelRatio;
+        const floor = Math.min(dpr, 1.5) * 0.9; // 1.5 file pixels per CSS pixel is treated as sharp on high-density screens
+        const out: string[] = [];
+        let checked = 0;
+        for (const img of Array.from(document.querySelectorAll<HTMLImageElement>('picture img'))) {
+          const box = img.getBoundingClientRect();
+          const file = Number(/-(\d+)\.(?:avif|webp)$/.exec(img.currentSrc)?.[1]);
+          if (!file || !img.complete || !box.width || !box.height) continue;
+          checked++;
+          const widths = Array.from((img.parentElement!.querySelector('source')?.srcset ?? '').matchAll(/ (\d+)w/g), (m) => Number(m[1]));
+          // object-fit: cover — a box taller than 16:9 draws the picture wider than the box
+          const drawn = getComputedStyle(img).objectFit === 'cover' ? Math.max(box.width, (box.height * img.naturalWidth) / img.naturalHeight) : box.width;
+          if (file / drawn < floor && file < Math.max(...widths)) out.push(`${img.currentSrc.split('/').pop()} is drawn ${Math.round(drawn)} CSS px wide at ${dpr}x`);
+        }
+        return { out, checked };
+      });
+      expect(soft.checked, `${route}: pictures checked`).toBeGreaterThan(0);
+      expect(soft.out, route || '/').toEqual([]);
+    }
+  });
+
   test('language switch keeps the equivalent route and non-personal zone context', async ({ page }) => {
-    await page.goto('/ar/explore?zone=track-loop');
+    await page.goto('/ar/explore?zone=turf-cardio');
     await page.getByRole('link', { name: 'Switch to English' }).click();
-    await expect(page).toHaveURL(/\/en\/explore\?zone=track-loop$/);
+    await expect(page).toHaveURL(/\/en\/explore\?zone=turf-cardio$/);
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-    await expect(page.getByTestId('xp-panel')).toContainText('Running track');
+    await expect(page.getByTestId('xp-panel')).toContainText('Turf lane & cardio');
     await page.goto('/en/programs/calisthenics?name=Sara&phone=0500000000');
     await page.getByRole('link', { name: 'التحويل إلى العربية' }).click();
     await expect(page).toHaveURL(/\/ar\/programs\/calisthenics$/); // unknown / personal params are dropped

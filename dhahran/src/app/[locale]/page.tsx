@@ -4,10 +4,15 @@ import { Link } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import { pageMetadata } from '@/lib/seo';
 import { env } from '@/lib/env';
-import { pathwaysFor, programById, registerHref, scene } from '@/content';
+import { designImage, pathwaysFor, programById, registerHref, scene } from '@/content';
 import { Rail } from '@/components/ui/Rail';
-import { ClubScene, ZoneScene } from '@/components/ui/Scene';
+import { DesignPicture } from '@/components/ui/DesignPicture';
 import { FaqList } from '@/components/ui/Faq';
+import { FacadeHero, type FacadeHotspot } from '@/features/home/FacadeHero';
+import { EnterLink } from '@/features/home/EnterLink';
+
+/** `sizes` for a 16:9 render that fills a card taller than 16:9 (the height decides how wide the picture is drawn). */
+const COVER_TALL_CARD = '(max-width: 639px) and (min-resolution: 2.5dppx) 400px, (max-width: 639px) 600px, 1110px';
 
 type Props = { params: Promise<{ locale: Locale }> };
 
@@ -31,38 +36,38 @@ export default async function HomePage({ params }: Props) {
   const kids = programById('kids')!;
   const others = ['hybrid-endurance', 'functional-training', 'kids-martial-arts', 'football-performance'].map((id) => programById(id)!);
   const arrow = <span className="arrow" aria-hidden="true">→</span>;
+  const alt = (id: string) => designImage(id).alt[locale];
+
+  // Positions measured on the facade render (fractions of its width / height).
+  const hotspots: FacadeHotspot[] = [
+    { id: 'enter', label: t('hero.hotspots.enter'), href: '/explore?zone=reception', u: 0.473, v: 0.7, primary: true },
+    { id: 'juice', label: t('hero.hotspots.juice'), href: '/explore?zone=juice-bar', u: 0.625, v: 0.69 },
+    { id: 'hall', label: t('hero.hotspots.hall'), href: '/explore?zone=turf-cardio', u: 0.805, v: 0.69 },
+    { id: 'mezz', label: t('hero.hotspots.mezz'), href: '/explore?zone=overlook', u: 0.79, v: 0.36 },
+  ];
 
   return (
     <>
-      {/* 1 — Entrance hero */}
-      <section className="on-dark dark-sec blueprint relative overflow-hidden">
-        <div className="wrap grid items-center gap-8 pb-10 pt-10 lg:grid-cols-12 lg:gap-4 lg:pb-16 lg:pt-14">
-          <div className="relative z-10 lg:col-span-5">
-            <p className="eyebrow flex flex-wrap items-center gap-3">
-              <span>{t('hero.eyebrow')}</span>
-              {preopening && <span className="tag text-paper">{c('preopening')}</span>}
-            </p>
-            <h1 className="t-hero mt-4">{t('hero.title')}</h1>
-            <div className="bar mt-6 w-[min(100%,420px)] text-paper" aria-hidden="true" />
-            <p className="lead mt-9 max-w-xl">{t('hero.sub')}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href={registerHref({ src: 'home' })} className="btn btn-primary">
-                {c('registerInterest')}
-              </Link>
-              <Link href="/explore" className="btn btn-line">
-                {c('exploreClub')} {arrow}
-              </Link>
-            </div>
-            {preopening && <p className="mute mt-6 max-w-md text-[0.95rem]">{t('hero.stage')}</p>}
-          </div>
-          <div className="lg:col-span-7">
-            <div className="relative lg:-me-[9vw]" dir="ltr">
-              <ClubScene alt={c('sceneAlt.club')} priority className="h-auto w-full" />
-            </div>
-            <p className="concept-note mt-3">{c('conceptNote')}</p>
-          </div>
+      {/* 1 — The facade, exactly as designed */}
+      <FacadeHero alt={alt('facade')} facadeLabel={t('hero.facadeLabel')} hotspotsLabel={t('hero.hotspotsNav')} hotspots={hotspots} note={c('conceptNote')}>
+        <p className="eyebrow flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span>{t('hero.eyebrow')}</span>
+          {preopening && <span className="tag text-paper">{c('preopening')}</span>}
+        </p>
+        <h1 className="t-hero mt-3">{t('hero.title')}</h1>
+        <div className="bar mt-5 w-[min(100%,300px)] text-paper" aria-hidden="true" />
+        <p className="lead max-w-xl">{t('hero.sub')}</p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link href={registerHref({ src: 'home' })} className="btn btn-primary">
+            {c('registerInterest')}
+          </Link>
+          <EnterLink href="/explore" className="btn btn-line" testId="hero-explore">
+            {c('exploreClub')} {arrow}
+          </EnterLink>
         </div>
-      </section>
+        {preopening && <p className="mute mt-5 max-w-md text-[0.9rem] lg:hidden">{t('hero.stage')}</p>}
+      </FacadeHero>
+      <div className="chevron-band" aria-hidden="true" />
 
       {/* 2 — Calisthenics spread */}
       <section className="sec" aria-labelledby="cal-h">
@@ -87,8 +92,8 @@ export default async function HomePage({ params }: Props) {
               </Link>
             </div>
             <figure className="lg:col-span-7">
-              <div className="overflow-hidden rounded-lg bg-ink" dir="ltr">
-                <ZoneScene zoneId="calisthenics-hall" alt={c('sceneAlt.calisthenics-hall')} className="h-auto w-full" />
+              <div className="overflow-hidden rounded-lg bg-ink">
+                <DesignPicture image={designImage('d25')} alt={alt('d25')} sizes="(min-width: 1024px) 56vw, 100vw" className="h-auto w-full" />
               </div>
               <figcaption className="concept-note mt-3">{c('conceptNote')}</figcaption>
             </figure>
@@ -110,57 +115,53 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* 3 — Interactive club preview */}
+      {/* 3 — Club tour: the real zones, in the order a visitor walks them */}
       <section className="on-dark dark-sec sec" aria-labelledby="tour-h">
-        <div className="wrap grid gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-4">
-            <Rail no="02" label={t('tour.rail')} />
-            <h2 id="tour-h" className="t-2 mt-8">
-              {t('tour.title')}
-            </h2>
-            <p className="mt-5">{t('tour.body')}</p>
-            <Link href="/explore" className="btn btn-primary mt-7">
-              {t('tour.cta')} {arrow}
-            </Link>
+        <div className="wrap">
+          <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-7">
+              <Rail no="02" label={t('tour.rail')} />
+              <h2 id="tour-h" className="t-2 mt-8">
+                {t('tour.title')}
+              </h2>
+              <p className="mt-4 max-w-2xl">{t('tour.body')}</p>
+            </div>
+            <div className="lg:col-span-5 lg:text-end">
+              <Link href="/explore" className="btn btn-primary">
+                {t('tour.cta')} {arrow}
+              </Link>
+            </div>
           </div>
-          <div className="lg:col-span-8">
-            <ul aria-label={t("tour.zonesLabel")} className="grid grid-cols-2 gap-3 lg:grid-cols-3">
-              {scene.zones.map((z, i) => (
-                <li key={z.id}>
-                  <Link href={{ pathname: '/explore', query: { zone: z.id } }} className="group block overflow-hidden rounded-lg border border-line-dark bg-deep hover:border-paper">
-                    <span className="block" dir="ltr">
-                      <ZoneScene zoneId={z.id} alt="" className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.04]" />
+          <ul aria-label={t('tour.zonesLabel')} className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4">
+            {scene.zones.map((z, i) => (
+              <li key={z.id}>
+                <Link href={{ pathname: '/explore', query: { zone: z.id } }} prefetch={false} className="group block overflow-hidden rounded-lg border border-line-dark bg-deep hover:border-paper">
+                  <span className="block aspect-[16/10] overflow-hidden">
+                    <DesignPicture image={designImage(z.imageIds[0])} alt="" sizes="(min-width: 1024px) 24vw, 40vw" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
+                  </span>
+                  <span className="flex items-center gap-3 px-3 py-3">
+                    <span className="xp-chip-no flex-none" aria-hidden="true">
+                      {i + 1}
                     </span>
-                    <span className="flex items-center gap-3 px-4 py-3">
-                      <span className="xp-chip-no flex-none" aria-hidden="true">
-                        {i + 1}
-                      </span>
-                      <span>
-                        <span className="block font-semibold leading-snug">{z.title[locale]}</span>
-                        <span className="mute block text-[0.85rem]">{c(`levels.${z.level}`)}</span>
-                      </span>
+                    <span>
+                      <span className="block font-semibold leading-snug">{z.title[locale]}</span>
+                      <span className="mute block text-[0.82rem]">{c(`levels.${z.level}`)}</span>
                     </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <p className="concept-note mt-4">{c('conceptNote')}</p>
-          </div>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="concept-note mt-4">{c('conceptNote')}</p>
         </div>
       </section>
 
-      {/* 4 — Kids pavilion (lighter register) */}
+      {/* 4 — Kids chapter (lighter register) */}
       <section className="sec bg-panel" aria-labelledby="kids-h">
         <div className="wrap">
           <Rail no="03" label={t('kids.rail')} />
           <div className="mt-8 grid gap-10 lg:grid-cols-12">
-            <figure className="lg:col-span-7">
-              <div className="overflow-hidden rounded-[28px] bg-white ring-1 ring-line" dir="ltr">
-                <ZoneScene zoneId="kids-pavilion" theme="light" alt={c('sceneAlt.kids-pavilion')} className="h-auto w-full" />
-              </div>
-              <figcaption className="concept-note mt-3">{c('conceptNote')}</figcaption>
-            </figure>
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-6">
               <h2 id="kids-h" className="t-1">
                 {t('kids.title')}
               </h2>
@@ -183,11 +184,17 @@ export default async function HomePage({ params }: Props) {
               </div>
               <p className="mute mt-4 text-[0.92rem]">{t('kids.guardianNote')}</p>
             </div>
-          </div>
-          <div className="mt-14 grid gap-6 lg:grid-cols-12">
-            <h3 className="t-3 lg:col-span-4">{t('kids.parentTitle')}</h3>
-            <div className="lg:col-span-8">
+            <div className="lg:col-span-6">
               <FaqList faqs={kids.faqs.slice(0, 3)} locale={locale} />
+              <figure className="mt-8">
+                <div className="overflow-hidden rounded-[28px] ring-1 ring-line">
+                  <DesignPicture image={designImage('d29')} alt={alt('d29')} sizes="(min-width: 1024px) 46vw, 100vw" className="h-auto w-full" />
+                </div>
+                <figcaption className="mt-3">
+                  <span className="block text-[0.92rem] font-semibold">{t('kids.imageCaption')}</span>
+                  <span className="concept-note">{c('conceptNote')}</span>
+                </figcaption>
+              </figure>
             </div>
           </div>
         </div>
@@ -209,14 +216,15 @@ export default async function HomePage({ params }: Props) {
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:col-span-8">
               <Link href={others[0].route} className="on-dark group relative flex min-h-[340px] flex-col justify-end overflow-hidden rounded-lg bg-ink p-6 text-paper sm:row-span-3">
-                <span className="absolute inset-0" dir="ltr">
-                  <ZoneScene zoneId="track-loop" alt="" className="h-full w-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-[1.04]" />
+                <span className="absolute inset-0">
+                  {/* The card is taller than 16:9, so the render is drawn about 1100 px wide (600 px on phones): sizes follows the picture, not the box. */}
+                  <DesignPicture image={designImage('d42')} alt="" sizes={COVER_TALL_CARD} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
                 </span>
-                <span className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-transparent" />
+                <span className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/10" />
                 <span className="relative">
                   <span className="tag text-paper">{c(`availability.${others[0].availability}`)}</span>
                   <span className="display t-3 mt-3 block">{others[0].title[locale]}</span>
-                  <span className="mt-2 block text-[0.98rem] text-mute-dark">{others[0].summary[locale]}</span>
+                  <span className="mt-2 block text-[0.98rem] text-[#d8d1ca]">{others[0].summary[locale]}</span>
                 </span>
               </Link>
               {others.slice(1).map((o) => (
@@ -274,11 +282,15 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* 8 — Closing invitation */}
-      <section className="on-dark dark-sec sec" aria-labelledby="close-h">
-        <div className="wrap">
-          <div className="bar w-full text-paper" aria-hidden="true" />
-          <div className="mt-14 grid gap-6 lg:grid-cols-12 lg:items-end">
+      {/* 8 — Closing invitation over the mezzanine view */}
+      <div className="chevron-band" aria-hidden="true" />
+      <section className="on-dark dark-sec relative overflow-hidden" aria-labelledby="close-h">
+        <div className="absolute inset-0" aria-hidden="true">
+          <DesignPicture image={designImage('d48')} alt="" sizes="100vw" className="h-full w-full object-cover opacity-45" />
+          <span className="absolute inset-0 bg-gradient-to-t from-ink via-ink/80 to-ink/50" />
+        </div>
+        <div className="wrap sec relative">
+          <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-8">
               <h2 id="close-h" className="t-1">
                 {t('closing.title')}
@@ -294,6 +306,7 @@ export default async function HomePage({ params }: Props) {
               </Link>
             </div>
           </div>
+          <p className="concept-note mt-10">{c('conceptNote')}</p>
         </div>
       </section>
     </>

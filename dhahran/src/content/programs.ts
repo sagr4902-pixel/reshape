@@ -23,8 +23,8 @@ export const programs: Program[] = [
       en: 'Bodyweight training that builds strength and control step by step — from fundamentals to advanced skills.',
     },
     positioning: {
-      ar: 'الكاليسثنكس هي الرياضة الأساسية في ريشيب الظهران. العقلة والمتوازي والحلق أدوات بسيطة، لكن إتقانها رحلة طويلة وممتعة. كل متدرب يبدأ من مستواه ويتقدّم بإيقاعه.',
-      en: 'Calisthenics is the core sport at RESHAPE Dhahran. Bars, parallel bars and rings are simple tools, but mastering them is a long and rewarding journey. Everyone starts at their own level and moves at their own pace.',
+      ar: 'الكاليسثنكس هي الرياضة الأساسية في ريشيب الظهران. العقلة والحلق والعوارض أدوات بسيطة، لكن إتقانها رحلة طويلة وممتعة. كل متدرب يبدأ من مستواه ويتقدّم بإيقاعه.',
+      en: 'Calisthenics is the core sport at RESHAPE Dhahran. Bars, rings and low bars are simple tools, but mastering them is a long and rewarding journey. Everyone starts at their own level and moves at their own pace.',
     },
     audienceNote: { ar: 'للبالغين من جميع المستويات، من المبتدئ إلى الرياضي المتقدم.', en: 'For adults at every level, from first-timers to advanced athletes.' },
     themes: {
@@ -32,12 +32,12 @@ export const programs: Program[] = [
       en: ['Pulling and pushing strength', 'Core stability and body control', 'Mobility and joint range', 'Static and dynamic skills'],
     },
     benefits: {
-      ar: ['تدرّج واضح يناسب مستواك الحالي', 'تدريب يركّز على جودة الحركة قبل صعوبتها', 'مساحة مجهّزة للعقلة والمتوازي والحلق'],
-      en: ['A clear progression that fits your current level', 'Training that puts movement quality before difficulty', 'A space equipped for bars, parallel bars and rings'],
+      ar: ['تدرّج واضح يناسب مستواك الحالي', 'تدريب يركّز على جودة الحركة قبل صعوبتها', 'عقلات على امتداد جدران الصالة، مع حلق وسلّم سويدي'],
+      en: ['A clear progression that fits your current level', 'Training that puts movement quality before difficulty', 'Bars along the walls of the hall, with rings and wall bars'],
     },
     availability: 'planned',
     audiences: ['adult'],
-    zoneIds: ['calisthenics-hall'],
+    zoneIds: ['rig'],
     pathwayIds: ['foundations', 'strength-conditioning', 'static-skills', 'dynamic-freestyle', 'street-lifting', 'advanced-development', 'competitive-preparation'],
     membershipIds: ['dhahran-adult'],
     faqs: [
@@ -55,7 +55,7 @@ export const programs: Program[] = [
       },
     ],
     ctaIntent: 'program-inquiry',
-    image: '/assets/scenes/zone-calisthenics-hall-dark.svg',
+    imageId: 'd25',
     evidence: BRIEF,
   },
   {
@@ -84,7 +84,7 @@ export const programs: Program[] = [
     },
     availability: 'planned',
     audiences: ['guardian'],
-    zoneIds: ['kids-pavilion'],
+    zoneIds: [],
     pathwayIds: [],
     membershipIds: ['dhahran-kids'],
     faqs: [
@@ -106,7 +106,7 @@ export const programs: Program[] = [
       },
     ],
     ctaIntent: 'program-inquiry',
-    image: '/assets/scenes/zone-kids-pavilion-light.svg',
+    imageId: 'd29',
     evidence: BRIEF,
   },
   {
@@ -130,12 +130,12 @@ export const programs: Program[] = [
       en: ['Interval running and pacing', 'Sled, carry and push stations', 'Muscular endurance', 'Transitions between stations'],
     },
     benefits: {
-      ar: ['مسار جري داخلي ضمن تصوّر النادي', 'جلسات تتدرّج بحسب المستوى', 'هدف تدريبي واضح لكل جلسة'],
-      en: ['An indoor running lane in the club concept', 'Sessions that scale by level', 'A clear training purpose for every session'],
+      ar: ['مسار عشبي داخلي وأجهزة جري وتجديف ودراجات هوائية', 'جلسات تتدرّج بحسب المستوى', 'هدف تدريبي واضح لكل جلسة'],
+      en: ['An indoor turf lane with treadmills, rowers and air bikes', 'Sessions that scale by level', 'A clear training purpose for every session'],
     },
     availability: 'planned',
     audiences: ['adult'],
-    zoneIds: ['track-loop', 'performance-deck'],
+    zoneIds: ['turf-cardio'],
     pathwayIds: [],
     membershipIds: ['dhahran-adult'],
     faqs: [
@@ -149,7 +149,7 @@ export const programs: Program[] = [
       },
     ],
     ctaIntent: 'program-inquiry',
-    image: '/assets/scenes/zone-track-loop-dark.svg',
+    imageId: 'd42',
     evidence: BRIEF,
   },
   {
@@ -178,7 +178,7 @@ export const programs: Program[] = [
     },
     availability: 'planned',
     audiences: ['adult'],
-    zoneIds: ['performance-deck'],
+    zoneIds: ['strength', 'turf-cardio'],
     pathwayIds: [],
     membershipIds: ['dhahran-adult'],
     faqs: [
@@ -188,7 +188,7 @@ export const programs: Program[] = [
       },
     ],
     ctaIntent: 'program-inquiry',
-    image: '/assets/scenes/zone-performance-deck-dark.svg',
+    imageId: 'd38',
     evidence: BRIEF,
   },
   {
@@ -227,7 +227,7 @@ export const programs: Program[] = [
       },
     ],
     ctaIntent: 'preopening-updates',
-    image: '/assets/scenes/zone-kids-pavilion-dark.svg',
+    imageId: 'd33',
     evidence: BRIEF,
   },
   {
@@ -270,7 +270,7 @@ export const programs: Program[] = [
     },
     availability: 'planned',
     audiences: ['football-athlete', 'guardian'],
-    zoneIds: ['performance-deck', 'track-loop'],
+    zoneIds: ['turf-cardio', 'strength'],
     pathwayIds: [],
     membershipIds: [],
     faqs: [
@@ -284,7 +284,7 @@ export const programs: Program[] = [
       },
     ],
     ctaIntent: 'membership-consultation',
-    image: '/assets/scenes/zone-performance-deck-dark.svg',
+    imageId: 'd34',
     evidence: BRIEF,
   },
 ];

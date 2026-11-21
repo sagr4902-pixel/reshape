@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing, type Locale } from '@/i18n/routing';
 import { pageMetadata } from '@/lib/seo';
-import { detailPrograms } from '@/content';
+import { designImage, detailPrograms } from '@/content';
 import { ProgramHero, ProgramSections } from '@/features/programs/ProgramSections';
 
 type Props = { params: Promise<{ locale: Locale; slug: string }> };
@@ -37,8 +37,8 @@ export default async function ProgramPage({ params }: Props) {
         eyebrow={program.id === 'calisthenics' ? t('flagship') : c(`availability.${program.availability}`)}
         title={program.title[locale]}
         summary={program.summary[locale]}
-        zoneId={program.zoneIds[0]}
-        imageAlt={program.zoneIds[0] ? c(`sceneAlt.${program.zoneIds[0]}` as 'sceneAlt.club') : undefined}
+        imageId={program.imageId}
+        imageAlt={designImage(program.imageId).alt[locale]}
         note={c('conceptNote')}
       />
       <ProgramSections program={program} locale={locale} source="program" />

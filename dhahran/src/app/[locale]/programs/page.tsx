@@ -3,8 +3,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import { pageMetadata } from '@/lib/seo';
-import { programs, registerHref } from '@/content';
-import { ZoneScene } from '@/components/ui/Scene';
+import { designImage, programs, registerHref } from '@/content';
+import { DesignPicture } from '@/components/ui/DesignPicture';
 
 type Props = { params: Promise<{ locale: Locale }> };
 
@@ -38,10 +38,11 @@ export default async function ProgramsPage({ params }: Props) {
           {/* Flagship + Kids lead; the rest follow at a smaller scale */}
           <div className="grid gap-6 lg:grid-cols-12">
             <Link href={cal.route} className="on-dark group relative flex min-h-[420px] flex-col justify-end overflow-hidden rounded-lg bg-ink p-7 text-paper lg:col-span-7">
-              <span className="absolute inset-0" dir="ltr">
-                <ZoneScene zoneId="calisthenics-hall" alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+              <span className="absolute inset-0">
+                {/* On phones the card (420 px tall) crops the 16:9 render, which is drawn about 750 px wide. */}
+                <DesignPicture image={designImage(cal.imageId)} alt="" sizes="(max-width: 759px) and (min-resolution: 2.5dppx) 400px, (max-width: 759px) 600px, (min-width: 1024px) 58vw, 100vw" priority className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
               </span>
-              <span className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-transparent" />
+              <span className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/10" />
               <span className="relative">
                 <span className="tag text-accent">{t('flagship')}</span>
                 <span className="display t-2 mt-3 block">{cal.title[locale]}</span>
@@ -49,8 +50,8 @@ export default async function ProgramsPage({ params }: Props) {
               </span>
             </Link>
             <Link href={kids.route} className="group flex flex-col overflow-hidden rounded-[28px] bg-white ring-1 ring-line hover:ring-ink lg:col-span-5">
-              <span dir="ltr">
-                <ZoneScene zoneId="kids-pavilion" theme="light" alt="" className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.03]" />
+              <span className="block aspect-video overflow-hidden">
+                <DesignPicture image={designImage(kids.imageId)} alt="" sizes="(min-width: 1024px) 40vw, 100vw" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
               </span>
               <span className="mt-auto block p-6">
                 <span className="text-[0.85rem] font-semibold text-mute">{c(`availability.${kids.availability}`)}</span>

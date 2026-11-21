@@ -33,37 +33,44 @@
       "unconfirmed": "To be confirmed",
       "paused": "Paused"
     },
-    "levels": { "ground": "Ground level", "upper": "Upper level" },
+    "levels": {
+      "ground": "Ground level",
+      "upper": "Mezzanine"
+    },
     "opensNewTab": "opens in a new tab",
     "sceneAlt": {
-      "club": "Cutaway axonometric drawing of the two-level RESHAPE Dhahran building: calisthenics hall and kids pavilion on the ground level, running track and performance deck above.",
-      "calisthenics-hall": "Drawing of the calisthenics hall: high bars, parallel bars and rings between orange steel columns.",
-      "kids-pavilion": "Drawing of the kids pavilion: coloured soft flooring, a low balance beam and a coach beside a child.",
-      "entrance": "Drawing of the entrance, reception and stairs.",
-      "track-loop": "Drawing of the red running lane around the open void on the upper level.",
-      "performance-deck": "Drawing of the performance deck: training rig, turf sled lane and low hurdles.",
-      "changing": "Drawing of the changing rooms on the upper level."
-    }
+      "club": "Cutaway axonometric map of RESHAPE Dhahran seen from the entrance side: ground level with reception, juice bar and training hall; mezzanine with lockers and changing rooms."
+    },
+    "designCaption": "From the club design set",
+    "enterClub": "Enter the club"
   },
   "home": {
     "hero": {
       "eyebrow": "RESHAPE Dhahran",
       "title": "Your strength starts here",
       "sub": "Calisthenics at the core, with training pathways for adults and kids. Discover RESHAPE Dhahran and register your interest.",
-      "stage": "The club is in its pre-opening stage. Register your interest to hear the details first."
+      "stage": "The club is in its pre-opening stage. Register your interest to hear the details first.",
+      "facadeLabel": "The club facade",
+      "hotspots": {
+        "enter": "Enter — reception",
+        "juice": "Juice bar",
+        "hall": "Training hall",
+        "mezz": "Mezzanine"
+      },
+      "hotspotsNav": "Enter from the facade"
     },
     "cal": {
       "rail": "The core sport",
       "title": "Calisthenics: your body is the equipment",
-      "body": "A bar, parallel bars, rings — and solid ground. We start from your current level and build strength and control one movement at a time.",
+      "body": "A bar, rings, low bars — and solid ground. We start from your current level and build strength and control one movement at a time.",
       "pathwaysTitle": "Training directions",
       "pathwaysNote": "Proposed pathways — not mandatory stages, and subject to change before opening.",
       "cta": "About calisthenics"
     },
     "tour": {
       "rail": "Club tour",
-      "title": "Two levels, six zones, and a track above the hall",
-      "body": "We drew the club from its plans: a double-height hall and a running lane that loops around the open void. Pick a zone to see what is planned for it.",
+      "title": "From the facade to the mezzanine",
+      "body": "Walk in through the door to reception and the juice bar, on into the double-height training hall with its red steel structure, then up to the mezzanine for lockers and changing rooms.",
       "cta": "Start the tour",
       "zonesLabel": "Club zones"
     },
@@ -75,7 +82,8 @@
       "parentTitle": "Questions parents ask",
       "cta": "Ask about kids programs",
       "more": "Kids programs page",
-      "guardianNote": "Registration is made by a parent or guardian. We ask for no information about the child at this stage."
+      "guardianNote": "Registration is made by a parent or guardian. We ask for no information about the child at this stage.",
+      "imageCaption": "The training hall at RESHAPE Dhahran"
     },
     "spectrum": {
       "rail": "More programs",
@@ -92,9 +100,18 @@
       "rail": "Our approach",
       "title": "Progress is built, not rushed",
       "items": {
-        "one": { "t": "Start where you are", "d": "There is no required level to begin. Your starting point is agreed with you." },
-        "two": { "t": "Quality before difficulty", "d": "A well-executed movement today beats a rushed skill tomorrow." },
-        "three": { "t": "Your own pace", "d": "Everyone’s route is different. We promise no specific results or fixed timelines." }
+        "one": {
+          "t": "Start where you are",
+          "d": "There is no required level to begin. Your starting point is agreed with you."
+        },
+        "two": {
+          "t": "Quality before difficulty",
+          "d": "A well-executed movement today beats a rushed skill tomorrow."
+        },
+        "three": {
+          "t": "Your own pace",
+          "d": "Everyone’s route is different. We promise no specific results or fixed timelines."
+        }
       }
     },
     "closing": {
@@ -105,30 +122,43 @@
   },
   "explore": {
     "metaTitle": "Explore the club",
-    "metaDescription": "An interactive tour of RESHAPE Dhahran: calisthenics hall, kids pavilion, running track and performance deck.",
+    "metaDescription": "A tour of RESHAPE Dhahran through its design images: facade, reception, juice bar, training hall and mezzanine.",
     "title": "Explore the club",
-    "intro": "Pick a zone to move in and see the programs connected to it.",
+    "intro": "Pick a zone to see its design, where it sits in the club and the programs connected to it.",
     "zonesNav": "Club zones",
     "overview": "Whole club",
     "back": "Back to overview",
-    "next": "Next zone",
-    "prev": "Previous zone",
     "simpleOn": "Simple view",
     "simpleOff": "Animated view",
     "simpleHint": "Simple view turns off camera movement.",
     "selected": "Selected zone: {zone}",
     "overviewAnnounce": "Whole club overview",
     "promptTitle": "Where to start?",
-    "promptBody": "Six zones on two levels. Select a number on the drawing or choose from the list.",
+    "promptBody": "Eight zones on two levels. Select a number on the map or choose from the list.",
     "programsHere": "Programs connected to this zone",
-    "basisLabel": "What is this drawing based on?",
+    "basisLabel": "Where do these designs come from?",
     "registerFor": "Register interest in {program}",
     "registerGeneral": "Register interest",
     "listTitle": "All zones as a list",
-    "listIntro": "The same content without the interactive drawing.",
-    "failed": "The interactive drawing could not be loaded. Every zone and program is available in the list below.",
-    "sceneLabel": "Interactive drawing of the club building",
-    "conceptLong": "The drawing is based on the building plans; the allocation of sports and equipment is a concept, not a final layout."
+    "listIntro": "The same content without the interactive map.",
+    "failed": "The interactive map could not be loaded. Every zone and program is available in the list below.",
+    "sceneLabel": "Interactive map of the club building",
+    "conceptLong": "The map is based on the club’s working drawings and the images come from its design set. Some details may change in execution.",
+    "mapNote": "Schematic map based on the working drawings — details may change before opening.",
+    "nextZone": "Next",
+    "prevZone": "Previous",
+    "showMap": "Show on map",
+    "showDesign": "Design images",
+    "nextImage": "Next image",
+    "prevImage": "Previous image",
+    "imageOf": "Image {n} of {total}",
+    "gallery": "Design images",
+    "whereInClub": "Where it is in the club",
+    "levels": {
+      "ground": "Ground level",
+      "upper": "Mezzanine"
+    },
+    "levelsLabel": "Level shown"
   },
   "programs": {
     "metaTitle": "Programs",
@@ -143,7 +173,7 @@
     "pathways": "Training directions",
     "pathwaysNote": "Proposed pathways — not mandatory stages, and subject to change before opening.",
     "zones": "Where in the club?",
-    "noZone": "No zone has been assigned to this program in the club concept yet.",
+    "noZone": "No zone has been assigned to this program in the club designs yet.",
     "seeInTour": "See it in the tour",
     "boundaries": "Service boundaries",
     "membershipTitle": "Membership",
@@ -157,9 +187,18 @@
     "title": "Movement first, then strength",
     "howTitle": "What does a session look like?",
     "how": {
-      "one": { "t": "Warm-up through play", "d": "Running, jumping and movement games that prepare the body and break the ice." },
-      "two": { "t": "Skill of the day", "d": "Balance, hanging or floor movement — at a progression that suits the group." },
-      "three": { "t": "A small challenge", "d": "One new attempt, so the child leaves knowing they moved forward." }
+      "one": {
+        "t": "Warm-up through play",
+        "d": "Running, jumping and movement games that prepare the body and break the ice."
+      },
+      "two": {
+        "t": "Skill of the day",
+        "d": "Balance, hanging or floor movement — at a progression that suits the group."
+      },
+      "three": {
+        "t": "A small challenge",
+        "d": "One new attempt, so the child leaves knowing they moved forward."
+      }
     },
     "howNote": "A general description of the coaching approach. The schedule and age groups will be announced before opening.",
     "parentTitle": "Parents’ questions — answered plainly",
@@ -167,7 +206,7 @@
     "dataBody": "When you register interest we ask only for the guardian’s name and mobile number. We do not ask for the child’s name, date of birth or any health information.",
     "martialTitle": "Also planned: kids martial arts",
     "cta": "Enquire as a guardian",
-    "zoneCta": "See the kids pavilion in the tour"
+    "zoneCta": "Tour the club"
   },
   "football": {
     "metaTitle": "Football performance",
@@ -177,9 +216,18 @@
     "boundTitle": "Service boundaries — stated clearly",
     "processTitle": "How do we start?",
     "process": {
-      "one": { "t": "Request a consultation", "d": "Leave your name and number. Do not send any medical information." },
-      "two": { "t": "We get in touch", "d": "We learn your position, your season and your goal." },
-      "three": { "t": "We suggest what fits", "d": "We explain what can be offered once the program format is confirmed." }
+      "one": {
+        "t": "Request a consultation",
+        "d": "Leave your name and number. Do not send any medical information."
+      },
+      "two": {
+        "t": "We get in touch",
+        "d": "We learn your position, your season and your goal."
+      },
+      "three": {
+        "t": "We suggest what fits",
+        "d": "We explain what can be offered once the program format is confirmed."
+      }
     },
     "cta": "Request a consultation"
   },
@@ -203,10 +251,22 @@
     },
     "factsTitle": "What we know now",
     "facts": {
-      "price": { "k": "Prices", "v": "Not announced yet" },
-      "open": { "k": "Opening date", "v": "Not announced yet" },
-      "pay": { "k": "Payment", "v": "Through the official store once memberships go on sale" },
-      "now": { "k": "Available now", "v": "Registering interest" }
+      "price": {
+        "k": "Prices",
+        "v": "Not announced yet"
+      },
+      "open": {
+        "k": "Opening date",
+        "v": "Not announced yet"
+      },
+      "pay": {
+        "k": "Payment",
+        "v": "Through the official store once memberships go on sale"
+      },
+      "now": {
+        "k": "Available now",
+        "v": "Registering interest"
+      }
     },
     "storeTitle": "The existing RESHAPE store",
     "storeBody": "RESHAPE has an official store with existing subscriptions. None of them has been confirmed as covering the Dhahran club, so we do not present them here as Dhahran memberships.",
@@ -223,9 +283,19 @@
     "requiredNote": "Required fields are marked (required).",
     "required": "required",
     "optional": "optional",
-    "name": { "label": "Your name", "labelGuardian": "Guardian’s name", "hint": "The adult we should contact." },
-    "phone": { "label": "Mobile number", "hint": "Saudi number, e.g. 0512345678" },
-    "program": { "label": "Program you are interested in", "help": "Help me choose" },
+    "name": {
+      "label": "Your name",
+      "labelGuardian": "Guardian’s name",
+      "hint": "The adult we should contact."
+    },
+    "phone": {
+      "label": "Mobile number",
+      "hint": "Saudi number, e.g. 0512345678"
+    },
+    "program": {
+      "label": "Program you are interested in",
+      "help": "Help me choose"
+    },
     "intent": {
       "label": "Type of request",
       "general-interest": "General interest",
@@ -235,9 +305,17 @@
       "preopening-updates": "Pre-opening updates"
     },
     "trialNote": "A trial request is not a confirmed booking. We contact you when times are available.",
-    "comment": { "label": "Notes", "hint": "Up to 500 characters. Please do not include medical or sensitive information." },
-    "privacy": { "label": "I have read the privacy notice and agree to my name and mobile number being used to respond to this request.", "link": "privacy notice" },
-    "marketing": { "label": "I would like to receive RESHAPE Dhahran news and offers by WhatsApp or SMS. (Optional — you can withdraw at any time)" },
+    "comment": {
+      "label": "Notes",
+      "hint": "Up to 500 characters. Please do not include medical or sensitive information."
+    },
+    "privacy": {
+      "label": "I have read the privacy notice and agree to my name and mobile number being used to respond to this request.",
+      "link": "privacy notice"
+    },
+    "marketing": {
+      "label": "I would like to receive RESHAPE Dhahran news and offers by WhatsApp or SMS. (Optional — you can withdraw at any time)"
+    },
     "honeypot": "Leave this field empty",
     "submit": "Send",
     "submitting": "Sending…",
@@ -291,17 +369,49 @@
     "title": "Privacy notice",
     "version": "Version: {version}",
     "draft": "Draft — not final. No real data is collected through this site in production until this notice is approved and a responsible contact is named.",
-    "s1": { "t": "Who we are", "p": "This website belongs to RESHAPE Dhahran, part of the RESHAPE brand (commercial registration {cr} as shown on the official store). The entity responsible for the data and its contact details are to be confirmed by RESHAPE management before launch." },
-    "s2": { "t": "What we collect", "items": { "a": "The adult’s name and mobile number.", "b": "The program you are interested in, the type of request, and your notes if you write any.", "c": "The page language and the zone or page you started from (non-personal identifiers).", "d": "Your choice about marketing messages, the time of submission and the version of this notice." } },
-    "s3": { "t": "What we do not collect", "p": "We do not ask for a child’s name or date of birth, national ID, health or medical information, payment details or an email address. We do not store your IP address with your request. Please do not write sensitive information in the notes field." },
-    "s4": { "t": "Why we use it", "p": "To respond to your request and contact you about the program you chose. We send marketing messages only if you agree in a separate box, and you can withdraw at any time." },
-    "s5": { "t": "Where it is kept and who sees it", "p": "Requests are stored in a database dedicated to this site and are seen only by authorised RESHAPE staff. We do not sell your data or share it for advertising. The hosting provider and storage location will be stated here once the production environment is approved." },
-    "s6": { "t": "How long we keep it", "p": "The proposed period is 90 days from the request, after which it is deleted unless you become a member or ask otherwise. This is a proposal subject to approval by RESHAPE management." },
-    "s7": { "t": "Your choices", "p": "You can ask to see, correct or delete your data, or withdraw your consent to marketing messages." },
+    "s1": {
+      "t": "Who we are",
+      "p": "This website belongs to RESHAPE Dhahran, part of the RESHAPE brand (commercial registration {cr} as shown on the official store). The entity responsible for the data and its contact details are to be confirmed by RESHAPE management before launch."
+    },
+    "s2": {
+      "t": "What we collect",
+      "items": {
+        "a": "The adult’s name and mobile number.",
+        "b": "The program you are interested in, the type of request, and your notes if you write any.",
+        "c": "The page language and the zone or page you started from (non-personal identifiers).",
+        "d": "Your choice about marketing messages, the time of submission and the version of this notice."
+      }
+    },
+    "s3": {
+      "t": "What we do not collect",
+      "p": "We do not ask for a child’s name or date of birth, national ID, health or medical information, payment details or an email address. We do not store your IP address with your request. Please do not write sensitive information in the notes field."
+    },
+    "s4": {
+      "t": "Why we use it",
+      "p": "To respond to your request and contact you about the program you chose. We send marketing messages only if you agree in a separate box, and you can withdraw at any time."
+    },
+    "s5": {
+      "t": "Where it is kept and who sees it",
+      "p": "Requests are stored in a database dedicated to this site and are seen only by authorised RESHAPE staff. We do not sell your data or share it for advertising. The hosting provider and storage location will be stated here once the production environment is approved."
+    },
+    "s6": {
+      "t": "How long we keep it",
+      "p": "The proposed period is 90 days from the request, after which it is deleted unless you become a member or ask otherwise. This is a proposal subject to approval by RESHAPE management."
+    },
+    "s7": {
+      "t": "Your choices",
+      "p": "You can ask to see, correct or delete your data, or withdraw your consent to marketing messages."
+    },
     "s7contact": "Privacy contact: {contact}",
     "s7pending": "The contact for privacy requests will be published here before launch. Until then, RESHAPE’s official WhatsApp can be used.",
-    "s8": { "t": "Cookies and analytics", "p": "The site currently uses no analytics or advertising trackers and no non-essential cookies. Your “Simple view” preference for the tour is stored in your browser only." },
-    "s9": { "t": "The official store", "p": "Payment and subscription take place in the official RESHAPE store (reshape-sa.com), which has its own policies. This website does not process payments." },
+    "s8": {
+      "t": "Cookies and analytics",
+      "p": "The site currently uses no analytics or advertising trackers and no non-essential cookies. Your “Simple view” preference for the tour is stored in your browser only."
+    },
+    "s9": {
+      "t": "The official store",
+      "p": "Payment and subscription take place in the official RESHAPE store (reshape-sa.com), which has its own policies. This website does not process payments."
+    },
     "legal": "This notice describes what the site actually does. It is not a legal compliance certification."
   },
   "footer": {

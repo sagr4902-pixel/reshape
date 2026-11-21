@@ -1,107 +1,132 @@
 import type { Scene } from '@/lib/catalog/types';
 
 /**
- * Explorer scene. The building shell is drawn from the supplied plans and
- * renders; which sport goes where is a concept, so spatialMode stays
- * "conceptual-zones" until the owner approves a fit-out plan.
+ * Explorer scene. Layout, zones and equipment positions follow the owner's
+ * working drawings (dimension + furniture layout plans, issue 20/08/2026) and
+ * the facade package Rev. 02; imagery is the owner's design deck. The
+ * drawings are marked "for review", so details may still change in execution.
  * Geometry lives in src/features/explorer/scene/model.ts.
  */
+const DRAWINGS = {
+  ar: 'الموقع والأبعاد من الرسومات التنفيذية للنادي، والصور من تصاميمه. قد تتغيّر بعض التفاصيل عند التنفيذ.',
+  en: 'Position and dimensions follow the club’s working drawings; images are from its design set. Some details may change in execution.',
+};
+
 export const scene: Scene = {
   id: 'club',
   title: { ar: 'نادي ريشيب الظهران', en: 'RESHAPE Dhahran club' },
-  status: 'concept',
-  spatialMode: 'conceptual-zones',
-  sourceAssetIds: ['fp-01', 'fp-02', 'in-03', 'fp-18', 'fp-19'],
+  status: 'reference-validated',
+  spatialMode: 'verified-layout',
+  sourceAssetIds: ['wd-04', 'wd-08', 'wd-11', 'facade-01', 'facade-02', 'deck'],
   zones: [
-    {
-      id: 'calisthenics-hall',
-      kind: 'program',
-      level: 'ground',
-      title: { ar: 'صالة الكاليسثنكس', en: 'Calisthenics hall' },
-      summary: {
-        ar: 'الصالة الرئيسية في الدور الأرضي. الجزء المفتوح على ارتفاع الدورين يتّسع للعقلة العالية والحلق.',
-        en: 'The main ground-floor hall. The double-height section has room for high bars and rings.',
-      },
-      basis: {
-        ar: 'أبعاد الصالة والأعمدة والفراغ المفتوح مأخوذة من المخططات. توزيع الأجهزة تصوّر مبدئي.',
-        en: 'Hall dimensions, columns and the open void come from the drawings. Equipment layout is a concept.',
-      },
-      sourceAssetIds: ['fp-01', 'in-08', 'in-10'],
-    },
-    {
-      id: 'kids-pavilion',
-      kind: 'program',
-      level: 'ground',
-      title: { ar: 'جناح الأطفال', en: 'Kids pavilion' },
-      summary: {
-        ar: 'مساحة بأرضية ليّنة وأدوات منخفضة للتوازن والتسلّق والقوة الأساسية.',
-        en: 'A soft-floored space with low equipment for balance, climbing and basic strength.',
-      },
-      basis: {
-        ar: 'موقع الجناح داخل المبنى مقترح ولم يُعتمد بعد.',
-        en: 'The pavilion’s position in the building is a proposal and has not been approved.',
-      },
-      sourceAssetIds: ['fp-01', 'fp-19'],
-    },
     {
       id: 'entrance',
       kind: 'facility',
       level: 'ground',
-      title: { ar: 'المدخل والاستقبال', en: 'Entrance & reception' },
+      title: { ar: 'الواجهة والمدخل', en: 'Facade & entrance' },
       summary: {
-        ar: 'المدخل والدرج المؤدي إلى الدور العلوي. هنا تبدأ زيارتك وتسأل عن البرنامج المناسب.',
-        en: 'The entrance and the stairs to the upper level. Your visit starts here, with help choosing a program.',
+        ar: 'لافتة reshape السوداء المضاءة، شريط الأسهم فوق الباب المزدوج، وواجهات زجاجية تكشف الجوس بار وصالة التدريب من الخارج.',
+        en: 'The backlit black reshape sign, a chevron strip above the double door, and glazed bays that reveal the juice bar and the training hall from outside.',
       },
       basis: {
-        ar: 'الجدران والدرج من المخططات. مكتب الاستقبال تصوّر مبدئي.',
-        en: 'Walls and stairs come from the drawings. The reception desk is a concept.',
+        ar: 'من رسومات الواجهة (الإصدار 02) ومنظورها المعتمد. الرسومات للمراجعة وقد تتغيّر تفاصيل عند التنفيذ.',
+        en: 'From the facade drawings (Rev. 02) and their render. The drawings are issued for review; details may change in execution.',
       },
-      sourceAssetIds: ['fp-01', 'fp-19', 'in-12', 'ex-06'],
+      sourceAssetIds: ['facade-01', 'facade-02', 'facade-05'],
+      imageIds: ['facade', 'd21'],
     },
     {
-      id: 'track-loop',
+      id: 'reception',
+      kind: 'facility',
+      level: 'ground',
+      title: { ar: 'الاستقبال والمتجر', en: 'Reception & store' },
+      summary: {
+        ar: 'مكتب استقبال نحاسي بأرضية تيرازو، وبجانبه ركن متجر ريشيب والدرج الصاعد إلى الميزانين. هنا تبدأ زيارتك وتسأل عن البرنامج المناسب.',
+        en: 'A brass reception desk on terrazzo flooring, next to the RESHAPE store corner and the stairs up to the mezzanine. Your visit starts here, with help choosing a program.',
+      },
+      basis: DRAWINGS,
+      sourceAssetIds: ['wd-08', 'deck'],
+      imageIds: ['d04', 'd03', 'd06', 'd09'],
+      labelSide: 'left',
+    },
+    {
+      id: 'juice-bar',
+      kind: 'facility',
+      level: 'ground',
+      title: { ar: 'الجوس بار', en: 'Juice bar' },
+      summary: {
+        ar: 'طاولة مشتركة بثمانية مقاعد خلف الواجهة الزجاجية، ومنضدة سوداء، وبوابة حمراء تقود مباشرة إلى صالة التدريب.',
+        en: 'A communal table for eight behind the glazed facade, a black counter, and a red portal that leads straight into the training hall.',
+      },
+      basis: DRAWINGS,
+      sourceAssetIds: ['wd-08', 'deck'],
+      imageIds: ['d10', 'd16', 'd12', 'd19'],
+    },
+    {
+      id: 'rig',
       kind: 'program',
-      level: 'upper',
-      title: { ar: 'مسار الجري', en: 'Running track' },
+      level: 'ground',
+      title: { ar: 'العقلات والحلق', en: 'Bars & rings' },
       summary: {
-        ar: 'مسار جري يدور حول الفراغ المفتوح في الدور العلوي ويطلّ على صالة الكاليسثنكس.',
-        en: 'A running lane that loops around the open void on the upper level, overlooking the calisthenics hall.',
+        ar: 'عقلات مثبّتة على ثلاثة جدران من الصالة ذات الارتفاع المزدوج، مع حلق وسلّم سويدي وعوارض منخفضة — قلب تدريب الكاليسثنكس.',
+        en: 'Pull-up bars fixed along three walls of the double-height hall, with rings, wall bars and low bars — the heart of calisthenics training.',
       },
-      basis: {
-        ar: 'المسار الأحمر والحاجز الزجاجي ظاهران في التصاميم المقدَّمة.',
-        en: 'The red lane and glazed edge appear in the supplied designs.',
-      },
-      sourceAssetIds: ['fp-02', 'fp-18', 'in-14', 'in-16'],
+      basis: DRAWINGS,
+      sourceAssetIds: ['wd-08', 'deck'],
+      imageIds: ['d25', 'd24', 'd27', 'd35'],
     },
     {
-      id: 'performance-deck',
+      id: 'turf-cardio',
       kind: 'program',
-      level: 'upper',
-      title: { ar: 'منصة الأداء', en: 'Performance deck' },
+      level: 'ground',
+      title: { ar: 'المسار العشبي والكارديو', en: 'Turf lane & cardio' },
       summary: {
-        ar: 'مساحة مفتوحة في الدور العلوي للتدريب الوظيفي ومحطات القوة والتحمّل وإعداد لاعبي كرة القدم.',
-        en: 'An open upper-level floor for functional training, strength-endurance stations and football preparation.',
+        ar: 'مسار عشبي بطول يقارب عشرة أمتار للزلاجة والإطار، تحيط به أجهزة الجري والتجديف والدراجات الهوائية.',
+        en: 'A turf lane of roughly ten metres for sled and tyre work, surrounded by treadmills, rowers and air bikes.',
       },
-      basis: {
-        ar: 'المساحة من المخططات. الأجهزة وتوزيعها تصوّر مبدئي.',
-        en: 'The floor area comes from the drawings. Equipment and layout are a concept.',
-      },
-      sourceAssetIds: ['fp-02', 'fp-18', 'in-15'],
+      basis: DRAWINGS,
+      sourceAssetIds: ['wd-08', 'deck'],
+      imageIds: ['d29', 'd34', 'd33', 'd42'],
     },
     {
-      id: 'changing',
+      id: 'strength',
+      kind: 'program',
+      level: 'ground',
+      title: { ar: 'منطقة القوة Re.Build', en: 'Re.Build strength area' },
+      summary: {
+        ar: 'أقفاص سكوات ومنصة رفع ورفوف دمبلز تحت الميزانين، بسقف أسود وجدار طوب.',
+        en: 'Squat racks, a lifting platform and dumbbell racks beneath the mezzanine, under a black ceiling and beside a brick wall.',
+      },
+      basis: DRAWINGS,
+      sourceAssetIds: ['wd-08', 'deck'],
+      imageIds: ['d38', 'd39', 'd37'],
+    },
+    {
+      id: 'lockers',
       kind: 'facility',
       level: 'upper',
-      title: { ar: 'غرف التبديل', en: 'Changing rooms' },
+      title: { ar: 'الخزائن وغرف التبديل', en: 'Lockers & changing rooms' },
       summary: {
-        ar: 'غرف التبديل في الدور العلوي بجانب الدرج.',
-        en: 'Changing rooms on the upper level, next to the stairs.',
+        ar: 'خزائن زرقاء ومقاعد خشبية ومقصورات تبديل ومغاسل بسطح تيرازو، في دور الميزانين.',
+        en: 'Blue lockers, timber benches, changing cubicles and a terrazzo vanity, on the mezzanine level.',
       },
-      basis: {
-        ar: 'تقسيم الغرف مأخوذ من مخطط الدور العلوي وقد يتغيّر.',
-        en: 'Room partitions follow the upper-floor plan and may change.',
+      basis: DRAWINGS,
+      sourceAssetIds: ['wd-11', 'deck'],
+      imageIds: ['d51', 'd53', 'd46', 'd64'],
+      labelSide: 'left',
+    },
+    {
+      id: 'overlook',
+      kind: 'facility',
+      level: 'upper',
+      title: { ar: 'ممشى الميزانين', en: 'Mezzanine walkway' },
+      summary: {
+        ar: 'ممشى يطلّ على صالة التدريب من خلف درابزين الأسهم البرتقالية، وينتهي بمكتب زجاجي.',
+        en: 'A walkway overlooking the training hall from behind the orange chevron balustrade, ending at a glazed office.',
       },
-      sourceAssetIds: ['fp-02', 'fp-18'],
+      basis: DRAWINGS,
+      sourceAssetIds: ['wd-11', 'deck'],
+      imageIds: ['d48', 'd62', 'd49', 'd50'],
     },
   ],
 };

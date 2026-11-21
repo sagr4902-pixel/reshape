@@ -3,8 +3,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import { pageMetadata } from '@/lib/seo';
-import { programById, registerHref } from '@/content';
-import { ZoneScene } from '@/components/ui/Scene';
+import { designImage, programById, registerHref } from '@/content';
+import { DesignPicture } from '@/components/ui/DesignPicture';
 import { FaqList } from '@/components/ui/Faq';
 import { ProgramView } from '@/features/programs/ProgramView';
 
@@ -28,7 +28,8 @@ export default async function KidsPage({ params }: Props) {
   const c = await getTranslations({ locale, namespace: 'common' });
   const kids = programById('kids')!;
   const martial = programById('kids-martial-arts')!;
-  const cta = registerHref({ program: 'kids', zone: 'kids-pavilion', intent: 'program-inquiry', src: 'kids' });
+  const cta = registerHref({ program: 'kids', intent: 'program-inquiry', src: 'kids' });
+  const h = await getTranslations({ locale, namespace: 'home' });
 
   return (
     <>
@@ -45,17 +46,20 @@ export default async function KidsPage({ params }: Props) {
               <Link href={cta} className="btn btn-primary" data-testid="kids-cta">
                 {t('cta')}
               </Link>
-              <Link href={{ pathname: '/explore', query: { zone: 'kids-pavilion' } }} className="link-arrow">
+              <Link href="/explore" className="link-arrow" data-testid="kids-tour">
                 {t('zoneCta')}
               </Link>
             </div>
             <p className="mute mt-4 text-[0.92rem]">{kids.audienceNote[locale]}</p>
           </div>
           <figure className="lg:col-span-7">
-            <div className="overflow-hidden rounded-[32px] bg-white ring-1 ring-line" dir="ltr">
-              <ZoneScene zoneId="kids-pavilion" theme="light" alt={c('sceneAlt.kids-pavilion')} className="h-auto w-full" />
+            <div className="overflow-hidden rounded-[32px] ring-1 ring-line">
+              <DesignPicture image={designImage(kids.imageId)} alt={designImage(kids.imageId).alt[locale]} sizes="(min-width: 1024px) 56vw, 100vw" priority className="h-auto w-full" />
             </div>
-            <figcaption className="concept-note mt-3">{c('conceptNote')}</figcaption>
+            <figcaption className="mt-3">
+              <span className="block text-[0.92rem] font-semibold">{h('kids.imageCaption')}</span>
+              <span className="concept-note">{c('conceptNote')}</span>
+            </figcaption>
           </figure>
         </div>
       </section>

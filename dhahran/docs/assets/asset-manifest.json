@@ -1,0 +1,837 @@
+{
+  "generatedAt": "2026-11-21",
+  "note": "Originals in input-assets/ are unchanged. The source PDF is kept locally and is git-ignored.",
+  "inputs": [
+    {
+      "id": "fp-01",
+      "file": "input-assets/floorplans/fp-01-ground-plan.jpg",
+      "width": 2215,
+      "height": 1753,
+      "format": "JPEG",
+      "bytes": 163566,
+      "sha256": "3875dc13229f314636fdf7a79bf0f387280c8a3d9ca9321425fbda990a15506d",
+      "category": "diagram",
+      "visible": "Ground-floor plan with dimensions: 20.6 m × 17.833 m shell, chamfered south-west corner (6.371 m diagonal wall), stairs along west wall, service block partitions, steel I-column positions.",
+      "uncertain": "Wall thicknesses, door swings, room names and uses are not labelled.",
+      "proposedUse": "scene geometry reference",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "مخطط الدور الأرضي",
+        "en": "Ground-floor plan"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "fp-02",
+      "file": "input-assets/floorplans/fp-02-upper-plan.jpg",
+      "width": 2216,
+      "height": 1753,
+      "format": "JPEG",
+      "bytes": 198716,
+      "sha256": "de8b40e9801661e5a94de36ad4e8f854e87d00c4817a3b284a3d8c37551c1977",
+      "category": "diagram",
+      "visible": "Upper-floor plan: mezzanine void 11.02 × 8.433 m with chamfer, cubicle/changing partitions on the west side, stair opening.",
+      "uncertain": "Room uses not labelled; balustrade type not shown.",
+      "proposedUse": "scene geometry reference",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "مخطط الدور العلوي",
+        "en": "Upper-floor plan"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "in-03",
+      "file": "input-assets/interior/in-03-section-heights.jpg",
+      "width": 2480,
+      "height": 1377,
+      "format": "JPEG",
+      "bytes": 174159,
+      "sha256": "99afe709ff5bdff64fda92a090cda865a796ddf28201e4d20563b1e8a2fe56a5",
+      "category": "conceptual rendering",
+      "visible": "Sectional view with storey heights: 4.0 m ground, 0.3 m slab, 3.0 m upper.",
+      "uncertain": "Roof build-up and services not shown.",
+      "proposedUse": "scene geometry reference",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "مقطع يوضح الارتفاعات",
+        "en": "Section showing storey heights"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "ex-04",
+      "file": "input-assets/exterior/ex-04-axo-front.jpg",
+      "width": 2480,
+      "height": 969,
+      "format": "JPEG",
+      "bytes": 161954,
+      "sha256": "85522e4e8bad617bc56fe105e248c8764d8e4ae18122eb8e5e9ce1039d28c797",
+      "category": "conceptual rendering",
+      "visible": "Massing model: orange steel columns, white slab, blue glazed volume on the upper level, dark floor.",
+      "uncertain": "Façade materials and entrance design are schematic.",
+      "proposedUse": "material / colour reference",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "منظور خارجي للمبنى",
+        "en": "Exterior massing view"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "ex-05",
+      "file": "input-assets/exterior/ex-05-axo-corner.jpg",
+      "width": 1918,
+      "height": 1753,
+      "format": "JPEG",
+      "bytes": 250104,
+      "sha256": "99aacdee1e5997ad0f427e59ee207632b4d505b2f143f48ca49cc908ef4d1b72",
+      "category": "conceptual rendering",
+      "visible": "Corner view of the two-storey frame with glazed upper volume and concrete service block.",
+      "uncertain": "Schematic; no signage or landscaping.",
+      "proposedUse": "material / colour reference",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "منظور من الزاوية",
+        "en": "Corner massing view"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "ex-06",
+      "file": "input-assets/exterior/ex-06-axo-stair-side.jpg",
+      "width": 2037,
+      "height": 1753,
+      "format": "JPEG",
+      "bytes": 264548,
+      "sha256": "0a7a9f5f1cf3ba2d3387ed3115b673ccebeb61ea1aaffd93c9dbc81b5a5168ba",
+      "category": "conceptual rendering",
+      "visible": "Stair side: straight-flight stairs, fair-faced concrete wall with door, upper partitions.",
+      "uncertain": "Stair landing arrangement is approximate.",
+      "proposedUse": "scene geometry reference (stairs)",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "منظور جهة الدرج",
+        "en": "Stair-side view"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "ex-07",
+      "file": "input-assets/exterior/ex-07-axo-entrance-side.jpg",
+      "width": 2102,
+      "height": 1753,
+      "format": "JPEG",
+      "bytes": 317802,
+      "sha256": "a96fc341bff3aaaf52aaef260b5101089bb93cbe03a35a6d05da74b7cac5cd7c",
+      "category": "conceptual rendering",
+      "visible": "Entrance side: stairs, doors on the upper level, door with vision panel at ground level.",
+      "uncertain": "Door model is a library placeholder.",
+      "proposedUse": "internal reference only",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "منظور جهة المدخل",
+        "en": "Entrance-side view"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "in-08",
+      "file": "input-assets/interior/in-08-hall-toward-mezzanine.jpg",
+      "width": 2480,
+      "height": 1377,
+      "format": "JPEG",
+      "bytes": 366032,
+      "sha256": "7621480398040e89297896820de0bdf4720add0769a5c83874a3a913d204994e",
+      "category": "conceptual rendering",
+      "visible": "Main hall looking at the mezzanine edge: concrete panel walls, orange columns, glazed upper level with bar frames visible behind the glass, exit door.",
+      "uncertain": "Equipment behind glass is indistinct.",
+      "proposedUse": "scene reference (hall, columns, upper-level equipment hint)",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "الصالة الرئيسية باتجاه الميزانين",
+        "en": "Main hall toward the mezzanine"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "in-09",
+      "file": "input-assets/interior/in-09-hall-toward-entrance.jpg",
+      "width": 2480,
+      "height": 1377,
+      "format": "JPEG",
+      "bytes": 371719,
+      "sha256": "e33769ed9e2743425abfb159909c7053719ad4734781754a5b2876262bb65424",
+      "category": "conceptual rendering",
+      "visible": "Main hall toward the service block and lobby opening.",
+      "uncertain": "Lobby finishes are schematic.",
+      "proposedUse": "scene reference",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "الصالة باتجاه المدخل",
+        "en": "Hall toward the entrance"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "in-10",
+      "file": "input-assets/interior/in-10-hall-under-void.jpg",
+      "width": 2480,
+      "height": 1377,
+      "format": "JPEG",
+      "bytes": 400397,
+      "sha256": "08ca8bdd81073372fa44c3ed423a10cd9c70dab6f221a049c5692b46c6fb131d",
+      "category": "conceptual rendering",
+      "visible": "Double-height hall under the void with free-standing columns.",
+      "uncertain": "—",
+      "proposedUse": "scene reference (double-height hall)",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "الصالة تحت الفراغ المفتوح",
+        "en": "Hall under the open void"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "in-11",
+      "file": "input-assets/interior/in-11-hall-stair-wall.jpg",
+      "width": 2480,
+      "height": 1377,
+      "format": "JPEG",
+      "bytes": 482174,
+      "sha256": "f659c99de5ea74f4b7c901113e8720d75e999268e2347b4bc24747e1832b4c0a",
+      "category": "conceptual rendering",
+      "visible": "Concrete wall with louvred door beside the stair soffit.",
+      "uncertain": "Door purpose unknown.",
+      "proposedUse": "internal reference only",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "جدار الدرج",
+        "en": "Stair wall"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "in-12",
+      "file": "input-assets/interior/in-12-lobby-door.jpg",
+      "width": 2480,
+      "height": 1377,
+      "format": "JPEG",
+      "bytes": 443219,
+      "sha256": "0fa25699ee25e0496643d2a80d617fcbb5324198b4e2903afc73003b5301212c",
+      "category": "conceptual rendering",
+      "visible": "Lobby: terrazzo-like floor, tiled partitions, view through to the hall; placeholder door carrying unrelated library signage.",
+      "uncertain": "Door model and its signage are placeholders, not design intent.",
+      "proposedUse": "internal reference only (must not be published)",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "الردهة",
+        "en": "Lobby"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "in-13",
+      "file": "input-assets/interior/in-13-hall-strip.jpg",
+      "width": 2480,
+      "height": 575,
+      "format": "JPEG",
+      "bytes": 123058,
+      "sha256": "0b629b73fcc84a1f04c5d6229fe1bcc0bd3b8484efdc268b5d524189df1d15d8",
+      "category": "conceptual rendering",
+      "visible": "Narrow strip view along the hall wall.",
+      "uncertain": "Low information.",
+      "proposedUse": "internal reference only",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "لقطة شريطية للصالة",
+        "en": "Hall strip view"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "in-14",
+      "file": "input-assets/interior/in-14-upper-track-lane.jpg",
+      "width": 2480,
+      "height": 1377,
+      "format": "JPEG",
+      "bytes": 178083,
+      "sha256": "c9247605025454e6318bd6e91f002c1e2591fd9f220853ad89dd4d0504c6b915",
+      "category": "conceptual rendering",
+      "visible": "Upper level: red two-lane running track with lane numbers between the glazed void and rooms.",
+      "uncertain": "Track surface and exact width unconfirmed.",
+      "proposedUse": "scene reference (track)",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "مسار الجري في الدور العلوي",
+        "en": "Upper-level running lane"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "in-15",
+      "file": "input-assets/interior/in-15-upper-deck-wall.jpg",
+      "width": 2480,
+      "height": 1377,
+      "format": "JPEG",
+      "bytes": 394073,
+      "sha256": "4bc81af20071c55e0624a0fa444dd31e55cc1bdb1aac9cd440ef322dfddab77d",
+      "category": "conceptual rendering",
+      "visible": "Upper deck: concrete wall with columns, dark screen wall and white counter.",
+      "uncertain": "Counter purpose unknown.",
+      "proposedUse": "scene reference (upper deck, counter)",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "جدار المنصة العلوية",
+        "en": "Upper deck wall"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "in-16",
+      "file": "input-assets/interior/in-16-upper-glazed-void.jpg",
+      "width": 2480,
+      "height": 1377,
+      "format": "JPEG",
+      "bytes": 349684,
+      "sha256": "8e0b5453d13b7a0d422b6d0d2b70cc5fcbc6129e2412924c5630a7c5d445748f",
+      "category": "conceptual rendering",
+      "visible": "Glazed enclosure around the void with the red track at its base.",
+      "uncertain": "Glazing height simplified in the site illustration (cut at 1.4 m).",
+      "proposedUse": "scene reference (glazing)",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "الحاجز الزجاجي حول الفراغ",
+        "en": "Glazed void edge"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "in-17",
+      "file": "input-assets/interior/in-17-upper-strip.jpg",
+      "width": 2480,
+      "height": 601,
+      "format": "JPEG",
+      "bytes": 90672,
+      "sha256": "3433e00dd81342d611e76b80ab3223b64426b5d3167e79bd0c147f15bcd14bc1",
+      "category": "conceptual rendering",
+      "visible": "Narrow strip view of the upper corridor partitions.",
+      "uncertain": "Low information.",
+      "proposedUse": "internal reference only",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "لقطة شريطية للدور العلوي",
+        "en": "Upper-level strip view"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "fp-18",
+      "file": "input-assets/floorplans/fp-18-upper-axo-top.jpg",
+      "width": 2404,
+      "height": 1753,
+      "format": "JPEG",
+      "bytes": 645568,
+      "sha256": "777422b09057538286a7aec116179c0b956c3df831292eab7773fe5ecffe9fdc",
+      "category": "conceptual rendering",
+      "visible": "Top-down axonometric of the upper level: changing cubicles, corridor, track loop (red), glazed void, open deck.",
+      "uncertain": "No furniture or equipment shown.",
+      "proposedUse": "scene geometry reference",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "منظور علوي للدور العلوي",
+        "en": "Top axonometric — upper level"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "fp-19",
+      "file": "input-assets/floorplans/fp-19-ground-axo-top.jpg",
+      "width": 2404,
+      "height": 1753,
+      "format": "JPEG",
+      "bytes": 580107,
+      "sha256": "0e8e21aca7aa09761d5e14caaf0fdc4782208def7037f0b378c32e54a4b67b15",
+      "category": "conceptual rendering",
+      "visible": "Top-down axonometric of the ground level: stairs, lobby (grey floor), tiled room (blue mosaic), open hall, columns, exit door.",
+      "uncertain": "Use of the tiled room is not stated.",
+      "proposedUse": "scene geometry reference",
+      "rights": "Supplied by the owner for this project (PDF \"reshape_sub._1\", 19 pages). Publication of the raw renders not approved.",
+      "publicUse": "not published — reference only",
+      "alt": {
+        "ar": "منظور علوي للدور الأرضي",
+        "en": "Top axonometric — ground level"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "brand-reshape-logo-red",
+      "file": "input-assets/brand/reshape-logo-red.png",
+      "width": 420,
+      "height": 140,
+      "format": "PNG",
+      "bytes": 7798,
+      "sha256": "7653759ec45d11343f749ea697b7a0d7071bdf9db394e6b7413802b585440a06",
+      "category": "official brand",
+      "visible": "Red mark + \"reshape\" wordmark, 420×140 PNG.",
+      "uncertain": "Low resolution; vector master not supplied.",
+      "proposedUse": "header/footer logo",
+      "rights": "Extracted from the owner's existing RESHAPE app in this repository (index.html). Owner to confirm as the approved logo and supply a vector master.",
+      "publicUse": "published (optimised copy in public/assets/brand)",
+      "alt": {
+        "ar": "شعار ريشيب",
+        "en": "RESHAPE logo"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "brand-reshape-mark-red",
+      "file": "input-assets/brand/reshape-mark-red.png",
+      "width": 180,
+      "height": 166,
+      "format": "PNG",
+      "bytes": 3083,
+      "sha256": "66e254720a66c01987e35b5412551d30ccf70ccd665cf0185aeffb6bdfe6f4b0",
+      "category": "official brand",
+      "visible": "Red mark only, 180×166 PNG.",
+      "uncertain": "Low resolution.",
+      "proposedUse": "favicon",
+      "rights": "Extracted from the owner's existing RESHAPE app in this repository (index.html). Owner to confirm as the approved logo and supply a vector master.",
+      "publicUse": "published (favicon)",
+      "alt": {
+        "ar": "رمز ريشيب",
+        "en": "RESHAPE mark"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "brand-reshape-wordmark-light",
+      "file": "input-assets/brand/reshape-wordmark-light.png",
+      "width": 340,
+      "height": 101,
+      "format": "PNG",
+      "bytes": 5772,
+      "sha256": "deb7d41a02f61f50388fb67a30d1c27a3f515f0fe38e5efbb0460d8d3ce75fe4",
+      "category": "official brand",
+      "visible": "Light wordmark on transparent background.",
+      "uncertain": "Low resolution.",
+      "proposedUse": "reserve (dark backgrounds)",
+      "rights": "Extracted from the owner's existing RESHAPE app in this repository (index.html). Owner to confirm as the approved logo and supply a vector master.",
+      "publicUse": "copied to public/assets/brand, currently unused",
+      "alt": {
+        "ar": "شعار ريشيب الفاتح",
+        "en": "RESHAPE light wordmark"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "id": "brand-reshape-seal-light",
+      "file": "input-assets/brand/reshape-seal-light.png",
+      "width": 240,
+      "height": 236,
+      "format": "PNG",
+      "bytes": 7185,
+      "sha256": "31467be709c32f788cd37fde905d867504b2fb6bce6599af31356430e4f3861a",
+      "category": "official brand",
+      "visible": "Circular seal with icons.",
+      "uncertain": "Meaning/approval unknown.",
+      "proposedUse": "internal reference only",
+      "rights": "Extracted from the owner's existing RESHAPE app in this repository (index.html). Owner to confirm as the approved logo and supply a vector master.",
+      "publicUse": "not published",
+      "alt": {
+        "ar": "ختم ريشيب",
+        "en": "RESHAPE seal"
+      },
+      "focalPoint": [
+        0.5,
+        0.5
+      ]
+    }
+  ],
+  "generated": [
+    {
+      "file": "public/assets/scenes/club-landscape-dark.svg",
+      "bytes": 37835,
+      "sha256": "f2218ef7ac5d2f2a4931f53eec807f7d50dbc4c48bf427bc7b229031f742a1ef",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/club-landscape-light.svg",
+      "bytes": 37835,
+      "sha256": "86e4512da5361869972dc1be9ad46f1cb45e120d03fa66fd66948a0203d07702",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/club-portrait-dark.svg",
+      "bytes": 37833,
+      "sha256": "4c150017487ed4eee1646faba973fc7ddfe343abca68e6c02eff99dee940d885",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/club-portrait-light.svg",
+      "bytes": 37833,
+      "sha256": "841e96aca53a475d346c1fbfab576c843b12f4de6e3bc644d625d8e5fd72d23b",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/level-ground-dark.svg",
+      "bytes": 24903,
+      "sha256": "41a8b326ecc03517a1c6a02a3c87d0182130e58a3528f655bd87e659568dcbed",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/level-ground-light.svg",
+      "bytes": 24903,
+      "sha256": "40bcc76cfbf48c2871c3520de4295b0335d330ddfad2035349456fee4227a9eb",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/level-upper-dark.svg",
+      "bytes": 15293,
+      "sha256": "1eba2af3b44b54e46c07adae3684ce7efaae6454bd4cc01aec112dae8a98eceb",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/level-upper-light.svg",
+      "bytes": 15293,
+      "sha256": "53e3682e0846393bd5795e48a2aa0e2efbc85c1ec5be617fc03da44f05448a74",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/zone-calisthenics-hall-dark.svg",
+      "bytes": 24908,
+      "sha256": "80c6f339c36eff4be841ac00ad6fbc341d3bc8d222379e421663f2f0c0437ed0",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/zone-calisthenics-hall-light.svg",
+      "bytes": 24908,
+      "sha256": "b68b373d8d22fc20973584dafc8184433fbf544f06a2d74fa19928852924ca1c",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/zone-changing-dark.svg",
+      "bytes": 15298,
+      "sha256": "7ad63a478fc4861703c546da2458d893e75d38a2a897644dcf212fa3ec2e6752",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/zone-changing-light.svg",
+      "bytes": 15298,
+      "sha256": "bbebab7c4701eb2953f5eb7fc8e74cb32a2c715b5754690bec61e39f14919c2b",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/zone-entrance-dark.svg",
+      "bytes": 24910,
+      "sha256": "973fc975089cdd12d4d958bbd7f4f943a056910c7ed37e99cff16b59439d954f",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/zone-entrance-light.svg",
+      "bytes": 24910,
+      "sha256": "16c9f735faf8cd99fac3cc42fea5d497f84990b70d22ee151377c30df4e18bc7",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/zone-kids-pavilion-dark.svg",
+      "bytes": 24907,
+      "sha256": "d500b79225b614ed26d29e989b24db81e5bba8cf034290c2fa20774e9f0da5c9",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/zone-kids-pavilion-light.svg",
+      "bytes": 24907,
+      "sha256": "cb66f340415841904d314f6bc3867fa66d6d60b8aa17f732b0c7c2d0235a5bf4",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/zone-performance-deck-dark.svg",
+      "bytes": 15296,
+      "sha256": "55af73f6a5150d306982a73bfc61bd23905b8e75cee23b15c842154dbf0a9056",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/zone-performance-deck-light.svg",
+      "bytes": 15296,
+      "sha256": "3589b0885e7b81c39b9ff9ecd5b81e3c088f431e0cedf79f4b89380768affdee",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/zone-track-loop-dark.svg",
+      "bytes": 15298,
+      "sha256": "92a19080e14a1686dca78359752270048c286b5e5c10427b57c2ac87cbc91aba",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    },
+    {
+      "file": "public/assets/scenes/zone-track-loop-light.svg",
+      "bytes": 15298,
+      "sha256": "5d9d53753d0bb91060e1b7fa0e61f2df19f2da363479abc17222d74d0ea57b77",
+      "category": "generated concept illustration",
+      "sourceAssetIds": [
+        "fp-01",
+        "fp-02",
+        "in-03",
+        "fp-18",
+        "fp-19"
+      ],
+      "generator": "scripts/build-scenes.ts",
+      "publicUse": "published with a concept label"
+    }
+  ]
+}

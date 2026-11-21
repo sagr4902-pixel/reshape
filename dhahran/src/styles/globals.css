@@ -1,0 +1,458 @@
+@import 'tailwindcss';
+
+/* Fonts: self-hosted subsets at stable URLs (so the critical ones can be preloaded); no
+   third-party requests. Families follow the owner's existing RESHAPE app: IBM Plex Sans Arabic,
+   Zain, Barlow Semi Condensed (all SIL OFL — licences in public/fonts). Each language downloads
+   only the faces it needs: Arabic pages never fetch the Latin semibold or condensed faces. */
+@font-face{font-family:'RS Text';src:url('/fonts/plex-ar-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:'RS Text';src:url('/fonts/plex-ar-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:'RS Text';src:url('/fonts/plex-lat-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'RS Text Latin';src:url('/fonts/plex-lat-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'RS Text Latin';src:url('/fonts/plex-lat-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'RS Display';src:url('/fonts/zain-ar-800.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:'RS Condensed';src:url('/fonts/barlow-lat-600.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2212,U+2215,U+FEFF,U+FFFD}
+
+@theme {
+  /* Colour — see docs/design-system.md for provenance */
+  --color-ink: #17181a;
+  --color-deep: #111113;
+  --color-coal: #202124;
+  --color-coal-2: #2a2b2f;
+  --color-paper: #f7f0e9;
+  --color-panel: #fcf7f2;
+  --color-sand: #e9ddd0;
+  --color-line: #dccfc4;
+  --color-line-dark: #3a3b40;
+  --color-mute: #645c55;
+  --color-mute-dark: #b4ada6;
+  --color-accent: #ff5420;
+  --color-accent-ink: #b8330c;
+  --color-steel: #e8822e;
+  --color-ok: #2f7d57;
+  --color-danger: #b23a21;
+
+  --font-sans: 'RS Text', 'Segoe UI', Tahoma, sans-serif;
+  --font-display: 'RS Display', 'RS Text', 'Segoe UI', Tahoma, sans-serif;
+  --font-latin: 'RS Condensed', 'RS Text Latin', 'Arial Narrow', sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+
+  --ease-move: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-tap: 150ms;
+  --dur-panel: 260ms;
+  --dur-camera: 560ms;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    overflow-x: clip;
+  }
+  /* Arabic pages: index numerals use the text face instead of fetching the condensed Latin face. */
+  html:lang(ar) { --font-latin: var(--font-sans); }
+  html:lang(en) body {
+    font-family: 'RS Text Latin', var(--font-sans);
+    line-height: 1.65;
+  }
+  /* A label written in the other language (the language switch) uses system fonts so one word
+     does not trigger a web-font download. */
+  .sys-font { font-family: system-ui, 'Segoe UI', Tahoma, sans-serif; }
+  h1, h2, h3, .display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 1.18;
+    text-wrap: balance;
+  }
+  :lang(en) :is(h1, h2, h3, .display) {
+    font-family: var(--font-latin);
+    font-weight: 600;
+    line-height: 1.02;
+    text-transform: uppercase;
+    letter-spacing: 0.005em;
+  }
+  p { text-wrap: pretty; }
+  a { text-underline-offset: 0.22em; }
+  :focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .on-dark :focus-visible, .on-dark:focus-visible { outline-color: #fff; }
+  ::selection { background: var(--color-accent); color: var(--color-ink); }
+  summary { cursor: pointer; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: clamp(1.1rem, 4vw, 2.5rem);
+  }
+  .sec { padding-block: clamp(3.5rem, 9vw, 7rem); }
+  .dark-sec { background: var(--color-ink); color: var(--color-paper); }
+  .lead { font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem); line-height: 1.85; }
+  .mute { color: var(--color-mute); }
+  .dark-sec .mute, .on-dark .mute { color: var(--color-mute-dark); }
+
+  .t-hero { font-size: clamp(3.4rem, 2rem + 8vw, 8rem); line-height: 1.08; }
+  :lang(en) .t-hero { font-size: clamp(3rem, 1.6rem + 7.4vw, 7.4rem); line-height: 0.95; }
+  .t-1 { font-size: clamp(2.3rem, 1.6rem + 3.4vw, 4.4rem); }
+  .t-2 { font-size: clamp(1.8rem, 1.4rem + 1.9vw, 3rem); }
+  .t-3 { font-size: clamp(1.35rem, 1.2rem + 0.7vw, 1.8rem); }
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-accent-ink);
+  }
+  .dark-sec .eyebrow, .on-dark .eyebrow { color: var(--color-accent); }
+  :lang(en) .eyebrow { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.82rem; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    min-height: 48px;
+    padding: 0.55rem 1.4rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 1.02rem;
+    line-height: 1.3;
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition: background-color var(--dur-tap), color var(--dur-tap), border-color var(--dur-tap), transform var(--dur-tap);
+    cursor: pointer;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn[aria-disabled='true'], .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+  .btn-primary { background: var(--color-accent); color: var(--color-ink); }
+  .btn-primary:hover { background: #ff6c3f; }
+  .btn-dark { background: var(--color-ink); color: var(--color-paper); }
+  .btn-dark:hover { background: #2a2b2f; }
+  .btn-line { border-color: currentColor; color: inherit; background: transparent; }
+  .btn-line:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
+  .link-arrow { font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--color-accent); }
+  .link-arrow:hover { text-decoration-color: currentColor; }
+  .arrow { display: inline-block; }
+  [dir='rtl'] .arrow { transform: scaleX(-1); }
+
+  /* The bar — signature line derived from a calisthenics bar: a rail with two posts. */
+  .bar {
+    position: relative;
+    height: 5px;
+    background: var(--color-accent);
+    border-radius: 3px;
+  }
+  .bar::before, .bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 5px;
+    height: 26px;
+    background: currentColor;
+    opacity: 0.35;
+    border-radius: 3px;
+  }
+  .bar::before { inset-inline-start: 12%; }
+  .bar::after { inset-inline-end: 12%; }
+
+  .rail {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .rail-no { font-family: var(--font-latin); font-size: 1.05rem; color: var(--color-accent-ink); direction: ltr; }
+  .dark-sec .rail-no { color: var(--color-accent); }
+  .rail-line { flex: 1; height: 2px; background: currentColor; opacity: 0.22; position: relative; }
+  .rail-line::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    top: -2px;
+    width: 44px;
+    height: 6px;
+    background: var(--color-accent);
+    opacity: 1;
+    border-radius: 3px;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.2rem 0.7rem;
+    border: 1.5px solid currentColor;
+    border-radius: 999px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    line-height: 1.6;
+  }
+  .concept-note {
+    font-size: 0.86rem;
+    line-height: 1.6;
+    color: var(--color-mute);
+    display: flex;
+    gap: 0.5em;
+    align-items: baseline;
+  }
+  .concept-note::before {
+    content: '';
+    flex: none;
+    width: 0.6em;
+    height: 0.6em;
+    border: 2px solid var(--color-steel);
+    transform: rotate(45deg) translateY(-0.05em);
+  }
+  .dark-sec .concept-note, .on-dark .concept-note { color: var(--color-mute-dark); }
+
+  .blueprint {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Forms */
+  .field label, .field legend { display: block; font-weight: 600; margin-bottom: 0.35rem; }
+  .input {
+    width: 100%;
+    min-height: 50px;
+    padding: 0.6rem 0.9rem;
+    background: #fff;
+    border: 1.5px solid #9a8f85;
+    border-radius: var(--radius-sm);
+    font: inherit;
+    color: var(--color-ink);
+  }
+  .input:hover { border-color: var(--color-ink); }
+  .input[aria-invalid='true'] { border-color: var(--color-danger); border-width: 2px; }
+  .field-error { color: var(--color-danger); font-size: 0.92rem; font-weight: 600; margin-top: 0.3rem; }
+  .field-hint { color: var(--color-mute); font-size: 0.9rem; margin-top: 0.3rem; }
+  .check { display: flex; gap: 0.75rem; align-items: flex-start; }
+  .check input { flex: none; width: 24px; height: 24px; margin-top: 0.3rem; accent-color: var(--color-ink); }
+
+  /* ── Explorer ─────────────────────────────────────────────────────────── */
+  .xp-viewport {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: var(--p-ar);
+    background: var(--color-deep);
+    border-radius: var(--radius-md);
+    direction: ltr; /* architecture is never mirrored */
+  }
+  .xp-stage {
+    position: absolute;
+    inset: 0;
+    transform-origin: 0 0;
+    transform: translate(var(--p-tx, 0%), var(--p-ty, 0%)) scale(var(--p-s, 1));
+    --inv: calc(1 / var(--p-s, 1));
+    transition: transform var(--dur-camera) var(--ease-move);
+  }
+  .xp-level {
+    position: absolute;
+    left: var(--p-l);
+    top: var(--p-t);
+    width: var(--p-w);
+    height: var(--p-h);
+  }
+  .xp-level img { display: block; width: 100%; height: 100%; user-select: none; }
+  .xp-level[data-level='upper'] { z-index: 2; }
+  @media (min-width: 800px) {
+    .xp-viewport { aspect-ratio: var(--l-ar); }
+    .xp-stage {
+      transform: translate(var(--l-tx, 0%), var(--l-ty, 0%)) scale(var(--l-s, 1));
+      --inv: calc(1 / var(--l-s, 1));
+    }
+    .xp-level { left: var(--l-l); top: var(--l-t); width: var(--l-w); height: var(--l-h); }
+  }
+  .xp-root[data-simple='true'] .xp-stage { transform: none; --inv: 1; transition: none; }
+  /* The 44 px target is centred exactly on the zone anchor; the label hangs beside it. */
+  .xp-hot {
+    position: absolute;
+    z-index: 3;
+    width: 44px;
+    height: 44px;
+    transform: translate(-50%, -50%) scale(var(--inv));
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--color-ink);
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    transition: transform var(--dur-camera) var(--ease-move), opacity var(--dur-panel);
+  }
+  .xp-hot-dot {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: var(--color-ink);
+    font-family: var(--font-latin);
+    font-size: 1.05rem;
+    box-shadow: 0 0 0 4px rgb(17 17 19 / 0.55);
+  }
+  /* Phones: visually hidden but still the link's accessible name. */
+  .xp-hot-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  @media (min-width: 800px) {
+    .xp-hot-label {
+      left: calc(100% + 2px);
+      top: 50%;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      clip-path: none;
+      transform: translateY(-50%);
+      background: var(--color-paper);
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      box-shadow: 0 2px 10px rgb(0 0 0 / 0.35);
+    }
+  }
+  .xp-hot:hover .xp-hot-dot, .xp-hot[aria-current='true'] .xp-hot-dot { background: #fff; }
+  .xp-hot[aria-current='true'] .xp-hot-dot { box-shadow: 0 0 0 4px var(--color-accent); }
+  .xp-stage[data-focused='true'] .xp-hot:not([aria-current='true']) { opacity: 0; visibility: hidden; }
+  .xp-root[data-simple='true'] .xp-stage[data-focused='true'] .xp-hot { opacity: 1; visibility: visible; }
+  .xp-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 46px;
+    padding: 0.3rem 0.95rem 0.3rem 0.4rem;
+    padding-inline: 0.4rem 0.95rem;
+    border: 1.5px solid var(--color-line-dark);
+    border-radius: 999px;
+    color: var(--color-paper);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    transition: background-color var(--dur-tap), border-color var(--dur-tap);
+  }
+  .xp-chip:hover { border-color: var(--color-paper); }
+  .xp-chip[aria-current='true'] { background: var(--color-paper); color: var(--color-ink); border-color: var(--color-paper); }
+  .xp-chip-no {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: var(--color-ink);
+    font-family: var(--font-latin);
+  }
+  .xp-ctrl {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.3rem 0.9rem;
+    border-radius: var(--radius-sm);
+    background: rgb(247 240 233 / 0.94);
+    color: var(--color-ink);
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .xp-ctrl:hover { background: #fff; }
+  .xp-panel-anim { animation: panel-in var(--dur-panel) var(--ease-move); }
+  @keyframes panel-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* Progression rail (calisthenics pathways) */
+  .prog {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(200px, 1fr);
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding-bottom: 0.75rem;
+    position: relative;
+  }
+  .prog > li { scroll-snap-align: start; position: relative; padding-top: 2.4rem; padding-inline-end: 1.4rem; }
+  .prog > li::before {
+    content: '';
+    position: absolute;
+    top: 0.75rem;
+    inset-inline: 0;
+    height: 4px;
+    background: var(--color-accent);
+  }
+  .prog > li::after {
+    content: '';
+    position: absolute;
+    top: 0.75rem;
+    inset-inline-start: 0;
+    width: 4px;
+    height: 1.4rem;
+    background: currentColor;
+    opacity: 0.4;
+  }
+  @media (min-width: 1100px) {
+    .prog { grid-auto-columns: 1fr; overflow: visible; }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+  .skip {
+    position: absolute;
+    inset-inline-start: 1rem;
+    top: -100px;
+    z-index: 100;
+    background: var(--color-accent);
+    color: var(--color-ink);
+    padding: 0.7rem 1.1rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+  }
+  .skip:focus { top: 1rem; }
+  .ltr { direction: ltr; unicode-bidi: isolate; }
+}

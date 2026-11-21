@@ -1,0 +1,324 @@
+{
+  "meta": {
+    "siteName": "RESHAPE Dhahran",
+    "titleDefault": "RESHAPE Dhahran — Calisthenics club and training programs for adults and kids",
+    "description": "RESHAPE Dhahran: calisthenics at the core, with programs for kids, hybrid endurance, functional training and football performance. Explore the club and register your interest."
+  },
+  "nav": {
+    "skip": "Skip to content",
+    "home": "Home",
+    "explore": "Explore the club",
+    "programs": "Programs",
+    "kids": "Kids",
+    "memberships": "Memberships",
+    "contact": "Contact",
+    "register": "Register interest",
+    "menu": "Menu",
+    "main": "Main navigation",
+    "switchLabel": "العربية",
+    "switchAria": "التحويل إلى العربية",
+    "logoAlt": "RESHAPE — home"
+  },
+  "common": {
+    "conceptNote": "Concept visualization — details may change before opening.",
+    "registerInterest": "Register interest",
+    "exploreClub": "Explore the club",
+    "viewPrograms": "Browse programs",
+    "viewProgram": "Program details",
+    "preopening": "Pre-opening",
+    "dhahran": "Dhahran",
+    "availability": {
+      "planned": "Planned program",
+      "confirmed": "Available",
+      "unconfirmed": "To be confirmed",
+      "paused": "Paused"
+    },
+    "levels": { "ground": "Ground level", "upper": "Upper level" },
+    "opensNewTab": "opens in a new tab",
+    "sceneAlt": {
+      "club": "Cutaway axonometric drawing of the two-level RESHAPE Dhahran building: calisthenics hall and kids pavilion on the ground level, running track and performance deck above.",
+      "calisthenics-hall": "Drawing of the calisthenics hall: high bars, parallel bars and rings between orange steel columns.",
+      "kids-pavilion": "Drawing of the kids pavilion: coloured soft flooring, a low balance beam and a coach beside a child.",
+      "entrance": "Drawing of the entrance, reception and stairs.",
+      "track-loop": "Drawing of the red running lane around the open void on the upper level.",
+      "performance-deck": "Drawing of the performance deck: training rig, turf sled lane and low hurdles.",
+      "changing": "Drawing of the changing rooms on the upper level."
+    }
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "RESHAPE Dhahran",
+      "title": "Your strength starts here",
+      "sub": "Calisthenics at the core, with training pathways for adults and kids. Discover RESHAPE Dhahran and register your interest.",
+      "stage": "The club is in its pre-opening stage. Register your interest to hear the details first."
+    },
+    "cal": {
+      "rail": "The core sport",
+      "title": "Calisthenics: your body is the equipment",
+      "body": "A bar, parallel bars, rings — and solid ground. We start from your current level and build strength and control one movement at a time.",
+      "pathwaysTitle": "Training directions",
+      "pathwaysNote": "Proposed pathways — not mandatory stages, and subject to change before opening.",
+      "cta": "About calisthenics"
+    },
+    "tour": {
+      "rail": "Club tour",
+      "title": "Two levels, six zones, and a track above the hall",
+      "body": "We drew the club from its plans: a double-height hall and a running lane that loops around the open void. Pick a zone to see what is planned for it.",
+      "cta": "Start the tour",
+      "zonesLabel": "Club zones"
+    },
+    "kids": {
+      "rail": "For kids",
+      "title": "A child who moves with confidence",
+      "body": "Kids programs are a priority here, not an add-on. Movement, balance, coordination and age-appropriate strength foundations in structured, coach-led training.",
+      "themesTitle": "What children train",
+      "parentTitle": "Questions parents ask",
+      "cta": "Ask about kids programs",
+      "more": "Kids programs page",
+      "guardianNote": "Registration is made by a parent or guardian. We ask for no information about the child at this stage."
+    },
+    "spectrum": {
+      "rail": "More programs",
+      "title": "More than one way to train",
+      "body": "Programs planned alongside calisthenics. Each has a clear purpose and a page that explains what to expect."
+    },
+    "membership": {
+      "rail": "Memberships",
+      "title": "Prices come later — interest is open now",
+      "body": "Dhahran membership prices have not been announced, and we will not show a provisional number. Register your interest and we will contact you when memberships are announced.",
+      "more": "Memberships page"
+    },
+    "philosophy": {
+      "rail": "Our approach",
+      "title": "Progress is built, not rushed",
+      "items": {
+        "one": { "t": "Start where you are", "d": "There is no required level to begin. Your starting point is agreed with you." },
+        "two": { "t": "Quality before difficulty", "d": "A well-executed movement today beats a rushed skill tomorrow." },
+        "three": { "t": "Your own pace", "d": "Everyone’s route is different. We promise no specific results or fixed timelines." }
+      }
+    },
+    "closing": {
+      "title": "The next step is simple",
+      "body": "Leave your name, mobile number and the program you are interested in. We will take it from there.",
+      "contact": "Or contact us"
+    }
+  },
+  "explore": {
+    "metaTitle": "Explore the club",
+    "metaDescription": "An interactive tour of RESHAPE Dhahran: calisthenics hall, kids pavilion, running track and performance deck.",
+    "title": "Explore the club",
+    "intro": "Pick a zone to move in and see the programs connected to it.",
+    "zonesNav": "Club zones",
+    "overview": "Whole club",
+    "back": "Back to overview",
+    "next": "Next zone",
+    "prev": "Previous zone",
+    "simpleOn": "Simple view",
+    "simpleOff": "Animated view",
+    "simpleHint": "Simple view turns off camera movement.",
+    "selected": "Selected zone: {zone}",
+    "overviewAnnounce": "Whole club overview",
+    "promptTitle": "Where to start?",
+    "promptBody": "Six zones on two levels. Select a number on the drawing or choose from the list.",
+    "programsHere": "Programs connected to this zone",
+    "basisLabel": "What is this drawing based on?",
+    "registerFor": "Register interest in {program}",
+    "registerGeneral": "Register interest",
+    "listTitle": "All zones as a list",
+    "listIntro": "The same content without the interactive drawing.",
+    "failed": "The interactive drawing could not be loaded. Every zone and program is available in the list below.",
+    "sceneLabel": "Interactive drawing of the club building",
+    "conceptLong": "The drawing is based on the building plans; the allocation of sports and equipment is a concept, not a final layout."
+  },
+  "programs": {
+    "metaTitle": "Programs",
+    "metaDescription": "RESHAPE Dhahran programs: calisthenics, kids, hybrid endurance, functional training, kids martial arts and football performance.",
+    "title": "Programs",
+    "intro": "Calisthenics first, with planned programs for adults and kids alongside it. Choose what interests you.",
+    "flagship": "The core sport",
+    "themes": "Training themes",
+    "benefits": "What you will find",
+    "audience": "Who it is for",
+    "faq": "Common questions",
+    "pathways": "Training directions",
+    "pathwaysNote": "Proposed pathways — not mandatory stages, and subject to change before opening.",
+    "zones": "Where in the club?",
+    "noZone": "No zone has been assigned to this program in the club concept yet.",
+    "seeInTour": "See it in the tour",
+    "boundaries": "Service boundaries",
+    "membershipTitle": "Membership",
+    "allPrograms": "All programs",
+    "status": "Status"
+  },
+  "kids": {
+    "metaTitle": "Kids programs",
+    "metaDescription": "Kids programs at RESHAPE Dhahran: movement, balance, coordination and age-appropriate strength foundations. Enquiries are made by a parent or guardian.",
+    "eyebrow": "Kids programs",
+    "title": "Movement first, then strength",
+    "howTitle": "What does a session look like?",
+    "how": {
+      "one": { "t": "Warm-up through play", "d": "Running, jumping and movement games that prepare the body and break the ice." },
+      "two": { "t": "Skill of the day", "d": "Balance, hanging or floor movement — at a progression that suits the group." },
+      "three": { "t": "A small challenge", "d": "One new attempt, so the child leaves knowing they moved forward." }
+    },
+    "howNote": "A general description of the coaching approach. The schedule and age groups will be announced before opening.",
+    "parentTitle": "Parents’ questions — answered plainly",
+    "dataTitle": "Your child’s data",
+    "dataBody": "When you register interest we ask only for the guardian’s name and mobile number. We do not ask for the child’s name, date of birth or any health information.",
+    "martialTitle": "Also planned: kids martial arts",
+    "cta": "Enquire as a guardian",
+    "zoneCta": "See the kids pavilion in the tour"
+  },
+  "football": {
+    "metaTitle": "Football performance",
+    "metaDescription": "Physical preparation for football players at RESHAPE Dhahran: strength, conditioning, mobility and movement quality, and return-to-play preparation within clear limits.",
+    "eyebrow": "Football performance",
+    "scopeTitle": "What we work on",
+    "boundTitle": "Service boundaries — stated clearly",
+    "processTitle": "How do we start?",
+    "process": {
+      "one": { "t": "Request a consultation", "d": "Leave your name and number. Do not send any medical information." },
+      "two": { "t": "We get in touch", "d": "We learn your position, your season and your goal." },
+      "three": { "t": "We suggest what fits", "d": "We explain what can be offered once the program format is confirmed." }
+    },
+    "cta": "Request a consultation"
+  },
+  "memberships": {
+    "metaTitle": "Memberships",
+    "metaDescription": "RESHAPE Dhahran memberships: prices will be announced later. Register your interest to receive the details when they are published.",
+    "title": "Memberships",
+    "intro": "This page shows only what is confirmed. Dhahran memberships are not on sale yet.",
+    "plansTitle": "Planned Dhahran memberships",
+    "includes": "Covers programs:",
+    "price": {
+      "pending": "Prices will be announced later",
+      "seeStore": "See the current price in the official store",
+      "taxIncluded": "VAT included",
+      "taxExcluded": "VAT not included"
+    },
+    "action": {
+      "purchase": "Continue to RESHAPE store",
+      "interest": "Register interest",
+      "unavailable": "Currently unavailable"
+    },
+    "factsTitle": "What we know now",
+    "facts": {
+      "price": { "k": "Prices", "v": "Not announced yet" },
+      "open": { "k": "Opening date", "v": "Not announced yet" },
+      "pay": { "k": "Payment", "v": "Through the official store once memberships go on sale" },
+      "now": { "k": "Available now", "v": "Registering interest" }
+    },
+    "storeTitle": "The existing RESHAPE store",
+    "storeBody": "RESHAPE has an official store with existing subscriptions. None of them has been confirmed as covering the Dhahran club, so we do not present them here as Dhahran memberships.",
+    "storeCta": "Visit the RESHAPE store",
+    "why": "Why is there no price? Because we do not publish a number before it is approved. Once prices are announced they will appear here with a link to subscribe through the official store."
+  },
+  "register": {
+    "metaTitle": "Register interest",
+    "metaDescription": "Register your interest in RESHAPE Dhahran programs. A short form: name, mobile number and the program you are interested in.",
+    "title": "Register your interest",
+    "intro": "This registers interest — it is not a booking or a paid membership. We contact you afterwards.",
+    "contextProgram": "You selected: {program}",
+    "contextChange": "You can change the program in the form.",
+    "requiredNote": "Required fields are marked (required).",
+    "required": "required",
+    "optional": "optional",
+    "name": { "label": "Your name", "labelGuardian": "Guardian’s name", "hint": "The adult we should contact." },
+    "phone": { "label": "Mobile number", "hint": "Saudi number, e.g. 0512345678" },
+    "program": { "label": "Program you are interested in", "help": "Help me choose" },
+    "intent": {
+      "label": "Type of request",
+      "general-interest": "General interest",
+      "program-inquiry": "Program enquiry",
+      "trial-request": "Trial session request",
+      "membership-consultation": "Membership consultation",
+      "preopening-updates": "Pre-opening updates"
+    },
+    "trialNote": "A trial request is not a confirmed booking. We contact you when times are available.",
+    "comment": { "label": "Notes", "hint": "Up to 500 characters. Please do not include medical or sensitive information." },
+    "privacy": { "label": "I have read the privacy notice and agree to my name and mobile number being used to respond to this request.", "link": "privacy notice" },
+    "marketing": { "label": "I would like to receive RESHAPE Dhahran news and offers by WhatsApp or SMS. (Optional — you can withdraw at any time)" },
+    "honeypot": "Leave this field empty",
+    "submit": "Send",
+    "submitting": "Sending…",
+    "errors": {
+      "summary": "The form was not sent. Please check:",
+      "name": "Enter your name (at least two letters, no digits).",
+      "phone": "Enter a valid Saudi mobile number, such as 0512345678.",
+      "program": "Choose a program or “Help me choose”.",
+      "intent": "Choose a type of request.",
+      "comment": "Notes are longer than 500 characters.",
+      "privacy": "You need to acknowledge the privacy notice to send the request.",
+      "network": "Could not connect. Your details are still in the form — please try again.",
+      "unavailable": "We could not save your request right now. Nothing was recorded. Try again shortly or contact us on WhatsApp.",
+      "rate": "Too many attempts. Please wait a little and try again.",
+      "conflict": "The request details changed while sending. Press “Send” again.",
+      "generic": "Something unexpected went wrong. Nothing was recorded. Please try again."
+    },
+    "success": {
+      "title": "Your interest has been received.",
+      "body": "We will contact you on the mobile number you provided.",
+      "again": "Send another request",
+      "explore": "Explore the club"
+    },
+    "unavailable": {
+      "title": "Registration is currently unavailable",
+      "body": "We are not accepting requests through this form right now, and we will not show a success message for a request that was not saved. You can reach RESHAPE through its official channels.",
+      "previewNote": "Developer note: registration is disabled because storage or privacy configuration is incomplete."
+    },
+    "noscript": "This form needs JavaScript. You can also reach RESHAPE on WhatsApp.",
+    "draftNotice": "Preview build: the privacy notice is still a draft."
+  },
+  "contact": {
+    "metaTitle": "Contact",
+    "metaDescription": "Contact RESHAPE Dhahran through official channels, or register your interest and the team will contact you.",
+    "title": "Contact us",
+    "intro": "The quickest route: register your interest and we will contact you. Or use RESHAPE’s official channels.",
+    "channelsTitle": "Official RESHAPE channels",
+    "channelsNote": "These are RESHAPE’s general channels as shown on the official store, not Dhahran-specific lines.",
+    "whatsapp": "WhatsApp",
+    "instagram": "Instagram",
+    "store": "Official store",
+    "locationTitle": "Location",
+    "locationBody": "The club is in Dhahran. The exact address and map location will be announced before opening.",
+    "hoursTitle": "Opening hours",
+    "hoursBody": "To be announced with the opening.",
+    "registerTitle": "Prefer that we contact you?"
+  },
+  "privacy": {
+    "metaTitle": "Privacy notice",
+    "metaDescription": "How the RESHAPE Dhahran website handles the information you send through the interest form.",
+    "title": "Privacy notice",
+    "version": "Version: {version}",
+    "draft": "Draft — not final. No real data is collected through this site in production until this notice is approved and a responsible contact is named.",
+    "s1": { "t": "Who we are", "p": "This website belongs to RESHAPE Dhahran, part of the RESHAPE brand (commercial registration {cr} as shown on the official store). The entity responsible for the data and its contact details are to be confirmed by RESHAPE management before launch." },
+    "s2": { "t": "What we collect", "items": { "a": "The adult’s name and mobile number.", "b": "The program you are interested in, the type of request, and your notes if you write any.", "c": "The page language and the zone or page you started from (non-personal identifiers).", "d": "Your choice about marketing messages, the time of submission and the version of this notice." } },
+    "s3": { "t": "What we do not collect", "p": "We do not ask for a child’s name or date of birth, national ID, health or medical information, payment details or an email address. We do not store your IP address with your request. Please do not write sensitive information in the notes field." },
+    "s4": { "t": "Why we use it", "p": "To respond to your request and contact you about the program you chose. We send marketing messages only if you agree in a separate box, and you can withdraw at any time." },
+    "s5": { "t": "Where it is kept and who sees it", "p": "Requests are stored in a database dedicated to this site and are seen only by authorised RESHAPE staff. We do not sell your data or share it for advertising. The hosting provider and storage location will be stated here once the production environment is approved." },
+    "s6": { "t": "How long we keep it", "p": "The proposed period is 90 days from the request, after which it is deleted unless you become a member or ask otherwise. This is a proposal subject to approval by RESHAPE management." },
+    "s7": { "t": "Your choices", "p": "You can ask to see, correct or delete your data, or withdraw your consent to marketing messages." },
+    "s7contact": "Privacy contact: {contact}",
+    "s7pending": "The contact for privacy requests will be published here before launch. Until then, RESHAPE’s official WhatsApp can be used.",
+    "s8": { "t": "Cookies and analytics", "p": "The site currently uses no analytics or advertising trackers and no non-essential cookies. Your “Simple view” preference for the tour is stored in your browser only." },
+    "s9": { "t": "The official store", "p": "Payment and subscription take place in the official RESHAPE store (reshape-sa.com), which has its own policies. This website does not process payments." },
+    "legal": "This notice describes what the site actually does. It is not a legal compliance certification."
+  },
+  "footer": {
+    "tagline": "RESHAPE Dhahran — calisthenics at the core.",
+    "explore": "Site",
+    "channels": "Official RESHAPE channels",
+    "privacy": "Privacy notice",
+    "rights": "© {year} RESHAPE. All rights reserved.",
+    "stage": "The club is in its pre-opening stage. Address and opening date will be announced later."
+  },
+  "errors": {
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "The link is incorrect or the page has moved.",
+    "errorTitle": "Something went wrong",
+    "errorBody": "We could not display this page. Please try again.",
+    "retry": "Try again",
+    "home": "Back to home",
+    "loading": "Loading…"
+  }
+}

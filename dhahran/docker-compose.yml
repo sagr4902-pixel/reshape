@@ -1,0 +1,14 @@
+# Local PostgreSQL for development and integration tests. Synthetic data only.
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: reshape
+      POSTGRES_PASSWORD: reshape_local_only
+      POSTGRES_DB: reshape_dev
+    ports:
+      - '54329:5432'
+    volumes:
+      - reshape_pg:/var/lib/postgresql/data
+volumes:
+  reshape_pg:

@@ -1,0 +1,164 @@
+{
+  "levels": {
+    "ground": {
+      "viewBox": [
+        -365,
+        -134,
+        914,
+        731
+      ]
+    },
+    "upper": {
+      "viewBox": [
+        -365,
+        -104,
+        914,
+        704
+      ]
+    }
+  },
+  "layouts": {
+    "landscape": {
+      "aspect": 1.4844,
+      "levels": {
+        "ground": {
+          "left": 0,
+          "top": 26.385,
+          "width": 62.008,
+          "height": 73.615
+        },
+        "upper": {
+          "left": 37.992,
+          "top": 0,
+          "width": 62.008,
+          "height": 70.896
+        }
+      },
+      "cameras": {
+        "calisthenics-hall": {
+          "s": 1.4922,
+          "tx": -1.904,
+          "ty": -52.145
+        },
+        "kids-pavilion": {
+          "s": 2.5725,
+          "tx": -20.504,
+          "ty": -72.021
+        },
+        "entrance": {
+          "s": 2.1243,
+          "tx": 25.535,
+          "ty": -80.971
+        },
+        "track-loop": {
+          "s": 1.9665,
+          "tx": -78.729,
+          "ty": -42.677
+        },
+        "performance-deck": {
+          "s": 2.1681,
+          "tx": -128.096,
+          "ty": -22.162
+        },
+        "changing": {
+          "s": 2.1984,
+          "tx": -74.434,
+          "ty": -4.87
+        }
+      }
+    },
+    "portrait": {
+      "aspect": 0.6972,
+      "levels": {
+        "ground": {
+          "left": 0,
+          "top": 44.241,
+          "width": 100,
+          "height": 55.759
+        },
+        "upper": {
+          "left": 0,
+          "top": 0,
+          "width": 100,
+          "height": 53.699
+        }
+      },
+      "cameras": {
+        "calisthenics-hall": {
+          "s": 1.069,
+          "tx": -9.965,
+          "ty": -31.355
+        },
+        "kids-pavilion": {
+          "s": 2.0598,
+          "tx": -41.04,
+          "ty": -73.966
+        },
+        "entrance": {
+          "s": 1.4838,
+          "tx": 22.442,
+          "ty": -55.284
+        },
+        "track-loop": {
+          "s": 1.3025,
+          "tx": -7.698,
+          "ty": 3.505
+        },
+        "performance-deck": {
+          "s": 1.579,
+          "tx": -62.432,
+          "ty": 10.193
+        },
+        "changing": {
+          "s": 1.5256,
+          "tx": 4.21,
+          "ty": 21.157
+        }
+      }
+    }
+  },
+  "zones": {
+    "calisthenics-hall": {
+      "level": "ground",
+      "anchor": [
+        45.051,
+        63.064
+      ]
+    },
+    "kids-pavilion": {
+      "level": "ground",
+      "anchor": [
+        43.345,
+        29.822
+      ]
+    },
+    "entrance": {
+      "level": "ground",
+      "anchor": [
+        23.448,
+        46.648
+      ]
+    },
+    "track-loop": {
+      "level": "upper",
+      "anchor": [
+        60.685,
+        82.315
+      ]
+    },
+    "performance-deck": {
+      "level": "upper",
+      "anchor": [
+        70.634,
+        47.159
+      ]
+    },
+    "changing": {
+      "level": "upper",
+      "anchor": [
+        25.437,
+        33.736
+      ]
+    }
+  }
+}

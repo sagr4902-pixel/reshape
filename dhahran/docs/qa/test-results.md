@@ -16,7 +16,7 @@ against a hosted deployment, the live store or real customers.
 | Integration (real PostgreSQL) | `npm run test:integration` | **25 / 25** passed |
 | End-to-end (production build) | `npm run test:e2e` | **91 passed, 1 skipped** (keyboard flow is desktop-only) of 92, across `desktop` 1440×900 and `mobile` Pixel 7 emulation |
 | Production build | `npm run build` | Pass; content pages prerendered per locale |
-| CI workflow | `.github/workflows/dhahran-ci.yml` | Observed green on GitHub for revision 1 (run 44885723226). A file cannot record the run of the commit that contains it — see the repository's Actions tab for later runs. |
+| CI workflow | `.github/workflows/dhahran-ci.yml` | Observed green on GitHub: revision 1 (run 44885723226) and revision 2 (run 44899391265 on commit `dafb2ab`: all checks, 91 E2E passed and 1 skipped, `npm audit` 0 vulnerabilities). A file cannot record the run of the commit that contains it — see the repository's Actions tab for later runs. |
 
 **Not run:** Firefox, WebKit/Safari, physical devices, screen-reader passes (NVDA/VoiceOver), load tests, any test
 against a deployed URL, dependency secret-scanning service. `npm audit` reported 0 vulnerabilities at install time.

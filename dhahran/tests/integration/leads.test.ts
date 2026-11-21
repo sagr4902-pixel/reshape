@@ -158,8 +158,10 @@ describe('staff operations', () => {
 describe('least-privilege web role (db/roles.sql)', () => {
   it('can submit leads but cannot read personal columns, update or delete', async () => {
     await pool.query(readFileSync('db/roles.sql', 'utf8'));
+    await pool.query("alter role reshape_web password 'integration_test_only'"); // servers with password auth (CI)
     const u = new URL(TEST_DB_URL);
     u.username = 'reshape_web';
+    u.password = 'integration_test_only';
     const web = new Pool({ connectionString: u.toString() });
     try {
       const wdb = drizzle(web, { schema });

@@ -63,4 +63,14 @@ describe('environment gates', () => {
   it('previews are never indexable', () => {
     expect(readEnv({ ...prod, APP_ENV: 'preview' }).indexable).toBe(false);
   });
+
+  it('on Vercel defaults to a non-indexed preview on the deployment address; explicit values win', () => {
+    const auto = readEnv({ VERCEL: '1', VERCEL_URL: 'reshape-abc.vercel.app', VERCEL_BRANCH_URL: 'reshape-git-demo.vercel.app' });
+    expect(auto.appEnv).toBe('preview');
+    expect(auto.siteUrl).toBe('https://reshape-git-demo.vercel.app');
+    expect(auto.indexable).toBe(false);
+    const explicit = readEnv({ VERCEL: '1', VERCEL_URL: 'x.vercel.app', APP_ENV: 'production', SITE_URL: 'https://example.sa' });
+    expect(explicit.appEnv).toBe('production');
+    expect(explicit.siteUrl).toBe('https://example.sa');
+  });
 });

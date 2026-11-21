@@ -23,9 +23,16 @@ const UNSAFE_SECRETS = new Set(['', 'replace-with-a-secure-development-value', '
 export type Env = ReturnType<typeof readEnv>;
 
 export function readEnv(source: Record<string, string | undefined> = process.env) {
-  const blankToUndefined = Object.fromEntries(
+  const blankToUndefined: Record<string, string | undefined> = Object.fromEntries(
     Object.entries(source).map(([k, v]) => [k, v === '' ? undefined : v]),
   );
+  // On Vercel, work without configuration: a non-indexed preview on the deployment's own address.
+  // Explicit APP_ENV / SITE_URL always win.
+  if (blankToUndefined.VERCEL === '1') {
+    const host = blankToUndefined.VERCEL_BRANCH_URL ?? blankToUndefined.VERCEL_URL;
+    blankToUndefined.APP_ENV ??= 'preview';
+    if (host) blankToUndefined.SITE_URL ??= `https://${host}`;
+  }
   const e = schema.parse(blankToUndefined);
   const siteUrl = e.SITE_URL.replace(/\/+$/, '');
   const hasDb = !!e.DATABASE_URL && !e.DATABASE_URL.includes('USER:PASSWORD');

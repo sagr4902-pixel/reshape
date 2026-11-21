@@ -1,0 +1,63 @@
+# CI for the RESHAPE Dhahran site (dhahran/). Uses an isolated PostgreSQL service with
+# dummy credentials; no external services, no production data.
+name: dhahran-ci
+on:
+  push:
+    paths: ['dhahran/**', '.github/workflows/dhahran-ci.yml']
+  pull_request:
+    paths: ['dhahran/**', '.github/workflows/dhahran-ci.yml']
+permissions:
+  contents: read
+concurrency:
+  group: dhahran-ci-${{ github.ref }}
+  cancel-in-progress: true
+defaults:
+  run:
+    working-directory: dhahran
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: reshape
+          POSTGRES_PASSWORD: ci_only_password
+          POSTGRES_DB: reshape_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U reshape" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgresql://reshape:ci_only_password@localhost:5432/reshape_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: dhahran/.nvmrc
+          cache: npm
+          cache-dependency-path: dhahran/package-lock.json
+      - run: npm ci
+      - name: Content, scenes, lint, types
+        run: |
+          npm run content:validate
+          npm run scenes:check
+          npm run lint
+          npm run typecheck
+      - name: Unit tests
+        run: npm test
+      - name: Integration tests (real PostgreSQL)
+        run: npm run test:integration
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+      - name: End-to-end tests (production build)
+        run: npm run test:e2e
+      - name: Dependency audit (informational)
+        run: npm audit --omit=dev --audit-level=high
+        continue-on-error: true
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-results
+          path: dhahran/test-results
+          retention-days: 7

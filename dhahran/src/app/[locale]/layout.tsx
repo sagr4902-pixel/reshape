@@ -6,6 +6,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing, dirOf, type Locale } from '@/i18n/routing';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { Reveal } from '@/components/motion/Reveal';
 import '@/styles/globals.css';
 
 export function generateStaticParams() {
@@ -40,6 +41,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
             {children}
           </main>
           <Footer locale={locale as Locale} />
+          <Reveal />
         </NextIntlClientProvider>
       </body>
     </html>

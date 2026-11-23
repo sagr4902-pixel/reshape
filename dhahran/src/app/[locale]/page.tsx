@@ -69,7 +69,19 @@ export default async function HomePage({ params }: Props) {
           </a>
         </div>
       </FacadeHero>
-      <div className="chevron-band" aria-hidden="true" />
+      <div className="chevron-band chevron-run" aria-hidden="true" />
+      {/* Moving strip of what the club is about (decorative: every item is said in full below) */}
+      <div className="marquee" aria-hidden="true">
+        <div className="marquee-track">
+          {[0, 1].map((k) => (
+            <ul key={k}>
+              {[...sports.map((p) => p.shortTitle[locale]), t('program.rail'), t('hybrid.rail'), t('zone.items.one.t'), t('juice.rail')].map((x) => (
+                <li key={x}>{x}</li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </div>
 
       {/* 2 — Who we are */}
       <section id="about" className="sec scroll-mt-20" aria-labelledby="about-h">

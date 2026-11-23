@@ -735,8 +735,6 @@
   @keyframes live-dot { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.6); opacity: 0.45; } }
   @keyframes offer-glow { 0%, 100% { box-shadow: 0 0 0 0 rgb(255 84 32 / 0), 0 0 24px rgb(255 84 32 / 0.12); } 50% { box-shadow: 0 0 0 6px rgb(255 84 32 / 0.14), 0 0 48px rgb(255 84 32 / 0.3); } }
   @keyframes offer-breathe { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.12); } }
-  .chevron-run { animation: chevron-run 1.2s linear infinite; }
-  @keyframes chevron-run { to { background-position-x: 36px; } }
 
   /* Bar that follows the reader with the time left */
   .offer-bar {
@@ -755,13 +753,53 @@
   .offer-bar-cta { flex: none; min-height: 44px; padding-block: 0.4rem; }
   @media (max-width: 479px) { .offer-bar-title { font-size: 0.92rem; } .offer-bar-cta { padding-inline: 0.9rem; font-size: 0.95rem; } }
 
-  /* Sections rise into place as they scroll in; teaser images settle from a slight zoom. Browsers without scroll timelines show everything at rest. */
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      main > .sec > .wrap, main > .sec > .wrap + .wrap { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 32%; }
-      .teaser img { animation: settle linear both; animation-timeline: view(); animation-range: entry 0% cover 55%; }
-    }
+  /* ── Motion ─────────────────────────────────────────────────────────────
+     Everything below is decoration: with "reduce motion" none of it runs, and
+     without JavaScript nothing starts hidden. */
+  .marquee { overflow: hidden; background: var(--color-ink); color: var(--color-paper); border-bottom: 1px solid var(--color-line-dark); direction: ltr; }
+  .marquee-track { display: flex; width: max-content; animation: marquee 32s linear infinite; }
+  .marquee ul { display: flex; flex: none; margin: 0; padding: 0; list-style: none; }
+  .marquee li { display: flex; align-items: center; gap: 1.6rem; padding: 0.9rem 0.8rem; font-family: 'RS Display', 'RS Condensed', sans-serif; font-size: clamp(1.15rem, 2.4vw, 1.7rem); font-weight: 800; text-transform: uppercase; white-space: nowrap; }
+  .marquee li::after { content: ''; width: 0.55rem; height: 0.55rem; background: var(--color-accent); transform: rotate(45deg); }
+  .marquee li:nth-child(even) { color: var(--color-accent); }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @keyframes chevron-run { to { background-position-x: 36px; } }
+  @keyframes rise { from { opacity: 0; transform: translateY(36px); } to { opacity: 1; transform: none; } }
+  @keyframes pop { from { opacity: 0; transform: translateY(22px) scale(0.96); } to { opacity: 1; transform: none; } }
+  @keyframes kenburns { from { transform: scale(1.08); } to { transform: scale(1); } }
+  @keyframes drift { from { transform: scale(1.04) translate3d(-1.2%, 0, 0); } to { transform: scale(1.14) translate3d(1.2%, -1%, 0); } }
+  @keyframes sheen { 0%, 70% { transform: translateX(-130%) skewX(-20deg); } 100% { transform: translateX(330%) skewX(-20deg); } }
+  @keyframes grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Hero: the facade settles, the lettering arrives line by line */
+    .facade-img { animation: kenburns 7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .facade-copy > * { animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+    .facade-copy > :nth-child(1) { animation-delay: 0.15s; }
+    .facade-copy > :nth-child(2) { animation-delay: 0.28s; }
+    .facade-copy > :nth-child(3) { animation-delay: 0.42s; transform-origin: right; }
+    .facade-copy > :nth-child(4) { animation-delay: 0.5s; }
+    .facade-copy > :nth-child(5) { animation-delay: 0.64s; }
+    .facade-copy > :nth-child(n + 6) { animation-delay: 0.78s; }
+    .chevron-band { animation: chevron-run 1.4s linear infinite; }
+
+    /* Scroll reveals (see components/motion/Reveal.tsx) */
+    .motion [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .motion [data-reveal][data-in] { opacity: 1; transform: none; }
+    .motion [data-reveal] > li, .motion [data-reveal] > ul > li, .motion [data-reveal] > ol > li { opacity: 0; }
+    .motion [data-reveal][data-in] > li, .motion [data-reveal][data-in] > ul > li, .motion [data-reveal][data-in] > ol > li { animation: pop 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(0.12s + var(--i, 0) * 0.09s); }
+
+    /* Teasers drift slowly, like a camera that will not show the whole room */
+    .teaser img { animation: drift 16s ease-in-out infinite alternate; }
+    .teaser::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(100deg, transparent 40%, rgb(255 255 255 / 0.14) 50%, transparent 60%); animation: sheen 7s ease-in-out infinite; }
+
+    /* Calls to action */
+    .btn-primary { position: relative; overflow: hidden; }
+    .btn-primary::after { content: ''; position: absolute; inset-block: 0; inset-inline-start: 0; width: 35%; pointer-events: none; background: linear-gradient(100deg, transparent, rgb(255 255 255 / 0.35), transparent); animation: sheen 4.5s ease-in-out infinite; }
+    .btn { transition: transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0) scale(0.98); }
+    a.group { transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.2s; }
+    a.group:hover { transform: translateY(-6px); }
   }
-  @keyframes rise { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
-  @keyframes settle { from { transform: scale(1.22); } to { transform: scale(1); } }
 }

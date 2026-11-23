@@ -112,11 +112,11 @@ export const programs: Program[] = [
     slug: 'hybrid-endurance',
     route: '/programs/hybrid-endurance',
     internalTags: ['hyrox'],
-    title: { ar: 'القوة والتحمّل', en: 'Hybrid Endurance' },
-    shortTitle: { ar: 'القوة والتحمّل', en: 'Hybrid Endurance' },
+    title: { ar: 'هايروكس', en: 'HYROX' },
+    shortTitle: { ar: 'هايروكس', en: 'HYROX' },
     summary: {
-      ar: 'تدريب يجمع الجري مع محطات القوة والتحمّل لمن يريد لياقة شاملة تتحمّل الجهد الطويل.',
-      en: 'Training that combines running with strength-endurance stations for all-round fitness that holds up under sustained effort.',
+      ar: 'تدريب الهايروكس: جري ومحطات قوة وتحمّل لمن يريد لياقة شاملة تتحمّل الجهد الطويل.',
+      en: 'HYROX training: running and strength-endurance stations for all-round fitness that holds up under sustained effort.',
     },
     positioning: {
       ar: 'جري، سحب، دفع وحمل — في جلسات منظّمة تتدرّج في الشدّة. مناسب لمن يستعد لسباقات اللياقة الهجينة أو يريد تحدّيًا يجمع القوة والنَّفَس.',
@@ -137,8 +137,8 @@ export const programs: Program[] = [
     membershipIds: ['dhahran-adult'],
     faqs: [
       {
-        q: { ar: 'هل البرنامج تابع لجهة سباقات معيّنة؟', en: 'Is the program affiliated with a specific race organiser?' },
-        a: { ar: 'لا. هذا برنامج تدريبي خاص بريشيب للقوة والتحمّل، وليس برنامجًا معتمدًا من أي جهة منظِّمة للسباقات.', en: 'No. This is RESHAPE’s own strength-endurance training program and is not an accredited program of any race organiser.' },
+        q: { ar: 'هل النادي معتمد رسميًا من هايروكس؟', en: 'Is the club an official HYROX training club?' },
+        a: { ar: 'تفاصيل الاعتماد الرسمي تُعلن قبل الافتتاح.', en: 'Details of official affiliation will be announced before opening.' },
       },
       {
         q: { ar: 'هل يناسب المبتدئين؟', en: 'Is it suitable for beginners?' },
@@ -154,11 +154,11 @@ export const programs: Program[] = [
     slug: 'functional-training',
     route: '/programs/functional-training',
     internalTags: ['crossfit'],
-    title: { ar: 'التدريب الوظيفي', en: 'Functional Training' },
-    shortTitle: { ar: 'التدريب الوظيفي', en: 'Functional Training' },
+    title: { ar: 'كروس فيت', en: 'CrossFit' },
+    shortTitle: { ar: 'كروس فيت', en: 'CrossFit' },
     summary: {
-      ar: 'حصص جماعية متنوّعة تجمع القوة واللياقة والحركة الوظيفية بشدّة تناسب كل مستوى.',
-      en: 'Varied group sessions combining strength, conditioning and functional movement at an intensity that fits each level.',
+      ar: 'حصص كروس فيت جماعية متنوّعة تجمع القوة واللياقة والحركة بشدّة تناسب كل مستوى.',
+      en: 'Varied CrossFit group sessions combining strength, conditioning and movement at an intensity that fits each level.',
     },
     positioning: {
       ar: 'رفع وحمل وقفز وسحب — حركات نستخدمها في الحياة، مرتّبة في جلسات قصيرة ومركّزة. التقنية أولًا ثم الشدّة.',
@@ -179,8 +179,8 @@ export const programs: Program[] = [
     membershipIds: ['dhahran-adult'],
     faqs: [
       {
-        q: { ar: 'هل هذا برنامج معتمد من علامة تجارية عالمية؟', en: 'Is this an affiliate program of a global brand?' },
-        a: { ar: 'لا. هو برنامج تدريب وظيفي خاص بريشيب.', en: 'No. It is RESHAPE’s own functional training program.' },
+        q: { ar: 'هل النادي معتمد رسميًا من كروس فيت؟', en: 'Is the club an official CrossFit affiliate?' },
+        a: { ar: 'تفاصيل الاعتماد الرسمي تُعلن قبل الافتتاح.', en: 'Details of official affiliation will be announced before opening.' },
       },
     ],
     ctaIntent: 'program-inquiry',

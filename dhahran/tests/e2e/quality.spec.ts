@@ -159,7 +159,7 @@ test.describe('site quality', () => {
     expect(urls.size).toBeGreaterThan(3);
     for (const u of urls) {
       const js = await (await request.get(u)).text();
-      expect(js, u).not.toMatch(/amountMinor|publishApproved|branchEvidence|internalTags|hyrox|crossfit|Dammam|three-months-gym|Product page states/i);
+      expect(js, u).not.toMatch(/amountMinor|publishApproved|branchEvidence|internalTags|Dammam|three-months-gym|Product page states/i);
     }
   });
 });

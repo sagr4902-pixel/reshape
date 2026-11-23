@@ -2,7 +2,7 @@
   "meta": {
     "siteName": "RESHAPE Dhahran",
     "titleDefault": "RESHAPE Dhahran — Calisthenics club and training programs for adults and kids",
-    "description": "RESHAPE Dhahran: calisthenics at the core, with programs for kids, hybrid endurance, functional training and football performance. Explore the club and register your interest."
+    "description": "RESHAPE Dhahran: calisthenics, HYROX and CrossFit, with a program of your own and a community that pushes you forward. Meet the club and the Success Partners offer."
   },
   "nav": {
     "skip": "Skip to content",
@@ -37,7 +37,7 @@
     "hero": {
       "eyebrow": "RESHAPE Dhahran",
       "title": "Your strength starts here",
-      "sub": "A training club in Dhahran that brings calisthenics, functional training and strength-endurance together — with a program of your own and a community that pushes you forward.",
+      "sub": "A training club in Dhahran that brings calisthenics, HYROX and CrossFit together — with a program of your own and a community that pushes you forward.",
       "stage": "The club is in its pre-opening stage.",
       "facadeLabel": "The club facade",
       "ctaOffer": "See the offer",
@@ -82,7 +82,7 @@
     "hybrid": {
       "rail": "Hybrid",
       "title": "Hybrid: sport as a way of life",
-      "body": "For those who want it all: a considered mix of the three sports — strength, fitness and skill — that takes you to your athletic goal and makes training part of your day.",
+      "body": "For those who want it all: a considered mix of the three sports — calisthenics, HYROX and CrossFit — that takes you to your athletic goal and makes training part of your day.",
       "tag": "A mix of the three sports"
     },
     "zone": {
@@ -145,12 +145,14 @@
       "currency": "SAR",
       "soonTitle": "The offer will be announced soon",
       "soonBody": "Register your interest to be the first to know.",
-      "teaserNote": "Glimpses from the club's designs — details may change before opening."
+      "teaserNote": "Glimpses from the club's designs — details may change before opening.",
+      "ctaInterest": "Reserve your place in the offer",
+      "pendingNote": "The offer price and the subscription link will be added here soon. Register now and we will contact you first."
     }
   },
   "programs": {
     "metaTitle": "Programs",
-    "metaDescription": "RESHAPE Dhahran programs: calisthenics, kids, hybrid endurance, functional training, kids martial arts and football performance.",
+    "metaDescription": "RESHAPE Dhahran programs: calisthenics, HYROX, CrossFit, kids, kids martial arts and football performance.",
     "title": "Programs",
     "intro": "Calisthenics first, with planned programs for adults and kids alongside it. Choose what interests you.",
     "flagship": "The core sport",

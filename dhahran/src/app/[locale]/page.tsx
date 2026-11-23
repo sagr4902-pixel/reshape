@@ -40,7 +40,7 @@ export default async function HomePage({ params }: Props) {
   const e = env();
   const preopening = e.launchStage === 'preopening';
   const state = offerState(offer, e.appEnv);
-  const sports = ['calisthenics', 'functional-training', 'hybrid-endurance'].map((id) => programById(id)!);
+  const sports = ['calisthenics', 'hybrid-endurance', 'functional-training'].map((id) => programById(id)!);
   const arrow = <span className="arrow" aria-hidden="true">→</span>;
   const tick = <span aria-hidden="true" className="mt-[0.72em] h-[3px] w-4 flex-none bg-accent" />;
   const price = (n: number) => new Intl.NumberFormat('en-US').format(n);
@@ -290,16 +290,18 @@ export default async function HomePage({ params }: Props) {
                     {t('offer.draftNote')}
                   </p>
                 )}
-                <p className="offer-price">
-                  <span className="sr-only">{t('offer.priceLabel')}: </span>
-                  <span className="offer-amount ltr">{state.kind === 'live' ? price(state.priceSar) : '—'}</span>
-                  <span className="offer-currency">{t('offer.currency')}</span>
-                  {state.kind === 'live' && state.originalPriceSar && (
-                    <span className="offer-was">
-                      {t('offer.wasLabel')} <s className="ltr">{price(state.originalPriceSar)}</s>
-                    </span>
-                  )}
-                </p>
+                {state.kind !== 'announced' && (
+                  <p className="offer-price">
+                    <span className="sr-only">{t('offer.priceLabel')}: </span>
+                    <span className="offer-amount ltr">{state.kind === 'live' ? price(state.priceSar) : '—'}</span>
+                    <span className="offer-currency">{t('offer.currency')}</span>
+                    {state.kind === 'live' && state.originalPriceSar && (
+                      <span className="offer-was">
+                        {t('offer.wasLabel')} <s className="ltr">{price(state.originalPriceSar)}</s>
+                      </span>
+                    )}
+                  </p>
+                )}
                 <Countdown
                   endsAt={state.endsAt}
                   labels={{ title: t('offer.endsIn'), days: t('offer.days'), hours: t('offer.hours'), minutes: t('offer.minutes'), seconds: t('offer.seconds') }}
@@ -313,15 +315,24 @@ export default async function HomePage({ params }: Props) {
                   }
                 >
                   {state.kind === 'live' ? (
-                    <ExternalLink href={state.payUrl} event="membership_outbound_click" location="home-offer" className="btn btn-primary w-full justify-center text-[1.1rem]">
-                      {t('offer.cta')} {arrow}
-                    </ExternalLink>
+                    <>
+                      <ExternalLink href={state.payUrl} event="membership_outbound_click" location="home-offer" className="btn btn-primary w-full justify-center text-[1.1rem]">
+                        {t('offer.cta')} {arrow}
+                      </ExternalLink>
+                      <p className="mt-3 text-[0.9rem] text-[#b9b2ab]">{t('offer.storeNote')}</p>
+                    </>
+                  ) : state.kind === 'announced' ? (
+                    <>
+                      <Link href={registerHref({ intent: 'membership-consultation', src: 'home' })} className="btn btn-primary w-full justify-center text-[1.1rem]" data-testid="offer-cta-interest">
+                        {t('offer.ctaInterest')} {arrow}
+                      </Link>
+                      <p className="mt-3 text-[0.9rem] text-[#b9b2ab]">{t('offer.pendingNote')}</p>
+                    </>
                   ) : (
                     <span className="btn btn-primary w-full justify-center text-[1.1rem]" aria-disabled="true" data-testid="offer-cta-sample">
                       {t('offer.cta')} {arrow}
                     </span>
                   )}
-                  <p className="mt-3 text-[0.9rem] text-[#b9b2ab]">{t('offer.storeNote')}</p>
                 </Countdown>
               </div>
             </div>

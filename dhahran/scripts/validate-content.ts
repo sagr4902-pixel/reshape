@@ -46,9 +46,8 @@ export function validateAll(now = new Date()) {
     if (!designImages[p.imageId]) err(`program ${p.id}: unknown design image ${p.imageId}`);
     if (p.themes.ar.length !== p.themes.en.length) err(`program ${p.id}: themes differ in length between locales`);
     if (p.benefits.ar.length !== p.benefits.en.length) err(`program ${p.id}: benefits differ in length between locales`);
-    // Brand-use rule: protected names never appear in public copy.
-    const publicText = JSON.stringify([p.title, p.shortTitle, p.summary, p.positioning, p.themes, p.benefits, p.audienceNote]);
-    if (/crossfit|كروس ?فت|hyrox|هايروكس/i.test(publicText)) err(`program ${p.id}: protected brand name in public copy`);
+    // HYROX and CrossFit are named publicly on the owner's instruction (23 Nov 2026). The right to use those
+    // names commercially is the owner's to hold; the copy states no affiliation.
   }
   for (const w of pathways) if (!programIds.has(w.programId)) err(`pathway ${w.id}: unknown program ${w.programId}`);
 

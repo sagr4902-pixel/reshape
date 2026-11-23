@@ -37,7 +37,10 @@ describe('content integrity', () => {
   });
 
   it('the offer is never sold without real terms: a draft shows only as a preview sample, production shows nothing', () => {
-    expect(offerState(offer, 'production').kind).toBe(offer.status === 'live' ? 'live' : 'none');
+    expect(offer.status === 'live' || offer.payUrl === null).toBe(true); // a payment link only with a live offer
+    const announced = { ...offer, status: 'announced' as const, endsAt: '2030-01-01T00:00:00+03:00' };
+    expect(offerState(announced, 'production', new Date('2029-12-01T00:00:00Z')).kind).toBe('announced');
+    expect(offerState(announced, 'production', new Date('2030-01-02T00:00:00Z')).kind).toBe('none'); // ended
     const draft = { ...offer, status: 'draft' as const };
     expect(offerState(draft, 'preview').kind).toBe('sample');
     expect(offerState(draft, 'production').kind).toBe('none');
@@ -64,7 +67,6 @@ describe('content integrity', () => {
     for (const f of files) {
       const text = readFileSync(f, 'utf8');
       expect(text, f).not.toMatch(/399|549|449|599|649/); // illustrative ranges from the internal worksheet
-      expect(text, f).not.toMatch(/crossfit|hyrox|كروسفت|هايروكس/i);
     }
   });
 });

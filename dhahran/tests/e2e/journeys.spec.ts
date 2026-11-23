@@ -50,11 +50,13 @@ for (const l of LOCALES) {
       expect(Object.keys(rows[0]).join()).not.toMatch(/child|birth|email|ip|agent/);
     });
 
-    test('C — hybrid athlete: program-specific inquiry stored; no affiliation claim', async ({ page }, info) => {
+    test('C — HYROX athlete: program-specific inquiry stored; no affiliation claim', async ({ page }, info) => {
       await page.goto(`/${l}/programs/hybrid-endurance`);
-      await expect(page.locator('h1')).toContainText(l === 'ar' ? 'القوة والتحمّل' : 'Hybrid Endurance');
+      await expect(page.locator('h1')).toContainText(l === 'ar' ? 'هايروكس' : 'HYROX');
       const text = await page.locator('body').innerText();
-      expect(text).not.toMatch(/hyrox|هايروكس|crossfit|كروس ?فت/i);
+      expect(text).toMatch(/hyrox|هايروكس/i);
+      // the name is used, but official affiliation is stated as not yet announced — never claimed
+      expect(await page.locator('main').textContent()).toContain(l === 'ar' ? 'تفاصيل الاعتماد الرسمي تُعلن قبل الافتتاح' : 'Details of official affiliation will be announced before opening'); // inside a collapsed FAQ answer
       await page.getByTestId('program-cta').click();
       await expect(page).toHaveURL(/program=hybrid-endurance/);
       const phone = testPhone(info.workerIndex);
@@ -92,18 +94,19 @@ for (const l of LOCALES) {
       await expect(page.locator('#offer')).toBeInViewport();
     });
 
-    test('F — the offer: countdown runs; without real terms it is a marked sample that cannot be bought', async ({ page }) => {
+    test('F — the offer: real name and countdown; no price or payment link is shown until the owner supplies them', async ({ page }) => {
       await page.goto(`/${l}#offer`);
       const offer = page.locator('#offer');
-      await expect(offer).toHaveAttribute('data-offer', 'sample');
-      await expect(page.getByTestId('offer-draft')).toBeVisible();
+      await expect(offer).toHaveAttribute('data-offer', 'announced');
+      await expect(offer.locator('h2')).toHaveText(l === 'ar' ? 'عرض شركاء النجاح' : 'The Success Partners offer');
+      await expect(page.getByTestId('offer-draft')).toHaveCount(0);
       const timer = page.getByTestId('offer-countdown');
       await expect(timer).toHaveAttribute('data-ready', 'true');
       const first = await timer.innerText();
       await expect.poll(() => timer.innerText()).not.toBe(first);
-      // no payment link exists until the owner supplies one
+      await expect(offer.locator('.offer-price')).toHaveCount(0);
       await expect(offer.locator('a[href*="reshape-sa.com"]')).toHaveCount(0);
-      await expect(page.getByTestId('offer-cta-sample')).toHaveAttribute('aria-disabled', 'true');
+      await expect(page.getByTestId('offer-cta-interest')).toHaveAttribute('href', `/${l}/register?intent=membership-consultation&src=home`);
     });
 
     test('G — the club is not shown from inside: no tour, map or full renders', async ({ page, request }) => {

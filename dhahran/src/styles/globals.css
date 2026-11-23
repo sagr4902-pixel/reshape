@@ -711,8 +711,57 @@
   .offer-amount { font-family: var(--font-latin); font-size: clamp(2.6rem, 8vw, 4.2rem); font-weight: 700; line-height: 1; color: var(--color-paper); }
   .offer-currency { font-size: 1.15rem; font-weight: 600; }
   .offer-was { flex-basis: 100%; color: #b9b2ab; }
-  .countdown { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; direction: ltr; }
-  .countdown-cell { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; padding: 0.9rem 0.25rem; border-radius: var(--radius-sm); background: var(--color-deep); border: 1px solid var(--color-line-dark); }
-  .countdown-num { font-family: var(--font-latin); font-size: clamp(1.7rem, 6vw, 2.6rem); font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; color: var(--color-accent); }
-  .countdown-label { font-size: 0.85rem; color: #d8d1ca; }
+  .offer { position: relative; overflow: hidden; }
+  .offer::before {
+    content: '';
+    position: absolute;
+    inset: -30% -10% auto;
+    height: 80%;
+    pointer-events: none;
+    background: radial-gradient(closest-side, rgb(255 84 32 / 0.2), transparent 70%);
+    animation: offer-breathe 5s ease-in-out infinite;
+  }
+  .offer > .wrap { position: relative; }
+  .offer-card { animation: offer-glow 2.6s ease-in-out infinite; }
+  .countdown-title { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; font-size: 1.1rem; color: var(--color-accent); }
+  .countdown-live { flex: none; width: 0.65rem; height: 0.65rem; border-radius: 50%; background: var(--color-accent); animation: live-dot 1s ease-in-out infinite; }
+  .countdown { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(0.4rem, 1.5vw, 0.8rem); direction: ltr; }
+  .countdown-cell { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: clamp(0.8rem, 2.5vw, 1.3rem) 0.25rem; border-radius: var(--radius-md); background: var(--color-deep); border: 1px solid var(--color-line-dark); }
+  .countdown-cell[data-unit='s'] { border-color: var(--color-accent); }
+  .countdown-window { display: block; overflow: hidden; line-height: 1; }
+  .countdown-num { display: block; font-family: var(--font-latin); font-size: clamp(2.3rem, 9vw, 4rem); font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; color: var(--color-accent); animation: num-drop 0.45s cubic-bezier(0.2, 0.9, 0.2, 1); }
+  .countdown-label { font-size: 0.9rem; font-weight: 600; color: #d8d1ca; }
+  @keyframes num-drop { from { transform: translateY(-70%); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes live-dot { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.6); opacity: 0.45; } }
+  @keyframes offer-glow { 0%, 100% { box-shadow: 0 0 0 0 rgb(255 84 32 / 0), 0 0 24px rgb(255 84 32 / 0.12); } 50% { box-shadow: 0 0 0 6px rgb(255 84 32 / 0.14), 0 0 48px rgb(255 84 32 / 0.3); } }
+  @keyframes offer-breathe { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.12); } }
+  .chevron-run { animation: chevron-run 1.2s linear infinite; }
+  @keyframes chevron-run { to { background-position-x: 36px; } }
+
+  /* Bar that follows the reader with the time left */
+  .offer-bar {
+    position: fixed; inset-inline: 0; bottom: 0; z-index: 40;
+    display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+    padding: 0.6rem max(1rem, env(safe-area-inset-left)) calc(0.6rem + env(safe-area-inset-bottom));
+    background: rgb(17 17 19 / 0.94); color: var(--color-paper); border-top: 2px solid var(--color-accent);
+    backdrop-filter: blur(8px);
+    transform: translateY(110%); visibility: hidden;
+    transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.2, 1), visibility 0.35s;
+  }
+  .offer-bar[data-show='true'] { transform: none; visibility: visible; }
+  .offer-bar-text { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.7rem; margin: 0; min-width: 0; font-weight: 600; }
+  .offer-bar-time { font-family: var(--font-latin); font-size: 1.2rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--color-accent); }
+  .offer-bar-time small { font-family: var(--font-sans, inherit); font-size: 0.75em; margin-inline: 0.1em 0.2em; }
+  .offer-bar-cta { flex: none; min-height: 44px; padding-block: 0.4rem; }
+  @media (max-width: 479px) { .offer-bar-title { font-size: 0.92rem; } .offer-bar-cta { padding-inline: 0.9rem; font-size: 0.95rem; } }
+
+  /* Sections rise into place as they scroll in; teaser images settle from a slight zoom. Browsers without scroll timelines show everything at rest. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      main > .sec > .wrap, main > .sec > .wrap + .wrap { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 32%; }
+      .teaser img { animation: settle linear both; animation-timeline: view(); animation-range: entry 0% cover 55%; }
+    }
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+  @keyframes settle { from { transform: scale(1.22); } to { transform: scale(1); } }
 }

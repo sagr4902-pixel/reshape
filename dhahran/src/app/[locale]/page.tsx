@@ -10,6 +10,7 @@ import { DesignPicture } from '@/components/ui/DesignPicture';
 import { ExternalLink } from '@/components/ui/ExternalLink';
 import { FacadeHero } from '@/features/home/FacadeHero';
 import { Countdown } from '@/features/offer/Countdown';
+import { OfferBar } from '@/features/offer/OfferBar';
 
 type Props = { params: Promise<{ locale: Locale }> };
 
@@ -47,6 +48,9 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
+      {(state.kind === 'announced' || state.kind === 'live') && (
+        <OfferBar endsAt={state.endsAt} title={offer.title[locale]} cta={state.kind === 'live' ? t('offer.cta') : t('offer.ctaInterest')} dayLabel={t('offer.days')} />
+      )}
       {/* 1 — The facade, exactly as designed */}
       <FacadeHero alt={designImage('facade').alt[locale]} facadeLabel={t('hero.facadeLabel')} note={c('conceptNote')}>
         <p className="eyebrow flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -254,7 +258,7 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       {/* 9 — The offer */}
-      <div className="chevron-band" aria-hidden="true" />
+      <div className="chevron-band chevron-run" aria-hidden="true" />
       <section id="offer" className="on-dark dark-sec sec offer scroll-mt-16" aria-labelledby="offer-h" data-offer={state.kind}>
         <div className="wrap">
           <Rail no="08" label={t('offer.rail')} />

@@ -29,7 +29,6 @@ export default async function KidsPage({ params }: Props) {
   const kids = programById('kids')!;
   const martial = programById('kids-martial-arts')!;
   const cta = registerHref({ program: 'kids', intent: 'program-inquiry', src: 'kids' });
-  const h = await getTranslations({ locale, namespace: 'home' });
 
   return (
     <>
@@ -46,9 +45,6 @@ export default async function KidsPage({ params }: Props) {
               <Link href={cta} className="btn btn-primary" data-testid="kids-cta">
                 {t('cta')}
               </Link>
-              <Link href="/explore" className="link-arrow" data-testid="kids-tour">
-                {t('zoneCta')}
-              </Link>
             </div>
             <p className="mute mt-4 text-[0.92rem]">{kids.audienceNote[locale]}</p>
           </div>
@@ -57,7 +53,6 @@ export default async function KidsPage({ params }: Props) {
               <DesignPicture image={designImage(kids.imageId)} alt={designImage(kids.imageId).alt[locale]} sizes="(min-width: 1024px) 56vw, 100vw" priority className="h-auto w-full" />
             </div>
             <figcaption className="mt-3">
-              <span className="block text-[0.92rem] font-semibold">{h('kids.imageCaption')}</span>
               <span className="concept-note">{c('conceptNote')}</span>
             </figcaption>
           </figure>

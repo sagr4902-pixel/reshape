@@ -7,7 +7,6 @@ export type L = (typeof LOCALES)[number];
 
 export const ROUTES = [
   '',
-  '/explore',
   '/programs',
   '/programs/calisthenics',
   '/programs/hybrid-endurance',

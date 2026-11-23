@@ -7,8 +7,6 @@
  */
 export const EVENT_NAMES = [
   'program_view',
-  'explorer_open',
-  'explorer_zone_select',
   'interest_form_start',
   'interest_form_submit_success',
   'interest_form_submit_error',

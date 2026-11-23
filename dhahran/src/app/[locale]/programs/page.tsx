@@ -76,9 +76,6 @@ export default async function ProgramsPage({ params }: Props) {
             <Link href={registerHref({ src: 'program' })} className="btn btn-primary">
               {c('registerInterest')}
             </Link>
-            <Link href="/explore" className="btn btn-line">
-              {c('exploreClub')}
-            </Link>
           </div>
         </div>
       </section>

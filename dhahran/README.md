@@ -52,7 +52,6 @@ of a form (there is no mock storage).
 | `npm run dev` / `build` / `start` | Next.js development server / production build / production server |
 | `npm run lint` · `npm run typecheck` | ESLint · `tsc --noEmit` |
 | `npm run content:validate` | Schemas, cross-references, assets, translation parity, publication rules |
-| `npm run scenes:build` · `scenes:check` | Regenerate the club map drawings · fail if committed files drift |
 | `python3 scripts/dev/encode-renders.py` | Re-encode the design renders from `input-assets/` (needs Pillow with AVIF) |
 | `npm test` | Unit tests (no services needed) |
 | `npm run test:integration` | Lead service + API against a real PostgreSQL test database |
@@ -69,7 +68,7 @@ override with `TEST_DATABASE_URL`. They refuse databases whose name does not con
 - Content: `src/content/` and `messages/` — see `docs/content-guide.md`.
 - Membership / price / purchase-link rules: `src/lib/catalog/resolve.ts`, `docs/catalog-verification.md`.
 - Homepage facade: `src/features/home/`. Design renders: `src/content/design.ts`, `public/assets/design/`.
-- Explorer map generator: `src/features/explorer/scene/`, `scripts/build-scenes.ts`.
+- Homepage offer and countdown: `src/content/offer.ts` (set `status: 'live'` with price, end date and store link).
 - Lead API and storage: `src/app/api/leads/route.ts`, `src/lib/server/leads.ts`, `db/`.
 - Staff workflow and privacy: `docs/privacy-operations.md`.
 - Architecture and decisions: `docs/architecture.md`. Design system: `docs/design-system.md`.

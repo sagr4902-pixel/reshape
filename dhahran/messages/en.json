@@ -7,7 +7,6 @@
   "nav": {
     "skip": "Skip to content",
     "home": "Home",
-    "explore": "Explore the club",
     "programs": "Programs",
     "kids": "Kids",
     "memberships": "Memberships",
@@ -22,7 +21,6 @@
   "common": {
     "conceptNote": "Concept visualization — details may change before opening.",
     "registerInterest": "Register interest",
-    "exploreClub": "Explore the club",
     "viewPrograms": "Browse programs",
     "viewProgram": "Program details",
     "preopening": "Pre-opening",
@@ -33,132 +31,122 @@
       "unconfirmed": "To be confirmed",
       "paused": "Paused"
     },
-    "levels": {
-      "ground": "Ground level",
-      "upper": "Mezzanine"
-    },
-    "opensNewTab": "opens in a new tab",
-    "sceneAlt": {
-      "club": "Cutaway axonometric map of RESHAPE Dhahran seen from the entrance side: ground level with reception, juice bar and training hall; mezzanine with lockers and changing rooms."
-    },
-    "designCaption": "From the club design set",
-    "enterClub": "Enter the club"
+    "opensNewTab": "opens in a new tab"
   },
   "home": {
     "hero": {
       "eyebrow": "RESHAPE Dhahran",
       "title": "Your strength starts here",
-      "sub": "Calisthenics at the core, with training pathways for adults and kids. Discover RESHAPE Dhahran and register your interest.",
-      "stage": "The club is in its pre-opening stage. Register your interest to hear the details first.",
+      "sub": "A training club in Dhahran that brings calisthenics, functional training and strength-endurance together — with a program of your own and a community that pushes you forward.",
+      "stage": "The club is in its pre-opening stage.",
       "facadeLabel": "The club facade",
-      "hotspots": {
-        "enter": "Enter — reception",
-        "juice": "Juice bar",
-        "hall": "Training hall",
-        "mezz": "Mezzanine"
-      },
-      "hotspotsNav": "Enter from the facade"
+      "ctaOffer": "See the offer",
+      "ctaAbout": "About us"
     },
-    "cal": {
-      "rail": "The core sport",
-      "title": "Calisthenics: your body is the equipment",
-      "body": "A bar, rings, low bars — and solid ground. We start from your current level and build strength and control one movement at a time.",
-      "pathwaysTitle": "Training directions",
-      "pathwaysNote": "Proposed pathways — not mandatory stages, and subject to change before opening.",
-      "cta": "About calisthenics"
-    },
-    "tour": {
-      "rail": "Club tour",
-      "title": "From the facade to the mezzanine",
-      "body": "Walk in through the door to reception and the juice bar, on into the double-height training hall with its red steel structure, then up to the mezzanine for lockers and changing rooms.",
-      "cta": "Start the tour",
-      "zonesLabel": "Club zones"
-    },
-    "kids": {
-      "rail": "For kids",
-      "title": "A child who moves with confidence",
-      "body": "Kids programs are a priority here, not an add-on. Movement, balance, coordination and age-appropriate strength foundations in structured, coach-led training.",
-      "themesTitle": "What children train",
-      "parentTitle": "Questions parents ask",
-      "cta": "Ask about kids programs",
-      "more": "Kids programs page",
-      "guardianNote": "Registration is made by a parent or guardian. We ask for no information about the child at this stage.",
-      "imageCaption": "The training hall at RESHAPE Dhahran"
-    },
-    "spectrum": {
-      "rail": "More programs",
-      "title": "More than one way to train",
-      "body": "Programs planned alongside calisthenics. Each has a clear purpose and a page that explains what to expect."
-    },
-    "membership": {
-      "rail": "Memberships",
-      "title": "Prices come later — interest is open now",
-      "body": "Dhahran membership prices have not been announced, and we will not show a provisional number. Register your interest and we will contact you when memberships are announced.",
-      "more": "Memberships page"
-    },
-    "philosophy": {
-      "rail": "Our approach",
-      "title": "Progress is built, not rushed",
-      "items": {
+    "about": {
+      "rail": "About us",
+      "title": "More than a gym. A way of life.",
+      "body": "RESHAPE Dhahran is a place for serious training with a community spirit: several sports to choose from, a program built for you, and coaches who stay with you until you reach your goal.",
+      "points": {
         "one": {
-          "t": "Start where you are",
-          "d": "There is no required level to begin. Your starting point is agreed with you."
+          "t": "Variety",
+          "d": "More than one sport under one roof."
         },
         "two": {
-          "t": "Quality before difficulty",
-          "d": "A well-executed movement today beats a rushed skill tomorrow."
+          "t": "Your own program",
+          "d": "A plan that starts from your level and goal."
         },
         "three": {
-          "t": "Your own pace",
-          "d": "Everyone’s route is different. We promise no specific results or fixed timelines."
+          "t": "Community and coaches",
+          "d": "People who push you, and people who guide you."
         }
       }
     },
-    "closing": {
-      "title": "The next step is simple",
-      "body": "Leave your name, mobile number and the program you are interested in. We will take it from there.",
-      "contact": "Or contact us"
-    }
-  },
-  "explore": {
-    "metaTitle": "Explore the club",
-    "metaDescription": "A tour of RESHAPE Dhahran through its design images: facade, reception, juice bar, training hall and mezzanine.",
-    "title": "Explore the club",
-    "intro": "Pick a zone to see its design, where it sits in the club and the programs connected to it.",
-    "zonesNav": "Club zones",
-    "overview": "Whole club",
-    "back": "Back to overview",
-    "simpleOn": "Simple view",
-    "simpleOff": "Animated view",
-    "simpleHint": "Simple view turns off camera movement.",
-    "selected": "Selected zone: {zone}",
-    "overviewAnnounce": "Whole club overview",
-    "promptTitle": "Where to start?",
-    "promptBody": "Eight zones on two levels. Select a number on the map or choose from the list.",
-    "programsHere": "Programs connected to this zone",
-    "basisLabel": "Where do these designs come from?",
-    "registerFor": "Register interest in {program}",
-    "registerGeneral": "Register interest",
-    "listTitle": "All zones as a list",
-    "listIntro": "The same content without the interactive map.",
-    "failed": "The interactive map could not be loaded. Every zone and program is available in the list below.",
-    "sceneLabel": "Interactive map of the club building",
-    "conceptLong": "The map is based on the club’s working drawings and the images come from its design set. Some details may change in execution.",
-    "mapNote": "Schematic map based on the working drawings — details may change before opening.",
-    "nextZone": "Next",
-    "prevZone": "Previous",
-    "showMap": "Show on map",
-    "showDesign": "Design images",
-    "nextImage": "Next image",
-    "prevImage": "Previous image",
-    "imageOf": "Image {n} of {total}",
-    "gallery": "Design images",
-    "whereInClub": "Where it is in the club",
-    "levels": {
-      "ground": "Ground level",
-      "upper": "Mezzanine"
+    "sports": {
+      "rail": "Variety",
+      "title": "Choose the sport that suits you",
+      "body": "Each sport has its own character and aim. Try them, then pick what feels like you — or combine them.",
+      "all": "All programs",
+      "kids": "And kids have programs of their own"
     },
-    "levelsLabel": "Level shown"
+    "program": {
+      "rail": "Your own program",
+      "title": "A program built for you",
+      "body": "Don't train on someone else's plan. We start from your level and goal and build a clear program, so you know what you are doing in every session and why.",
+      "items": {
+        "one": "Starts from your current level",
+        "two": "A clear goal and defined steps",
+        "three": "Follow-up and adjustment as you progress"
+      }
+    },
+    "hybrid": {
+      "rail": "Hybrid",
+      "title": "Hybrid: sport as a way of life",
+      "body": "For those who want it all: a considered mix of the three sports — strength, fitness and skill — that takes you to your athletic goal and makes training part of your day.",
+      "tag": "A mix of the three sports"
+    },
+    "zone": {
+      "rail": "The training zone",
+      "title": "Bring out the warrior in you",
+      "body": "The training zone is designed around the warrior character: a place that pushes you to bring out your best.",
+      "items": {
+        "one": {
+          "t": "A motivating community",
+          "d": "Train among people who share your goal."
+        },
+        "two": {
+          "t": "Shared experience",
+          "d": "Learn from those ahead of you and help those who follow."
+        },
+        "three": {
+          "t": "Never lost",
+          "d": "You always know your next step."
+        },
+        "four": {
+          "t": "Experienced, title-winning coaches",
+          "d": "With you until you reach your goal."
+        }
+      }
+    },
+    "juice": {
+      "rail": "Juice bar",
+      "title": "A sports juice bar, steps from your workout",
+      "body": "Your drinks before and after training, sports snacks and refreshing drinks — close by when you need them.",
+      "chips": {
+        "one": "Pre-workout",
+        "two": "Post-workout",
+        "three": "Sports snacks",
+        "four": "Refreshing drinks"
+      }
+    },
+    "facilities": {
+      "rail": "Facilities",
+      "title": "Details that match you",
+      "body": "We care about our facilities as much as the training: restrooms, changing rooms and lockers designed for comfort and calm.",
+      "items": {
+        "one": "Finely finished restrooms",
+        "two": "Quiet changing rooms",
+        "three": "Secure lockers"
+      }
+    },
+    "offer": {
+      "rail": "The offer",
+      "endsIn": "Offer ends in",
+      "days": "days",
+      "hours": "hours",
+      "minutes": "minutes",
+      "seconds": "seconds",
+      "cta": "Subscribe now",
+      "storeNote": "Payment is completed on the official RESHAPE store.",
+      "ended": "This offer has ended. Register your interest and we will tell you about the next one.",
+      "draftNote": "Preview sample only — the offer name, price, end date and payment link are added before launch.",
+      "priceLabel": "Price",
+      "wasLabel": "instead of",
+      "currency": "SAR",
+      "soonTitle": "The offer will be announced soon",
+      "soonBody": "Register your interest to be the first to know.",
+      "teaserNote": "Glimpses from the club's designs — details may change before opening."
+    }
   },
   "programs": {
     "metaTitle": "Programs",
@@ -172,8 +160,6 @@
     "faq": "Common questions",
     "pathways": "Training directions",
     "pathwaysNote": "Proposed pathways — not mandatory stages, and subject to change before opening.",
-    "zones": "Where in the club?",
-    "noZone": "No zone has been assigned to this program in the club designs yet.",
     "seeInTour": "See it in the tour",
     "boundaries": "Service boundaries",
     "membershipTitle": "Membership",
@@ -205,8 +191,7 @@
     "dataTitle": "Your child’s data",
     "dataBody": "When you register interest we ask only for the guardian’s name and mobile number. We do not ask for the child’s name, date of birth or any health information.",
     "martialTitle": "Also planned: kids martial arts",
-    "cta": "Enquire as a guardian",
-    "zoneCta": "Tour the club"
+    "cta": "Enquire as a guardian"
   },
   "football": {
     "metaTitle": "Football performance",
@@ -337,7 +322,7 @@
       "title": "Your interest has been received.",
       "body": "We will contact you on the mobile number you provided.",
       "again": "Send another request",
-      "explore": "Explore the club"
+      "explore": "Browse programs"
     },
     "unavailable": {
       "title": "Registration is currently unavailable",

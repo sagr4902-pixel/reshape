@@ -14,8 +14,6 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "content:validate": "tsx scripts/validate-content.ts",
-    "scenes:build": "tsx scripts/build-scenes.ts",
-    "scenes:check": "tsx scripts/build-scenes.ts --check",
     "test": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration --no-file-parallelism",
     "test:e2e": "playwright test --trace off",

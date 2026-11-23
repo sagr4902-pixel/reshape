@@ -5,7 +5,6 @@ import { registerHref } from '@/content';
 import { LocaleSwitch } from './LocaleSwitch';
 
 const NAV = [
-  ['/explore', 'explore'],
   ['/programs', 'programs'],
   ['/kids', 'kids'],
   ['/memberships', 'memberships'],

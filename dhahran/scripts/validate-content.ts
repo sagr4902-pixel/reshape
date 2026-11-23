@@ -9,12 +9,12 @@ import { z } from 'zod';
 import { memberships } from '../src/content/memberships';
 import { pathways } from '../src/content/pathways';
 import { programs } from '../src/content/programs';
-import { scene } from '../src/content/scene';
+import { offer, offerState } from '../src/content/offer';
 import { designImages } from '../src/content/design';
 import { site } from '../src/content/site';
 import { overdueVerifications, resolveMembershipAction } from '../src/lib/catalog/resolve';
 import { isOfficialStoreUrl } from '../src/lib/catalog/store-links';
-import { membershipSchema, pathwaySchema, programSchema, sceneSchema } from '../src/lib/catalog/types';
+import { membershipSchema, pathwaySchema, programSchema } from '../src/lib/catalog/types';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const errors: string[] = [];
@@ -35,17 +35,12 @@ export function validateAll(now = new Date()) {
       ids.add(item.id);
     }
   }
-  const s = sceneSchema.safeParse(scene);
-  if (!s.success) err(`scene: ${z.prettifyError(s.error)}`);
 
   const programIds = new Set(programs.map((p) => p.id));
-  const zoneIds = new Set(scene.zones.map((z) => z.id));
   const pathwayIds = new Set(pathways.map((p) => p.id));
   const membershipIds = new Set(memberships.map((m) => m.id));
-  const meta = JSON.parse(readFileSync(join(root, 'src/content/generated/scene-meta.json'), 'utf8'));
 
   for (const p of programs) {
-    for (const z of p.zoneIds) if (!zoneIds.has(z)) err(`program ${p.id}: unknown zone ${z}`);
     for (const w of p.pathwayIds) if (!pathwayIds.has(w)) err(`program ${p.id}: unknown pathway ${w}`);
     for (const m of p.membershipIds) if (!membershipIds.has(m)) err(`program ${p.id}: unknown membership ${m}`);
     if (!designImages[p.imageId]) err(`program ${p.id}: unknown design image ${p.imageId}`);
@@ -56,20 +51,24 @@ export function validateAll(now = new Date()) {
     if (/crossfit|كروس ?فت|hyrox|هايروكس/i.test(publicText)) err(`program ${p.id}: protected brand name in public copy`);
   }
   for (const w of pathways) if (!programIds.has(w.programId)) err(`pathway ${w.id}: unknown program ${w.programId}`);
-  for (const z of scene.zones) {
-    if (!meta.zones[z.id]) err(`zone ${z.id}: no generated geometry (run npm run scenes:build)`);
-    if (!existsSync(join(root, `public/assets/scenes/level-${z.level}-dark.svg`))) err(`zone ${z.id}: missing level drawing`);
-    for (const id of z.imageIds) if (!designImages[id]) err(`zone ${z.id}: unknown design image ${id}`);
+
+  // Owner's rule: the interior design and layout are not shown. Only the facade and teaser crops may be published.
+  for (const id of Object.keys(designImages)) if (id !== 'facade' && !id.startsWith('t-')) err(`design image ${id}: only the facade and teaser crops (t-*) may be published`);
+  for (const dir of ['public/assets/scenes', 'src/app/[locale]/explore']) if (existsSync(join(root, dir))) err(`${dir}: the club tour and map must not be shipped`);
+
+  // Offer: a live offer needs a real price, a future-parsable end date and an official-store payment link.
+  if (offer.status === 'live') {
+    if (!(typeof offer.priceSar === 'number' && offer.priceSar > 0)) err('offer: live without a price');
+    if (!offer.endsAt || Number.isNaN(Date.parse(offer.endsAt))) err('offer: live without a valid end date');
+    if (!offer.payUrl || !isOfficialStoreUrl(offer.payUrl)) err('offer: live without an official-store payment link');
+    if (offerState(offer, 'production', now).kind !== 'live') warnings.push('offer: marked live but already ended');
   }
-  for (const id of Object.keys(meta.zones)) if (!zoneIds.has(id)) err(`generated zone ${id} has no content record`);
 
   // Design renders: every catalogued image has both alt texts and all encoded files on disk.
   for (const img of Object.values(designImages)) {
     if (!img.alt.ar.trim() || !img.alt.en.trim()) err(`design image ${img.id}: missing alt text`);
     for (const [ext, widths] of [['avif', img.widths], ['webp', img.webp]] as const)
       for (const w of widths) if (!existsSync(join(root, `public/assets/design/${img.id}-${w}.${ext}`))) err(`design image ${img.id}: missing ${w}.${ext}`);
-    // The explorer gallery requests `<id>-240.webp` for every image of a zone.
-    if (!img.webp.includes(240)) err(`design image ${img.id}: missing 240 px thumbnail`);
   }
 
   for (const m of memberships) {
@@ -117,5 +116,5 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     for (const e of r.errors) console.error(`error: ${e}`);
     process.exit(1);
   }
-  console.log(`Content valid: ${programs.length} programs, ${pathways.length} pathways, ${memberships.length} memberships, ${scene.zones.length} zones.`);
+  console.log(`Content valid: ${programs.length} programs, ${pathways.length} pathways, ${memberships.length} memberships, ${Object.keys(designImages).length} images.`);
 }

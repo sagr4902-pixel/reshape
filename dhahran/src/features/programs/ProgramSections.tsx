@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import type { Program } from '@/lib/catalog/types';
-import { designImage, membershipsForProgram, pathwaysFor, registerHref, zoneById } from '@/content';
+import { designImage, membershipsForProgram, pathwaysFor, registerHref } from '@/content';
 import { FaqList } from '@/components/ui/Faq';
 import { DesignPicture } from '@/components/ui/DesignPicture';
 import { MembershipCta } from '@/features/memberships/MembershipCta';
@@ -13,7 +13,6 @@ export async function ProgramSections({ program, locale, source }: { program: Pr
   const t = await getTranslations({ locale, namespace: 'programs' });
   const c = await getTranslations({ locale, namespace: 'common' });
   const pws = pathwaysFor(program.id);
-  const zones = program.zoneIds.map((id) => zoneById(id)!).filter(Boolean);
   const mems = membershipsForProgram(program.id, locale);
 
   return (
@@ -107,33 +106,6 @@ export async function ProgramSections({ program, locale, source }: { program: Pr
         </section>
       )}
 
-      <section className="on-dark dark-sec sec">
-        <div className="wrap">
-          <h2 className="t-2">{t('zones')}</h2>
-          {zones.length === 0 ? (
-            <p className="mute mt-4">{t('noZone')}</p>
-          ) : (
-            <ul className={`mt-8 grid gap-6 ${zones.length > 1 ? 'md:grid-cols-2' : ''}`}>
-              {zones.map((z) => (
-                <li key={z.id} className={`overflow-hidden rounded-lg border border-line-dark bg-deep ${zones.length === 1 ? 'md:grid md:grid-cols-2 md:items-center' : ''}`}>
-                  <div className="aspect-video">
-                    <DesignPicture image={designImage(z.imageIds[0])} alt={designImage(z.imageIds[0]).alt[locale]} sizes="(min-width: 768px) 48vw, 100vw" className="h-full w-full object-cover" />
-                  </div>
-                  <div className="p-5">
-                    <p className="eyebrow">{c(`levels.${z.level}`)}</p>
-                    <h3 className="mt-1 !font-sans !text-[1.2rem] !normal-case !tracking-normal font-semibold">{z.title[locale]}</h3>
-                    <p className="mute mt-2">{z.summary[locale]}</p>
-                    <Link href={{ pathname: '/explore', query: { zone: z.id } }} className="link-arrow mt-3 inline-flex min-h-11 items-center">
-                      {t('seeInTour')}
-                    </Link>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-          <p className="concept-note mt-5">{c('conceptNote')}</p>
-        </div>
-      </section>
 
       {program.faqs.length > 0 && (
         <section className="sec">

@@ -1,6 +1,6 @@
 {
  "generatedAt": "2026-11-21",
- "note": "Originals in input-assets/ are unchanged and git-ignored (public repository). Web derivatives of the selected renders are committed.",
+ "note": "Originals in input-assets/ are unchanged and git-ignored. At the owner's request the interior design and layout are not published: only the facade and tight teaser crops are committed.",
  "inputs": [
   {
    "id": "fp-01",
@@ -690,32 +690,7 @@
    ]
   }
  ],
- "generated": [
-  {
-   "file": "public/assets/scenes/level-ground-dark.svg",
-   "bytes": 41052,
-   "sha256": "d75333c6f193be751524bf3a0a5bc74cfe5934de420cb4fc2c338403649ff4fd",
-   "category": "generated schematic map",
-   "sourceAssetIds": [
-    "working-drawings",
-    "facade-package"
-   ],
-   "generator": "scripts/build-scenes.ts",
-   "publicUse": "published with a schematic label"
-  },
-  {
-   "file": "public/assets/scenes/level-upper-dark.svg",
-   "bytes": 12180,
-   "sha256": "1ebcf3b5f3c9a3ec2f4cc618bdfab81dd22eb2c8c091248d7ff9282f6b13c7e8",
-   "category": "generated schematic map",
-   "sourceAssetIds": [
-    "working-drawings",
-    "facade-package"
-   ],
-   "generator": "scripts/build-scenes.ts",
-   "publicUse": "published with a schematic label"
-  }
- ],
+ "generated": [],
  "designRenders": [
   {
    "id": "deck-01",
@@ -726,7 +701,7 @@
    "sha256": "2109bc5201c34c7e302dd72c62cf842c0113fe218fd6a74ddc328914515685fe",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-03",
@@ -737,7 +712,7 @@
    "sha256": "7eeab2078938665086f8558f3cfceefcb045a814227f7b232e81475f49fb399c",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "published as d03"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-04",
@@ -748,7 +723,7 @@
    "sha256": "30bbb0d4792fc97e4ed41748eff3eaa1ccc304ddb767a4637aac54c05637215b",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "published as d04"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-05",
@@ -759,7 +734,7 @@
    "sha256": "d47380d0b573e562922814f3274f3f00ae561563047e56eb0739d52f4b829f73",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-06",
@@ -770,7 +745,7 @@
    "sha256": "d965b35a058757d89f58f96bb97ee16282a1e5c56afb4267c1cad73cd84247ce",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "published as d06"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-07",
@@ -781,7 +756,7 @@
    "sha256": "802c9a3fbe720a267abe51e1cbdd3846c7e8cd6c8d0767db83a52ee393a7e74c",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-08",
@@ -792,7 +767,7 @@
    "sha256": "7f84263d4c93226614112178d4042e07f0a9a01de8c3be278e9a6be12b4c017f",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-09",
@@ -803,7 +778,7 @@
    "sha256": "7cca7cd9a15ecb39a3602cf6f4e8a1108d92241a0f2d83b559926788e90ab2b1",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "published as d09"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-10",
@@ -814,7 +789,7 @@
    "sha256": "8df09fe33d96ece1376a00801807a7228e64b196a929b42f604b74a924aadb59",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "published as d10"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-11",
@@ -825,7 +800,7 @@
    "sha256": "e6063d910af77fd6a79b685730db914270007c1c24ecb006ebec29e19ecfbf62",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-12",
@@ -836,7 +811,7 @@
    "sha256": "6cfbfb4d8bf901c6cd45d9c28c21dfdee719be075f1641ea4c9141ce72e9a2ca",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "published as d12"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-13",
@@ -847,7 +822,7 @@
    "sha256": "ccc9e7979cd2b03aa0009bd0a000e540be375bc95b60402763059840271b36b6",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-14",
@@ -858,7 +833,7 @@
    "sha256": "55247000173b347d211e1d93ff0c5406ab9a3760f33108a96ba035a5275d493c",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-15",
@@ -869,7 +844,7 @@
    "sha256": "776123f6ee1a6c49af8430fc100bd86bfda7f5f5e6a84f20b41239dba1c893ab",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-16",
@@ -880,7 +855,7 @@
    "sha256": "e6063d910af77fd6a79b685730db914270007c1c24ecb006ebec29e19ecfbf62",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "published as d16"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-17",
@@ -891,7 +866,7 @@
    "sha256": "b5623486a2cfd1e9a94d1f5ff72f80bc256eea6df62b25a0870b747da85b2266",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-18",
@@ -902,7 +877,7 @@
    "sha256": "481629a80a50bb84c5868f9914a291448b32e484f76cb89b82ebbec676505906",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-19",
@@ -913,7 +888,7 @@
    "sha256": "ef392960fb791a49613da426ce57380d56f710e7b971dd0fcb167af6f8e205a4",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "published as d19"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-20",
@@ -924,7 +899,7 @@
    "sha256": "73d020c57a2bcb48d2b2de3853d38dba62e619a97bf31bb7beb91e6674625283",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-21",
@@ -935,7 +910,7 @@
    "sha256": "9f79182d50c13be9883c64432c6469563681e277459425248d5e66fd73142fb1",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "published as d21"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-22",
@@ -946,7 +921,7 @@
    "sha256": "b2bdcaabb04d98da54512f0713f68cde74ed2b1410a934725f800de995db338c",
    "category": "conceptual rendering",
    "section": "Reception + Juice Bar",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-24",
@@ -957,7 +932,7 @@
    "sha256": "5a0e8b6b7bc2eb4a214865aea867e1950fb98f96c730664a5f11677ce7723ac9",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "published as d24"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-25",
@@ -968,7 +943,7 @@
    "sha256": "fc66b6696f5aa45c086aca6eb18ebed0312dad1ab25156d51970913cd44d973a",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "published as d25"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-26",
@@ -979,7 +954,7 @@
    "sha256": "27ecb5ef91e221dc049d8fbc096ba2a3062dbdaa3cc3adbb67d9aa35617dde3a",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-27",
@@ -990,7 +965,7 @@
    "sha256": "d47af5648989f396c235d4416f3b717f99e91ffdc47cb00c57611631fee01029",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "published as d27"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-28",
@@ -1001,7 +976,7 @@
    "sha256": "369749372d1f5f8727fba820191dbc837137223f9f76a5b8b4b9b51f0d760a5d",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-29",
@@ -1012,7 +987,7 @@
    "sha256": "44a47b942bdef6495879e933042fcada8f1c8dac2ba1e409d8ae530beaaa09c3",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "published as d29"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-30",
@@ -1023,7 +998,7 @@
    "sha256": "c93182c747257af92f76c17a9254bbd62987cd19bdbbf04ba6c508fb21e02b26",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-31",
@@ -1034,7 +1009,7 @@
    "sha256": "9091efeee36a1648ae3d1917466abe27aac336f4bc153162325c6d0a08627402",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-32",
@@ -1045,7 +1020,7 @@
    "sha256": "299468b780f8382fb37e95b39054eb510e02564ac0ea2eac17edfa4111862ca9",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-33",
@@ -1056,7 +1031,7 @@
    "sha256": "183994698f04d37f5f24ae8cd71c25eef4b7b067034bd6186f693ed61f0a6bd4",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "published as d33"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-34",
@@ -1067,7 +1042,7 @@
    "sha256": "69a638cc83d879751ae86e8f202904393bc402d1454f6b691c6aa980d365b205",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "published as d34"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-35",
@@ -1078,7 +1053,7 @@
    "sha256": "65c715a6cce949f8eaa6fdd485bf494144878823b2fb410d1dbf194cfa26dbc2",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "published as d35"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-36",
@@ -1089,7 +1064,7 @@
    "sha256": "44a47b942bdef6495879e933042fcada8f1c8dac2ba1e409d8ae530beaaa09c3",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-37",
@@ -1100,7 +1075,7 @@
    "sha256": "96147519305ee74c4c938a27e37ddf49b376de7868e41bbde5ea99ece05a5d07",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "published as d37"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-38",
@@ -1111,7 +1086,7 @@
    "sha256": "b158b7414acb9fe8b6a68914f9ce2c11dedb03eecd4ebd830bf4b0ba6e291ced",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "published as d38"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-39",
@@ -1122,7 +1097,7 @@
    "sha256": "45bab28b2ded961bb960efb7029d792313a87abf86e079230a5f9d9124953d8c",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "published as d39"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-40",
@@ -1133,7 +1108,7 @@
    "sha256": "46be1711e126b488c82d5ab602ce46fa62d97176435c4eb1ea0ad966603296ba",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-41",
@@ -1144,7 +1119,7 @@
    "sha256": "aa4d58cf0b106714a17eeb1dfd96e763d61873f21b3720e8a04865d3aabe65da",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-42",
@@ -1155,7 +1130,7 @@
    "sha256": "5392d78b5a89f9d18e7d1888cf62ca8ab0d4acca53648eafc75e9bc006c8cb61",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "published as d42"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-43",
@@ -1166,7 +1141,7 @@
    "sha256": "a8652d6c2bde35805056f9fedebf54e64dd2c6513756aaecf123205ccb8b29cd",
    "category": "conceptual rendering",
    "section": "Training Champer",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-45",
@@ -1177,7 +1152,7 @@
    "sha256": "f668fef037b1e08a42d0a1ef14e9ca43a0d4a82ac3ea08226a579842785f4ba7",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-46",
@@ -1188,7 +1163,7 @@
    "sha256": "bbaa4aea4757c1fb1098c9c96fadac414a088c253b0f2b868674878564f71e80",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "published as d46"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-47",
@@ -1199,7 +1174,7 @@
    "sha256": "60cfbd92184b238d68f9379ff9c078086150bbc59240f391a79d5f2e416388dd",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-48",
@@ -1210,7 +1185,7 @@
    "sha256": "fa537364d10fb2d5bcfab015b42a3feac8e86d01246311891672fcb9a4e881d2",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "published as d48"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-49",
@@ -1221,7 +1196,7 @@
    "sha256": "ce7e254c8a3181b70f14a09cd1290dfca7fc5072e456725bbf5a09c86fd55fbc",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "published as d49"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-50",
@@ -1232,7 +1207,7 @@
    "sha256": "be08399df5c46f4aa33282e1de7ecbd2901cb1fed9c258b5f93da9c992af9c66",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "published as d50"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-51",
@@ -1243,7 +1218,7 @@
    "sha256": "dff66a1b0f09aba4b91d6cad3b5ba0dd08d9a812b8ed89292f11d4b0a2db7870",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "published as d51"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-52",
@@ -1254,7 +1229,7 @@
    "sha256": "e7fdd3115e59720f87c663722b36a86b59fbb82793d88eb04bbdccf7372cc3f7",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-53",
@@ -1265,7 +1240,7 @@
    "sha256": "f80608ade1eeda9cb8bfaa531db7268a0c8ce58d24418502c9f1f20e73fb03c9",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "published as d53"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-54",
@@ -1276,7 +1251,7 @@
    "sha256": "ed8999aa3e6a16e77c747fa1f4dd6cf55515c954ee4d205597b4a74b98769fe4",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-55",
@@ -1287,7 +1262,7 @@
    "sha256": "e62baf1dd531831764ac416b975f0eff021bb74ab3f4c12ce7e195ed15044040",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-56",
@@ -1298,7 +1273,7 @@
    "sha256": "3efffc15895ccb4f08784425deee2e921be8d787f9ae932929983254fe49c96a",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-57",
@@ -1309,7 +1284,7 @@
    "sha256": "ab625de04896f23d44931a2d5d2a50afab6b3847b3ac0e377d17e3cc49f8de29",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-58",
@@ -1320,7 +1295,7 @@
    "sha256": "81fffcb6bb9ed7f661a85be5484bc8a68db80e70c14d07c9fb5eb706d28213c9",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-59",
@@ -1331,7 +1306,7 @@
    "sha256": "dff66a1b0f09aba4b91d6cad3b5ba0dd08d9a812b8ed89292f11d4b0a2db7870",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-60",
@@ -1342,7 +1317,7 @@
    "sha256": "b464d451338d8209dc0cfdda791467e5257ea8b73cdb514425029672ec04b11e",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-61",
@@ -1353,7 +1328,7 @@
    "sha256": "6756b7ce501637e50c180b72489b0d99057bb1b646d85e712174ac1a1aff6553",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-62",
@@ -1364,7 +1339,7 @@
    "sha256": "67b9275d78e70548af321ebee5aa87cac82d9d7bb7f76c7953295a338f9ec258",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "published as d62"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-63",
@@ -1375,7 +1350,7 @@
    "sha256": "43ac88979a0d41049b0dbc28cc90e4231b6223829e643a3d2475ea7fe66d906f",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-64",
@@ -1386,7 +1361,7 @@
    "sha256": "4084e7e708c09994a1a4b25b753ee2a3dae673a05a4a1e1b05db5a41e9af03a3",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "published as d64"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-65",
@@ -1397,7 +1372,7 @@
    "sha256": "1aa640555bcf1c0c197a1a7ef682492b6f2c25ffa191c15eaf9c05900c809130",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   },
   {
    "id": "deck-66",
@@ -1408,1130 +1383,10 @@
    "sha256": "5412bdb32299eee55aced5044a638f8d7e8b3db5b4f7a708db03788c114b0d0c",
    "category": "conceptual rendering",
    "section": "Mezanine Floor",
-   "publicUse": "not published (held for future use)"
+   "publicUse": "not published in full (owner decision, 23 Nov 2026); teaser crops only where listed in scripts/dev/encode-renders.py"
   }
  ],
  "publishedDesignFiles": [
-  {
-   "file": "public/assets/design/d03-1200.avif",
-   "bytes": 52223,
-   "sha256": "334539d41a251a4e371bb9c4a21a941509f7a0c7daca18ab8983b8d8fcf5b8b2"
-  },
-  {
-   "file": "public/assets/design/d03-1200.webp",
-   "bytes": 75772,
-   "sha256": "e7e4ab22812b22b6355ea559dd982fc05ba3706a9236e42abc6d9052a2ec705e"
-  },
-  {
-   "file": "public/assets/design/d03-1600.avif",
-   "bytes": 81398,
-   "sha256": "12df4cbdb95188c61aba7da722a9d65a7047a0ab829fc3381db36ade47c56efa"
-  },
-  {
-   "file": "public/assets/design/d03-240.avif",
-   "bytes": 3281,
-   "sha256": "3c1aecf251cc93b755092932bbcb9f5e1dd86f395fc265acc8993d4062b555f3"
-  },
-  {
-   "file": "public/assets/design/d03-240.webp",
-   "bytes": 5488,
-   "sha256": "4035beec1052351a974c7f2fee5095daaf4e583313ece6a38e01ee0dade886db"
-  },
-  {
-   "file": "public/assets/design/d03-480.avif",
-   "bytes": 10844,
-   "sha256": "f225cbe3f432950c8d0b057c689445f056f85e71e473a2daa7eda8f0ae5791dc"
-  },
-  {
-   "file": "public/assets/design/d03-800.avif",
-   "bytes": 26412,
-   "sha256": "9d929499fdf1a13b270bc6e7aa1b6015bf165f187f3db3de161aab0c053e6787"
-  },
-  {
-   "file": "public/assets/design/d03-800.webp",
-   "bytes": 40530,
-   "sha256": "e6cbf874a6da60c9c2ea7b2248ef3afa57caba44bdd27c551d9d63c4d5e0f6b6"
-  },
-  {
-   "file": "public/assets/design/d04-1200.avif",
-   "bytes": 62437,
-   "sha256": "0eb17136c993c2399523137a11d9d8c42ef37d864d20681bd4b75904fd1ce69b"
-  },
-  {
-   "file": "public/assets/design/d04-1200.webp",
-   "bytes": 99200,
-   "sha256": "cba0ebc46c1b371f4b16b90b3ef7d93235dbc0861f9cd43b3a6238f812443d5f"
-  },
-  {
-   "file": "public/assets/design/d04-1600.avif",
-   "bytes": 98517,
-   "sha256": "20dd224c357dae6fb5757c1b6768ea4f77213cbdd8eeff20e916ad87155d5efb"
-  },
-  {
-   "file": "public/assets/design/d04-240.avif",
-   "bytes": 4143,
-   "sha256": "cc8bc32dd8b5b87643c343251fa305221fcf8ded732afb05d28163db19cf13ae"
-  },
-  {
-   "file": "public/assets/design/d04-240.webp",
-   "bytes": 6498,
-   "sha256": "597451f38f11222743e1470c01ffd291513a586b3df9b95b681faa2d1e42b65e"
-  },
-  {
-   "file": "public/assets/design/d04-480.avif",
-   "bytes": 13027,
-   "sha256": "c2441643378c4dcb3a339ee28d8f97bb075017f49d18ae62ae3b7fa6ccc5e445"
-  },
-  {
-   "file": "public/assets/design/d04-800.avif",
-   "bytes": 31113,
-   "sha256": "5e6e7099cedd9ab13cc7b905ecf2d4487cdb583488aea02cb0f3c5410775b1c3"
-  },
-  {
-   "file": "public/assets/design/d04-800.webp",
-   "bytes": 51742,
-   "sha256": "caee1970dc3800e9285c734acf78f24403cedaa52fa8d20ae3492be5e83e2ee6"
-  },
-  {
-   "file": "public/assets/design/d06-1200.avif",
-   "bytes": 48792,
-   "sha256": "8c0d4175bf7a176962614a1a8ed145a610f97232e85957e1ff775e4049f21a10"
-  },
-  {
-   "file": "public/assets/design/d06-1200.webp",
-   "bytes": 67364,
-   "sha256": "060e26f09c1c99a8d23d795712feb11af4c2903d377694dbf6e847aae4fb4dbb"
-  },
-  {
-   "file": "public/assets/design/d06-1600.avif",
-   "bytes": 76186,
-   "sha256": "b87a0313bb8980b3901cf3241b3f586eee55d942a5c3e2887d0d7656227c4794"
-  },
-  {
-   "file": "public/assets/design/d06-240.avif",
-   "bytes": 3252,
-   "sha256": "eb0e8bb2dc164c56308892a7b43e011d90741d2d83d976278f0acb78e24133ff"
-  },
-  {
-   "file": "public/assets/design/d06-240.webp",
-   "bytes": 5216,
-   "sha256": "1abc294ab444a0a32e7c282a9a2e94b9d7dec1ac3793544065844e71beb41c10"
-  },
-  {
-   "file": "public/assets/design/d06-480.avif",
-   "bytes": 10653,
-   "sha256": "ef269704b411fdfe6977087dd189333546f36fad7501533c5d3f99465ef16ed0"
-  },
-  {
-   "file": "public/assets/design/d06-800.avif",
-   "bytes": 25109,
-   "sha256": "59b3054fcfecb9ea44ca4fb710123adeb1d45d1890451d810c7fba37155415fe"
-  },
-  {
-   "file": "public/assets/design/d06-800.webp",
-   "bytes": 36060,
-   "sha256": "ff5545f43cdfde4c9cd7dcbd256e3a8769e974f07c445ddc676d403f704591ec"
-  },
-  {
-   "file": "public/assets/design/d09-1200.avif",
-   "bytes": 50533,
-   "sha256": "85379c58bcc27d82c85996e8e666a1dba5195bc78c8b657d4f92c25385aa944e"
-  },
-  {
-   "file": "public/assets/design/d09-1200.webp",
-   "bytes": 72766,
-   "sha256": "7434f9372e45b4000edffa03ee2a979ef1b654b968fbf9d7ba3c46d279267c3f"
-  },
-  {
-   "file": "public/assets/design/d09-1600.avif",
-   "bytes": 78772,
-   "sha256": "c6b2c4897c50ccad5b72705be3720b020896a65694d5c79e77de3acd294b6407"
-  },
-  {
-   "file": "public/assets/design/d09-240.avif",
-   "bytes": 3245,
-   "sha256": "957b62f8a7e897567c680b190b3f9a0ecb21cdca067dc1129d8eeb0dc8ea71e2"
-  },
-  {
-   "file": "public/assets/design/d09-240.webp",
-   "bytes": 4740,
-   "sha256": "94407439aa3feb8271c8d52d84372dfbff24d84a3b9821609ab3b66c4a2b9052"
-  },
-  {
-   "file": "public/assets/design/d09-480.avif",
-   "bytes": 11209,
-   "sha256": "3d29b3388e01b1f7ebeb573cd1213d8e0840e795e086f4264e81bd846101af96"
-  },
-  {
-   "file": "public/assets/design/d09-800.avif",
-   "bytes": 25841,
-   "sha256": "43df208ad061b9e1f56087e42ff62eedc44055ce2b17fce20f0594436ab3e48f"
-  },
-  {
-   "file": "public/assets/design/d09-800.webp",
-   "bytes": 37686,
-   "sha256": "1f017c10ecad5da568ad9037ad6f820519ae572dac8ed44e754e4a1de69cfc66"
-  },
-  {
-   "file": "public/assets/design/d10-1200.avif",
-   "bytes": 46205,
-   "sha256": "f5026a59a8191ff098732a5ae4cf0d7da0534bd8f6f337ddef3babcce9eac6fb"
-  },
-  {
-   "file": "public/assets/design/d10-1200.webp",
-   "bytes": 63860,
-   "sha256": "b351be44429a0b614aab9cf9f5a2e47993323238ed0ca46a1f20755cb4848ec3"
-  },
-  {
-   "file": "public/assets/design/d10-1600.avif",
-   "bytes": 71046,
-   "sha256": "c2c125637f2be277d422f9c196af70ae08412eaade8c2b38362a730bc1bfcbb2"
-  },
-  {
-   "file": "public/assets/design/d10-240.avif",
-   "bytes": 3554,
-   "sha256": "e6d5fb67543fc0a4dd1eb4be71cf4c07ac43f62d4840292e9b124cc0fe5dc3cc"
-  },
-  {
-   "file": "public/assets/design/d10-240.webp",
-   "bytes": 5388,
-   "sha256": "b5c8c1f06eccb2618070959d69800ac68a98187a294b04b3e2f16d65b75f7c9e"
-  },
-  {
-   "file": "public/assets/design/d10-480.avif",
-   "bytes": 10670,
-   "sha256": "fbed65f1ab94e301a36de67977dcdd4e02e0c06be7c62611bd88352a5dd94766"
-  },
-  {
-   "file": "public/assets/design/d10-800.avif",
-   "bytes": 23964,
-   "sha256": "2a2354aa7927c49cb1c684363176ed22f997dd2d84058656782e7bdcf345c3a5"
-  },
-  {
-   "file": "public/assets/design/d10-800.webp",
-   "bytes": 35038,
-   "sha256": "8d9ce2db70f052ba2c5651e4b3a3231c4e36e3c50b098c5308161c6bfb1615cf"
-  },
-  {
-   "file": "public/assets/design/d12-1200.avif",
-   "bytes": 50577,
-   "sha256": "b8aaf5f306a5b9b52ee3772d045ed4fdabb6666057f8e67934aa70c4293ee900"
-  },
-  {
-   "file": "public/assets/design/d12-1200.webp",
-   "bytes": 76058,
-   "sha256": "d07bdc7cff6bd3f9803a1e70380b8cc88b04b3c51c45c1fd2ab80124e7c2b0f4"
-  },
-  {
-   "file": "public/assets/design/d12-1600.avif",
-   "bytes": 79634,
-   "sha256": "5876cf52d5a9e38087c7c6c6e55218be617d8009197257f36739b5321f3305fb"
-  },
-  {
-   "file": "public/assets/design/d12-240.avif",
-   "bytes": 3605,
-   "sha256": "6e931bebb389d2200773fc803cbf595f46c5dac5c8ea51ba5ead3148335583e8"
-  },
-  {
-   "file": "public/assets/design/d12-240.webp",
-   "bytes": 5586,
-   "sha256": "e09dd4f55b395f978ebcf54b117f902035108cc47115a0e9a7d32218fde92287"
-  },
-  {
-   "file": "public/assets/design/d12-480.avif",
-   "bytes": 10604,
-   "sha256": "7be864a79d3e7bb2d3c46c8bd1d3e29f96bf3b6fbaf93b6ab8d97f9005db805d"
-  },
-  {
-   "file": "public/assets/design/d12-800.avif",
-   "bytes": 25508,
-   "sha256": "3685649c6028135b9bee9cd29ebf8aa11673ede54f87a57b3b90ad95d101faed"
-  },
-  {
-   "file": "public/assets/design/d12-800.webp",
-   "bytes": 39340,
-   "sha256": "28ebf600d04bfcc31661958cefd3e84997d810dd7d30db137ca69c9d5a0d981c"
-  },
-  {
-   "file": "public/assets/design/d16-1200.avif",
-   "bytes": 65038,
-   "sha256": "c16c9d270590a6ef937d8b85ff169e6df1162669bbdd0991a403fbad73618754"
-  },
-  {
-   "file": "public/assets/design/d16-1200.webp",
-   "bytes": 102006,
-   "sha256": "533f89544e057b5c582144b923082a3de5e82d33ac4bc1ef43178294f755d320"
-  },
-  {
-   "file": "public/assets/design/d16-1600.avif",
-   "bytes": 103465,
-   "sha256": "9668ae7217d786809bba1b1359a7a8195a8b9ac659ca30da5517e2cb6cc6fa78"
-  },
-  {
-   "file": "public/assets/design/d16-240.avif",
-   "bytes": 3410,
-   "sha256": "69af18d06917a8acc69ddedc925f6a7e48ebad8fc61a5e8cb198a1fe896ca0fe"
-  },
-  {
-   "file": "public/assets/design/d16-240.webp",
-   "bytes": 5500,
-   "sha256": "f89f051613b7097e26094ba68de43b5f83b6411243f02159d569cd132ff2b5ee"
-  },
-  {
-   "file": "public/assets/design/d16-480.avif",
-   "bytes": 12168,
-   "sha256": "3d90bb19a98b0f95fa5869c615874e05400c0ca3c24f0354cc0b680e840bc233"
-  },
-  {
-   "file": "public/assets/design/d16-800.avif",
-   "bytes": 31314,
-   "sha256": "99351ef24c20fe0cb1e1239a19a7e191ea044e5bf2805c4b28920ff0b700b62a"
-  },
-  {
-   "file": "public/assets/design/d16-800.webp",
-   "bytes": 54150,
-   "sha256": "513e5d5f543eea53d586275407ef34d3793b4487abfeef668e7cb2e0698a79ec"
-  },
-  {
-   "file": "public/assets/design/d19-1200.avif",
-   "bytes": 50997,
-   "sha256": "8107df5011212020b649a50c1343b53bc02375b6ddb53cf57794922312cbf93a"
-  },
-  {
-   "file": "public/assets/design/d19-1200.webp",
-   "bytes": 73434,
-   "sha256": "1715cf59841f4363d2a86f2b15f29b60ce46f37c03b72506e8a114cd4de7bed3"
-  },
-  {
-   "file": "public/assets/design/d19-1600.avif",
-   "bytes": 80168,
-   "sha256": "25790a929be2f969bc4d026bbc41f202e5a1f13e14e7d10714b751aedf0139b3"
-  },
-  {
-   "file": "public/assets/design/d19-240.avif",
-   "bytes": 3803,
-   "sha256": "c3932aa3bc63445414a3bae0a409495b1e4eb0ed6f33803a90a73e04af334a8e"
-  },
-  {
-   "file": "public/assets/design/d19-240.webp",
-   "bytes": 5614,
-   "sha256": "8e17bf00baf6e15cab1eb422b553d097bc05b6afe17d798cad39d0647935526b"
-  },
-  {
-   "file": "public/assets/design/d19-480.avif",
-   "bytes": 11241,
-   "sha256": "78316f9473b38a2dbaecf099d180081fb78a19cb7f3467513ff4ddba83e1a475"
-  },
-  {
-   "file": "public/assets/design/d19-800.avif",
-   "bytes": 26188,
-   "sha256": "c3f6a7bc69d778676848d76fd9b18e83d9d3037dfc7d4c436d6bbc5fccdbd670"
-  },
-  {
-   "file": "public/assets/design/d19-800.webp",
-   "bytes": 39006,
-   "sha256": "674a4447ed6d3750ddb058c42644f67ab3b5f3ce4a7bffab0452ec81419aab94"
-  },
-  {
-   "file": "public/assets/design/d21-1200.avif",
-   "bytes": 35357,
-   "sha256": "96e23b8c26472e5c59391a9bb85b9dbcb26ff44f4f2fd69984f258f097a0b193"
-  },
-  {
-   "file": "public/assets/design/d21-1200.webp",
-   "bytes": 49012,
-   "sha256": "0d0f3478bc82780c492042c4d1ed7dce3c669f8495d36037deecc63b1349944d"
-  },
-  {
-   "file": "public/assets/design/d21-1600.avif",
-   "bytes": 53366,
-   "sha256": "66ac3f00eeb1cbaa566325cef7ea438cc9209c2a8489948a351d37b488477c25"
-  },
-  {
-   "file": "public/assets/design/d21-240.avif",
-   "bytes": 2536,
-   "sha256": "dbdf696cfb1969d70c6800f0c0c72a5faea728235ea1067160b77aa6b4c1e81f"
-  },
-  {
-   "file": "public/assets/design/d21-240.webp",
-   "bytes": 3264,
-   "sha256": "174b02486c6ffe12617f6d99f0d44e4b6e9c4ec5e45472204dd6113df6e80164"
-  },
-  {
-   "file": "public/assets/design/d21-480.avif",
-   "bytes": 8093,
-   "sha256": "dd45f3c33d1e6df25f6e922cbd17c401b6ee82d15a9c77cd750ad5a363e775f5"
-  },
-  {
-   "file": "public/assets/design/d21-800.avif",
-   "bytes": 19118,
-   "sha256": "3a651aa1b86479ffbc508496e8db065ba51d1b7d097907b638bc60c6a0b30c31"
-  },
-  {
-   "file": "public/assets/design/d21-800.webp",
-   "bytes": 25926,
-   "sha256": "4effe28ac306f72210823d7827da071d7e47a65cc1c62698c4c06bbda9ecec07"
-  },
-  {
-   "file": "public/assets/design/d24-1200.avif",
-   "bytes": 61123,
-   "sha256": "48f22b3507690e0a8e5d78627d5e27916ba91435aeb4d64c8d10d62c8b784b0f"
-  },
-  {
-   "file": "public/assets/design/d24-1200.webp",
-   "bytes": 95682,
-   "sha256": "42f3ae8ce610e0a70a7033f721202f21e9db11508ab8cf2b2b7f7157bc51256b"
-  },
-  {
-   "file": "public/assets/design/d24-1600.avif",
-   "bytes": 97148,
-   "sha256": "258c9945431b388eb8e5d703fa2035088effe5daf570b4bcf66afd1d1a92caf3"
-  },
-  {
-   "file": "public/assets/design/d24-240.avif",
-   "bytes": 3547,
-   "sha256": "3fa32197238f6a708281d370991387ef062080aec686e7b64515e13aea05d1d7"
-  },
-  {
-   "file": "public/assets/design/d24-240.webp",
-   "bytes": 5606,
-   "sha256": "2ad0564a71d316b0cb426ef534adf7a111d4984608657222e813f838fa1fc814"
-  },
-  {
-   "file": "public/assets/design/d24-480.avif",
-   "bytes": 11720,
-   "sha256": "786315b392df137ba4d6113213447e8f4dfd4cbcd8049d58519087b1c39e81c7"
-  },
-  {
-   "file": "public/assets/design/d24-800.avif",
-   "bytes": 30095,
-   "sha256": "c9c6e1158f5325fffd4017469a4d7612605e76c7fe8aaa1a0d126eaa2c253ced"
-  },
-  {
-   "file": "public/assets/design/d24-800.webp",
-   "bytes": 47946,
-   "sha256": "8d1504ea8c06df48ce8df45dccc19ff7c117558fd2ec84a6d9404355f1b4a973"
-  },
-  {
-   "file": "public/assets/design/d25-1200.avif",
-   "bytes": 63659,
-   "sha256": "e02b0694314732dd86d846d7aa8c31e24085bd2d7aa40b04485b098fdd8fec00"
-  },
-  {
-   "file": "public/assets/design/d25-1200.webp",
-   "bytes": 98542,
-   "sha256": "d223c772ec794a0d9ffa905b77988e1fabfccc47f4c65010f6084900c781ef59"
-  },
-  {
-   "file": "public/assets/design/d25-1600.avif",
-   "bytes": 101339,
-   "sha256": "93dcfdafceac47ae28a4172f2eb0791d4bbf220819f182f3779a54730b18c9be"
-  },
-  {
-   "file": "public/assets/design/d25-240.avif",
-   "bytes": 3184,
-   "sha256": "c0ebd2c905d9ff037f14d7cce8f3fa54a3fd6996eaa5caa61e6bdfd2ba5efa4a"
-  },
-  {
-   "file": "public/assets/design/d25-240.webp",
-   "bytes": 4998,
-   "sha256": "a84dd98d3a7bc483c9739da11506e41dd9b94873d49cbc9d4c2a9a21eaad122b"
-  },
-  {
-   "file": "public/assets/design/d25-480.avif",
-   "bytes": 11612,
-   "sha256": "c333fa23c6f2fbc62bf48e9be8b79ff1bbfd019fb60e3a8f412ed6d05fe03454"
-  },
-  {
-   "file": "public/assets/design/d25-800.avif",
-   "bytes": 30640,
-   "sha256": "133f25c7ad084abb0432f38ab2164cea40c79a3fdb984adac896affd66d0a552"
-  },
-  {
-   "file": "public/assets/design/d25-800.webp",
-   "bytes": 48284,
-   "sha256": "52e3dbe0ed84a78be1b08a01d0657e8efe24a0ee922f36632dcc6c5c15ca32bb"
-  },
-  {
-   "file": "public/assets/design/d27-1200.avif",
-   "bytes": 59085,
-   "sha256": "303dad3f7a4e91048db7ab94aebd705241f1a2a732a42bab998bde9852e260b7"
-  },
-  {
-   "file": "public/assets/design/d27-1200.webp",
-   "bytes": 88414,
-   "sha256": "43b987f8d5cdfe161e6e272c4265b2e45f5d61a915e5a98f6b4d55f686b90986"
-  },
-  {
-   "file": "public/assets/design/d27-1600.avif",
-   "bytes": 94706,
-   "sha256": "688bcced4f415f0c8e3466f13b81c8e53a50c4e9b98921939e35c7fc60e6b5aa"
-  },
-  {
-   "file": "public/assets/design/d27-240.avif",
-   "bytes": 3536,
-   "sha256": "c1414fafd26dd97c7a500cb97a1985a25856afdb573eb25ae4257645992f6bfc"
-  },
-  {
-   "file": "public/assets/design/d27-240.webp",
-   "bytes": 5230,
-   "sha256": "4673489550e7a1470337cb696d601cc2f4579b588dcd97df30d240011f7450ea"
-  },
-  {
-   "file": "public/assets/design/d27-480.avif",
-   "bytes": 11346,
-   "sha256": "360fe2937f2f48f8753182063e04004856ea9c869fc32fefe9f13b0081846518"
-  },
-  {
-   "file": "public/assets/design/d27-800.avif",
-   "bytes": 29001,
-   "sha256": "a143ac39b0620a8a812f77555e1d921d21a8d1f3ac95debb6f5ddc084f763259"
-  },
-  {
-   "file": "public/assets/design/d27-800.webp",
-   "bytes": 43448,
-   "sha256": "82dea1068ea4c9f3a01e292d822b6862dc1f1e96e08e5a4de7dddae692b65340"
-  },
-  {
-   "file": "public/assets/design/d29-1200.avif",
-   "bytes": 53592,
-   "sha256": "79674ad735a7ae78f40e1c6da665a6abca1288a4f785bf15ff6800ec5bb14ae7"
-  },
-  {
-   "file": "public/assets/design/d29-1200.webp",
-   "bytes": 77478,
-   "sha256": "e31ecd2e92d15100fb4815187f885a816f62a7f8b166822e7a6aa6c63e9cacd7"
-  },
-  {
-   "file": "public/assets/design/d29-1600.avif",
-   "bytes": 82706,
-   "sha256": "e03e005f63a86a37207079af85c44a183e1384d9f172cfe2c55bbb3aae187a60"
-  },
-  {
-   "file": "public/assets/design/d29-240.avif",
-   "bytes": 4322,
-   "sha256": "6981bf3f4d8e6bbb8af1ba239a1b8ef3b7b65c116fc9c89c383bcae2e740e199"
-  },
-  {
-   "file": "public/assets/design/d29-240.webp",
-   "bytes": 6864,
-   "sha256": "3c839bd99e22483600459f650ea1e7dfbccfa8b336385a74a22d596b68b901c5"
-  },
-  {
-   "file": "public/assets/design/d29-480.avif",
-   "bytes": 12151,
-   "sha256": "352686be8eb07724422ddffaf35ceebeef1a412b1421b1f3d8578c554e3218d3"
-  },
-  {
-   "file": "public/assets/design/d29-800.avif",
-   "bytes": 27988,
-   "sha256": "3430c0095177ed93da5452409f606856996f26cbab31b1de64d6b436dea6ae87"
-  },
-  {
-   "file": "public/assets/design/d29-800.webp",
-   "bytes": 42650,
-   "sha256": "3544aa8dfba39efddf76f4f6b69ca6956ca21979413225ccfdcb31b9d33df9e4"
-  },
-  {
-   "file": "public/assets/design/d33-1200.avif",
-   "bytes": 52694,
-   "sha256": "d3896eef4a62480522c2e6b15f5ace24a16a73f32042e7595540d86858d8cb35"
-  },
-  {
-   "file": "public/assets/design/d33-1200.webp",
-   "bytes": 84126,
-   "sha256": "a76aaf118b00f1fbeaa3ddfab38ae19e3c8901c9fefbf7879980da9167a6eaff"
-  },
-  {
-   "file": "public/assets/design/d33-1600.avif",
-   "bytes": 79466,
-   "sha256": "66563e0730b1edc7b44b72230a12ec0a9a4bd08ee657579bb0b2eaef4fe42e3d"
-  },
-  {
-   "file": "public/assets/design/d33-240.avif",
-   "bytes": 4659,
-   "sha256": "0cf9c45396d08c18d1fbcfb0b3653d94c8ca3563556ef2d34a5a313c3406fd20"
-  },
-  {
-   "file": "public/assets/design/d33-240.webp",
-   "bytes": 7486,
-   "sha256": "9bc9c718dd24d8222c6a1a7a807c9b47ba70557b7b1ba9ae1cf774822dc55e50"
-  },
-  {
-   "file": "public/assets/design/d33-480.avif",
-   "bytes": 13237,
-   "sha256": "a2fe57c57330e149eaedd1b8678e30a8bd3ea86fcf7f410c7caade8e521d4844"
-  },
-  {
-   "file": "public/assets/design/d33-800.avif",
-   "bytes": 28534,
-   "sha256": "8e7b0b0fea4643ece15ef2edeb99cb47dd2b403f80ec1b1cf461c0dcaee45496"
-  },
-  {
-   "file": "public/assets/design/d33-800.webp",
-   "bytes": 47064,
-   "sha256": "07c3c8c1d76ff7b54c9bb7c6494df2962fbf8572431deed7e26422d158a0f25d"
-  },
-  {
-   "file": "public/assets/design/d34-1200.avif",
-   "bytes": 56692,
-   "sha256": "68ac7b438357f83e39ab9000f669338eed72adb88adb19d4dcf90b1c8c66076d"
-  },
-  {
-   "file": "public/assets/design/d34-1200.webp",
-   "bytes": 84044,
-   "sha256": "ed517b93118048a0c592281650a9f3393da2e598e1c7777c6ab6bd2e0ae38453"
-  },
-  {
-   "file": "public/assets/design/d34-1600.avif",
-   "bytes": 87020,
-   "sha256": "e047145c1e7515bb58233ea5c34aca6d2658514c28bc091c3d3bcfecc9b9fb5b"
-  },
-  {
-   "file": "public/assets/design/d34-240.avif",
-   "bytes": 3682,
-   "sha256": "2ade885c94d1d6c72682c08b4d2799358eef6f30d01d98d6de1f84d0e28e0f38"
-  },
-  {
-   "file": "public/assets/design/d34-240.webp",
-   "bytes": 5826,
-   "sha256": "19062c08e9587014ee9c3ad8d693f7c9c22c4f587ca8c372806483343a57ca99"
-  },
-  {
-   "file": "public/assets/design/d34-480.avif",
-   "bytes": 11463,
-   "sha256": "bbbb80401e388aff4611b0719fd7cb474f91c39907dc29581f9fe843c45a48f6"
-  },
-  {
-   "file": "public/assets/design/d34-800.avif",
-   "bytes": 29100,
-   "sha256": "3cf47fa46c5b9299e616a0d4aad2c8e8c0f51f3600ca7da8cc837b977f4798a9"
-  },
-  {
-   "file": "public/assets/design/d34-800.webp",
-   "bytes": 43676,
-   "sha256": "a5cc447c3679be8aa76092db1ef03540afb9dc774f2e941d0c3a5674e40776c5"
-  },
-  {
-   "file": "public/assets/design/d35-1200.avif",
-   "bytes": 60823,
-   "sha256": "74463b0e035d890007229fcac09b614672b1400a1e51f78a907b577b584b3624"
-  },
-  {
-   "file": "public/assets/design/d35-1200.webp",
-   "bytes": 89940,
-   "sha256": "22636efeb7ce78f621f20a5681462c6c282c9b217aba388a0b68531600c9e0ad"
-  },
-  {
-   "file": "public/assets/design/d35-1600.avif",
-   "bytes": 94665,
-   "sha256": "c87f92dc262f9a670e1e9625215efa305400f29324fd141da06f76a347771138"
-  },
-  {
-   "file": "public/assets/design/d35-240.avif",
-   "bytes": 4248,
-   "sha256": "fd171c90e17168348445e34a470c9be9d1e6997fffa3412165ab1d3a390874fa"
-  },
-  {
-   "file": "public/assets/design/d35-240.webp",
-   "bytes": 6686,
-   "sha256": "10aee46852abd5eccc714b96c47421fd2960340bff4c159f00e88d788764f3f6"
-  },
-  {
-   "file": "public/assets/design/d35-480.avif",
-   "bytes": 13413,
-   "sha256": "bc2c2ef6db7a8f08c99e57ae360c6c91d031fe4526053bc967e45e0ef609b1b9"
-  },
-  {
-   "file": "public/assets/design/d35-800.avif",
-   "bytes": 31349,
-   "sha256": "dee0b23fb6253d02a77b4304e07d6a9c90eec4213c24849eef9947029048fe7c"
-  },
-  {
-   "file": "public/assets/design/d35-800.webp",
-   "bytes": 48394,
-   "sha256": "43603fac398b129b3b624c5c76abf162cdb28feef47d9de039d561772903d324"
-  },
-  {
-   "file": "public/assets/design/d37-1200.avif",
-   "bytes": 49156,
-   "sha256": "98a6668e97c4e4b016f4c64be70f23395c23a3ff50a4c1fdc3f308e8e7712a7c"
-  },
-  {
-   "file": "public/assets/design/d37-1200.webp",
-   "bytes": 67142,
-   "sha256": "ceafbcb38bfcbfda1ff70af849a2f9cda1cce27433ff98ccd4404b33d018c62b"
-  },
-  {
-   "file": "public/assets/design/d37-1600.avif",
-   "bytes": 77952,
-   "sha256": "74cd12df775d023f80681efb154a04076ad300795f02a5e3ea8e4ad1fe6b0b29"
-  },
-  {
-   "file": "public/assets/design/d37-240.avif",
-   "bytes": 3337,
-   "sha256": "cba24d53aceaadfd5a9d345dca7305bb81cf46fedbf1aa46d5abf40d5f342b05"
-  },
-  {
-   "file": "public/assets/design/d37-240.webp",
-   "bytes": 4308,
-   "sha256": "d1222fbd7bda162efc5aca1aa4021fddd3f6d600d336401fa967da4986ee4901"
-  },
-  {
-   "file": "public/assets/design/d37-480.avif",
-   "bytes": 10052,
-   "sha256": "61e84dc9450743843cf8f5baddc71f8cb41e70469e60b6fb9e88bda0a8b448bd"
-  },
-  {
-   "file": "public/assets/design/d37-800.avif",
-   "bytes": 24437,
-   "sha256": "8682ad5fa67d8c7320a837e99a1a085ba864e784afb01b384d43c092ade73d82"
-  },
-  {
-   "file": "public/assets/design/d37-800.webp",
-   "bytes": 33610,
-   "sha256": "37b7ac6d6fe76c09f6c2ad0ff915dc518291eef53b31c9d1562953aee4ceef8b"
-  },
-  {
-   "file": "public/assets/design/d38-1200.avif",
-   "bytes": 56557,
-   "sha256": "a36dfdc9a4abb308c1f0372cba0f2eb9ae4263569e37019196b2ad9cf30b712c"
-  },
-  {
-   "file": "public/assets/design/d38-1200.webp",
-   "bytes": 80560,
-   "sha256": "5e22cad38bc2fd3dc70b2349147dc0281a0e98ddc468231c1ccb9e6617e47c2c"
-  },
-  {
-   "file": "public/assets/design/d38-1600.avif",
-   "bytes": 90734,
-   "sha256": "0aaf3c5e7ce3dd4da6c02142db9060c115c89bf7af02f5e3357fe117581d3db0"
-  },
-  {
-   "file": "public/assets/design/d38-240.avif",
-   "bytes": 3185,
-   "sha256": "0300e9d05ec12efff379b8ad61ab42daa876eb48badb8ab41e8941b151b5d2be"
-  },
-  {
-   "file": "public/assets/design/d38-240.webp",
-   "bytes": 4262,
-   "sha256": "a1fb9699219566c4935afe839f265bbca37407a156d7d3aebe8894cbd2a21422"
-  },
-  {
-   "file": "public/assets/design/d38-480.avif",
-   "bytes": 10632,
-   "sha256": "4d4aba7bc0a022f98f8348c9160296aafaadb50aa839b76fcaf19daae986a0aa"
-  },
-  {
-   "file": "public/assets/design/d38-800.avif",
-   "bytes": 27901,
-   "sha256": "8406e2c9ec9d896b5489d1387e6500e3554f7b479ee654005dc83b0e85c4a92d"
-  },
-  {
-   "file": "public/assets/design/d38-800.webp",
-   "bytes": 40114,
-   "sha256": "ba7ad21124f1d8421add2da0e8f3469931ebc003413b2d531ee01123b3649805"
-  },
-  {
-   "file": "public/assets/design/d39-1200.avif",
-   "bytes": 54681,
-   "sha256": "d0b797fee4ec9fbaeed4cd152dc600b4bfc05d29caa91c6a44442dde63adf7d0"
-  },
-  {
-   "file": "public/assets/design/d39-1200.webp",
-   "bytes": 77580,
-   "sha256": "7a762fd41319c65418502ef6f4d571f3ff12a087a8cb0a49098e838924ce9307"
-  },
-  {
-   "file": "public/assets/design/d39-1600.avif",
-   "bytes": 87760,
-   "sha256": "ea3552d9a236a7c5f0c6afce622ebb3743a5e968bdc4533559631d87bd4cfeb4"
-  },
-  {
-   "file": "public/assets/design/d39-240.avif",
-   "bytes": 2974,
-   "sha256": "b12dc8dd5ee4fe6b2baa62edf6a16a876d260f1b19222fdc79745fa6aca8fa45"
-  },
-  {
-   "file": "public/assets/design/d39-240.webp",
-   "bytes": 3966,
-   "sha256": "56bac6a3f582f06cdb05bc3c8a8403f94d90a82f8e6af17ae74d465147765630"
-  },
-  {
-   "file": "public/assets/design/d39-480.avif",
-   "bytes": 9948,
-   "sha256": "602fd4c96d4cad848f60f4661777c63d887731e3ebd35795ee318ddc2350ad34"
-  },
-  {
-   "file": "public/assets/design/d39-800.avif",
-   "bytes": 26400,
-   "sha256": "568403bb1b19db1cc526afcbd18fa636ae49cdaec548f3e29ff16ecdb43052a9"
-  },
-  {
-   "file": "public/assets/design/d39-800.webp",
-   "bytes": 38470,
-   "sha256": "75e2c0113ccff7201c69700b00bef0d1d9c5289f773d3ed391c61f27571a0d68"
-  },
-  {
-   "file": "public/assets/design/d42-1200.avif",
-   "bytes": 59600,
-   "sha256": "0740833ba6860a929414413059e73c8ff0b72a8ab09d1a32d9b617188c0ed1d8"
-  },
-  {
-   "file": "public/assets/design/d42-1200.webp",
-   "bytes": 94390,
-   "sha256": "02994f99056437f213d94af400f5204a2a1566ab55b933cb5dbb53444b9a31cc"
-  },
-  {
-   "file": "public/assets/design/d42-1600.avif",
-   "bytes": 94295,
-   "sha256": "366b85f8773c684d38c190f37d7214b6edadcb6aa879290ff1da6e7f9e921205"
-  },
-  {
-   "file": "public/assets/design/d42-240.avif",
-   "bytes": 4464,
-   "sha256": "72fb9aac6988a38e940a081166c0fc6e510f780074563b3de164c4e3936bec10"
-  },
-  {
-   "file": "public/assets/design/d42-240.webp",
-   "bytes": 6884,
-   "sha256": "0dfdf8008b74d29941b0420f7e81f4c7761c0fae8be4071a5c589e6dd84fd932"
-  },
-  {
-   "file": "public/assets/design/d42-480.avif",
-   "bytes": 13450,
-   "sha256": "ea2d93768e2b3f16157fb64466e09375787db91a716ff41a8d58380170dd7d33"
-  },
-  {
-   "file": "public/assets/design/d42-800.avif",
-   "bytes": 30846,
-   "sha256": "301639b9edff300ca094212009dcbbb256637c51b5a111829e203a769e88e497"
-  },
-  {
-   "file": "public/assets/design/d42-800.webp",
-   "bytes": 50282,
-   "sha256": "e914a058412c3cec20933e613396a7caef289eaad715c8b1f56331f3423b4926"
-  },
-  {
-   "file": "public/assets/design/d46-1200.avif",
-   "bytes": 26234,
-   "sha256": "d2024decfb3efa8d2c696be997916465c899fc1fff95f0a8a53a789c63d967f0"
-  },
-  {
-   "file": "public/assets/design/d46-1200.webp",
-   "bytes": 33134,
-   "sha256": "f8d7db82a6e5572537a91df82c3dca04dff546d23ea3b353d2d4cbb97ab32049"
-  },
-  {
-   "file": "public/assets/design/d46-1600.avif",
-   "bytes": 39307,
-   "sha256": "51b72c84156a662751c23b65f0cf0e7b1cf3f9eee7ca789848e268357601e46f"
-  },
-  {
-   "file": "public/assets/design/d46-240.avif",
-   "bytes": 2240,
-   "sha256": "4ef6baec7230b45354373361f3ac85a1930dd961f2243f9099447d913ba754ed"
-  },
-  {
-   "file": "public/assets/design/d46-240.webp",
-   "bytes": 3030,
-   "sha256": "e9c8c43ee1a1085513de7263e3be698183ff605a3cb2d9c8bfb34464c0443677"
-  },
-  {
-   "file": "public/assets/design/d46-480.avif",
-   "bytes": 6193,
-   "sha256": "329f971bf9bf339dd47fcfea89e40bc48b7ae77ff272731b0eda991cf6790d1c"
-  },
-  {
-   "file": "public/assets/design/d46-800.avif",
-   "bytes": 14569,
-   "sha256": "15dc2d31f7884904081fa10f47123dc6cf20258fe6d21f4551ed8fd43d334c73"
-  },
-  {
-   "file": "public/assets/design/d46-800.webp",
-   "bytes": 18528,
-   "sha256": "5fe30898b92403faaa53946687fdd59107b458fc200916ae88acbbb1569690f0"
-  },
-  {
-   "file": "public/assets/design/d48-1200.avif",
-   "bytes": 42731,
-   "sha256": "a9678fad34db285013eabfafede65dfbefa4d220dea61fbb774fe77c92af6c5b"
-  },
-  {
-   "file": "public/assets/design/d48-1200.webp",
-   "bytes": 68190,
-   "sha256": "e03ed0bced8de5be9eb24f7645e1ae57d92bb8c395f744587c2b232ebe624b74"
-  },
-  {
-   "file": "public/assets/design/d48-1600.avif",
-   "bytes": 63523,
-   "sha256": "9a90bdc55880e0afad9d852b0ffc1dd3dfa310bfd103a18df24d3dfcbfb313b2"
-  },
-  {
-   "file": "public/assets/design/d48-240.avif",
-   "bytes": 3886,
-   "sha256": "e430feca0fd1797387af658ed1e7e76294973f2de44a52e5df288b4c790c2df3"
-  },
-  {
-   "file": "public/assets/design/d48-240.webp",
-   "bytes": 6878,
-   "sha256": "d9643d557a6938c9911339c1cef2a84f639c98f29c6ed0c1556ee0a312b68a54"
-  },
-  {
-   "file": "public/assets/design/d48-480.avif",
-   "bytes": 10934,
-   "sha256": "c4a11299e73541bdcfcf2adb21acc2772167175e664579fedcb26f0d42cf579b"
-  },
-  {
-   "file": "public/assets/design/d48-800.avif",
-   "bytes": 23404,
-   "sha256": "621dd4d79e22c28f04fab5b4af499335cb95d8dba9ead7d1c5680ef809a2d4dd"
-  },
-  {
-   "file": "public/assets/design/d48-800.webp",
-   "bytes": 39538,
-   "sha256": "3443fb1598739bba87cb2f998fd270bdb73baef328775664bfb9f4f77bfdf812"
-  },
-  {
-   "file": "public/assets/design/d49-1200.avif",
-   "bytes": 32061,
-   "sha256": "413a8823dab41f96b8d4f5d2a380b8e3af0547fbfc56f3ed421d7be0f0225585"
-  },
-  {
-   "file": "public/assets/design/d49-1200.webp",
-   "bytes": 51594,
-   "sha256": "270ad9022e6bcb29706b275900272c802457ddfba8c5d8a168a931aee96059a2"
-  },
-  {
-   "file": "public/assets/design/d49-1600.avif",
-   "bytes": 47968,
-   "sha256": "1ee45a1316782ba2846453e8d1829c49364c6e3b9d7ec570fc34e980e2592f82"
-  },
-  {
-   "file": "public/assets/design/d49-240.avif",
-   "bytes": 3055,
-   "sha256": "8402669fe55062da8abbc552e4032324fecefc940661bbae5f6807efcc3e48db"
-  },
-  {
-   "file": "public/assets/design/d49-240.webp",
-   "bytes": 5430,
-   "sha256": "98b3eca7cd95ddb38a8403d6a3b42ec6f84c75152ea8204b1e462245faa4ff24"
-  },
-  {
-   "file": "public/assets/design/d49-480.avif",
-   "bytes": 7672,
-   "sha256": "d914f1b286ebd01178e6559e491b79e83fbb1116029ec89c36ca700691b82840"
-  },
-  {
-   "file": "public/assets/design/d49-800.avif",
-   "bytes": 17379,
-   "sha256": "1e45c09a525e337163bd1d655d96d5bad4f4b9a2439641cb947cdd3aa2561aa8"
-  },
-  {
-   "file": "public/assets/design/d49-800.webp",
-   "bytes": 29660,
-   "sha256": "ff615468ea6186f94ca0eff3a02953a4b43a019319df8c762d6e90ad4d546d66"
-  },
-  {
-   "file": "public/assets/design/d50-1200.avif",
-   "bytes": 33029,
-   "sha256": "d59703ca12c8012d1d7cda03a7783a7e4770a528ebce563354ff45c5939edd3c"
-  },
-  {
-   "file": "public/assets/design/d50-1200.webp",
-   "bytes": 48252,
-   "sha256": "92134d022a24f58636855bfc568a6897fc65a2eabd68b90e81c5a9ad935f3aa9"
-  },
-  {
-   "file": "public/assets/design/d50-1600.avif",
-   "bytes": 51808,
-   "sha256": "803a5ac8bf00b1c65a05c0b52475451b120840079858b03130beed9ae52f618c"
-  },
-  {
-   "file": "public/assets/design/d50-240.avif",
-   "bytes": 2525,
-   "sha256": "a5ae8249e05ca5e02342d184cf13004a3d3ad4b846832bc1adf476feafdc3403"
-  },
-  {
-   "file": "public/assets/design/d50-240.webp",
-   "bytes": 3362,
-   "sha256": "e58d8cdc2ae5a3b138a83cc5055336fc43a0702b19851ef59dd746ad557617ff"
-  },
-  {
-   "file": "public/assets/design/d50-480.avif",
-   "bytes": 7208,
-   "sha256": "a3df69277f2cef4012bdfe7ee565b4142bb3565ba828afa4f31e085e4b3773a3"
-  },
-  {
-   "file": "public/assets/design/d50-800.avif",
-   "bytes": 16915,
-   "sha256": "56b3564dcae2a5208a9d73c3083940d9e92fca79b655a1427dff9075ea01699a"
-  },
-  {
-   "file": "public/assets/design/d50-800.webp",
-   "bytes": 25966,
-   "sha256": "d9186a8d033ac8dbe756a43306a96b93b6b0d9201cb82a49eb58606589658cdf"
-  },
-  {
-   "file": "public/assets/design/d51-1200.avif",
-   "bytes": 25646,
-   "sha256": "c98ab1ff87adc9ec7160c9ebda58847d57f7b4a18ef6b6a18a0a86de33c8207b"
-  },
-  {
-   "file": "public/assets/design/d51-1200.webp",
-   "bytes": 29772,
-   "sha256": "ce5e75c73f8e712ecefc55bb8a2be30a3e1e887fdd1320b6da8d66dc473b6d1f"
-  },
-  {
-   "file": "public/assets/design/d51-1600.avif",
-   "bytes": 37484,
-   "sha256": "7cbc5ec9ee06641a3db9c6340d67e1f541f34d51efe561ce9537be742cd7d445"
-  },
-  {
-   "file": "public/assets/design/d51-240.avif",
-   "bytes": 2562,
-   "sha256": "640f8bfc74c845d30923c21a3eed6d068bf07a8b946f2144f267a4662f735e29"
-  },
-  {
-   "file": "public/assets/design/d51-240.webp",
-   "bytes": 3634,
-   "sha256": "8352ef6f932d8e3fbb29542eba3b6c29ce1ebf9deca16b051fedfeca93702c06"
-  },
-  {
-   "file": "public/assets/design/d51-480.avif",
-   "bytes": 6577,
-   "sha256": "7da8e8b603dc5516ad42c6edcedb6aaebd82fe0e36ece89575ccf6830a14f781"
-  },
-  {
-   "file": "public/assets/design/d51-800.avif",
-   "bytes": 14098,
-   "sha256": "65b29b85636280e32af6173e5e9b93f314895a3267989f29936beda738c8387d"
-  },
-  {
-   "file": "public/assets/design/d51-800.webp",
-   "bytes": 16980,
-   "sha256": "7275c5857ecefe8510ea0c61240a80a79bcef50cc637037cea473c86e898d27d"
-  },
-  {
-   "file": "public/assets/design/d53-1200.avif",
-   "bytes": 22758,
-   "sha256": "329142804dd8a02a7bf93f4daf16d2a78672e2666ae3dd1d06814c6da121ac47"
-  },
-  {
-   "file": "public/assets/design/d53-1200.webp",
-   "bytes": 26560,
-   "sha256": "f41e7fe88efde518b8049d1243b00ff2453c7712a71e3055f12183a7e771dcd2"
-  },
-  {
-   "file": "public/assets/design/d53-1600.avif",
-   "bytes": 34054,
-   "sha256": "827477fb668037fd2acd26c96f8f8435067c5e0a1b88123b371ebb371174bd81"
-  },
-  {
-   "file": "public/assets/design/d53-240.avif",
-   "bytes": 2309,
-   "sha256": "f024a6abded2bf6f917bf9c969ca2b94980e71ae39a93de4886f4728abb48d0b"
-  },
-  {
-   "file": "public/assets/design/d53-240.webp",
-   "bytes": 3074,
-   "sha256": "9f71e34535e0af2f81c247aebfd96a064c6dca7dd2033e9c1af9b00861e0bd2d"
-  },
-  {
-   "file": "public/assets/design/d53-480.avif",
-   "bytes": 5788,
-   "sha256": "b909d5d43b4c815380b04fee98d146f7099acb981a84ac1723d59788dde6f3e8"
-  },
-  {
-   "file": "public/assets/design/d53-800.avif",
-   "bytes": 12151,
-   "sha256": "03fc5dc3b0b27159627c9c6e6f74fbde0529b4eca64a9be15a251bea8fa38fb5"
-  },
-  {
-   "file": "public/assets/design/d53-800.webp",
-   "bytes": 14900,
-   "sha256": "5a643e95023574ebd6b6a240adb0b303f1f46ebc96998ff483c3678105cc580a"
-  },
-  {
-   "file": "public/assets/design/d62-1200.avif",
-   "bytes": 41510,
-   "sha256": "7fbf4d6184b78c20b0583982dd6c1a797586fdce0afbbeaa88cbed5a82610c8e"
-  },
-  {
-   "file": "public/assets/design/d62-1200.webp",
-   "bytes": 61094,
-   "sha256": "06fad09d582efeaed6437a4c0e39250e2626ccde1df240c371822454ab6567e1"
-  },
-  {
-   "file": "public/assets/design/d62-1600.avif",
-   "bytes": 64026,
-   "sha256": "f0442d5b267f65df5f7a4f6117b010f13a8179c926dce35afaaa14082320f398"
-  },
-  {
-   "file": "public/assets/design/d62-240.avif",
-   "bytes": 3146,
-   "sha256": "822d69441b6b591d2b8baed93a5c4bfe01fe1f9db842a7e4d066b5c50af5d8fb"
-  },
-  {
-   "file": "public/assets/design/d62-240.webp",
-   "bytes": 5026,
-   "sha256": "cc3bc7ee1d1d89a27692f1296d64d23fb441e6d22c944c82207f30540d03aa59"
-  },
-  {
-   "file": "public/assets/design/d62-480.avif",
-   "bytes": 9585,
-   "sha256": "3953537d1367e6d64181de83c46ca0edb888044c3480feca0e6ccf3441b37afd"
-  },
-  {
-   "file": "public/assets/design/d62-800.avif",
-   "bytes": 21663,
-   "sha256": "4bc1ad799f0f18cacd578cc20c8b3b92b4a1b1cf9d90557e5699e28f12d38d95"
-  },
-  {
-   "file": "public/assets/design/d62-800.webp",
-   "bytes": 33394,
-   "sha256": "b2319522d473a76df3f4df8712cd43c66a0235c6565b47a1f3e7da1c686c64ed"
-  },
-  {
-   "file": "public/assets/design/d64-1200.avif",
-   "bytes": 26732,
-   "sha256": "83b7c2195b557daf1e6d7062ccd7cd3296560349ce5ef817ab371714ce78357c"
-  },
-  {
-   "file": "public/assets/design/d64-1200.webp",
-   "bytes": 31440,
-   "sha256": "f28bc9d33320d3242a71097793fe7bdbe8a01b433aaac08e30247b61bda3f655"
-  },
-  {
-   "file": "public/assets/design/d64-1600.avif",
-   "bytes": 39859,
-   "sha256": "66b8d4e10076d5e08317cded0573ec3c255f947bde741b7929d0064fa4ef117e"
-  },
-  {
-   "file": "public/assets/design/d64-240.avif",
-   "bytes": 2256,
-   "sha256": "5fdee4acc2ea5826939a9c21208abe44d6942ff75d5a0bf7ecf07447d0418102"
-  },
-  {
-   "file": "public/assets/design/d64-240.webp",
-   "bytes": 3112,
-   "sha256": "f4f0e6e58a7211ed48d14cc8e0272cc5785a6609e3d58e11f509a12b2f446925"
-  },
-  {
-   "file": "public/assets/design/d64-480.avif",
-   "bytes": 6173,
-   "sha256": "7bed806e842b2907cc4e9a39de3cf691a0976d66e8779082d13c3643c518a8ab"
-  },
-  {
-   "file": "public/assets/design/d64-800.avif",
-   "bytes": 13895,
-   "sha256": "6cf6c53bbd443ac8fbc41e38b4e180ef5e37e55e919ec4d349bcadc40042812a"
-  },
-  {
-   "file": "public/assets/design/d64-800.webp",
-   "bytes": 17346,
-   "sha256": "a8b9502c057bf809300c02dff5678fcf083790c26888a0fc477d3c29a24debd4"
-  },
   {
    "file": "public/assets/design/facade-1100.avif",
    "bytes": 28500,
@@ -2553,19 +1408,14 @@
    "sha256": "a6af0b3485b3f0f1451e8a744bc44c9a29413a8c0a3a6ad9258bf9829c759cd9"
   },
   {
-   "file": "public/assets/design/facade-240.avif",
-   "bytes": 2838,
-   "sha256": "d708e6d0ccb21f29b7adf450bee2a98a6b537de824dc111979d1a0453562e6a5"
-  },
-  {
-   "file": "public/assets/design/facade-240.webp",
-   "bytes": 4558,
-   "sha256": "47924ecd94bac88ed87493ae6cffe7b1aa832f22081e5e4cff675d1661d52cf5"
-  },
-  {
    "file": "public/assets/design/facade-480.avif",
    "bytes": 8005,
    "sha256": "31fdf8cee07fb82f71cd129fb2cd10e7b9efa5c165633689f973a7ff6c1f3396"
+  },
+  {
+   "file": "public/assets/design/facade-480.webp",
+   "bytes": 12594,
+   "sha256": "4183cbe99a171e6b5fcc56b0ebe14331a1a5bd2f16e48ae41ca1bd42ce8fa9b2"
   },
   {
    "file": "public/assets/design/facade-800.avif",
@@ -2576,6 +1426,186 @@
    "file": "public/assets/design/facade-800.webp",
    "bytes": 27750,
    "sha256": "2d860e65b1632cfc673a0c490b962fa2b33713eab3f6f770556935742e8040e6"
+  },
+  {
+   "file": "public/assets/design/t-chevron-480.avif",
+   "bytes": 16277,
+   "sha256": "657f053855f1ced167696c6fc7af9aba094ec1b1cdf7ca937177639be9ee0c50"
+  },
+  {
+   "file": "public/assets/design/t-chevron-480.webp",
+   "bytes": 27498,
+   "sha256": "7dfc1c93406f67b71e64f3bdb661c5039ec268ec7487231510f92206618f24a1"
+  },
+  {
+   "file": "public/assets/design/t-chevron-864.avif",
+   "bytes": 40171,
+   "sha256": "f1273d662c6bca343d0d10d605ed9740035e30a1add140079cbdf74d7dd624fe"
+  },
+  {
+   "file": "public/assets/design/t-chevron-864.webp",
+   "bytes": 63302,
+   "sha256": "ec73d3432a6e4349cc24ca09696d08fb8c58df219e6d86b8b70945e12e84b439"
+  },
+  {
+   "file": "public/assets/design/t-functional-480.avif",
+   "bytes": 13095,
+   "sha256": "58531fc855172e38ff747ad00298c0ffa602e580edbbb7353b6aa4b659b47db5"
+  },
+  {
+   "file": "public/assets/design/t-functional-480.webp",
+   "bytes": 19214,
+   "sha256": "956c408e7e1d227fdd8c90e9f7781e084b950368c34de9c3d869bcb19fa1acca"
+  },
+  {
+   "file": "public/assets/design/t-functional-657.avif",
+   "bytes": 22767,
+   "sha256": "0a2eaa769f839c25a425aaa81d0c701deb940245f795ae111852baf7cf368246"
+  },
+  {
+   "file": "public/assets/design/t-functional-657.webp",
+   "bytes": 31946,
+   "sha256": "d4344dd1ac883a64337dd5ba8e10ba2e3e024a2b376123f278a8ff28d965fabd"
+  },
+  {
+   "file": "public/assets/design/t-juice-480.avif",
+   "bytes": 11885,
+   "sha256": "15bab6ff123192e79210db059640e11f0a8794ab30bfe4a601e7e0a33b53398b"
+  },
+  {
+   "file": "public/assets/design/t-juice-480.webp",
+   "bytes": 16664,
+   "sha256": "f69315e6afd2f73d0cc0f12e68d096746b5ed39ec8098a3aa96642c5c452576b"
+  },
+  {
+   "file": "public/assets/design/t-juice-725.avif",
+   "bytes": 22366,
+   "sha256": "15e707ff3470ecc0483ffbfaf326e0187fb245e9d3457b06397425f8e31342e5"
+  },
+  {
+   "file": "public/assets/design/t-juice-725.webp",
+   "bytes": 29566,
+   "sha256": "7a0a7902ef1430b3754320af970dfb4f61dc907ba353fe90f9a2a951c2a2d266"
+  },
+  {
+   "file": "public/assets/design/t-lockers-480.avif",
+   "bytes": 4627,
+   "sha256": "60d579191f65c13e04986c16b4657bbad1ad1c27569fbc1e98cb03e3de95481c"
+  },
+  {
+   "file": "public/assets/design/t-lockers-480.webp",
+   "bytes": 5110,
+   "sha256": "82e5ff6f5fe563258e3c6d7cb131da00aad3bb0c5321a817636c956022fa6543"
+  },
+  {
+   "file": "public/assets/design/t-lockers-518.avif",
+   "bytes": 5016,
+   "sha256": "6361d23ab0a55efb294c83d5ff8e1bdd5e38ef5a4ccacb9db03ffc8415c87431"
+  },
+  {
+   "file": "public/assets/design/t-lockers-518.webp",
+   "bytes": 5794,
+   "sha256": "d9c37d5b190036dd8a1fec0abb6fac403832d2f5f137a6c7a992420a41f35139"
+  },
+  {
+   "file": "public/assets/design/t-rig-480.avif",
+   "bytes": 13625,
+   "sha256": "7cb3b67f2ec907c03f9b191e5b7761fda12bf5b38ee57fd9aba5baea33393305"
+  },
+  {
+   "file": "public/assets/design/t-rig-480.webp",
+   "bytes": 20044,
+   "sha256": "378644aef2a56a391b59a8f76701b8cd9d3f4a975d31b1aba60fb0fea15db795"
+  },
+  {
+   "file": "public/assets/design/t-rig-691.avif",
+   "bytes": 27487,
+   "sha256": "cc4a052c64f2554abeba82f982596ea6205c765150441fe4d6e86937d9f2f656"
+  },
+  {
+   "file": "public/assets/design/t-rig-691.webp",
+   "bytes": 40368,
+   "sha256": "377783680a1970c259089247564a6d96440770edf5c46a8dacad0742361f1129"
+  },
+  {
+   "file": "public/assets/design/t-strength-480.avif",
+   "bytes": 17935,
+   "sha256": "c84cb1f84b860b8522f112dff9e8a62e7b8b585681b1b014593bba1b79338429"
+  },
+  {
+   "file": "public/assets/design/t-strength-480.webp",
+   "bytes": 25320,
+   "sha256": "d74622e7904ee7d593f0c43e60702f5784ae3689573d64299e7134fc9e13f6cb"
+  },
+  {
+   "file": "public/assets/design/t-strength-622.avif",
+   "bytes": 29036,
+   "sha256": "6639daf983335c93746e3a75b779915d299975f1a939f78618c2ddb49d3b79f5"
+  },
+  {
+   "file": "public/assets/design/t-strength-622.webp",
+   "bytes": 40306,
+   "sha256": "1df4d5fcab2e33aa79c136c40c00d6cf1b5149db10d8f4ddb8426430cf47254a"
+  },
+  {
+   "file": "public/assets/design/t-turf-480.avif",
+   "bytes": 11563,
+   "sha256": "a9e91709d4ade61a3064221e16063d3b69b409dc18470004ef91431f36ba21e0"
+  },
+  {
+   "file": "public/assets/design/t-turf-480.webp",
+   "bytes": 14848,
+   "sha256": "c1cceba46da94d67426993b75ad019e351cfb48b05e35ccf997d1a8a51d8b12a"
+  },
+  {
+   "file": "public/assets/design/t-turf-587.avif",
+   "bytes": 17121,
+   "sha256": "668332976ecbd05183fea68bdc89d172cef3475a12ccdba4f6f51e917fd77948"
+  },
+  {
+   "file": "public/assets/design/t-turf-587.webp",
+   "bytes": 21634,
+   "sha256": "e12b395c766d3a517b7485c2270a01b6e02a016b13c4250a48e1e1d19b4a8f11"
+  },
+  {
+   "file": "public/assets/design/t-vanity-480.avif",
+   "bytes": 7792,
+   "sha256": "14261e43a46f9922c29b3ea81cd8ae261efad8fdb5e9ee6f8c771ce854d7df1c"
+  },
+  {
+   "file": "public/assets/design/t-vanity-480.webp",
+   "bytes": 9986,
+   "sha256": "e6c7c9e50202f513465ea7ad66bccfb953548f730fac77fc008b6ca1396c8bac"
+  },
+  {
+   "file": "public/assets/design/t-vanity-691.avif",
+   "bytes": 13518,
+   "sha256": "7b49f2c6e698c4a3bb7f75d9be39c1af5d28e5041f6bfe63ba7accba43a047fd"
+  },
+  {
+   "file": "public/assets/design/t-vanity-691.webp",
+   "bytes": 16702,
+   "sha256": "e5393b6ab482ca81f2e8d225628a2f895e8af8fa204a70c43576ed8eef05e7e1"
+  },
+  {
+   "file": "public/assets/design/t-warrior-480.avif",
+   "bytes": 5380,
+   "sha256": "ced78b33d515f538a198d22bd39e5e6cb04b46ab32b92cbccf6538866f9e0a15"
+  },
+  {
+   "file": "public/assets/design/t-warrior-480.webp",
+   "bytes": 7994,
+   "sha256": "dc3769c1f4809c1b658f2f7a77e584a22e25aa019346ff3b24b53f9c8a0904e1"
+  },
+  {
+   "file": "public/assets/design/t-warrior-657.avif",
+   "bytes": 7726,
+   "sha256": "0bdf9184d9789e0bac57a9f2975bb158785417a00374cb9ffbe61f4d0a848258"
+  },
+  {
+   "file": "public/assets/design/t-warrior-657.webp",
+   "bytes": 11620,
+   "sha256": "9d7a33b4f67bb719b75f8681783c84c7e87f0baa84c530adfd2a94f135d18d65"
   },
   {
    "file": "public/assets/brand/og.jpg",

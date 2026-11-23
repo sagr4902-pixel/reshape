@@ -169,7 +169,7 @@ export function LeadForm({ locale, labels, programs, intents, initial, noticeVer
         </h2>
         <p className="mt-3">{labels.successBody}</p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/explore" className="btn btn-dark">
+          <Link href="/programs" className="btn btn-dark">
             {labels.explore}
           </Link>
           <button

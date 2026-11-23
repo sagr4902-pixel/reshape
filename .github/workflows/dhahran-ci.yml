@@ -38,10 +38,9 @@ jobs:
           cache: npm
           cache-dependency-path: dhahran/package-lock.json
       - run: npm ci
-      - name: Content, scenes, lint, types
+      - name: Content, lint, types
         run: |
           npm run content:validate
-          npm run scenes:check
           npm run lint
           npm run typecheck
       - name: Unit tests

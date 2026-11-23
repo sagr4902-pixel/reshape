@@ -1,21 +1,19 @@
 import { programs } from './programs';
 import { pathways } from './pathways';
 import { memberships } from './memberships';
-import { scene } from './scene';
-import sceneMeta from './generated/scene-meta.json';
 import { resolveMembershipAction, type MembershipAction } from '@/lib/catalog/resolve';
-import type { Locale, Membership, Program, Zone } from '@/lib/catalog/types';
+import type { Locale, Membership, Program } from '@/lib/catalog/types';
 
-export { programs, pathways, memberships, scene, sceneMeta };
+export { programs, pathways, memberships };
+export { offer, offerState, type OfferState } from './offer';
 export { site } from './site';
 export { designImage, designImages, type DesignImage } from './design';
 
 export const programById = (id: string): Program | undefined => programs.find((p) => p.id === id);
 export const programBySlug = (slug: string): Program | undefined => programs.find((p) => p.slug === slug);
-export const zoneById = (id: string): Zone | undefined => scene.zones.find((z) => z.id === id);
 export const programIds = programs.map((p) => p.id);
-export const zoneIds = scene.zones.map((z) => z.id);
-export const programsForZone = (zoneId: string) => programs.filter((p) => p.zoneIds.includes(zoneId));
+/** The site no longer presents club zones; the lead API keeps the (now empty) allow-list so stray context is dropped. */
+export const zoneIds: string[] = [];
 export const pathwaysFor = (programId: string) => pathways.filter((p) => p.programId === programId);
 
 /** Programs with their own page under /programs/[slug]. */

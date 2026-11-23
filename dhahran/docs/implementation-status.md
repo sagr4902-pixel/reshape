@@ -14,6 +14,23 @@ Last updated: 21 November 2026. Read this file and the current code before resum
 `APP_ENV` (development / preview / production) and `LAUNCH_STAGE` (preopening / open) are independent flags.
 Current content assumes `LAUNCH_STAGE=preopening`.
 
+## Revision 3 — official-site homepage; club interior withdrawn (23 Nov 2026)
+
+Owner's instruction: do not show the club from inside or share the design or layout. The site is the club's
+official website: one long homepage that explains everything and ends with the offer and the payment link.
+**This section supersedes whatever the older sections and other documents say about the tour, map and zones.**
+
+| Change | State |
+|---|---|
+| Club tour (`/explore`), map drawings, zones and the map generator removed; `/explore` redirects to the homepage | Done |
+| Full interior renders removed from the site; only the facade and nine tight teaser crops are published (`scripts/dev/encode-renders.py`); the content check and tests refuse anything else | Done |
+| Homepage rewritten in the owner's order: about, sport variety, your own program, hybrid, training zone (the warrior, community, coaches), juice bar, facilities, the offer | Done |
+| Offer with countdown (`src/content/offer.ts`). No price, end date or payment link has been supplied, so it is a **draft**: previews show a marked sample, production shows "announced soon" | Waiting for the owner |
+| Layout analysis and interior screenshots removed from the documents. **The earlier commits in this public repository still contain the full renders and the map** — making the repository private or rewriting its history is the owner's decision | Open |
+| Deployed on Vercel from this branch: https://reshape-dhahran.vercel.app (preview mode, not indexed, no database) | Done |
+| Statements in the copy that come from the owner and are not verified here: title-winning coaches, the three sports of the hybrid option, the juice bar menu | Owner-stated |
+| `architecture.md`, `design-system.md`, `qa/test-results.md`, `qa/visual-review.md`, `sources.md` still describe revision 2 in places | To update |
+
 ## Revision 2 — owner's facade and interior designs adopted (21 Nov 2026, later the same day)
 
 The owner supplied the facade package (Rev. 02), the working drawings and the 67-page design deck and asked for the

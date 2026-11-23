@@ -4,7 +4,7 @@
 import { execFileSync } from 'node:child_process';
 import { writeFileSync, readFileSync, mkdirSync } from 'node:fs';
 const base = process.argv[2] ?? 'http://localhost:3100';
-const routes = (process.argv[3] ? process.argv[3].split(',') : ['/ar', '/en', '/ar/kids', '/ar/programs/calisthenics', '/ar/memberships', '/ar/explore', '/ar/explore?zone=rig']);
+const routes = (process.argv[3] ? process.argv[3].split(',') : ['/ar', '/en', '/ar/kids', '/ar/programs/calisthenics', '/ar/memberships']);
 const median = (a) => [...a].sort((x, y) => x - y)[Math.floor(a.length / 2)];
 const out = { base, tool: '', date: new Date().toISOString(), runsPerUrl: 3, preset: 'mobile (default), simulated throttling', results: {} };
 mkdirSync('/tmp/lh', { recursive: true });

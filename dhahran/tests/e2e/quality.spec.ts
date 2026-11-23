@@ -63,7 +63,7 @@ test.describe('site quality', () => {
       test.setTimeout(120_000);
       // Measure settled colours, not mid-fade frames.
       await page.emulateMedia({ reducedMotion: 'reduce' });
-      for (const route of ['', '/explore?zone=rig', '/programs/calisthenics', '/kids', '/football-performance', '/memberships', '/register', '/contact', '/privacy']) {
+      for (const route of ['', '/programs', '/programs/calisthenics', '/kids', '/football-performance', '/memberships', '/register', '/contact', '/privacy']) {
         await page.goto(`/${l}${route}`);
         const results = await new AxeBuilder({ page: page as never }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();
         const bad = results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical').map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).slice(0, 3).join(' | ')}`);
@@ -74,7 +74,7 @@ test.describe('site quality', () => {
 
   test('renders are drawn from a file dense enough for their size (no upscaled, blurry pictures)', async ({ page }) => {
     test.setTimeout(120_000);
-    for (const route of ['', '/explore?zone=rig', '/explore?zone=entrance', '/programs', '/programs/calisthenics', '/kids', '/football-performance']) {
+    for (const route of ['', '/programs', '/programs/calisthenics', '/kids', '/football-performance']) {
       await page.goto(`/ar${route}`, { waitUntil: 'load' });
       // bring lazy pictures in, slowly enough for the browser to start them
       await page.evaluate(async () => {
@@ -108,12 +108,11 @@ test.describe('site quality', () => {
     }
   });
 
-  test('language switch keeps the equivalent route and non-personal zone context', async ({ page }) => {
-    await page.goto('/ar/explore?zone=turf-cardio');
+  test('language switch keeps the equivalent route and drops personal parameters', async ({ page }) => {
+    await page.goto('/ar/programs/calisthenics');
     await page.getByRole('link', { name: 'Switch to English' }).click();
-    await expect(page).toHaveURL(/\/en\/explore\?zone=turf-cardio$/);
+    await expect(page).toHaveURL(/\/en\/programs\/calisthenics$/);
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-    await expect(page.getByTestId('xp-panel')).toContainText('Turf lane & cardio');
     await page.goto('/en/programs/calisthenics?name=Sara&phone=0500000000');
     await page.getByRole('link', { name: 'التحويل إلى العربية' }).click();
     await expect(page).toHaveURL(/\/ar\/programs\/calisthenics$/); // unknown / personal params are dropped
@@ -156,7 +155,7 @@ test.describe('site quality', () => {
   test('client bundles contain no draft prices, evidence notes or internal tags', async ({ page, request }) => {
     const urls = new Set<string>();
     page.on('response', (r) => r.url().includes('/_next/static/') && r.url().endsWith('.js') && urls.add(r.url()));
-    for (const r of ['/ar', '/ar/memberships', '/ar/explore', '/ar/register', '/ar/programs/hybrid-endurance']) await page.goto(r, { waitUntil: 'networkidle' });
+    for (const r of ['/ar', '/ar/memberships', '/ar/programs', '/ar/register', '/ar/programs/hybrid-endurance']) await page.goto(r, { waitUntil: 'networkidle' });
     expect(urls.size).toBeGreaterThan(3);
     for (const u of urls) {
       const js = await (await request.get(u)).text();

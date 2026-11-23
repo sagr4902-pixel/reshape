@@ -690,3 +690,29 @@
   .skip:focus { top: 1rem; }
   .ltr { direction: ltr; unicode-bidi: isolate; }
 }
+
+@layer components {
+  /* Teaser: a tight crop of one design detail, darkened at the edges — a glimpse, not a view of the club. */
+  .teaser { position: relative; display: block; overflow: hidden; border-radius: var(--radius-md); aspect-ratio: 4 / 3; background: var(--color-ink); }
+  .teaser-wide { aspect-ratio: 5 / 2; }
+  .teaser-card { aspect-ratio: 16 / 10; border-radius: 0; }
+  .teaser::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 45%, rgb(17 17 19 / 0) 35%, rgb(17 17 19 / 0.72) 100%);
+  }
+
+  /* Offer */
+  .offer-card { border: 1.5px solid var(--color-accent); border-radius: var(--radius-md); padding: clamp(1.25rem, 3vw, 2.25rem); background: var(--color-coal); }
+  .offer-draft { margin-bottom: 1.25rem; padding: 0.6rem 0.9rem; border: 1px dashed var(--color-line-dark); border-radius: var(--radius-sm); font-size: 0.9rem; color: #d8d1ca; }
+  .offer-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.6rem; margin-bottom: 1.5rem; }
+  .offer-amount { font-family: var(--font-latin); font-size: clamp(2.6rem, 8vw, 4.2rem); font-weight: 700; line-height: 1; color: var(--color-paper); }
+  .offer-currency { font-size: 1.15rem; font-weight: 600; }
+  .offer-was { flex-basis: 100%; color: #b9b2ab; }
+  .countdown { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; direction: ltr; }
+  .countdown-cell { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; padding: 0.9rem 0.25rem; border-radius: var(--radius-sm); background: var(--color-deep); border: 1px solid var(--color-line-dark); }
+  .countdown-num { font-family: var(--font-latin); font-size: clamp(1.7rem, 6vw, 2.6rem); font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; color: var(--color-accent); }
+  .countdown-label { font-size: 0.85rem; color: #d8d1ca; }
+}

@@ -1,7 +1,7 @@
 import type { Program } from '@/lib/catalog/types';
 
 /**
- * Program content. One record per offering; pages, the explorer and the
+ * Program content. One record per offering; pages and the
  * registration form all read from here.
  *
  * Evidence: the list of sports comes from the owner's project brief
@@ -37,7 +37,6 @@ export const programs: Program[] = [
     },
     availability: 'planned',
     audiences: ['adult'],
-    zoneIds: ['rig'],
     pathwayIds: ['foundations', 'strength-conditioning', 'static-skills', 'dynamic-freestyle', 'street-lifting', 'advanced-development', 'competitive-preparation'],
     membershipIds: ['dhahran-adult'],
     faqs: [
@@ -55,7 +54,7 @@ export const programs: Program[] = [
       },
     ],
     ctaIntent: 'program-inquiry',
-    imageId: 'd25',
+    imageId: 't-rig',
     evidence: BRIEF,
   },
   {
@@ -84,7 +83,6 @@ export const programs: Program[] = [
     },
     availability: 'planned',
     audiences: ['guardian'],
-    zoneIds: [],
     pathwayIds: [],
     membershipIds: ['dhahran-kids'],
     faqs: [
@@ -106,7 +104,7 @@ export const programs: Program[] = [
       },
     ],
     ctaIntent: 'program-inquiry',
-    imageId: 'd29',
+    imageId: 't-chevron',
     evidence: BRIEF,
   },
   {
@@ -135,7 +133,6 @@ export const programs: Program[] = [
     },
     availability: 'planned',
     audiences: ['adult'],
-    zoneIds: ['turf-cardio'],
     pathwayIds: [],
     membershipIds: ['dhahran-adult'],
     faqs: [
@@ -149,7 +146,7 @@ export const programs: Program[] = [
       },
     ],
     ctaIntent: 'program-inquiry',
-    imageId: 'd42',
+    imageId: 't-turf',
     evidence: BRIEF,
   },
   {
@@ -178,7 +175,6 @@ export const programs: Program[] = [
     },
     availability: 'planned',
     audiences: ['adult'],
-    zoneIds: ['strength', 'turf-cardio'],
     pathwayIds: [],
     membershipIds: ['dhahran-adult'],
     faqs: [
@@ -188,7 +184,7 @@ export const programs: Program[] = [
       },
     ],
     ctaIntent: 'program-inquiry',
-    imageId: 'd38',
+    imageId: 't-functional',
     evidence: BRIEF,
   },
   {
@@ -217,7 +213,6 @@ export const programs: Program[] = [
     },
     availability: 'planned',
     audiences: ['guardian'],
-    zoneIds: [],
     pathwayIds: [],
     membershipIds: ['dhahran-kids'],
     faqs: [
@@ -227,7 +222,7 @@ export const programs: Program[] = [
       },
     ],
     ctaIntent: 'preopening-updates',
-    imageId: 'd33',
+    imageId: 't-warrior',
     evidence: BRIEF,
   },
   {
@@ -270,7 +265,6 @@ export const programs: Program[] = [
     },
     availability: 'planned',
     audiences: ['football-athlete', 'guardian'],
-    zoneIds: ['turf-cardio', 'strength'],
     pathwayIds: [],
     membershipIds: [],
     faqs: [
@@ -284,7 +278,7 @@ export const programs: Program[] = [
       },
     ],
     ctaIntent: 'membership-consultation',
-    imageId: 'd34',
+    imageId: 't-strength',
     evidence: BRIEF,
   },
 ];

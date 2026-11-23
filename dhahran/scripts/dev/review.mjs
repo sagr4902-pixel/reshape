@@ -7,10 +7,8 @@ mkdirSync(out, { recursive: true });
 const pages = [
   ['home', ''],
   ['kids', '/kids'],
-  ['explore', '/explore'],
-  ['explore-zone', '/explore?zone=rig'],
   ['memberships', '/memberships'],
-  ['register', '/register?program=calisthenics&zone=rig&src=explorer'],
+  ['register', '/register?program=calisthenics&src=home'],
   ['calisthenics', '/programs/calisthenics'],
   ['football', '/football-performance'],
   ['contact', '/contact'],

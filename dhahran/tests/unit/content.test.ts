@@ -1,7 +1,7 @@
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { designImages, memberships, programs, publicMemberships, registerHref, scene } from '@/content';
+import { designImages, memberships, offer, offerState, programs, publicMemberships, registerHref, zoneIds } from '@/content';
 import { validateAll } from '../../scripts/validate-content';
 
 describe('content integrity', () => {
@@ -24,20 +24,27 @@ describe('content integrity', () => {
     for (const m of memberships.filter((x) => x.productUrl)) expect(['dammam', 'unknown']).toContain(m.branchScope);
   });
 
-  it('programs stay planned until confirmed; the scene follows the supplied drawings', () => {
+  it('programs stay planned until confirmed', () => {
     for (const p of programs) expect(p.availability).toBe('planned');
-    // Layout follows the owner's working drawings; imagery is still design visualisation.
-    expect(scene.status).toBe('reference-validated');
-    expect(scene.spatialMode).toBe('verified-layout');
   });
 
-  it('every zone and program points at catalogued design renders with bilingual alt text', () => {
-    for (const z of scene.zones) for (const id of z.imageIds) expect(designImages[id]?.alt.ar, `${z.id}/${id}`).toBeTruthy();
+  it('only the facade and teaser crops are published — never full interior renders, the map or zones', () => {
+    for (const id of Object.keys(designImages)) expect(id === 'facade' || id.startsWith('t-'), id).toBe(true);
     for (const p of programs) expect(designImages[p.imageId]?.alt.en, p.id).toBeTruthy();
-    // zones invented for the earlier concept (no evidence in the approved designs) are gone
-    const zoneIds = scene.zones.map((z) => z.id);
-    for (const invented of ['kids-pavilion', 'track-loop', 'performance-deck', 'calisthenics-hall', 'changing']) expect(zoneIds).not.toContain(invented);
-    expect(zoneIds.sort()).toEqual(['entrance', 'juice-bar', 'lockers', 'overlook', 'reception', 'rig', 'strength', 'turf-cardio']);
+    expect(zoneIds).toEqual([]);
+    expect(existsSync('public/assets/scenes')).toBe(false);
+    expect(existsSync('src/app/[locale]/explore')).toBe(false);
+  });
+
+  it('the offer is never sold without real terms: a draft shows only as a preview sample, production shows nothing', () => {
+    expect(offerState(offer, 'production').kind).toBe(offer.status === 'live' ? 'live' : 'none');
+    const draft = { ...offer, status: 'draft' as const };
+    expect(offerState(draft, 'preview').kind).toBe('sample');
+    expect(offerState(draft, 'production').kind).toBe('none');
+    const live = { ...offer, status: 'live' as const, priceSar: 999, endsAt: '2030-01-01T00:00:00+03:00', payUrl: 'https://reshape-sa.com/x/p1' };
+    expect(offerState(live, 'production', new Date('2029-12-31T00:00:00Z')).kind).toBe('live');
+    expect(offerState(live, 'production', new Date('2030-01-02T00:00:00Z')).kind).toBe('none'); // expired
+    expect(offerState({ ...live, payUrl: null }, 'production', new Date('2029-01-01T00:00:00Z')).kind).toBe('none');
   });
 
   it('registration links carry only identifiers', () => {

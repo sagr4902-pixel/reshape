@@ -4,15 +4,12 @@ import { Link } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
 import { pageMetadata } from '@/lib/seo';
 import { env } from '@/lib/env';
-import { designImage, pathwaysFor, programById, registerHref, scene } from '@/content';
+import { designImage, offer, offerState, programById, registerHref } from '@/content';
 import { Rail } from '@/components/ui/Rail';
 import { DesignPicture } from '@/components/ui/DesignPicture';
-import { FaqList } from '@/components/ui/Faq';
-import { FacadeHero, type FacadeHotspot } from '@/features/home/FacadeHero';
-import { EnterLink } from '@/features/home/EnterLink';
-
-/** `sizes` for a 16:9 render that fills a card taller than 16:9 (the height decides how wide the picture is drawn). */
-const COVER_TALL_CARD = '(max-width: 639px) and (min-resolution: 2.5dppx) 400px, (max-width: 639px) 600px, 1110px';
+import { ExternalLink } from '@/components/ui/ExternalLink';
+import { FacadeHero } from '@/features/home/FacadeHero';
+import { Countdown } from '@/features/offer/Countdown';
 
 type Props = { params: Promise<{ locale: Locale }> };
 
@@ -25,31 +22,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata({ locale, path: '', title: t('titleDefault'), description: t('description'), siteName: t('siteName'), absoluteTitle: true });
 }
 
+/** A tight, darkened crop of one design detail: a glimpse, not a view of the club. */
+function Teaser({ id, locale, wide = false }: { id: string; locale: Locale; wide?: boolean }) {
+  const img = designImage(id);
+  return (
+    <div className={`teaser ${wide ? 'teaser-wide' : ''}`}>
+      <DesignPicture image={img} alt={img.alt[locale]} sizes="(min-width: 1024px) 44vw, 100vw" className="h-full w-full object-cover" />
+    </div>
+  );
+}
+
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'home' });
   const c = await getTranslations({ locale, namespace: 'common' });
-  const preopening = env().launchStage === 'preopening';
-
-  const cal = programById('calisthenics')!;
-  const kids = programById('kids')!;
-  const others = ['hybrid-endurance', 'functional-training', 'kids-martial-arts', 'football-performance'].map((id) => programById(id)!);
+  const e = env();
+  const preopening = e.launchStage === 'preopening';
+  const state = offerState(offer, e.appEnv);
+  const sports = ['calisthenics', 'functional-training', 'hybrid-endurance'].map((id) => programById(id)!);
   const arrow = <span className="arrow" aria-hidden="true">→</span>;
-  const alt = (id: string) => designImage(id).alt[locale];
-
-  // Positions measured on the facade render (fractions of its width / height).
-  const hotspots: FacadeHotspot[] = [
-    { id: 'enter', label: t('hero.hotspots.enter'), href: '/explore?zone=reception', u: 0.473, v: 0.7, primary: true },
-    { id: 'juice', label: t('hero.hotspots.juice'), href: '/explore?zone=juice-bar', u: 0.625, v: 0.69 },
-    { id: 'hall', label: t('hero.hotspots.hall'), href: '/explore?zone=turf-cardio', u: 0.805, v: 0.69 },
-    { id: 'mezz', label: t('hero.hotspots.mezz'), href: '/explore?zone=overlook', u: 0.79, v: 0.36 },
-  ];
+  const tick = <span aria-hidden="true" className="mt-[0.72em] h-[3px] w-4 flex-none bg-accent" />;
+  const price = (n: number) => new Intl.NumberFormat('en-US').format(n);
 
   return (
     <>
       {/* 1 — The facade, exactly as designed */}
-      <FacadeHero alt={alt('facade')} facadeLabel={t('hero.facadeLabel')} hotspotsLabel={t('hero.hotspotsNav')} hotspots={hotspots} note={c('conceptNote')}>
+      <FacadeHero alt={designImage('facade').alt[locale]} facadeLabel={t('hero.facadeLabel')} note={c('conceptNote')}>
         <p className="eyebrow flex flex-wrap items-center gap-x-3 gap-y-1">
           <span>{t('hero.eyebrow')}</span>
           {preopening && <span className="tag text-paper">{c('preopening')}</span>}
@@ -58,255 +57,275 @@ export default async function HomePage({ params }: Props) {
         <div className="bar mt-5 w-[min(100%,300px)] text-paper" aria-hidden="true" />
         <p className="lead max-w-xl">{t('hero.sub')}</p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href={registerHref({ src: 'home' })} className="btn btn-primary">
-            {c('registerInterest')}
-          </Link>
-          <EnterLink href="/explore" className="btn btn-line" testId="hero-explore">
-            {c('exploreClub')} {arrow}
-          </EnterLink>
+          <a href="#offer" className="btn btn-primary" data-testid="hero-offer">
+            {t('hero.ctaOffer')}
+          </a>
+          <a href="#about" className="btn btn-line">
+            {t('hero.ctaAbout')}
+          </a>
         </div>
-        {preopening && <p className="mute mt-5 max-w-md text-[0.9rem] lg:hidden">{t('hero.stage')}</p>}
       </FacadeHero>
       <div className="chevron-band" aria-hidden="true" />
 
-      {/* 2 — Calisthenics spread */}
-      <section className="sec" aria-labelledby="cal-h">
+      {/* 2 — Who we are */}
+      <section id="about" className="sec scroll-mt-20" aria-labelledby="about-h">
         <div className="wrap">
-          <Rail no="01" label={t('cal.rail')} />
-          <div className="mt-8 grid gap-8 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-5">
-              <h2 id="cal-h" className="t-1">
-                {t('cal.title')}
-              </h2>
-              <p className="lead mt-5">{t('cal.body')}</p>
-              <ul className="mt-6 grid gap-x-6 gap-y-2 sm:grid-cols-2">
-                {cal.themes[locale].map((x) => (
-                  <li key={x} className="flex gap-3 border-t border-line py-2 font-semibold">
-                    <span aria-hidden="true" className="mt-[0.72em] h-[3px] w-4 flex-none bg-accent" />
-                    {x}
-                  </li>
-                ))}
-              </ul>
-              <Link href={cal.route} className="btn btn-dark mt-8">
-                {t('cal.cta')} {arrow}
-              </Link>
-            </div>
-            <figure className="lg:col-span-7">
-              <div className="overflow-hidden rounded-lg bg-ink">
-                <DesignPicture image={designImage('d25')} alt={alt('d25')} sizes="(min-width: 1024px) 56vw, 100vw" className="h-auto w-full" />
-              </div>
-              <figcaption className="concept-note mt-3">{c('conceptNote')}</figcaption>
-            </figure>
-          </div>
-
-          <div className="mt-14">
-            <h3 className="t-3">{t('cal.pathwaysTitle')}</h3>
-            <p className="mute mt-1 text-[0.95rem]">{t('cal.pathwaysNote')}</p>
-            <ol className="prog mt-6" tabIndex={0} aria-label={t('cal.pathwaysTitle')}>
-              {pathwaysFor('calisthenics').map((pw, i) => (
-                <li key={pw.id}>
-                  <span className="ltr font-[family-name:var(--font-latin)] text-[0.95rem] text-accent-ink">{String(i + 1).padStart(2, '0')}</span>
-                  <p className="mt-1 text-[1.12rem] font-semibold leading-snug">{pw.title[locale]}</p>
-                  <p className="mute mt-1 text-[0.95rem] leading-relaxed">{pw.summary[locale]}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      {/* 3 — Club tour: the real zones, in the order a visitor walks them */}
-      <section className="on-dark dark-sec sec" aria-labelledby="tour-h">
-        <div className="wrap">
-          <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
-            <div className="lg:col-span-7">
-              <Rail no="02" label={t('tour.rail')} />
-              <h2 id="tour-h" className="t-2 mt-8">
-                {t('tour.title')}
-              </h2>
-              <p className="mt-4 max-w-2xl">{t('tour.body')}</p>
-            </div>
-            <div className="lg:col-span-5 lg:text-end">
-              <Link href="/explore" className="btn btn-primary">
-                {t('tour.cta')} {arrow}
-              </Link>
-            </div>
-          </div>
-          <ul aria-label={t('tour.zonesLabel')} className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4">
-            {scene.zones.map((z, i) => (
-              <li key={z.id}>
-                <Link href={{ pathname: '/explore', query: { zone: z.id } }} prefetch={false} className="group block overflow-hidden rounded-lg border border-line-dark bg-deep hover:border-paper">
-                  <span className="block aspect-[16/10] overflow-hidden">
-                    <DesignPicture image={designImage(z.imageIds[0])} alt="" sizes="(min-width: 1024px) 24vw, 40vw" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
-                  </span>
-                  <span className="flex items-center gap-3 px-3 py-3">
-                    <span className="xp-chip-no flex-none" aria-hidden="true">
-                      {i + 1}
-                    </span>
-                    <span>
-                      <span className="block font-semibold leading-snug">{z.title[locale]}</span>
-                      <span className="mute block text-[0.82rem]">{c(`levels.${z.level}`)}</span>
-                    </span>
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <p className="concept-note mt-4">{c('conceptNote')}</p>
-        </div>
-      </section>
-
-      {/* 4 — Kids chapter (lighter register) */}
-      <section className="sec bg-panel" aria-labelledby="kids-h">
-        <div className="wrap">
-          <Rail no="03" label={t('kids.rail')} />
-          <div className="mt-8 grid gap-10 lg:grid-cols-12">
-            <div className="lg:col-span-6">
-              <h2 id="kids-h" className="t-1">
-                {t('kids.title')}
-              </h2>
-              <p className="lead mt-5">{t('kids.body')}</p>
-              <h3 className="mt-8 !font-sans !text-base !normal-case !tracking-normal font-semibold text-mute">{t('kids.themesTitle')}</h3>
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {kids.themes[locale].map((x) => (
-                  <li key={x} className="rounded-full bg-sand px-4 py-1.5 text-[0.95rem] font-semibold">
-                    {x}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-                <Link href={registerHref({ program: 'kids', intent: 'program-inquiry', src: 'home' })} className="btn btn-primary">
-                  {t('kids.cta')}
-                </Link>
-                <Link href="/kids" className="link-arrow">
-                  {t('kids.more')} {arrow}
-                </Link>
-              </div>
-              <p className="mute mt-4 text-[0.92rem]">{t('kids.guardianNote')}</p>
-            </div>
-            <div className="lg:col-span-6">
-              <FaqList faqs={kids.faqs.slice(0, 3)} locale={locale} />
-              <figure className="mt-8">
-                <div className="overflow-hidden rounded-[28px] ring-1 ring-line">
-                  <DesignPicture image={designImage('d29')} alt={alt('d29')} sizes="(min-width: 1024px) 46vw, 100vw" className="h-auto w-full" />
-                </div>
-                <figcaption className="mt-3">
-                  <span className="block text-[0.92rem] font-semibold">{t('kids.imageCaption')}</span>
-                  <span className="concept-note">{c('conceptNote')}</span>
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5 — Training spectrum (varied scale) */}
-      <section className="sec" aria-labelledby="spec-h">
-        <div className="wrap">
-          <Rail no="04" label={t('spectrum.rail')} />
-          <div className="mt-8 grid gap-6 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <h2 id="spec-h" className="t-2">
-                {t('spectrum.title')}
-              </h2>
-              <p className="mt-4">{t('spectrum.body')}</p>
-              <Link href="/programs" className="link-arrow mt-6 inline-block">
-                {c('viewPrograms')} {arrow}
-              </Link>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:col-span-8">
-              <Link href={others[0].route} className="on-dark group relative flex min-h-[340px] flex-col justify-end overflow-hidden rounded-lg bg-ink p-6 text-paper sm:row-span-3">
-                <span className="absolute inset-0">
-                  {/* The card is taller than 16:9, so the render is drawn about 1100 px wide (600 px on phones): sizes follows the picture, not the box. */}
-                  <DesignPicture image={designImage('d42')} alt="" sizes={COVER_TALL_CARD} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
-                </span>
-                <span className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/10" />
-                <span className="relative">
-                  <span className="tag text-paper">{c(`availability.${others[0].availability}`)}</span>
-                  <span className="display t-3 mt-3 block">{others[0].title[locale]}</span>
-                  <span className="mt-2 block text-[0.98rem] text-[#d8d1ca]">{others[0].summary[locale]}</span>
-                </span>
-              </Link>
-              {others.slice(1).map((o) => (
-                <Link key={o.id} href={o.route} className="group flex flex-col rounded-lg border border-line bg-panel p-5 hover:border-ink">
-                  <span className="text-[0.84rem] font-semibold text-mute">{c(`availability.${o.availability}`)}</span>
-                  <span className="mt-1 text-[1.2rem] font-semibold leading-snug">{o.title[locale]}</span>
-                  <span className="mute mt-2 text-[0.95rem] leading-relaxed">{o.summary[locale]}</span>
-                  <span className="mt-auto pt-3 font-semibold text-accent-ink" aria-hidden="true">
-                    <span className="arrow">→</span>
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6 — Membership decision (calm) */}
-      <section className="sec border-y border-line bg-sand/50" aria-labelledby="mem-h">
-        <div className="wrap grid gap-8 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-7">
-            <Rail no="05" label={t('membership.rail')} />
-            <h2 id="mem-h" className="t-2 mt-8">
-              {t('membership.title')}
-            </h2>
-            <p className="mt-4 max-w-2xl">{t('membership.body')}</p>
-          </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 lg:col-span-5 lg:justify-end">
-            <Link href={registerHref({ intent: 'membership-consultation', src: 'home' })} className="btn btn-dark">
-              {c('registerInterest')}
-            </Link>
-            <Link href="/memberships" className="link-arrow">
-              {t('membership.more')} {arrow}
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 7 — Approach (About folded into the homepage until a verified brand story exists) */}
-      <section id="philosophy" className="sec scroll-mt-20" aria-labelledby="phil-h">
-        <div className="wrap">
-          <Rail no="06" label={t('philosophy.rail')} />
-          <h2 id="phil-h" className="t-2 mt-8 max-w-3xl">
-            {t('philosophy.title')}
+          <Rail no="01" label={t('about.rail')} />
+          <h2 id="about-h" className="t-1 mt-8 max-w-3xl">
+            {t('about.title')}
           </h2>
+          <p className="lead mt-5 max-w-3xl">{t('about.body')}</p>
           <ol className="mt-10 grid gap-8 md:grid-cols-3">
             {(['one', 'two', 'three'] as const).map((k, i) => (
               <li key={k} className="border-t-4 border-ink pt-4">
                 <span className="ltr font-[family-name:var(--font-latin)] text-accent-ink">{`0${i + 1}`}</span>
-                <p className="mt-1 text-[1.25rem] font-semibold">{t(`philosophy.items.${k}.t`)}</p>
-                <p className="mute mt-2">{t(`philosophy.items.${k}.d`)}</p>
+                <p className="mt-1 text-[1.25rem] font-semibold">{t(`about.points.${k}.t`)}</p>
+                <p className="mute mt-2">{t(`about.points.${k}.d`)}</p>
               </li>
             ))}
           </ol>
         </div>
       </section>
 
-      {/* 8 — Closing invitation over the mezzanine view */}
-      <div className="chevron-band" aria-hidden="true" />
-      <section className="on-dark dark-sec relative overflow-hidden" aria-labelledby="close-h">
-        <div className="absolute inset-0" aria-hidden="true">
-          <DesignPicture image={designImage('d48')} alt="" sizes="100vw" className="h-full w-full object-cover opacity-45" />
-          <span className="absolute inset-0 bg-gradient-to-t from-ink via-ink/80 to-ink/50" />
-        </div>
-        <div className="wrap sec relative">
-          <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
+      {/* 3 — Variety: choose your sport */}
+      <section className="on-dark dark-sec sec" aria-labelledby="sports-h">
+        <div className="wrap">
+          <Rail no="02" label={t('sports.rail')} />
+          <div className="mt-8 grid gap-6 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-8">
-              <h2 id="close-h" className="t-1">
-                {t('closing.title')}
+              <h2 id="sports-h" className="t-1">
+                {t('sports.title')}
               </h2>
-              <p className="lead mt-4 max-w-2xl">{t('closing.body')}</p>
+              <p className="lead mt-4 max-w-2xl">{t('sports.body')}</p>
             </div>
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 lg:col-span-4 lg:justify-end">
-              <Link href={registerHref({ src: 'home' })} className="btn btn-primary">
-                {c('registerInterest')}
-              </Link>
-              <Link href="/contact" className="link-arrow">
-                {t('closing.contact')}
+            <div className="lg:col-span-4 lg:text-end">
+              <Link href="/programs" className="btn btn-line">
+                {t('sports.all')} {arrow}
               </Link>
             </div>
           </div>
-          <p className="concept-note mt-10">{c('conceptNote')}</p>
+          <ul className="mt-10 grid gap-5 md:grid-cols-3">
+            {sports.map((p, i) => (
+              <li key={p.id}>
+                <Link href={p.route} className="group flex h-full flex-col overflow-hidden rounded-lg border border-line-dark bg-coal hover:border-paper">
+                  <span className="teaser teaser-card">
+                    <DesignPicture image={designImage(p.imageId)} alt="" sizes="(min-width: 768px) 32vw, 100vw" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05]" />
+                  </span>
+                  <span className="flex flex-1 flex-col p-5">
+                    <span className="ltr font-[family-name:var(--font-latin)] text-accent">{`0${i + 1}`}</span>
+                    <span className="display t-3 mt-1 block">{p.title[locale]}</span>
+                    <span className="mt-2 block text-[0.98rem] text-[#d8d1ca]">{p.summary[locale]}</span>
+                    <span className="mt-auto pt-4 font-semibold text-accent" aria-hidden="true">
+                      <span className="arrow">→</span>
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-8">
+            <Link href="/kids" className="link-arrow">
+              {t('sports.kids')} {arrow}
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      {/* 4 — Your own program */}
+      <section className="sec" aria-labelledby="program-h">
+        <div className="wrap grid gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-6">
+            <Rail no="03" label={t('program.rail')} />
+            <h2 id="program-h" className="t-1 mt-8">
+              {t('program.title')}
+            </h2>
+            <p className="lead mt-5">{t('program.body')}</p>
+            <ul className="mt-6">
+              {(['one', 'two', 'three'] as const).map((k) => (
+                <li key={k} className="flex gap-3 border-t border-line py-3 font-semibold">
+                  {tick}
+                  {t(`program.items.${k}`)}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="lg:col-span-6">
+            <Teaser id="t-rig" locale={locale} />
+          </div>
+        </div>
+      </section>
+
+      {/* 5 — Hybrid */}
+      <section className="sec border-y border-line bg-sand/50" aria-labelledby="hybrid-h">
+        <div className="wrap grid gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="lg:order-2 lg:col-span-6">
+            <Rail no="04" label={t('hybrid.rail')} />
+            <h2 id="hybrid-h" className="t-1 mt-8">
+              {t('hybrid.title')}
+            </h2>
+            <p className="lead mt-5">{t('hybrid.body')}</p>
+            <ul className="mt-6 flex flex-wrap gap-2" aria-label={t('hybrid.tag')}>
+              {sports.map((p) => (
+                <li key={p.id} className="rounded-full border border-ink px-4 py-1.5 text-[0.95rem] font-semibold">
+                  {p.shortTitle[locale]}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="lg:order-1 lg:col-span-6">
+            <Teaser id="t-turf" locale={locale} />
+          </div>
+        </div>
+      </section>
+
+      {/* 6 — The training zone: the warrior */}
+      <section className="on-dark dark-sec sec" aria-labelledby="zone-h">
+        <div className="wrap">
+          <Rail no="05" label={t('zone.rail')} />
+          <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:items-center">
+            <div className="lg:col-span-6">
+              <h2 id="zone-h" className="t-1">
+                {t('zone.title')}
+              </h2>
+              <p className="lead mt-5">{t('zone.body')}</p>
+            </div>
+            <div className="lg:col-span-6">
+              <Teaser id="t-warrior" locale={locale} wide />
+            </div>
+          </div>
+          <ul className="mt-12 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+            {(['one', 'two', 'three', 'four'] as const).map((k) => (
+              <li key={k} className="border-t-2 border-accent pt-4">
+                <p className="text-[1.15rem] font-semibold">{t(`zone.items.${k}.t`)}</p>
+                <p className="mt-2 text-[0.98rem] text-[#d8d1ca]">{t(`zone.items.${k}.d`)}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 7 — Juice bar */}
+      <section className="sec" aria-labelledby="juice-h">
+        <div className="wrap grid gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-6">
+            <Rail no="06" label={t('juice.rail')} />
+            <h2 id="juice-h" className="t-1 mt-8">
+              {t('juice.title')}
+            </h2>
+            <p className="lead mt-5">{t('juice.body')}</p>
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {(['one', 'two', 'three', 'four'] as const).map((k) => (
+                <li key={k} className="rounded-full bg-sand px-4 py-1.5 text-[0.95rem] font-semibold">
+                  {t(`juice.chips.${k}`)}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="lg:col-span-6">
+            <Teaser id="t-juice" locale={locale} />
+          </div>
+        </div>
+      </section>
+
+      {/* 8 — Facilities */}
+      <section className="sec border-t border-line bg-sand/50" aria-labelledby="fac-h">
+        <div className="wrap grid gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="grid grid-cols-2 gap-4 lg:order-1 lg:col-span-6">
+            <Teaser id="t-vanity" locale={locale} />
+            <Teaser id="t-lockers" locale={locale} />
+          </div>
+          <div className="lg:order-2 lg:col-span-6">
+            <Rail no="07" label={t('facilities.rail')} />
+            <h2 id="fac-h" className="t-1 mt-8">
+              {t('facilities.title')}
+            </h2>
+            <p className="lead mt-5">{t('facilities.body')}</p>
+            <ul className="mt-6">
+              {(['one', 'two', 'three'] as const).map((k) => (
+                <li key={k} className="flex gap-3 border-t border-line py-3 font-semibold">
+                  {tick}
+                  {t(`facilities.items.${k}`)}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <p className="wrap concept-note mt-10">{t('offer.teaserNote')}</p>
+      </section>
+
+      {/* 9 — The offer */}
+      <div className="chevron-band" aria-hidden="true" />
+      <section id="offer" className="on-dark dark-sec sec offer scroll-mt-16" aria-labelledby="offer-h" data-offer={state.kind}>
+        <div className="wrap">
+          <Rail no="08" label={t('offer.rail')} />
+          {state.kind === 'none' ? (
+            <div className="mt-8 max-w-2xl">
+              <h2 id="offer-h" className="t-1">
+                {t('offer.soonTitle')}
+              </h2>
+              <p className="lead mt-4">{t('offer.soonBody')}</p>
+              <Link href={registerHref({ src: 'home' })} className="btn btn-primary mt-8">
+                {c('registerInterest')}
+              </Link>
+            </div>
+          ) : (
+            <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:items-start">
+              <div className="lg:col-span-6">
+                <h2 id="offer-h" className="t-1">
+                  {offer.title[locale]}
+                </h2>
+                <p className="lead mt-4">{offer.summary[locale]}</p>
+                <ul className="mt-6">
+                  {offer.includes[locale].map((x) => (
+                    <li key={x} className="flex gap-3 border-t border-line-dark py-3 font-semibold">
+                      {tick}
+                      {x}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="offer-card lg:col-span-6">
+                {state.kind === 'sample' && (
+                  <p className="offer-draft" data-testid="offer-draft">
+                    {t('offer.draftNote')}
+                  </p>
+                )}
+                <p className="offer-price">
+                  <span className="sr-only">{t('offer.priceLabel')}: </span>
+                  <span className="offer-amount ltr">{state.kind === 'live' ? price(state.priceSar) : '—'}</span>
+                  <span className="offer-currency">{t('offer.currency')}</span>
+                  {state.kind === 'live' && state.originalPriceSar && (
+                    <span className="offer-was">
+                      {t('offer.wasLabel')} <s className="ltr">{price(state.originalPriceSar)}</s>
+                    </span>
+                  )}
+                </p>
+                <Countdown
+                  endsAt={state.endsAt}
+                  labels={{ title: t('offer.endsIn'), days: t('offer.days'), hours: t('offer.hours'), minutes: t('offer.minutes'), seconds: t('offer.seconds') }}
+                  ended={
+                    <>
+                      <p className="lead">{t('offer.ended')}</p>
+                      <Link href={registerHref({ src: 'home' })} className="btn btn-primary mt-6">
+                        {c('registerInterest')}
+                      </Link>
+                    </>
+                  }
+                >
+                  {state.kind === 'live' ? (
+                    <ExternalLink href={state.payUrl} event="membership_outbound_click" location="home-offer" className="btn btn-primary w-full justify-center text-[1.1rem]">
+                      {t('offer.cta')} {arrow}
+                    </ExternalLink>
+                  ) : (
+                    <span className="btn btn-primary w-full justify-center text-[1.1rem]" aria-disabled="true" data-testid="offer-cta-sample">
+                      {t('offer.cta')} {arrow}
+                    </span>
+                  )}
+                  <p className="mt-3 text-[0.9rem] text-[#b9b2ab]">{t('offer.storeNote')}</p>
+                </Countdown>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </>

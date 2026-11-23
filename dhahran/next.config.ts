@@ -48,7 +48,9 @@ const nextConfig: NextConfig = {
       { source: `/${l}/programs/football`, destination: `/${l}/football-performance`, permanent: true },
       { source: `/${l}/programs/hyrox`, destination: `/${l}/programs/hybrid-endurance`, permanent: true },
       { source: `/${l}/programs/crossfit`, destination: `/${l}/programs/functional-training`, permanent: true },
-      { source: `/${l}/about`, destination: `/${l}#philosophy`, permanent: false },
+      { source: `/${l}/about`, destination: `/${l}#about`, permanent: false },
+      // The club tour was withdrawn at the owner's request.
+      { source: `/${l}/explore`, destination: `/${l}`, permanent: false },
       { source: `/${l}/pricing`, destination: `/${l}/memberships`, permanent: true },
     ]);
   },

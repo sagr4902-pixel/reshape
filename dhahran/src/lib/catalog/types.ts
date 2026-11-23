@@ -41,7 +41,6 @@ export const programSchema = z.object({
   boundaries: localizedList.optional(),
   availability,
   audiences: z.array(z.enum(['adult', 'guardian', 'football-athlete'])).min(1),
-  zoneIds: z.array(id),
   pathwayIds: z.array(id),
   membershipIds: z.array(id),
   faqs: z.array(faq),
@@ -89,32 +88,6 @@ export const membershipSchema = z.object({
   linkVerified: z.boolean(),
 });
 export type Membership = z.infer<typeof membershipSchema>;
-
-export const zoneSchema = z.object({
-  id,
-  kind: z.enum(['program', 'facility', 'consultation']),
-  level: z.enum(['ground', 'upper']),
-  title: localized,
-  summary: localized,
-  /** What in this zone comes from the drawings vs. what is a concept. */
-  basis: localized,
-  sourceAssetIds: z.array(z.string()).min(1),
-  /** Design image ids shown for this zone, first = primary. */
-  imageIds: z.array(id).min(1),
-  /** Side of the map dot the label hangs on (physical). Default: right, or left near the right edge. */
-  labelSide: z.enum(['left', 'right']).optional(),
-});
-export type Zone = z.infer<typeof zoneSchema>;
-
-export const sceneSchema = z.object({
-  id,
-  title: localized,
-  status: z.enum(['reference-validated', 'concept', 'development-placeholder']),
-  spatialMode: z.enum(['verified-layout', 'conceptual-zones']),
-  sourceAssetIds: z.array(z.string()).min(1),
-  zones: z.array(zoneSchema).min(1),
-});
-export type Scene = z.infer<typeof sceneSchema>;
 
 export const INTENTS = ['general-interest', 'program-inquiry', 'trial-request', 'membership-consultation', 'preopening-updates'] as const;
 export type Intent = (typeof INTENTS)[number];

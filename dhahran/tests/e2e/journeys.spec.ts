@@ -33,8 +33,6 @@ for (const l of LOCALES) {
 
     test('B — parent: kids page → guardian inquiry stored with minimal data and separate consent', async ({ page }, info) => {
       await page.goto(`/${l}/kids`);
-      // The approved designs have no dedicated kids area: the page links to the general tour, not an invented zone.
-      await expect(page.getByTestId('kids-tour')).toHaveAttribute('href', `/${l}/explore`);
       await page.getByTestId('kids-cta').click();
       await expect(page).toHaveURL(/\/register\?program=kids&intent=program-inquiry&src=kids/);
       await expect(page.getByTestId('register-context')).toContainText(l === 'ar' ? 'برامج الأطفال' : 'Kids Programs');
@@ -79,36 +77,47 @@ for (const l of LOCALES) {
       expect((await leadByPhone(phone))[0]).toMatchObject({ program_id: 'football-performance', intent: 'membership-consultation' });
     });
 
-    test('E — explorer visitor: zone → design images, correct program and a working, persisted CTA', async ({ page }, info) => {
-      await page.goto(`/${l}/explore`);
-      await page.getByTestId('chip-rig').click();
-      await expect(page).toHaveURL(/zone=rig/);
-      const panel = page.getByTestId('xp-panel');
-      await expect(panel).toContainText(l === 'ar' ? 'العقلات والحلق' : 'Bars & rings');
-      await expect(page.getByTestId('xp-photo').locator('img').first()).toHaveAttribute('src', /\/assets\/design\/d25-/);
-      await expect(panel.locator(`a[href="/${l}/programs/calisthenics"]`)).toBeVisible();
-      await expect(page.getByTestId('xp-cta')).toHaveAttribute('href', `/${l}/register?program=calisthenics&zone=rig&intent=program-inquiry&src=explorer`);
-      await page.getByTestId('xp-cta').click();
-      await expect(page.getByTestId('register-context')).toContainText(l === 'ar' ? 'الكاليسثنكس' : 'Calisthenics');
-      const phone = testPhone(info.workerIndex);
-      await fillAndSubmit(page, { name: l === 'ar' ? 'عبدالله المطيري' : 'Test Explorer', phone });
-      await expect(page.getByTestId('lead-success')).toBeVisible();
-      expect((await leadByPhone(phone))[0]).toMatchObject({ program_id: 'calisthenics', zone_id: 'rig', source: 'explorer' });
-    });
-
-    test('F — the homepage is the club facade; its door leads into reception', async ({ page }) => {
+    test('E — the homepage is the official site: facade, the story in order, and the offer last', async ({ page }) => {
       await page.goto(`/${l}`);
       const facade = page.locator('.facade');
       await expect(facade.locator('img').first()).toHaveAttribute('src', /\/assets\/design\/facade-/);
-      await expect(facade.locator('img').first()).toHaveAttribute('alt', l === 'ar' ? /واجهة ريشيب الظهران/ : /RESHAPE Dhahran facade/);
       await expect(page.locator('h1')).toHaveText(l === 'ar' ? 'هنا تبدأ قوّتك' : 'Your strength starts here');
       await expect(page.locator('.facade-note')).toContainText(l === 'ar' ? 'تصوّر مبدئي للنادي' : 'Concept visualization');
-      const door = page.getByTestId('facade-hot-enter');
-      await expect(door).toHaveAttribute('href', `/${l}/explore?zone=reception`);
-      await door.click();
-      await expect(page).toHaveURL(/explore\?zone=reception/, { timeout: 10_000 });
-      await expect(page.getByTestId('xp-panel')).toContainText(l === 'ar' ? 'الاستقبال والمتجر' : 'Reception & store');
-      await expect(page.getByTestId('xp-photo')).toBeVisible();
+      // sections in the order the owner asked for
+      const ids = await page.locator('main h2').evaluateAll((hs) => hs.map((h) => h.id));
+      expect(ids).toEqual(['about-h', 'sports-h', 'program-h', 'hybrid-h', 'zone-h', 'juice-h', 'fac-h', 'offer-h']);
+      // the hero button goes to the offer at the end of the page
+      await page.getByTestId('hero-offer').click();
+      await expect(page).toHaveURL(/#offer$/);
+      await expect(page.locator('#offer')).toBeInViewport();
+    });
+
+    test('F — the offer: countdown runs; without real terms it is a marked sample that cannot be bought', async ({ page }) => {
+      await page.goto(`/${l}#offer`);
+      const offer = page.locator('#offer');
+      await expect(offer).toHaveAttribute('data-offer', 'sample');
+      await expect(page.getByTestId('offer-draft')).toBeVisible();
+      const timer = page.getByTestId('offer-countdown');
+      await expect(timer).toHaveAttribute('data-ready', 'true');
+      const first = await timer.innerText();
+      await expect.poll(() => timer.innerText()).not.toBe(first);
+      // no payment link exists until the owner supplies one
+      await expect(offer.locator('a[href*="reshape-sa.com"]')).toHaveCount(0);
+      await expect(page.getByTestId('offer-cta-sample')).toHaveAttribute('aria-disabled', 'true');
+    });
+
+    test('G — the club is not shown from inside: no tour, map or full renders', async ({ page, request }) => {
+      const res = await request.get(`/${l}/explore?zone=rig`, { maxRedirects: 0 });
+      expect(res.status()).toBe(307);
+      expect(res.headers().location).toMatch(new RegExp(`/${l}(\\?|$)`));
+      expect((await request.get('/assets/scenes/level-ground-dark.svg')).status()).toBe(404);
+      expect((await request.get('/assets/design/d25-1200.avif')).status()).toBe(404);
+      for (const route of ['', '/programs', '/programs/calisthenics', '/kids']) {
+        await page.goto(`/${l}${route}`);
+        expect(await page.locator('a[href*="/explore"]').count(), route).toBe(0);
+        const srcs = await page.locator('img').evaluateAll((is) => is.map((i) => (i as HTMLImageElement).getAttribute('src') ?? ''));
+        for (const src of srcs.filter((x) => x.includes('/assets/design/'))) expect(src, route).toMatch(/\/assets\/design\/(facade|t-[a-z]+)-\d+\./);
+      }
     });
   });
 }

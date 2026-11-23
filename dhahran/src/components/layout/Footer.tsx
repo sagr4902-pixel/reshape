@@ -9,7 +9,6 @@ export async function Footer({ locale }: { locale: Locale }) {
   const n = await getTranslations({ locale, namespace: 'nav' });
   const c = await getTranslations({ locale, namespace: 'contact' });
   const links = [
-    ['/explore', n('explore')],
     ['/programs', n('programs')],
     ['/kids', n('kids')],
     ['/football-performance', locale === 'ar' ? 'أداء لاعبي كرة القدم' : 'Football performance'],

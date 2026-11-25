@@ -69,16 +69,6 @@
       "all": "All programs",
       "kids": "And kids have programs of their own"
     },
-    "program": {
-      "rail": "Your own program",
-      "title": "A program built for you",
-      "body": "Don't train on someone else's plan. We start from your level and goal and build a clear program, so you know what you are doing in every session and why.",
-      "items": {
-        "one": "Starts from your current level",
-        "two": "A clear goal and defined steps",
-        "three": "Follow-up and adjustment as you progress"
-      }
-    },
     "hybrid": {
       "rail": "Hybrid",
       "title": "Hybrid: sport as a way of life",
@@ -148,6 +138,223 @@
       "teaserNote": "Glimpses from the club's designs — details may change before opening.",
       "ctaInterest": "Reserve your place in the offer",
       "pendingNote": "The offer price and the subscription link will be added here soon. Register now and we will contact you first."
+    },
+    "identity": {
+      "rail": "Our identity",
+      "title": "Re. — reshape your lifestyle",
+      "body": "Our name starts with Re because everything here starts again: rebuilding, rediscovering, reshaping. We don't just change your training — we change the way you live.",
+      "words": {
+        "build": {
+          "w": "Re.Build",
+          "t": "Rebuild",
+          "d": "Strength built on the right foundation, one movement at a time."
+        },
+        "create": {
+          "w": "Re.Create",
+          "t": "Recreate",
+          "d": "Discover what you did not know about yourself."
+        },
+        "shape": {
+          "w": "Re.Shape",
+          "t": "Reshape",
+          "d": "Your body, your habits, your whole day."
+        },
+        "think": {
+          "w": "Re.Think",
+          "t": "Rethink",
+          "d": "We build an athletic mindset, not just a workout."
+        },
+        "start": {
+          "w": "Re.Start",
+          "t": "Restart",
+          "d": "At any age, from any level."
+        },
+        "connect": {
+          "w": "Re.Connect",
+          "t": "Belong",
+          "d": "A community that drives and supports you every day."
+        }
+      },
+      "philosophyTitle": "Here we build an athletic mindset",
+      "philosophyBody": "We don't sell a subscription. We create real athletic change: we connect you to a community that motivates and supports you, give you a precise training plan, and believe achievement does not take years when the path is clear.",
+      "pillars": {
+        "one": {
+          "t": "An athletic mindset",
+          "d": "You understand why you train, not only how."
+        },
+        "two": {
+          "t": "A community behind you",
+          "d": "Nobody trains alone here."
+        },
+        "three": {
+          "t": "Precise plans",
+          "d": "A distinct experience built on your numbers and goal."
+        },
+        "four": {
+          "t": "Fast progress",
+          "d": "A clear path that saves you time."
+        }
+      }
+    },
+    "method": {
+      "rail": "How we work with you",
+      "title": "You will never be lost",
+      "body": "From day one we sit down with you. You do not start on someone else's plan or train without direction — every step has a reason and every week has a goal.",
+      "steps": {
+        "one": {
+          "t": "We sit with you",
+          "d": "An introduction where we hear your story and level."
+        },
+        "two": {
+          "t": "We understand your goals",
+          "d": "What you really want, and why now."
+        },
+        "three": {
+          "t": "We write your plan",
+          "d": "A program written for you, not a ready-made copy."
+        },
+        "four": {
+          "t": "We follow up",
+          "d": "We review your progress and adjust the plan with it."
+        },
+        "five": {
+          "t": "We find your balance",
+          "d": "An athletic balance that lets you discover yourself."
+        }
+      }
+    },
+    "outcomes": {
+      "rail": "What changes",
+      "title": "Not just muscle. A whole life changes.",
+      "body": "These are the changes we work on with our members every day.",
+      "items": {
+        "weight": {
+          "t": "Weight loss",
+          "d": "Weight that comes off and stays off."
+        },
+        "age": {
+          "t": "Feeling young again",
+          "d": "Age is a number — movement proves it."
+        },
+        "strength": {
+          "t": "Building strength",
+          "d": "Real strength you feel in your day."
+        },
+        "pullup": {
+          "t": "The first pull-up",
+          "d": "A moment you do not forget."
+        },
+        "muscleup": {
+          "t": "The first muscle-up",
+          "d": "A skill you thought was far away."
+        },
+        "lifestyle": {
+          "t": "A new lifestyle",
+          "d": "Sleep, food and routine change with you."
+        },
+        "confidence": {
+          "t": "Confidence and character",
+          "d": "You carry yourself differently."
+        },
+        "joy": {
+          "t": "Joy and order in life",
+          "d": "Training becomes the best hour of your day."
+        },
+        "mindset": {
+          "t": "A different mindset",
+          "d": "You learn to keep going when it gets hard."
+        }
+      }
+    },
+    "stories": {
+      "rail": "Member stories",
+      "title": "They talk about RESHAPE",
+      "body": "Real members telling how their lives changed."
+    },
+    "coaches": {
+      "rail": "Coaches",
+      "title": "Who stands beside you",
+      "body": "Experienced, title-winning coaches with recognised certificates, with you until you get there.",
+      "credentials": "Certificates",
+      "experience": "Experience"
+    },
+    "team": {
+      "rail": "Our team and titles",
+      "title": "We train champions, and compete with them",
+      "body": "RESHAPE is more than a gym. We have a team, and athletes we prepare and enter in championships.",
+      "items": {
+        "one": {
+          "t": "A competing team",
+          "d": "Athletes we coach and enter in championships."
+        },
+        "two": {
+          "t": "Athlete sponsorship",
+          "d": "We sign sponsorships with athletes and stand behind them."
+        },
+        "three": {
+          "t": "Leading local championships",
+          "d": "We take part in local championships and lead them."
+        },
+        "four": {
+          "t": "Hosting world champions",
+          "d": "Workshops and visits by world champions."
+        }
+      },
+      "achievementsTitle": "Our titles"
+    },
+    "gallery": {
+      "rail": "From our community",
+      "title": "Live moments",
+      "body": "From sessions, championships, our community and our kids.",
+      "groups": {
+        "sessions": "Sessions",
+        "championships": "Championships",
+        "community": "Community",
+        "kids": "Kids",
+        "workshops": "Workshops"
+      }
+    },
+    "beyond": {
+      "rail": "More than training",
+      "title": "A whole system around you",
+      "body": "Everything an athlete needs to keep going and keep improving.",
+      "items": {
+        "recovery": {
+          "t": "Physiotherapy and recovery",
+          "d": "Real depth in physiotherapy and recovery, so you come back stronger."
+        },
+        "workshops": {
+          "t": "Workshops",
+          "d": "Learn the skill from the people who own it."
+        },
+        "partners": {
+          "t": "Sponsors and success partners",
+          "d": "Partners who believe in what we are building."
+        },
+        "merch": {
+          "t": "T-shirts and belonging",
+          "d": "You wear RESHAPE because you are part of it."
+        }
+      },
+      "partnersTitle": "Our sponsors and partners"
+    },
+    "schedule": {
+      "rail": "Classes and packages",
+      "title": "Class times and packages",
+      "body": "Classes spread through the day to fit your time, and packages to fit your goal.",
+      "memberships": "Packages and memberships",
+      "days": "Days",
+      "time": "Time",
+      "audience": "For"
+    },
+    "awaiting": {
+      "label": "Awaiting content — shown on previews only",
+      "stories": "For each story: the name as the member wants it shown, two sentences in their own words, the true result (for example how many kilos in how many months), a photo or clip, and their consent to publish.",
+      "coaches": "For each coach: name, speciality, certificates, experience and titles, and a photo.",
+      "achievements": "The list of titles: year, championship name, and placing or result.",
+      "gallery": "Photos and clips: sessions, championships, community, kids and workshops.",
+      "partners": "Names and logos of sponsors and partners, and the physiotherapy provider.",
+      "schedule": "The class timetable: program, days, time and who it is for. And package prices."
     }
   },
   "programs": {

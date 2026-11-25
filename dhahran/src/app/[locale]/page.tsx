@@ -11,6 +11,7 @@ import { ExternalLink } from '@/components/ui/ExternalLink';
 import { FacadeHero } from '@/features/home/FacadeHero';
 import { Countdown } from '@/features/offer/Countdown';
 import { OfferBar } from '@/features/offer/OfferBar';
+import { Beyond, Coaches, Gallery, Identity, Method, Outcomes, Schedule, Team } from '@/features/home/ClubSections';
 
 type Props = { params: Promise<{ locale: Locale }> };
 
@@ -41,6 +42,7 @@ export default async function HomePage({ params }: Props) {
   const e = env();
   const preopening = e.launchStage === 'preopening';
   const state = offerState(offer, e.appEnv);
+  const preview = e.appEnv !== 'production';
   const sports = ['calisthenics', 'hybrid-endurance', 'functional-training'].map((id) => programById(id)!);
   const arrow = <span className="arrow" aria-hidden="true">→</span>;
   const tick = <span aria-hidden="true" className="mt-[0.72em] h-[3px] w-4 flex-none bg-accent" />;
@@ -75,7 +77,7 @@ export default async function HomePage({ params }: Props) {
         <div className="marquee-track">
           {[0, 1].map((k) => (
             <ul key={k}>
-              {[...sports.map((p) => p.shortTitle[locale]), t('program.rail'), t('hybrid.rail'), t('zone.items.one.t'), t('juice.rail')].map((x) => (
+              {[...sports.map((p) => p.shortTitle[locale]), 'Re.Build', 'Re.Create', 'Re.Shape', t('hybrid.rail'), t('zone.items.one.t'), t('juice.rail')].map((x) => (
                 <li key={x}>{x}</li>
               ))}
             </ul>
@@ -103,10 +105,13 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
+      {/* Identity: the Re. vocabulary and what we believe */}
+      <Identity locale={locale} no="02" />
+
       {/* 3 — Variety: choose your sport */}
       <section className="on-dark dark-sec sec" aria-labelledby="sports-h">
         <div className="wrap">
-          <Rail no="02" label={t('sports.rail')} />
+          <Rail no="03" label={t('sports.rail')} />
           <div className="mt-8 grid gap-6 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-8">
               <h2 id="sports-h" className="t-1">
@@ -147,35 +152,14 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* 4 — Your own program */}
-      <section className="sec" aria-labelledby="program-h">
-        <div className="wrap grid gap-10 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-6">
-            <Rail no="03" label={t('program.rail')} />
-            <h2 id="program-h" className="t-1 mt-8">
-              {t('program.title')}
-            </h2>
-            <p className="lead mt-5">{t('program.body')}</p>
-            <ul className="mt-6">
-              {(['one', 'two', 'three'] as const).map((k) => (
-                <li key={k} className="flex gap-3 border-t border-line py-3 font-semibold">
-                  {tick}
-                  {t(`program.items.${k}`)}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="lg:col-span-6">
-            <Teaser id="t-rig" locale={locale} />
-          </div>
-        </div>
-      </section>
+      {/* How we work with a member: never lost */}
+      <Method locale={locale} no="04" />
 
       {/* 5 — Hybrid */}
       <section className="sec border-y border-line bg-sand/50" aria-labelledby="hybrid-h">
         <div className="wrap grid gap-10 lg:grid-cols-12 lg:items-center">
           <div className="lg:order-2 lg:col-span-6">
-            <Rail no="04" label={t('hybrid.rail')} />
+            <Rail no="05" label={t('hybrid.rail')} />
             <h2 id="hybrid-h" className="t-1 mt-8">
               {t('hybrid.title')}
             </h2>
@@ -197,7 +181,7 @@ export default async function HomePage({ params }: Props) {
       {/* 6 — The training zone: the warrior */}
       <section className="on-dark dark-sec sec" aria-labelledby="zone-h">
         <div className="wrap">
-          <Rail no="05" label={t('zone.rail')} />
+          <Rail no="06" label={t('zone.rail')} />
           <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-6">
               <h2 id="zone-h" className="t-1">
@@ -220,11 +204,18 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
+      {/* What changes, member stories, coaches, the team, live moments, and what surrounds the training */}
+      <Outcomes locale={locale} no="07" preview={preview} />
+      <Coaches locale={locale} no="08" preview={preview} />
+      <Team locale={locale} no="09" preview={preview} />
+      <Gallery locale={locale} no="10" preview={preview} />
+      <Beyond locale={locale} no="11" preview={preview} />
+
       {/* 7 — Juice bar */}
       <section className="sec" aria-labelledby="juice-h">
         <div className="wrap grid gap-10 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-6">
-            <Rail no="06" label={t('juice.rail')} />
+            <Rail no="12" label={t('juice.rail')} />
             <h2 id="juice-h" className="t-1 mt-8">
               {t('juice.title')}
             </h2>
@@ -251,7 +242,7 @@ export default async function HomePage({ params }: Props) {
             <Teaser id="t-lockers" locale={locale} />
           </div>
           <div className="lg:order-2 lg:col-span-6">
-            <Rail no="07" label={t('facilities.rail')} />
+            <Rail no="13" label={t('facilities.rail')} />
             <h2 id="fac-h" className="t-1 mt-8">
               {t('facilities.title')}
             </h2>
@@ -269,11 +260,13 @@ export default async function HomePage({ params }: Props) {
         <p className="wrap concept-note mt-10">{t('offer.teaserNote')}</p>
       </section>
 
+      <Schedule locale={locale} no="14" preview={preview} />
+
       {/* 9 — The offer */}
       <div className="chevron-band chevron-run" aria-hidden="true" />
       <section id="offer" className="on-dark dark-sec sec offer scroll-mt-16" aria-labelledby="offer-h" data-offer={state.kind}>
         <div className="wrap">
-          <Rail no="08" label={t('offer.rail')} />
+          <Rail no="15" label={t('offer.rail')} />
           {state.kind === 'none' ? (
             <div className="mt-8 max-w-2xl">
               <h2 id="offer-h" className="t-1">

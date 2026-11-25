@@ -803,3 +803,30 @@
     a.group:hover { transform: translateY(-6px); }
   }
 }
+
+@layer components {
+  /* Identity: the Re. vocabulary */
+  .re-words { display: grid; gap: 1.75rem 2rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 0; padding: 0; list-style: none; }
+  .re-words li { border-top: 2px solid var(--color-ink); padding-top: 1rem; }
+  .re-word { display: block; font-family: 'RS Condensed', 'RS Display', sans-serif; font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 700; line-height: 1; letter-spacing: -0.01em; text-align: start; }
+  .re-word::first-letter { color: var(--color-accent); }
+  [dir='rtl'] .re-word { text-align: right; }
+
+  /* Method: numbered steps on a line */
+  .steps { margin: 0; padding: 0; list-style: none; counter-reset: none; }
+  .steps li { display: flex; gap: 1.25rem; align-items: flex-start; padding-block: 1.4rem; border-top: 1px solid var(--color-line); }
+  .steps li:last-child { border-bottom: 1px solid var(--color-line); }
+  .steps-no { flex: none; display: grid; place-items: center; width: 3.2rem; height: 3.2rem; border-radius: 50%; background: var(--color-ink); color: var(--color-paper); font-family: var(--font-latin); font-weight: 700; font-size: 1.1rem; }
+  .steps li:first-child .steps-no { background: var(--color-accent); color: var(--color-ink); }
+
+  .outcome { display: block; padding: 1.25rem 1.35rem; border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-panel, #fff); transition: border-color 0.2s, transform 0.3s; }
+  .outcome:hover { border-color: var(--color-ink); transform: translateY(-4px); }
+  .story { overflow: hidden; border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-panel, #fff); }
+  .story-media { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: var(--color-ink); }
+
+  /* Marked placeholder for material the owner has not supplied yet (previews only) */
+  .awaiting { padding: 1.1rem 1.25rem; border: 2px dashed var(--color-line); border-radius: var(--radius-md); color: var(--color-mute, #5d5a56); font-size: 0.98rem; background: repeating-linear-gradient(-45deg, transparent 0 14px, rgb(0 0 0 / 0.025) 14px 28px); }
+  .awaiting-dark { border-color: var(--color-line-dark); color: #d8d1ca; background: repeating-linear-gradient(-45deg, transparent 0 14px, rgb(255 255 255 / 0.03) 14px 28px); }
+  .awaiting-label { font-weight: 700; color: var(--color-accent-ink, var(--color-accent)); }
+  .awaiting-dark .awaiting-label { color: var(--color-accent); }
+}

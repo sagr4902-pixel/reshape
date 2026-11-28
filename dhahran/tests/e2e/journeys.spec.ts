@@ -83,7 +83,7 @@ for (const l of LOCALES) {
       await expect(page.locator('.facade-note')).toContainText(l === 'ar' ? 'تصوّر مبدئي للنادي' : 'Concept visualization');
       // sections in the order the owner asked for
       const ids = await page.locator('main h2').evaluateAll((hs) => hs.map((h) => h.id));
-      expect(ids).toEqual(['about-h', 'identity-h', 'sports-h', 'method-h', 'hybrid-h', 'zone-h', 'outcomes-h', 'coaches-h', 'team-h', 'gallery-h', 'beyond-h', 'juice-h', 'fac-h', 'schedule-h', 'offer-h']);
+      expect(ids).toEqual(['about-h', 'identity-h', 'sports-h', 'gallery-h', 'method-h', 'hybrid-h', 'zone-h', 'outcomes-h', 'coaches-h', 'team-h', 'beyond-h', 'juice-h', 'fac-h', 'schedule-h', 'offer-h']);
       // real material (stories, coaches, titles, media, partners, timetable) is not invented: previews mark what is awaited
       expect(await page.getByTestId('awaiting').count()).toBe(3); // titles, partners and timetable still awaited
       await expect(page.getByTestId('coach-nawaf-alsaqr')).toContainText(l === 'ar' ? 'نواف الصقر' : 'Nawaf Al-Saqr');
@@ -110,6 +110,32 @@ for (const l of LOCALES) {
       await expect(cta).toHaveAttribute('href', /^https:\/\/reshape-sa\.com\/.+\/c571221986$/);
       await expect(cta).toHaveAttribute('target', '_blank');
       await expect(cta).toHaveAttribute('rel', /noopener/);
+    });
+
+    test('H — the club clips: easy to find, filter by group, and play full screen with sound', async ({ page }) => {
+      await page.goto(`/${l}`);
+      await page.getByTestId('hero-watch').click();
+      await expect(page).toHaveURL(/#gallery$/);
+      const cards = page.getByTestId('reel-card');
+      await expect(cards).toHaveCount(20);
+      // posters are real images, not empty frames
+      await cards.first().scrollIntoViewIfNeeded();
+      await expect.poll(() => cards.first().locator('img').evaluate((i) => (i as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+      await page.getByTestId('reel-tab-kids').click();
+      await expect(cards).toHaveCount(4);
+      await page.getByTestId('reel-tab-all').click();
+      await expect(cards).toHaveCount(20);
+      await cards.nth(2).click();
+      const player = page.getByTestId('reel-player');
+      await expect(player).toBeVisible();
+      const video = player.locator('video');
+      await expect(video).toHaveAttribute('src', /\/assets\/media\/.+\.mp4$/);
+      await expect.poll(() => video.evaluate((v) => (v as HTMLVideoElement).readyState)).toBeGreaterThan(0);
+      expect(await video.evaluate((v) => (v as HTMLVideoElement).muted)).toBe(false);
+      await expect(page.getByTestId('reel-close')).toBeFocused();
+      await page.keyboard.press('Escape');
+      await expect(player).toHaveCount(0);
+      await expect(cards.nth(2)).toBeFocused();
     });
 
     test('G — the club is not shown from inside: no tour, map or full renders', async ({ page, request }) => {

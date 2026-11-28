@@ -70,6 +70,14 @@ export default async function HomePage({ params }: Props) {
             {t('hero.ctaAbout')}
           </a>
         </div>
+        <a href="#gallery" className="hero-watch mt-5" data-testid="hero-watch">
+          <span className="hero-watch-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16">
+              <path d="M8 5v14l11-7z" fill="currentColor" />
+            </svg>
+          </span>
+          {t('hero.ctaWatch')}
+        </a>
       </FacadeHero>
       <div className="chevron-band chevron-run" aria-hidden="true" />
       {/* Moving strip of what the club is about (decorative: every item is said in full below) */}
@@ -152,14 +160,17 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
+      {/* Live moments: the club's own clips, early on the page */}
+      <Gallery locale={locale} no="04" preview={preview} />
+
       {/* How we work with a member: never lost */}
-      <Method locale={locale} no="04" />
+      <Method locale={locale} no="05" />
 
       {/* 5 — Hybrid */}
       <section className="sec border-y border-line bg-sand/50" aria-labelledby="hybrid-h">
         <div className="wrap grid gap-10 lg:grid-cols-12 lg:items-center">
           <div className="lg:order-2 lg:col-span-6">
-            <Rail no="05" label={t('hybrid.rail')} />
+            <Rail no="06" label={t('hybrid.rail')} />
             <h2 id="hybrid-h" className="t-1 mt-8">
               {t('hybrid.title')}
             </h2>
@@ -181,7 +192,7 @@ export default async function HomePage({ params }: Props) {
       {/* 6 — The training zone: the warrior */}
       <section className="on-dark dark-sec sec" aria-labelledby="zone-h">
         <div className="wrap">
-          <Rail no="06" label={t('zone.rail')} />
+          <Rail no="07" label={t('zone.rail')} />
           <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-6">
               <h2 id="zone-h" className="t-1">
@@ -205,10 +216,9 @@ export default async function HomePage({ params }: Props) {
       </section>
 
       {/* What changes, member stories, coaches, the team, live moments, and what surrounds the training */}
-      <Outcomes locale={locale} no="07" preview={preview} />
-      <Coaches locale={locale} no="08" preview={preview} />
-      <Team locale={locale} no="09" preview={preview} />
-      <Gallery locale={locale} no="10" preview={preview} />
+      <Outcomes locale={locale} no="08" preview={preview} />
+      <Coaches locale={locale} no="09" preview={preview} />
+      <Team locale={locale} no="10" preview={preview} />
       <Beyond locale={locale} no="11" preview={preview} />
 
       {/* 7 — Juice bar */}

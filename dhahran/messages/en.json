@@ -41,7 +41,8 @@
       "stage": "The club is in its pre-opening stage.",
       "facadeLabel": "The club facade",
       "ctaOffer": "See the offer",
-      "ctaAbout": "About us"
+      "ctaAbout": "About us",
+      "ctaWatch": "Watch moments from the club"
     },
     "about": {
       "rail": "About us",
@@ -307,7 +308,7 @@
     "gallery": {
       "rail": "From our community",
       "title": "Live moments",
-      "body": "From sessions, championships, our community and our kids.",
+      "body": "From our championships, classes, community and kids — tap any clip to watch.",
       "groups": {
         "sessions": "Sessions",
         "championships": "Championships",
@@ -315,7 +316,15 @@
         "kids": "Kids",
         "interviews": "Interviews",
         "workshops": "Workshops"
-      }
+      },
+      "all": "All",
+      "play": "Play clip",
+      "close": "Close",
+      "prev": "Previous clip",
+      "next": "Next clip",
+      "scrollPrev": "Previous clips",
+      "scrollNext": "More clips",
+      "count": "{n} / {total}"
     },
     "beyond": {
       "rail": "More than training",

@@ -5,6 +5,7 @@ import { designImage, programById } from '@/content';
 import { achievements, coaches, media, partners, schedule, stories } from '@/content/club';
 import { Rail } from '@/components/ui/Rail';
 import { DesignPicture } from '@/components/ui/DesignPicture';
+import { GalleryReel } from '@/features/gallery/GalleryReel';
 
 type P = { locale: Locale; no: string };
 /** Sections that need real club material can be previewed empty, but never appear empty in production. */
@@ -296,7 +297,7 @@ export async function Gallery({ locale, no, preview }: Gated) {
   if (media.length === 0 && !preview) return null;
   const t = await tr(locale);
   return (
-    <section className="on-dark dark-sec sec" aria-labelledby="gallery-h">
+    <section id="gallery" className="on-dark dark-sec sec scroll-mt-16" aria-labelledby="gallery-h">
       <div className="wrap">
         <Rail no={no} label={t('gallery.rail')} />
         <h2 id="gallery-h" className="t-1 mt-8">
@@ -317,26 +318,22 @@ export async function Gallery({ locale, no, preview }: Gated) {
             </div>
           </>
         ) : (
-          GROUPS.filter((g) => media.some((m) => m.group === g)).map((g) => (
-            <div key={g} className="mt-10">
-              <h3 className="t-3">{t(`gallery.groups.${g}`)}</h3>
-              <ul className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
-                {media
-                  .filter((m) => m.group === g)
-                  .map((m) => (
-                    <li key={m.id} className="overflow-hidden rounded-md bg-coal">
-                      {m.kind === 'video' ? (
-                        <video controls preload="none" playsInline poster={m.poster} className="aspect-square w-full object-cover" aria-label={m.caption[locale]}>
-                          <source src={m.src} type="video/mp4" />
-                        </video>
-                      ) : (
-                        <img src={m.src} alt={m.caption[locale]} loading="lazy" decoding="async" className="aspect-square w-full object-cover" />
-                      )}
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          ))
+          <div className="mt-8">
+            <GalleryReel
+              items={media.filter((m) => m.kind === 'video').map((m) => ({ id: m.id, group: m.group, src: m.src, poster: m.poster, caption: m.caption[locale] }))}
+              groups={GROUPS.filter((g) => media.some((m) => m.group === g)).map((g) => ({ id: g, label: t(`gallery.groups.${g}`) }))}
+              labels={{
+                all: t('gallery.all'),
+                play: t('gallery.play'),
+                close: t('gallery.close'),
+                prev: t('gallery.prev'),
+                next: t('gallery.next'),
+                scrollPrev: t('gallery.scrollPrev'),
+                scrollNext: t('gallery.scrollNext'),
+                count: t('gallery.count'),
+              }}
+            />
+          </div>
         )}
       </div>
     </section>

@@ -211,7 +211,7 @@ const C2: React.FC = () => {
         </div>
       </div>
       <div style={{ position: "absolute", top: 26, left: 150, ...txt(34, SOFT, 700), opacity: prog(frame, 14, 24) }}>الصعوبة</div>
-      <div style={{ position: "absolute", left: 0, right: 0, top: 544, ...txt(40, SOFT, 700), opacity: prog(frame, 112, 124) }}>كل ما سهل عليك… صعّبه · القوة زادت في 4 أسابيع</div>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 544, ...txt(38, SOFT, 700), opacity: prog(frame, 112, 124) }}>كل ما سهل… صعّبه · قوة أعلى في 4 أسابيع</div>
     </>
   );
 };

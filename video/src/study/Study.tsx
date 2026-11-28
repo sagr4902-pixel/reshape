@@ -163,25 +163,55 @@ const C1: React.FC = () => {
     </>
   );
 };
+/**
+ * Push-up at any incline: `d` is how much higher the hands are than the feet (rig units; negative = feet
+ * raised). The body stays a straight line from heels to head and pivots as the support changes.
+ */
+const pushAt = (d: number, phase: number): Pose => {
+  const ang = (above: number) => (Math.acos(Math.max(-0.4, Math.min(0.98, above / 260))) * 180) / Math.PI;
+  const k = 0.5 - 0.5 * Math.cos(phase * 2 * Math.PI);            // 0 = arms straight, 1 = chest down
+  const th = ang(112 + d) + (ang(30 + d) - ang(112 + d)) * k;
+  return { torso: th, head: -(th - 22), armN: [2 - 106 * k, 2 * k], armF: [6 - 106 * k, 2 + 2 * k], legN: [-th, -th], legF: [-th - 2, -th + 2] };
+};
+// 2. progression, shown instead of charted: the same athlete, and the exercise gets harder under him —
+// the box under his hands sinks into the floor, then rises under his feet.
 const C2: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const lv = ["مائل", "عادي", "أصعب", "أصعب +"];
-  const cur = Math.min(3, Math.floor(prog(frame, 40, 118, Easing.linear) * 3.999));
+  const FLOOR = 430, HX = 590, S = 1.0;
+  const d = 92 - 92 * prog(frame, 46, 62, io) - 74 * prog(frame, 96, 112, io);
+  const pose = pushAt(d, frame / 30);
+  const th = (pose.torso * Math.PI) / 180;
+  const handsUp = Math.max(d, 0) * S, feetUp = Math.max(-d, 0) * S;
+  const x = HX - 100 * Math.sin(th) * S, feetX = x - 160 * Math.sin(th) * S;
+  const lv = frame < 54 ? 0 : frame < 104 ? 1 : 2;
+  const names = ["ضغط مائل", "ضغط عادي", "ضغط منحدر"];
+  const roll = prog(frame, 46, 62, io) + prog(frame, 96, 112, io);
+  const pop = (at: number) => 1 + 0.25 * Math.max(0, 1 - Math.abs(frame - at - 6) / 6);
   return (
     <>
-      <div style={{ position: "absolute", top: 30, left: 50, width: 760, height: 480, display: "flex", flexDirection: "row-reverse", alignItems: "flex-end", gap: 20 }}>
-        {lv.map((l, i) => {
-          const s = spring({ frame: frame - (18 + i * 5), fps, config: soft });
-          const on = i <= cur && frame >= 40;
-          return (
-            <div key={l} style={{ flex: 1, height: (150 + i * 105) * s, borderRadius: 24, background: on ? OR : "#F3EDE7", display: "flex", alignItems: "flex-end", justifyContent: "center", paddingBottom: 20 }}>
-              <div style={{ ...txt(46, on ? "#FFFFFF" : INK, 800), opacity: s }}>{l}</div>
-            </div>
-          );
-        })}
+      <svg width={860} height={520} style={{ position: "absolute" }}>
+        <rect width={860} height={520} fill="#FBE3D3" />
+        <rect y={FLOOR} width={860} height={90} fill="#F3CDB6" />
+        {/* the support that changes: under the hands, then under the feet */}
+        {handsUp > 1 ? <rect x={HX - 62} y={FLOOR - handsUp + 8} width={150} height={handsUp} rx={14} fill={INK} /> : null}
+        {feetUp > 1 ? <rect x={feetX - 96} y={FLOOR - feetUp + 8} width={150} height={feetUp} rx={14} fill={INK} /> : null}
+        <Character pose={pose} x={x} y={FLOOR - feetUp} scale={S} shadow={false} />
+        {/* difficulty: three steps, the marker climbs with the exercise */}
+        {[0, 1, 2].map((i) => (
+          <g key={i} transform={`translate(${96 + i * 0} ${330 - i * 86})`}>
+            <rect x={-46} y={-30} width={92} height={60} rx={16} fill={i <= lv ? OR : "#FFFFFF"} transform={`scale(${i === lv ? pop(i === 0 ? 14 : i === 1 ? 54 : 104) : 1})`} opacity={prog(frame, 12 + i * 4, 22 + i * 4)} />
+            <text x={0} y={15} textAnchor="middle" fontFamily={FONTS.latin} fontWeight={700} fontSize={40} fill={i <= lv ? "#FFFFFF" : SOFT} opacity={prog(frame, 12 + i * 4, 22 + i * 4)}>{i + 1}</text>
+          </g>
+        ))}
+      </svg>
+      {/* the name of the variation rolls behind a mask as the exercise changes */}
+      <div style={{ position: "absolute", top: 26, right: 44, height: 76, overflow: "hidden", opacity: prog(frame, 10, 20) }}>
+        <div style={{ transform: `translateY(${-roll * 76}px)` }}>
+          {names.map((n) => <div key={n} style={{ height: 76, ...txt(54, INK, 900), textAlign: "right" }}>{n}</div>)}
+        </div>
       </div>
-      <Caption at={96} top={538}>كل ما سهل عليك… صعّبه · القوة زادت في 4 أسابيع</Caption>
+      <div style={{ position: "absolute", top: 26, left: 150, ...txt(34, SOFT, 700), opacity: prog(frame, 14, 24) }}>الصعوبة</div>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 544, ...txt(40, SOFT, 700), opacity: prog(frame, 112, 124) }}>كل ما سهل عليك… صعّبه · القوة زادت في 4 أسابيع</div>
     </>
   );
 };

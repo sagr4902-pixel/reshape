@@ -144,13 +144,13 @@ export async function Outcomes({ locale, no, preview }: Gated) {
                 <li key={s.id} className="story">
                   {s.video ? (
                     <video controls preload="none" playsInline poster={s.photo} className="story-media">
-                      <source src={s.video} type="video/mp4" />
+                      <source src={s.start ? `${s.video}#t=${s.start}` : s.video} type="video/mp4" />
                     </video>
                   ) : (
                     s.photo && <img src={s.photo} alt="" loading="lazy" decoding="async" className="story-media" />
                   )}
                   <blockquote className="p-5">
-                    <p className="text-[1.08rem]">“{s.quote[locale]}”</p>
+                    <p className="text-[1.08rem]">{locale === 'ar' ? `«${s.quote.ar}»` : `“${s.quote.en}”`}</p>
                     <footer className="mt-4 font-semibold">
                       {s.name[locale]}
                       {s.result && <span className="mt-1 block font-normal text-accent-ink">{s.result[locale]}</span>}

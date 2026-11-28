@@ -36,6 +36,8 @@ export interface Story {
   photo?: string;
   /** Path under /public to an MP4, with `photo` as its poster. */
   video?: string;
+  /** Second at which this person starts speaking in `video`. */
+  start?: number;
   /** Must be true: the member agreed in writing to appear on the site. */
   consent: true;
 }
@@ -75,7 +77,84 @@ export interface Partner {
 }
 
 export const coaches: Coach[] = [];
-export const stories: Story[] = [];
+/**
+ * From the club's own interview clips (owner, 28 Nov 2026: everyone filmed agreed to appear).
+ * Quotes are the speakers' words as transcribed from the clip — only filler sounds removed;
+ * English is a translation. Names are only shown where the person says them on camera.
+ */
+const v = (file: string) => `/assets/media/${file}.mp4`;
+const poster = (id: string) => `/assets/media/story-${id}.webp`;
+export const stories: Story[] = [
+  {
+    id: 'young-fearless',
+    kind: 'mindset',
+    name: { ar: 'من أبطالنا الصغار — يوم البطولة', en: 'One of our young athletes — championship day' },
+    quote: { ar: 'عمري خمس سنوات، وما كنت خايف، بالعكس، كان عندي شغف إني أتمرّن.', en: 'I was about five, and I wasn’t scared — the opposite, I was eager to train.' },
+    video: v('interviews-young-athletes'),
+    start: 9,
+    photo: poster('young-fearless'),
+    consent: true,
+  },
+  {
+    id: 'seven-years',
+    kind: 'lifestyle',
+    name: { ar: 'من ضيوف يوم البطولة', en: 'A guest on championship day' },
+    quote: {
+      ar: 'أول ما شفتها كانت غريبة على مجتمعنا… تابعت عليها ومارستها، الحمد لله، والآن فوق السبع سنوات.',
+      en: 'When I first saw it, it was new to our community… I kept following it and took it up — thank God, it’s now been over seven years.',
+    },
+    result: { ar: 'يمارسها منذ أكثر من سبع سنوات', en: 'Training for over seven years' },
+    video: v('interviews-parents'),
+    start: 37,
+    photo: poster('seven-years'),
+    consent: true,
+  },
+  {
+    id: 'energy',
+    kind: 'age',
+    name: { ar: 'من ضيوف يوم البطولة', en: 'A guest on championship day' },
+    quote: {
+      ar: 'أنصح بهذه الرياضة: محفّزة وتجدّد الشباب، وتعطيهم طاقة وحيوية بدل ما كانوا يجلسون على الآيباد والكمبيوتر.',
+      en: 'I recommend this sport: it motivates, renews youth, and gives them energy and vitality instead of sitting on iPads and computers.',
+    },
+    video: v('interviews-parents'),
+    start: 3,
+    photo: poster('energy'),
+    consent: true,
+  },
+  {
+    id: 'confidence',
+    kind: 'confidence',
+    name: { ar: 'من ضيوف يوم البطولة', en: 'A guest on championship day' },
+    quote: { ar: 'من العادات الجيدة اللي لاحظتها: الثقة بالنفس، والتركيز على كل شيء.', en: 'Among the good habits I noticed: self-confidence, and focus on everything.' },
+    video: v('interviews-parents'),
+    start: 23,
+    photo: poster('confidence'),
+    consent: true,
+  },
+  {
+    id: 'majed',
+    kind: 'joy',
+    name: { ar: 'ماجد جابر', en: 'Majed Jaber' },
+    quote: { ar: 'أجواء النادي؟ أسطورية صراحة، أسطورية.', en: 'The club’s atmosphere? Honestly, legendary. Legendary.' },
+    result: { ar: 'يتمرّن منذ قرابة ثلاث سنوات', en: 'Training for about three years' },
+    video: v('interviews-members'),
+    start: 3,
+    photo: poster('majed'),
+    consent: true,
+  },
+  {
+    id: 'mohammed',
+    kind: 'competition',
+    name: { ar: 'محمد عطيش', en: 'Mohammed Atish' },
+    quote: { ar: 'المنافسة صعبة، لكن إن شاء الله نقول: النادي الأفضل.', en: 'The competition is tough — but God willing, we’ll say it: the best club.' },
+    result: { ar: 'يتمرّن منذ قرابة سنتين', en: 'Training for about two years' },
+    video: v('interviews-members'),
+    start: 21,
+    photo: poster('mohammed'),
+    consent: true,
+  },
+];
 export const achievements: Achievement[] = [];
 /** Club clips supplied by the owner (Nov 2026), compressed to 540p H.264 under /public/assets/media. */
 const clip = (id: string, group: MediaItem['group'], ar: string, en: string): MediaItem => ({

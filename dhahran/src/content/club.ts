@@ -21,6 +21,10 @@ export interface Coach {
   experience: LL;
   /** Path under /public, e.g. /assets/people/coach-x.webp */
   photo?: string;
+  /** The head coach is shown first, at full width. */
+  lead?: boolean;
+  /** A message in the coach's own words. */
+  message?: L;
 }
 
 export const STORY_KINDS = ['weight-loss', 'age', 'strength', 'first-pull-up', 'muscle-up', 'lifestyle', 'confidence', 'joy', 'mindset', 'competition'] as const;
@@ -76,7 +80,35 @@ export interface Partner {
   url?: string;
 }
 
-export const coaches: Coach[] = [];
+/** Owner, 28 Nov 2026 (titles, experience and message as supplied; English is a translation). */
+export const coaches: Coach[] = [
+  {
+    id: 'nawaf-alsaqr',
+    lead: true,
+    name: { ar: 'نواف الصقر', en: 'Nawaf Al-Saqr' },
+    role: { ar: 'المدرب الرئيسي — Head Coach', en: 'Head coach' },
+    credentials: {
+      ar: ['بطل الخليج في رياضة الكاليسثنكس 2021', 'أفضل موهبة في المملكة 2019 — من بين 11 ألف موهبة'],
+      en: ['Gulf calisthenics champion, 2021', 'Best talent in Saudi Arabia, 2019 — out of 11,000 talents'],
+    },
+    experience: {
+      ar: [
+        'أكثر من 6 سنوات من المنافسة في بطولات الكاليسثنكس',
+        'المركز الأول في بطولات محلية ودولية في قطر والإمارات والكويت',
+        'الوحيد في الخليج الذي فاز بالمركز الأول في أقسام الكاليسثنكس الأربعة في السنة نفسها',
+      ],
+      en: [
+        'Over 6 years competing in calisthenics championships',
+        'First place in local and international championships in Qatar, the UAE and Kuwait',
+        'The only athlete in the Gulf to win first place in all four calisthenics categories in the same year',
+      ],
+    },
+    message: {
+      ar: 'كرّست نفسي قبل التدريب لخوض جميع أقسام هذه الرياضة الأربعة (Dynamic – Static – Sets & Reps – Street Lifting) للتمكّن منها والخوض في صعابها وعقباتها ومعرفة أسرارها لنقلها لمجتمعي. وبحمد الله، جاءت ثمار هذا التكريس القاسي والخبرة بفوزي بعدة بطولات محلية ودولية في قطر والإمارات والكويت بالمراكز الأولى في جميعها 🥇🥇🥇. وبتوفيقٍ من الله ونِعمه عليّ، أنا الوحيد في الخليج الذي فاز بعدة بطولات في جميع أقسام الكاليسثنكس الأربعة في نفس السنة بالمركز الأول.',
+      en: 'Before I ever coached, I committed myself to competing in all four disciplines of this sport — Dynamic, Static, Sets & Reps and Street Lifting — to master them, work through their difficulties and obstacles, and learn their secrets so I could pass them on to my community. Thank God, that hard commitment paid off: I have won several local and international championships in Qatar, the UAE and Kuwait, taking first place in every one 🥇🥇🥇. By God’s grace, I am the only athlete in the Gulf to win first place in championships in all four calisthenics disciplines in the same year.',
+    },
+  },
+];
 /**
  * From the club's own interview clips (owner, 28 Nov 2026: everyone filmed agreed to appear).
  * Quotes are the speakers' words as transcribed from the clip — only filler sounds removed;

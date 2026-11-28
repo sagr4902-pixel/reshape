@@ -276,8 +276,9 @@
       "rail": "Coaches",
       "title": "Who stands beside you",
       "body": "Experienced, title-winning coaches with recognised certificates, with you until you get there.",
-      "credentials": "Certificates",
-      "experience": "Experience"
+      "credentials": "Titles and certificates",
+      "experience": "Experience",
+      "message": "A message from the coach"
     },
     "team": {
       "rail": "Our team and titles",

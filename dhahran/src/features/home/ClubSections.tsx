@@ -184,35 +184,51 @@ export async function Coaches({ locale, no, preview }: Gated) {
           </div>
         ) : (
           <ul className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {coaches.map((c) => (
-              <li key={c.id} className="overflow-hidden rounded-lg border border-line-dark bg-coal">
-                {c.photo && <img src={c.photo} alt="" loading="lazy" decoding="async" className="aspect-[4/5] w-full object-cover" />}
-                <div className="p-5">
-                  <p className="display t-3">{c.name[locale]}</p>
-                  <p className="mt-1 text-accent">{c.role[locale]}</p>
-                  {c.credentials[locale].length > 0 && (
-                    <>
-                      <p className="eyebrow mt-4">{t('coaches.credentials')}</p>
-                      <ul className="mt-1 list-disc ps-5 text-[#d8d1ca]">
-                        {c.credentials[locale].map((x) => (
-                          <li key={x}>{x}</li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-                  {c.experience[locale].length > 0 && (
-                    <>
-                      <p className="eyebrow mt-4">{t('coaches.experience')}</p>
-                      <ul className="mt-1 list-disc ps-5 text-[#d8d1ca]">
-                        {c.experience[locale].map((x) => (
-                          <li key={x}>{x}</li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-                </div>
-              </li>
-            ))}
+            {[...coaches]
+              .sort((x, y) => Number(!!y.lead) - Number(!!x.lead))
+              .map((c) => (
+                <li key={c.id} className={`coach ${c.lead ? 'coach-lead md:col-span-2 lg:col-span-3' : ''}`} data-testid={`coach-${c.id}`}>
+                  {c.photo && <img src={c.photo} alt={c.name[locale]} loading="lazy" decoding="async" className="coach-photo" />}
+                  <div className="coach-body">
+                    <p className="text-accent font-semibold">{c.role[locale]}</p>
+                    <p className="display t-1 mt-1">{c.name[locale]}</p>
+                    <div className="mt-6 grid gap-6 lg:grid-cols-2">
+                      {c.credentials[locale].length > 0 && (
+                        <div>
+                          <p className="eyebrow">{t('coaches.credentials')}</p>
+                          <ul className="mt-3 grid gap-3">
+                            {c.credentials[locale].map((x) => (
+                              <li key={x} className="coach-title">
+                                <span aria-hidden="true">🏆</span>
+                                {x}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {c.experience[locale].length > 0 && (
+                        <div>
+                          <p className="eyebrow">{t('coaches.experience')}</p>
+                          <ul className="mt-3 grid gap-2 text-[#d8d1ca]">
+                            {c.experience[locale].map((x) => (
+                              <li key={x} className="flex gap-3">
+                                <span aria-hidden="true" className="mt-[0.72em] h-[3px] w-4 flex-none bg-accent" />
+                                {x}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                    {c.message && (
+                      <figure className="coach-message mt-8">
+                        <figcaption className="eyebrow">{t('coaches.message')}</figcaption>
+                        <blockquote className="mt-3 text-[1.08rem] leading-[1.95]">{locale === 'ar' ? `«${c.message.ar}»` : `“${c.message.en}”`}</blockquote>
+                      </figure>
+                    )}
+                  </div>
+                </li>
+              ))}
           </ul>
         )}
       </div>

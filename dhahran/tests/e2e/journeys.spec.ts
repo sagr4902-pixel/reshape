@@ -85,7 +85,8 @@ for (const l of LOCALES) {
       const ids = await page.locator('main h2').evaluateAll((hs) => hs.map((h) => h.id));
       expect(ids).toEqual(['about-h', 'identity-h', 'sports-h', 'method-h', 'hybrid-h', 'zone-h', 'outcomes-h', 'coaches-h', 'team-h', 'gallery-h', 'beyond-h', 'juice-h', 'fac-h', 'schedule-h', 'offer-h']);
       // real material (stories, coaches, titles, media, partners, timetable) is not invented: previews mark what is awaited
-      expect(await page.getByTestId('awaiting').count()).toBe(4); // gallery and member stories are filled; coaches, titles, partners and timetable still awaited
+      expect(await page.getByTestId('awaiting').count()).toBe(3); // titles, partners and timetable still awaited
+      await expect(page.getByTestId('coach-nawaf-alsaqr')).toContainText(l === 'ar' ? 'نواف الصقر' : 'Nawaf Al-Saqr');
       await expect(page.locator('#stories .story')).toHaveCount(6);
       // the hero button goes to the offer at the end of the page
       await page.getByTestId('hero-offer').click();

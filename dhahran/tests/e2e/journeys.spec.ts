@@ -89,26 +89,29 @@ for (const l of LOCALES) {
       const ids = await page.locator('main h2').evaluateAll((hs) => hs.map((h) => h.id));
       expect(ids).toEqual(['about-h', 'identity-h', 'sports-h', 'method-h', 'hybrid-h', 'zone-h', 'outcomes-h', 'coaches-h', 'team-h', 'gallery-h', 'beyond-h', 'juice-h', 'fac-h', 'schedule-h', 'offer-h']);
       // real material (stories, coaches, titles, media, partners, timetable) is not invented: previews mark what is awaited
-      expect(await page.getByTestId('awaiting').count()).toBe(6);
+      expect(await page.getByTestId('awaiting').count()).toBe(5); // the gallery is filled; stories, coaches, titles, partners and timetable still awaited
       // the hero button goes to the offer at the end of the page
       await page.getByTestId('hero-offer').click();
       await expect(page).toHaveURL(/#offer$/);
       await expect(page.locator('#offer')).toBeInViewport();
     });
 
-    test('F — the offer: real name and countdown; no price or payment link is shown until the owner supplies them', async ({ page }) => {
+    test('F — the offer: real name, running countdown, and the subscribe button goes to the official store', async ({ page }) => {
       await page.goto(`/${l}#offer`);
       const offer = page.locator('#offer');
-      await expect(offer).toHaveAttribute('data-offer', 'announced');
+      await expect(offer).toHaveAttribute('data-offer', 'live');
       await expect(offer.locator('h2')).toHaveText(l === 'ar' ? 'عرض شركاء النجاح' : 'The Success Partners offer');
       await expect(page.getByTestId('offer-draft')).toHaveCount(0);
       const timer = page.getByTestId('offer-countdown');
       await expect(timer).toHaveAttribute('data-ready', 'true');
       const first = await timer.innerText();
       await expect.poll(() => timer.innerText()).not.toBe(first);
+      // the link lists several packages, so no single (invented) price is shown
       await expect(offer.locator('.offer-price')).toHaveCount(0);
-      await expect(offer.locator('a[href*="reshape-sa.com"]')).toHaveCount(0);
-      await expect(page.getByTestId('offer-cta-interest')).toHaveAttribute('href', `/${l}/register?intent=membership-consultation&src=home`);
+      const cta = page.getByTestId('offer-cta-store');
+      await expect(cta).toHaveAttribute('href', /^https:\/\/reshape-sa\.com\/.+\/c571221986$/);
+      await expect(cta).toHaveAttribute('target', '_blank');
+      await expect(cta).toHaveAttribute('rel', /noopener/);
     });
 
     test('G — the club is not shown from inside: no tour, map or full renders', async ({ page, request }) => {

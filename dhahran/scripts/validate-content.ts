@@ -57,7 +57,7 @@ export function validateAll(now = new Date()) {
 
   // Offer: a live offer needs a real price, a future-parsable end date and an official-store payment link.
   if (offer.status === 'live') {
-    if (!(typeof offer.priceSar === 'number' && offer.priceSar > 0)) err('offer: live without a price');
+    if (offer.priceSar !== null && !(offer.priceSar > 0)) err('offer: invalid price');
     if (!offer.endsAt || Number.isNaN(Date.parse(offer.endsAt))) err('offer: live without a valid end date');
     if (!offer.payUrl || !isOfficialStoreUrl(offer.payUrl)) err('offer: live without an official-store payment link');
     if (offerState(offer, 'production', now).kind !== 'live') warnings.push('offer: marked live but already ended');

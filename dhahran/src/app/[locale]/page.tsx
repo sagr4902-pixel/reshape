@@ -299,10 +299,10 @@ export default async function HomePage({ params }: Props) {
                     {t('offer.draftNote')}
                   </p>
                 )}
-                {state.kind !== 'announced' && (
+                {(state.kind === 'sample' || (state.kind === 'live' && state.priceSar !== null)) && (
                   <p className="offer-price">
                     <span className="sr-only">{t('offer.priceLabel')}: </span>
-                    <span className="offer-amount ltr">{state.kind === 'live' ? price(state.priceSar) : '—'}</span>
+                    <span className="offer-amount ltr">{state.kind === 'live' && state.priceSar !== null ? price(state.priceSar) : '—'}</span>
                     <span className="offer-currency">{t('offer.currency')}</span>
                     {state.kind === 'live' && state.originalPriceSar && (
                       <span className="offer-was">
@@ -325,10 +325,10 @@ export default async function HomePage({ params }: Props) {
                 >
                   {state.kind === 'live' ? (
                     <>
-                      <ExternalLink href={state.payUrl} event="membership_outbound_click" location="home-offer" className="btn btn-primary w-full justify-center text-[1.1rem]">
+                      <ExternalLink href={state.payUrl} event="membership_outbound_click" location="home-offer" className="btn btn-primary w-full justify-center text-[1.1rem]" testId="offer-cta-store">
                         {t('offer.cta')} {arrow}
                       </ExternalLink>
-                      <p className="mt-3 text-[0.9rem] text-[#b9b2ab]">{t('offer.storeNote')}</p>
+                      <p className="mt-3 text-[0.9rem] text-[#b9b2ab]">{state.priceSar === null ? t('offer.choosePackage') : t('offer.storeNote')}</p>
                     </>
                   ) : state.kind === 'announced' ? (
                     <>

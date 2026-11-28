@@ -11,6 +11,7 @@ export function ExternalLink({
   event,
   location,
   programId,
+  testId,
 }: {
   href: string;
   children: ReactNode;
@@ -18,6 +19,7 @@ export function ExternalLink({
   event?: EventName;
   location?: string;
   programId?: string;
+  testId?: string;
 }) {
   return (
     <a
@@ -25,6 +27,7 @@ export function ExternalLink({
       target="_blank"
       rel="noopener noreferrer"
       className={className}
+      data-testid={testId}
       onClick={() => event && track(event, { ctaLocation: location, programId })}
     >
       {children}

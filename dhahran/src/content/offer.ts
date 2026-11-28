@@ -23,8 +23,9 @@ export interface Offer {
 }
 
 export const offer: Offer = {
-  // Owner, 23 Nov 2026: name, idea and dates (starts 23 Nov 2026, ends one month later). Price and store link not supplied yet.
-  status: 'announced',
+  // Owner, 23 Nov 2026: name, idea and dates (starts 23 Nov 2026, ends one month later).
+  // Owner, 28 Nov 2026: subscription link = the store's group-classes page, which lists several packages with their own prices.
+  status: 'live',
   title: { ar: 'عرض شركاء النجاح', en: 'The Success Partners offer' },
   summary: {
     ar: 'المشتركون الأوائل ليسوا مجرد أعضاء — هم من يبنون معنا هذا النادي من يومه الأول. ولأنكم شركاء النجاح، أنتم أول من يستحق الدعم.',
@@ -37,18 +38,19 @@ export const offer: Offer = {
   priceSar: null,
   originalPriceSar: null,
   endsAt: '2026-12-23T23:59:00+03:00',
-  payUrl: null,
+  payUrl: 'https://reshape-sa.com/%D8%A7%D9%84%D8%AD%D8%B5%D8%B5-%D8%A7%D9%84%D8%AC%D9%85%D8%A7%D8%B9%D9%8A%D8%A9-%D8%A8%D8%A7%D9%84%D9%86%D8%A7%D8%AF%D9%8A/c571221986',
 };
 
 export type OfferState =
-  | { kind: 'live'; endsAt: string; priceSar: number; originalPriceSar: number | null; payUrl: string }
+  | { kind: 'live'; endsAt: string; priceSar: number | null; originalPriceSar: number | null; payUrl: string }
   | { kind: 'announced'; endsAt: string }
   | { kind: 'sample'; endsAt: string }
   | { kind: 'none' };
 
 /** Single decision point for what the offer section may show. */
 export function offerState(o: Offer, appEnv: string, now = new Date()): OfferState {
-  if (o.status === 'live' && o.priceSar && o.endsAt && o.payUrl && Date.parse(o.endsAt) > now.getTime())
+  // A live offer may link to a store page listing several packages; then no single price is shown.
+  if (o.status === 'live' && o.endsAt && o.payUrl && Date.parse(o.endsAt) > now.getTime())
     return { kind: 'live', endsAt: o.endsAt, priceSar: o.priceSar, originalPriceSar: o.originalPriceSar, payUrl: o.payUrl };
   if (o.status === 'announced' && o.endsAt && Date.parse(o.endsAt) > now.getTime()) return { kind: 'announced', endsAt: o.endsAt };
   // Previews show the layout with a sample countdown so the owner can judge it; production shows nothing unreal.

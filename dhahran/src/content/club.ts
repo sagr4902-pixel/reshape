@@ -87,6 +87,7 @@ const clip = (id: string, group: MediaItem['group'], ar: string, en: string): Me
   caption: { ar, en },
 });
 
+// Owner, 28 Nov 2026: everyone shown in these clips (including the children's parents and the people interviewed) agreed in advance to appear on the site.
 export const media: MediaItem[] = [
   clip('sessions-bar-flow', 'sessions', 'حركات على البار فوق المراتب', 'Bar movement over the mats'),
   clip('sessions-pushup-class', 'sessions', 'حصة جماعية: تمارين الضغط', 'Group class: push-up work'),

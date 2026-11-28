@@ -1,11 +1,9 @@
 import React from "react";
-import { AbsoluteFill, Easing, interpolate, Sequence, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Easing, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { Grain } from "../components/Finish";
 import { LogoLockup } from "../components/Logo";
 import { FONTS } from "../lib/brand";
 import { loadBrandFonts } from "../lib/fonts";
-import { Character } from "../hype/Character";
-import { lerpPose, Pose } from "../motion/Athlete";
 import { MCOLORS, SLANT } from "../motion/design";
 import { DrawPath, Glow, Ring, clamp, prog } from "../motion/kit";
 
@@ -70,13 +68,15 @@ const Flood: React.FC<{ at: number; from: [number, number]; to: [number, number]
   return <AbsoluteFill style={{ background: color, clipPath: `circle(${r}px at ${x}px ${y}px)` }} />;
 };
 
-// poses
-const PU_TOP: Pose = { torso: 64, head: -44, armN: [2, 0], armF: [6, 2], legN: [-64, -64], legF: [-66, -62] };
-const PU_LOW: Pose = { torso: 83, head: -58, armN: [-104, 2], armF: [-100, 4], legN: [-83, -83], legF: [-85, -81] };
-const pushUp = (frame: number, period = 36) => lerpPose(PU_TOP, PU_LOW, 0.5 - 0.5 * Math.cos((frame / period) * 2 * Math.PI));
-const SLOUCH: Pose = { torso: 16, head: 14, armN: [10, 16], armF: [4, 10], legN: [4, -2], legF: [-4, -6] };
-const BEST: Pose = { torso: -3, head: -8, armN: [-10, 26], armF: [158, 168], legN: [5, 1], legF: [-7, -5] };
-const FIST: [number, number] = [566, 772];      // the raised fist at the end of the hook
+/**
+ * The athlete is a generated character (Higgsfield MAGI-2 clips of one approved reference), keyed off its
+ * flat background into transparent WebM by scripts/clean_hf_clip.py. In the 16:9 exercise clips the floor
+ * is at 88.5% of the height and the figure spans 10–80% of the width; in the 9:16 hook clip the feet are at 95%.
+ */
+const Clip: React.FC<{ name: string; left: number; top: number; width: number; rate?: number; style?: React.CSSProperties }> = ({ name, left, top, width, rate = 1, style }) => (
+  <OffthreadVideo src={staticFile(`study/${name}.webm`)} transparent muted playbackRate={rate} style={{ position: "absolute", left, top, width, ...style }} />
+);
+const FIST: [number, number] = [540, 930];      // the crossed arms at the end of the hook
 const DUMB: [number, number] = [540, 1000];     // centre of the dumbbell
 const PILL: [number, number] = [540, 296];      // centre of the "fact n of 4" pill
 const RULE_Y = 812;                             // the rule the closing lines rise from
@@ -91,9 +91,10 @@ const Hook: React.FC = () => {
       <Glow x={540} y={1180} r={380 + 300 * rise} opacity={0.1 + 0.35 * rise} color="#FFB08A" />
       <Svg>
         <line x1={240} x2={840} y1={1500} y2={1500} stroke="rgba(23,24,26,0.18)" strokeWidth={4} />
-        <Character pose={lerpPose(SLOUCH, BEST, rise)} x={540} y={1500} scale={1.9} tone={rise} />
-        <Ring x={FIST[0]} y={FIST[1]} at={54} r0={30} r1={420} dur={22} width={7} />
+        <ellipse cx={540} cy={1502} rx={190} ry={20} fill="rgba(23,24,26,0.13)" />
       </Svg>
+      <Clip name="hook" left={287} top={645} width={506} rate={1.6} />
+      <Svg><Ring x={FIST[0]} y={FIST[1]} at={54} r0={30} r1={420} dur={22} width={7} /></Svg>
       <Rise at={4} y={300} style={txt(128)}>ودّك توصل</Rise>
       <Rise at={16} y={456} style={txt(88, OR)}>لأفضل نسخة من جسمك؟</Rise>
       <Rise at={58} y={610} style={txt(60, SOFT, 700)}>هذا اللي تقوله الدراسات 👇</Rise>
@@ -153,52 +154,53 @@ const C1: React.FC = () => {
       <svg width={860} height={560} style={{ position: "absolute" }}>
         <rect width={430} height={560} fill="#FBE3D3" />
         <rect y={420} width={430} height={140} fill="#F3CDB6" />
-        <Character pose={pushUp(frame)} x={250} y={422} scale={1.02} />
+        <ellipse cx={212} cy={424} rx={170} ry={11} fill="rgba(23,24,26,0.12)" />
         {bar(500, "ضغط", OR)}
         {bar(680, "بنش", INK)}
         <text x={665} y={76} textAnchor="middle" fontFamily={FONTS.display} fontWeight={800} fontSize={38} fill={SOFT} direction="rtl">نمو عضلة الصدر</text>
         <text x={665} y={160} textAnchor="middle" fontFamily={FONTS.display} fontWeight={900} fontSize={76} fill={OR} opacity={prog(frame, 104, 116)}>=</text>
       </svg>
+      <div style={{ position: "absolute", left: 0, top: 0, width: 430, height: 560, overflow: "hidden" }}>
+        <Clip name="pushup" left={-44} top={163} width={520} />
+      </div>
       <Caption at={112} top={582}>8 أسابيع · بحمل متقارب · نفس النتيجة</Caption>
     </>
   );
 };
-/**
- * Push-up at any incline: `d` is how much higher the hands are than the feet (rig units; negative = feet
- * raised). The body stays a straight line from heels to head and pivots as the support changes.
- */
-const pushAt = (d: number, phase: number): Pose => {
-  const ang = (above: number) => (Math.acos(Math.max(-0.4, Math.min(0.98, above / 260))) * 180) / Math.PI;
-  const k = 0.5 - 0.5 * Math.cos(phase * 2 * Math.PI);            // 0 = arms straight, 1 = chest down
-  const th = ang(112 + d) + (ang(30 + d) - ang(112 + d)) * k;
-  return { torso: th, head: -(th - 22), armN: [2 - 106 * k, 2 * k], armF: [6 - 106 * k, 2 + 2 * k], legN: [-th, -th], legF: [-th - 2, -th + 2] };
-};
-// 2. progression, shown instead of charted: the same athlete, and the exercise gets harder under him —
-// the box under his hands sinks into the floor, then rises under his feet.
+// 2. progression, shown instead of charted: the same athlete, and the exercise gets harder — hands on a
+// box, then the floor, then feet on the box. Each harder variation wipes in behind an orange edge while its
+// name rolls and the difficulty marker climbs.
 const C2: React.FC = () => {
   const frame = useCurrentFrame();
-  const FLOOR = 430, HX = 590, S = 1.0;
-  const d = 92 - 92 * prog(frame, 46, 62, io) - 74 * prog(frame, 96, 112, io);
-  const pose = pushAt(d, frame / 30);
-  const th = (pose.torso * Math.PI) / 180;
-  const handsUp = Math.max(d, 0) * S, feetUp = Math.max(-d, 0) * S;
-  const x = HX - 100 * Math.sin(th) * S, feetX = x - 160 * Math.sin(th) * S;
+  const FLOOR = 430, W = 730, L = 142, TOP = FLOOR - 0.885 * (W * 9) / 16;
+  const r = [1, prog(frame, 46, 62, io), prog(frame, 96, 112, io)];
   const lv = frame < 54 ? 0 : frame < 104 ? 1 : 2;
+  const clips = ["incline", "pushup", "decline"];
   const names = ["ضغط مائل", "ضغط عادي", "ضغط منحدر"];
-  const roll = prog(frame, 46, 62, io) + prog(frame, 96, 112, io);
+  const roll = r[1] + r[2];
   const pop = (at: number) => 1 + 0.25 * Math.max(0, 1 - Math.abs(frame - at - 6) / 6);
   return (
     <>
       <svg width={860} height={520} style={{ position: "absolute" }}>
         <rect width={860} height={520} fill="#FBE3D3" />
         <rect y={FLOOR} width={860} height={90} fill="#F3CDB6" />
-        {/* the support that changes: under the hands, then under the feet */}
-        {handsUp > 1 ? <rect x={HX - 62} y={FLOOR - handsUp + 8} width={150} height={handsUp} rx={14} fill={INK} /> : null}
-        {feetUp > 1 ? <rect x={feetX - 96} y={FLOOR - feetUp + 8} width={150} height={feetUp} rx={14} fill={INK} /> : null}
-        <Character pose={pose} x={x} y={FLOOR - feetUp} scale={S} shadow={false} />
+        <ellipse cx={L + 0.45 * W} cy={FLOOR + 4} rx={300} ry={12} fill="rgba(23,24,26,0.12)" />
+      </svg>
+      {/* the outgoing variation is wiped away to the left as the incoming one is revealed from the right */}
+      {clips.map((c, i) => {
+        const inn = r[i], out = i < 2 ? r[i + 1] : 0;
+        if (inn <= 0 || out >= 1) return null;
+        return (
+          <div key={c} style={{ position: "absolute", left: 0, top: 0, width: 860, height: 520, clipPath: `inset(0 ${out * 100}% 0 ${(1 - inn) * 100}%)` }}>
+            <Clip name={c} left={L} top={TOP} width={W} />
+          </div>
+        );
+      })}
+      {[1, 2].map((i) => (r[i] > 0 && r[i] < 1 ? <div key={i} style={{ position: "absolute", top: 0, height: 520, width: 10, left: (1 - r[i]) * 860 - 5, background: OR }} /> : null))}
+      <svg width={860} height={520} style={{ position: "absolute" }}>
         {/* difficulty: three steps, the marker climbs with the exercise */}
         {[0, 1, 2].map((i) => (
-          <g key={i} transform={`translate(${96 + i * 0} ${330 - i * 86})`}>
+          <g key={i} transform={`translate(${76} ${330 - i * 86})`}>
             <rect x={-46} y={-30} width={92} height={60} rx={16} fill={i <= lv ? OR : "#FFFFFF"} transform={`scale(${i === lv ? pop(i === 0 ? 14 : i === 1 ? 54 : 104) : 1})`} opacity={prog(frame, 12 + i * 4, 22 + i * 4)} />
             <text x={0} y={15} textAnchor="middle" fontFamily={FONTS.latin} fontWeight={700} fontSize={40} fill={i <= lv ? "#FFFFFF" : SOFT} opacity={prog(frame, 12 + i * 4, 22 + i * 4)}>{i + 1}</text>
           </g>
@@ -210,7 +212,7 @@ const C2: React.FC = () => {
           {names.map((n) => <div key={n} style={{ height: 76, ...txt(54, INK, 900), textAlign: "right" }}>{n}</div>)}
         </div>
       </div>
-      <div style={{ position: "absolute", top: 26, left: 150, ...txt(34, SOFT, 700), opacity: prog(frame, 14, 24) }}>الصعوبة</div>
+      <div style={{ position: "absolute", top: 26, left: 130, ...txt(34, SOFT, 700), opacity: prog(frame, 14, 24) }}>الصعوبة</div>
       <div style={{ position: "absolute", left: 0, right: 0, top: 544, ...txt(38, SOFT, 700), opacity: prog(frame, 112, 124) }}>كل ما سهل… صعّبه · قوة أعلى في 4 أسابيع</div>
     </>
   );

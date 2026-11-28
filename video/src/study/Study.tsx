@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Easing, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Audio, Easing, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { Grain } from "../components/Finish";
 import { LogoLockup } from "../components/Logo";
 import { FONTS } from "../lib/brand";
@@ -9,7 +9,7 @@ import { DrawPath, Glow, Ring, clamp, prog } from "../motion/kit";
 
 loadBrandFonts();
 
-// "What the studies say" — an educational reel (36 s, 1080x1920, 30 fps): four findings about building
+// "What the studies say" — an educational reel (49 s, 1080x1920, 30 fps): four findings about building
 // muscle with bodyweight training, each with its source on screen, then RESHAPE as the way to apply them.
 //   1. Kikuchi & Nakazato 2017, J Exerc Sci Fit 15(1):37-42 — push-ups vs bench press at a similar load (40% 1RM),
 //      8 weeks: comparable hypertrophy and strength gain.
@@ -25,12 +25,12 @@ loadBrandFonts();
 // plate → the "fact" pill, the orange line → the logo mark); the four findings share one header, one card
 // that changes size, and one source chip, with copy that rolls behind a mask; the card collapses into the
 // rule the closing lines rise from. No crossfades, no slides of whole screens, no 3D flips.
-// Draft timing is fixed here; when the voice is recorded the scene lengths follow its phrases.
+// Scene lengths follow the phrases of the voice-over (scripts/build_study_audio.py places the takes).
 const BG = "#F7F0E9", INK = "#17181A", SOFT = "#6E6A66", TRACK = "rgba(23,24,26,0.12)", OR = MCOLORS.orange, RED = "#E71C2B";
-const T = { hook: 0, myth: 96, facts: 186, bridge: 846, cta: 942, end: 1080 };
+const T = { hook: 0, myth: 144, facts: 279, bridge: 1126, cta: 1230, end: 1467 };
 export const STUDY_DURATION = T.end;
 /** Start of each finding inside the facts sequence, plus its end. */
-const B = [0, 180, 342, 492, 660];
+const B = [0, 240, 480, 642, 847];
 
 const txt = (size: number, color: string = INK, weight = 900): React.CSSProperties => ({
   fontFamily: FONTS.display, fontWeight: weight, fontSize: size, color, direction: "rtl", textAlign: "center", lineHeight: 1.15, whiteSpace: "nowrap",
@@ -85,7 +85,7 @@ const MARK: [number, number] = [318, 398];      // the logo mark on the end card
 // ------------------------------------------------------------------ hook
 const Hook: React.FC = () => {
   const frame = useCurrentFrame();
-  const rise = prog(frame, 30, 56, Easing.inOut(Easing.cubic));
+  const rise = prog(frame, 50, 84, Easing.inOut(Easing.cubic));
   return (
     <AbsoluteFill>
       <Glow x={540} y={1180} r={380 + 300 * rise} opacity={0.1 + 0.35 * rise} color="#FFB08A" />
@@ -93,11 +93,11 @@ const Hook: React.FC = () => {
         <line x1={240} x2={840} y1={1500} y2={1500} stroke="rgba(23,24,26,0.18)" strokeWidth={4} />
         <ellipse cx={540} cy={1502} rx={190} ry={20} fill="rgba(23,24,26,0.13)" />
       </Svg>
-      <Clip name="hook" left={287} top={645} width={506} rate={1.6} />
-      <Svg><Ring x={FIST[0]} y={FIST[1]} at={54} r0={30} r1={420} dur={22} width={7} /></Svg>
+      <Clip name="hook" left={287} top={645} width={506} rate={1.08} />
+      <Svg><Ring x={FIST[0]} y={FIST[1]} at={84} r0={30} r1={420} dur={22} width={7} /></Svg>
       <Rise at={4} y={300} style={txt(128)}>ودّك توصل</Rise>
       <Rise at={16} y={456} style={txt(88, OR)}>لأفضل نسخة من جسمك؟</Rise>
-      <Rise at={58} y={610} style={txt(60, SOFT, 700)}>هذا اللي تقوله الدراسات 👇</Rise>
+      <Rise at={82} y={610} style={txt(60, SOFT, 700)}>هذا اللي تقوله الدراسات 👇</Rise>
     </AbsoluteFill>
   );
 };
@@ -119,11 +119,11 @@ const Myth: React.FC = () => {
             </g>
           ))}
         </g>
-        <DrawPath d="M370,830 L710,1170" at={44} dur={7} width={46} stroke={OR} />
-        <DrawPath d="M710,830 L370,1170" at={49} dur={7} width={46} stroke={OR} />
-        <Ring x={540} y={1000} at={50} r0={120} r1={620} dur={20} width={8} />
+        <DrawPath d="M370,830 L710,1170" at={108} dur={7} width={46} stroke={OR} />
+        <DrawPath d="M710,830 L370,1170" at={113} dur={7} width={46} stroke={OR} />
+        <Ring x={540} y={1000} at={114} r0={120} r1={620} dur={20} width={8} />
       </Svg>
-      <Rise at={56} y={1290} style={txt(104, OR)}>العلم يقول: لا</Rise>
+      <Rise at={82} y={1290} style={txt(104, OR)}>العلم يقول: لا</Rise>
     </AbsoluteFill>
   );
 };
@@ -142,7 +142,7 @@ const Caption: React.FC<{ at: number; top: number; children: React.ReactNode }> 
 };
 const C1: React.FC = () => {
   const frame = useCurrentFrame();
-  const g = prog(frame, 62, 110, Easing.out(Easing.cubic));
+  const g = prog(frame, 150, 195, Easing.out(Easing.cubic));
   const bar = (x: number, label: string, col: string) => (
     <g>
       <rect x={x} y={450 - 250 * g} width={150} height={250 * g} rx={18} fill={col} />
@@ -158,12 +158,12 @@ const C1: React.FC = () => {
         {bar(500, "ضغط", OR)}
         {bar(680, "بنش", INK)}
         <text x={665} y={76} textAnchor="middle" fontFamily={FONTS.display} fontWeight={800} fontSize={38} fill={SOFT} direction="rtl">نمو عضلة الصدر</text>
-        <text x={665} y={160} textAnchor="middle" fontFamily={FONTS.display} fontWeight={900} fontSize={76} fill={OR} opacity={prog(frame, 104, 116)}>=</text>
+        <text x={665} y={160} textAnchor="middle" fontFamily={FONTS.display} fontWeight={900} fontSize={76} fill={OR} opacity={prog(frame, 192, 204)}>=</text>
       </svg>
       <div style={{ position: "absolute", left: 0, top: 0, width: 430, height: 560, overflow: "hidden" }}>
         <Clip name="pushup" left={-44} top={163} width={520} />
       </div>
-      <Caption at={112} top={582}>8 أسابيع · بحمل متقارب · نفس النتيجة</Caption>
+      <Caption at={206} top={582}>8 أسابيع · بحمل متقارب · نفس النتيجة</Caption>
     </>
   );
 };
@@ -173,8 +173,8 @@ const C1: React.FC = () => {
 const C2: React.FC = () => {
   const frame = useCurrentFrame();
   const FLOOR = 430, W = 730, L = 142, TOP = FLOOR - 0.885 * (W * 9) / 16;
-  const r = [1, prog(frame, 46, 62, io), prog(frame, 96, 112, io)];
-  const lv = frame < 54 ? 0 : frame < 104 ? 1 : 2;
+  const r = [1, prog(frame, 104, 120, io), prog(frame, 142, 158, io)];
+  const lv = frame < 112 ? 0 : frame < 150 ? 1 : 2;
   const clips = ["incline", "pushup", "decline"];
   const names = ["ضغط مائل", "ضغط عادي", "ضغط منحدر"];
   const roll = r[1] + r[2];
@@ -201,7 +201,7 @@ const C2: React.FC = () => {
         {/* difficulty: three steps, the marker climbs with the exercise */}
         {[0, 1, 2].map((i) => (
           <g key={i} transform={`translate(${76} ${330 - i * 86})`}>
-            <rect x={-46} y={-30} width={92} height={60} rx={16} fill={i <= lv ? OR : "#FFFFFF"} transform={`scale(${i === lv ? pop(i === 0 ? 14 : i === 1 ? 54 : 104) : 1})`} opacity={prog(frame, 12 + i * 4, 22 + i * 4)} />
+            <rect x={-46} y={-30} width={92} height={60} rx={16} fill={i <= lv ? OR : "#FFFFFF"} transform={`scale(${i === lv ? pop(i === 0 ? 14 : i === 1 ? 112 : 150) : 1})`} opacity={prog(frame, 12 + i * 4, 22 + i * 4)} />
             <text x={0} y={15} textAnchor="middle" fontFamily={FONTS.latin} fontWeight={700} fontSize={40} fill={i <= lv ? "#FFFFFF" : SOFT} opacity={prog(frame, 12 + i * 4, 22 + i * 4)}>{i + 1}</text>
           </g>
         ))}
@@ -213,20 +213,20 @@ const C2: React.FC = () => {
         </div>
       </div>
       <div style={{ position: "absolute", top: 26, left: 130, ...txt(34, SOFT, 700), opacity: prog(frame, 14, 24) }}>الصعوبة</div>
-      <div style={{ position: "absolute", left: 0, right: 0, top: 544, ...txt(38, SOFT, 700), opacity: prog(frame, 112, 124) }}>كل ما سهل… صعّبه · قوة أعلى في 4 أسابيع</div>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 544, ...txt(38, SOFT, 700), opacity: prog(frame, 172, 184) }}>كل ما سهل… صعّبه · قوة أعلى في 4 أسابيع</div>
     </>
   );
 };
 const C3: React.FC = () => {
   const frame = useCurrentFrame();
-  const n = Math.round(prog(frame, 26, 80, Easing.linear) * 10);
+  const n = Math.round(prog(frame, 36, 84, Easing.linear) * 10);
   return (
     <>
       <div style={{ position: "absolute", top: 34, left: 0, right: 0, textAlign: "center", fontFamily: FONTS.latin, fontWeight: 700, fontSize: 190, color: n >= 10 ? OR : INK, lineHeight: 1 }}>{n}{n >= 10 ? "+" : ""}</div>
       <div style={{ position: "absolute", top: 290, left: 70, right: 70, display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 18, direction: "rtl" }}>
         {Array.from({ length: 10 }, (_, i) => <div key={i} style={{ height: 72, borderRadius: 16, background: i < n ? OR : TRACK, transform: `scale(${i < n ? 1 : 0.92})` }} />)}
       </div>
-      <Caption at={88} top={504}>أقل من كذا… نمو أقل</Caption>
+      <Caption at={118} top={504}>أقل من كذا… نمو أقل</Caption>
     </>
   );
 };
@@ -237,8 +237,8 @@ const C4: React.FC = () => {
       <svg width={860} height={540} style={{ position: "absolute" }}>
         <line x1={90} x2={790} y1={450} y2={450} stroke={TRACK} strokeWidth={5} />
         <line x1={90} x2={90} y1={70} y2={450} stroke={TRACK} strokeWidth={5} />
-        <DrawPath d="M90,430 C240,400 330,170 470,140 L770,132" at={24} dur={54} width={12} stroke={OR} />
-        <g opacity={prog(frame, 72, 84)}>
+        <DrawPath d="M90,430 C240,400 330,170 470,140 L770,132" at={30} dur={54} width={12} stroke={OR} />
+        <g opacity={prog(frame, 78, 90)}>
           <line x1={470} x2={470} y1={140} y2={450} stroke={INK} strokeWidth={4} strokeDasharray="10 10" />
           <circle cx={470} cy={140} r={18} fill={INK} />
           <text x={470} y={506} textAnchor="middle" fontFamily={FONTS.latin} fontWeight={700} fontSize={46} fill={INK}>1.6</text>
@@ -246,7 +246,7 @@ const C4: React.FC = () => {
         </g>
         <text x={200} y={56} textAnchor="middle" fontFamily={FONTS.display} fontWeight={800} fontSize={36} fill={SOFT} direction="rtl">بناء العضل</text>
       </svg>
-      <div style={{ position: "absolute", left: 0, right: 0, top: 552, ...txt(50, INK, 800), opacity: prog(frame, 98, 110) }}>وزنك 70 كغ ← <span style={{ color: OR }}>112 غ</span> باليوم</div>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 552, ...txt(50, INK, 800), opacity: prog(frame, 112, 124) }}>وزنك 70 كغ ← <span style={{ color: OR }}>112 غ</span> باليوم</div>
     </>
   );
 };
@@ -326,13 +326,13 @@ const Facts: React.FC = () => {
 // ------------------------------------------------------------------ bridge: both lines come out of the rule the card became
 const Bridge: React.FC = () => {
   const frame = useCurrentFrame();
-  const grow = prog(frame, 34, 46, io);
+  const grow = prog(frame, 54, 66, io);
   return (
     <AbsoluteFill>
       <div style={{ position: "absolute", top: RULE_Y, left: 540 - (640 + 120 * grow) / 2, width: 640 + 120 * grow, height: 6 + 8 * grow, borderRadius: 7, background: grow > 0.5 ? OR : INK }} />
       <Rise at={2} y={636} style={txt(124)}>المعلومة سهلة…</Rise>
-      <Rise at={34} y={836} from="above" style={txt(106, OR)}>التطبيق هو الصعب</Rise>
-      <Rise at={52} y={1010} from="above" style={txt(58, SOFT, 700)}>تدرّج · مجموعات · بروتين… كل يوم</Rise>
+      <Rise at={54} y={836} from="above" style={txt(106, OR)}>التطبيق هو الصعب</Rise>
+      <Rise at={74} y={1010} from="above" style={txt(58, SOFT, 700)}>تدرّج · مجموعات · بروتين… كل يوم</Rise>
     </AbsoluteFill>
   );
 };
@@ -352,7 +352,7 @@ const Cta: React.FC = () => {
       <Rise at={22} y={600} style={txt(96)}>نرتّبها لك كلها</Rise>
       <div style={{ position: "absolute", top: 800, left: 150, right: 150, display: "flex", flexDirection: "column", gap: 22 }}>
         {items.map((t, i) => {
-          const s = spring({ frame: frame - (34 + i * 8), fps, config: soft });
+          const s = spring({ frame: frame - (74 + i * 24), fps, config: soft });
           return (
             <div key={t} style={{ display: "flex", flexDirection: "row-reverse", alignItems: "center", gap: 22, background: "#FFFFFF", borderRadius: 28, padding: "24px 34px", boxShadow: "0 16px 50px rgba(120,70,30,0.14)", clipPath: `inset(0 0 0 ${(1 - s) * 100}% round 28px)` }}>
               <div style={{ width: 56, height: 56, borderRadius: 28, background: OR, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: FONTS.latin, fontWeight: 700, fontSize: 38, color: "#FFFFFF", transform: `scale(${s})` }}>✓</div>
@@ -362,7 +362,7 @@ const Cta: React.FC = () => {
         })}
       </div>
       <div style={{ position: "absolute", top: 1270, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
-        <div style={{ background: INK, borderRadius: 70, padding: "26px 70px", fontFamily: FONTS.latin, fontWeight: 700, fontSize: 76, color: "#FFFFFF", direction: "ltr", boxShadow: "0 24px 70px rgba(255,84,32,0.35)", clipPath: `inset(0 ${(1 - prog(frame, 70, 86, io)) * 50}% round 70px)` }}>reshape-online.com</div>
+        <div style={{ background: INK, borderRadius: 70, padding: "26px 70px", fontFamily: FONTS.latin, fontWeight: 700, fontSize: 76, color: "#FFFFFF", direction: "ltr", boxShadow: "0 24px 70px rgba(255,84,32,0.35)", clipPath: `inset(0 ${(1 - prog(frame, 163, 179, io)) * 50}% round 70px)` }}>reshape-online.com</div>
       </div>
     </AbsoluteFill>
   );
@@ -381,6 +381,7 @@ export const Study: React.FC = () => (
     <Flood at={T.myth} from={FIST} to={DUMB} color={OR} />
     <Flood at={T.facts} from={[730, 1000]} to={PILL} color={INK} r1={34} />
     <Flood at={T.cta} from={[540, RULE_Y]} to={MARK} color={RED} r1={0} />
+    <Audio src={staticFile("audio/study/mix.wav")} />
     <Grain opacity={0.02} />
   </AbsoluteFill>
 );

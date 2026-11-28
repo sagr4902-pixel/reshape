@@ -74,7 +74,7 @@ export const solve = (p: Pose): Skeleton => {
 };
 
 /** Tapered capsule from a (radius ra) to b (radius rb): outer tangents + sampled round ends. */
-const capsule = (a: Pt, b: Pt, ra: number, rb: number) => {
+export const capsule = (a: Pt, b: Pt, ra: number, rb: number) => {
   const d = Math.max(1e-3, Math.hypot(b[0] - a[0], b[1] - a[1]));
   const ang = Math.atan2(b[1] - a[1], b[0] - a[0]);
   // angle (from the axis) of the outer-tangent touch points; equal radii -> 90 degrees

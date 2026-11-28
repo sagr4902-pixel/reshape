@@ -1,7 +1,7 @@
 """Put the coach-approved pronunciations into two lines of the studies reel voice-over.
 
 The model misread «حمل» and «سهل» inside the full lines, so the clause holding each word was generated
-again on its own (audition/himl_2, audition/sahal_2: the word written in IPA) and is cut in here between the
+again on its own (audition/qarnat_1, audition/sahal_2: the coach picked each by ear) and is cut in here between the
 pauses of the original take. Sources stay as s2_src.mp3 / s3_src.mp3; outputs are s2.mp3 / s3.mp3.
 Usage: python3 scripts/splice_study_vo.py   (from video/)
 """
@@ -24,6 +24,7 @@ def rms(x):
 
 def join(parts, fade=0.02):
     n = int(fade * SR)
+    parts = [p for p in parts if len(p) > n]
     out = parts[0].copy()
     for p in parts[1:]:
         p = p.copy()
@@ -44,7 +45,8 @@ def splice(line, clause, head_end, cut0, cut1, tail_start, clause_end):
     print(line, round(len(y) / SR, 2), "s")
 
 
-# «…قارنت الضغط بالبنش برس بحِمْل متقارب…»: old clause 1.47–4.07 s
-splice("s2", "audition/himl_2.mp3", 1.34, 1.47, 4.07, 4.30, 2.93)
+# «دراسه يابانيه… قارنت الضغط بالبنش برس بحِمْل متقارب…»: the whole opening, old speech 0.02–4.07 s
+# (qarnat_1: «دراسه» with a final h, «قارنت» with a real qaf, «حِمْل» in IPA)
+splice("s2", "audition/qarnat_1.mp3", 0, 0.02, 4.07, 4.30, 4.34)
 # «…كل ما سَهَلْ عليك، صعّبه…»: old clauses 3.37–5.20 s
 splice("s3", "audition/sahal_2.mp3", 3.15, 3.37, 5.20, 5.38, 2.26)

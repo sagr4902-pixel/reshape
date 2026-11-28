@@ -28,7 +28,6 @@ export default async function MembershipsPage({ params }: Props) {
   const t = await getTranslations({ locale, namespace: 'memberships' });
   const c = await getTranslations({ locale, namespace: 'common' });
   const plans = publicMemberships(locale);
-  const facts = ['price', 'open', 'pay', 'now'] as const;
 
   return (
     <>
@@ -39,64 +38,53 @@ export default async function MembershipsPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="sec">
-        <div className="wrap grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-8">
-            <h2 className="t-2">{t('plansTitle')}</h2>
-            <ul className="mt-8 grid gap-6 md:grid-cols-2">
-              {plans.map((m) => (
-                <li key={m.id} className="flex flex-col rounded-lg border border-line bg-panel p-6">
-                  <MembershipCta membership={m} locale={locale} source="memberships" />
-                  <p className="mt-6 border-t border-line pt-4 text-[0.9rem] font-semibold text-mute">{t('includes')}</p>
-                  <ul className="mt-1">
-                    {m.programIds.map((id) => {
-                      const p = programById(id)!;
-                      return (
-                        <li key={id}>
-                          <Link href={p.route} className="inline-flex min-h-10 items-center underline decoration-line decoration-2 hover:decoration-accent">
-                            {p.title[locale]}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-8 max-w-2xl">{t('why')}</p>
-          </div>
-
-          <aside className="lg:col-span-4">
-            <div className="rounded-lg bg-sand/60 p-6">
-              <h2 className="t-3">{t('factsTitle')}</h2>
-              <dl className="mt-4 divide-y divide-line">
-                {facts.map((k) => (
-                  <div key={k} className="py-3">
-                    <dt className="text-[0.88rem] font-semibold text-mute">{t(`facts.${k}.k`)}</dt>
-                    <dd className="font-semibold">{t(`facts.${k}.v`)}</dd>
-                  </div>
+      {(['adult', 'kids', 'extra'] as const).map((g, gi) => {
+        const items = plans.filter((m) => m.group === g);
+        if (items.length === 0) return null;
+        const progs = items[0].programIds.map((id) => programById(id)!).filter(Boolean);
+        return (
+          <section key={g} className={`sec ${gi % 2 ? 'border-y border-line bg-sand/50' : ''}`} aria-labelledby={`plans-${g}`}>
+            <div className="wrap">
+              <h2 id={`plans-${g}`} className="t-2">
+                {t(`groups.${g}.title`)}
+              </h2>
+              <p className="lead mt-3 max-w-3xl">{t(`groups.${g}.body`)}</p>
+              {progs.length > 0 && (
+                <p className="mt-4 flex flex-wrap items-center gap-2">
+                  <span className="font-semibold text-mute">{t('includes')}</span>
+                  {progs.map((p) => (
+                    <Link key={p.id} href={p.route} className="rounded-full border border-ink px-3 py-1 text-[0.92rem] font-semibold hover:bg-ink hover:text-paper">
+                      {p.shortTitle[locale]}
+                    </Link>
+                  ))}
+                </p>
+              )}
+              <ul className={`mt-8 grid gap-5 sm:grid-cols-2 ${items.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}>
+                {items.map((m) => (
+                  <li key={m.id} className="flex flex-col rounded-lg border border-line bg-panel p-6 hover:border-ink">
+                    <MembershipCta membership={m} locale={locale} source="memberships" />
+                  </li>
                 ))}
-              </dl>
-              <Link href={registerHref({ intent: 'membership-consultation', src: 'memberships' })} className="btn btn-primary mt-4 w-full">
-                {c('registerInterest')}
-              </Link>
+              </ul>
             </div>
-          </aside>
-        </div>
-      </section>
+          </section>
+        );
+      })}
 
-      {/* Clearly separate: the existing store, with no claim of Dhahran eligibility */}
       <section className="sec border-t border-line bg-panel">
         <div className="wrap grid gap-6 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-8">
             <h2 className="t-3">{t('storeTitle')}</h2>
             <p className="mt-3 max-w-2xl">{t('storeBody')}</p>
           </div>
-          <div className="lg:col-span-4 lg:text-end">
+          <div className="flex flex-wrap gap-3 lg:col-span-4 lg:justify-end">
             <ExternalLink href={site.channels.store.url} event="membership_outbound_click" location="memberships-store" className="btn btn-line">
               {t('storeCta')}
               <span className="sr-only"> ({c('opensNewTab')})</span>
             </ExternalLink>
+            <Link href={registerHref({ intent: 'membership-consultation', src: 'memberships' })} className="btn btn-dark">
+              {t('helpCta')}
+            </Link>
           </div>
         </div>
       </section>

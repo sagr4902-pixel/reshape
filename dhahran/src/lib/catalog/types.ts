@@ -69,6 +69,8 @@ export const priceSchema = z.object({
   sourceUrl: z.url().optional(),
   verifiedAt: z.iso.datetime().optional(),
   publishApproved: z.boolean(),
+  /** Previous price shown struck through — only if the store shows it. */
+  previousAmountMinor: z.number().int().positive().optional(),
 });
 export type Price = z.infer<typeof priceSchema>;
 
@@ -76,6 +78,7 @@ export const membershipSchema = z.object({
   id,
   title: localized,
   storeTitle: z.string().optional(), // exact public title on the official store
+  group: z.enum(['adult', 'kids', 'extra']).optional(),
   programIds: z.array(id),
   branchScope: z.enum(['dhahran', 'dammam', 'all-confirmed', 'unknown']),
   branchEvidence: evidence,
@@ -86,6 +89,8 @@ export const membershipSchema = z.object({
   productUrl: z.url().optional(),
   linkVerifiedAt: z.iso.datetime().optional(),
   linkVerified: z.boolean(),
+  /** How long owner-confirmed evidence counts as current (default: 7 days). */
+  reviewDays: z.number().int().positive().max(90).optional(),
 });
 export type Membership = z.infer<typeof membershipSchema>;
 

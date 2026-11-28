@@ -7,28 +7,24 @@ const SUCCESS = { ar: 'تم استلام اهتمامك بنجاح.', en: 'Your 
 
 for (const l of LOCALES) {
   test.describe(`customer journeys [${l}]`, () => {
-    test('A — adult athlete: home → calisthenics → memberships → honest inquiry (no Dhahran product exists)', async ({ page }, info) => {
+    test('A — adult athlete: home → calisthenics → memberships → a priced Dhahran package on the official store', async ({ page }) => {
       await page.goto(`/${l}`);
       await expect(page.locator('h1')).toBeVisible();
       await page.locator(`a[href="/${l}/programs/calisthenics"]`).first().click();
       await expect(page).toHaveURL(new RegExp(`/${l}/programs/calisthenics$`));
-      // No purchase CTA and no official-store product link on a Dhahran program page.
-      await expect(page.locator('a[href*="reshape-sa.com/"][href*="/p"]')).toHaveCount(0);
-      await expect(page.getByTestId('membership-dhahran-adult')).toHaveAttribute('data-action', 'register-interest');
+      await expect(page.getByTestId('membership-gym-3m')).toHaveAttribute('data-action', 'purchase');
 
       await page.goto(`/${l}/memberships`);
-      const card = page.getByTestId('membership-dhahran-adult');
-      await expect(card).toHaveAttribute('data-action', 'register-interest');
-      await expect(card).toContainText(l === 'ar' ? 'سيُعلن عن الأسعار لاحقًا' : 'Prices will be announced later');
-      await expect(page.locator('main')).not.toContainText(/SAR|ر\.س|﷼|\d{3,}\s*(ريال)/);
-      await card.getByRole('link').click();
-      await expect(page).toHaveURL(/\/register\?intent=membership-consultation&src=memberships/);
-
-      const phone = testPhone(info.workerIndex);
-      await fillAndSubmit(page, { name: l === 'ar' ? 'خالد العتيبي' : 'Test Athlete', phone });
-      await expect(page.getByTestId('lead-success')).toContainText(SUCCESS[l]);
-      const [row] = await leadByPhone(phone);
-      expect(row).toMatchObject({ intent: 'membership-consultation', source: 'memberships', locale: l, status: 'new' });
+      for (const id of ['gym-3m', 'gym-6m', 'gym-12m', 'kids-1m', 'kids-3m', 'kids-6m', 'kids-12m', 'pause-1w', 'travel-extra', 'pt-test'])
+        await expect(page.getByTestId(`membership-${id}`), id).toHaveAttribute('data-action', 'purchase');
+      const card = page.getByTestId('membership-gym-6m');
+      await expect(card.getByTestId('membership-price')).toContainText('4,960');
+      await expect(card.locator('s')).toContainText('5,040');
+      const buy = card.getByRole('link');
+      await expect(buy).toHaveAttribute('href', 'https://reshape-sa.com/six-months-gym/p1882410865');
+      await expect(buy).toHaveAttribute('target', '_blank');
+      await expect(buy).toHaveAttribute('rel', /noopener/);
+      // the store is never contacted by tests: the link is checked, not followed
     });
 
     test('B — parent: kids page → guardian inquiry stored with minimal data and separate consent', async ({ page }, info) => {

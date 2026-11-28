@@ -27,13 +27,14 @@ export const detailPrograms = programs.filter((p) => p.route.startsWith('/progra
 export interface PublicMembership {
   id: string;
   title: string;
+  group: 'adult' | 'kids' | 'extra';
   programIds: string[];
   action: MembershipAction;
 }
 export function publicMemberships(locale: Locale, now = new Date()): PublicMembership[] {
   return memberships
     .filter((m: Membership) => m.branchScope === 'dhahran' || m.branchScope === 'all-confirmed')
-    .map((m) => ({ id: m.id, title: m.title[locale], programIds: m.programIds, action: resolveMembershipAction(m, { now }) }));
+    .map((m) => ({ id: m.id, title: m.title[locale], group: m.group ?? 'adult', programIds: m.programIds, action: resolveMembershipAction(m, { now }) }));
 }
 export function membershipsForProgram(programId: string, locale: Locale): PublicMembership[] {
   return publicMemberships(locale).filter((m) => m.programIds.includes(programId));

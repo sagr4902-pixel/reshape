@@ -38,7 +38,7 @@ export const programs: Program[] = [
     availability: 'planned',
     audiences: ['adult'],
     pathwayIds: ['foundations', 'strength-conditioning', 'static-skills', 'dynamic-freestyle', 'street-lifting', 'advanced-development', 'competitive-preparation'],
-    membershipIds: ['dhahran-adult'],
+    membershipIds: ['gym-3m', 'gym-6m', 'gym-12m'],
     faqs: [
       {
         q: { ar: 'هل أحتاج خبرة سابقة؟', en: 'Do I need previous experience?' },
@@ -84,7 +84,7 @@ export const programs: Program[] = [
     availability: 'planned',
     audiences: ['guardian'],
     pathwayIds: [],
-    membershipIds: ['dhahran-kids'],
+    membershipIds: ['kids-1m', 'kids-3m', 'kids-6m', 'kids-12m'],
     faqs: [
       {
         q: { ar: 'ما الأعمار المقبولة؟', en: 'Which ages are accepted?' },
@@ -134,7 +134,7 @@ export const programs: Program[] = [
     availability: 'planned',
     audiences: ['adult'],
     pathwayIds: [],
-    membershipIds: ['dhahran-adult'],
+    membershipIds: ['gym-3m', 'gym-6m', 'gym-12m'],
     faqs: [
       {
         q: { ar: 'هل النادي معتمد رسميًا من هايروكس؟', en: 'Is the club an official HYROX training club?' },
@@ -176,7 +176,7 @@ export const programs: Program[] = [
     availability: 'planned',
     audiences: ['adult'],
     pathwayIds: [],
-    membershipIds: ['dhahran-adult'],
+    membershipIds: ['gym-3m', 'gym-6m', 'gym-12m'],
     faqs: [
       {
         q: { ar: 'هل النادي معتمد رسميًا من كروس فيت؟', en: 'Is the club an official CrossFit affiliate?' },
@@ -214,7 +214,7 @@ export const programs: Program[] = [
     availability: 'planned',
     audiences: ['guardian'],
     pathwayIds: [],
-    membershipIds: ['dhahran-kids'],
+    membershipIds: ['kids-1m', 'kids-3m', 'kids-6m', 'kids-12m'],
     faqs: [
       {
         q: { ar: 'ما نوع الفن القتالي؟', en: 'Which martial art is it?' },

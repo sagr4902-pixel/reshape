@@ -429,45 +429,40 @@
   },
   "memberships": {
     "metaTitle": "Memberships",
-    "metaDescription": "RESHAPE Dhahran memberships: prices will be announced later. Register your interest to receive the details when they are published.",
+    "metaDescription": "RESHAPE Dhahran memberships and prices: gym membership, kids packages and extras. Subscribe through the official RESHAPE store.",
     "title": "Memberships",
-    "intro": "This page shows only what is confirmed. Dhahran memberships are not on sale yet.",
-    "plansTitle": "Planned Dhahran memberships",
+    "intro": "Choose the package that suits you, then subscribe and pay on the official RESHAPE store.",
     "includes": "Covers programs:",
     "price": {
       "pending": "Prices will be announced later",
       "seeStore": "See the current price in the official store",
       "taxIncluded": "VAT included",
-      "taxExcluded": "VAT not included"
+      "taxExcluded": "VAT not included",
+      "was": "instead of"
     },
     "action": {
       "purchase": "Continue to RESHAPE store",
       "interest": "Register interest",
       "unavailable": "Currently unavailable"
     },
-    "factsTitle": "What we know now",
-    "facts": {
-      "price": {
-        "k": "Prices",
-        "v": "Not announced yet"
+    "storeTitle": "Subscribe on the official store",
+    "storeBody": "Every package is bought on the official RESHAPE store. Not sure which one suits you? Register your interest and we will help you choose.",
+    "storeCta": "RESHAPE store",
+    "groups": {
+      "adult": {
+        "title": "Gym membership",
+        "body": "Access to the club's group classes: calisthenics, HYROX and CrossFit. The longer the period, the lower the price."
       },
-      "open": {
-        "k": "Opening date",
-        "v": "Not announced yet"
+      "kids": {
+        "title": "Kids packages",
+        "body": "Coached kids programs; registration is by a parent or guardian."
       },
-      "pay": {
-        "k": "Payment",
-        "v": "Through the official store once memberships go on sale"
-      },
-      "now": {
-        "k": "Available now",
-        "v": "Registering interest"
+      "extra": {
+        "title": "Extras",
+        "body": "Services that complement your membership."
       }
     },
-    "storeTitle": "The existing RESHAPE store",
-    "storeBody": "RESHAPE has an official store with existing subscriptions. None of them has been confirmed as covering the Dhahran club, so we do not present them here as Dhahran memberships.",
-    "storeCta": "Visit the RESHAPE store",
-    "why": "Why is there no price? Because we do not publish a number before it is approved. Once prices are announced they will appear here with a link to subscribe through the official store."
+    "helpCta": "Help me choose"
   },
   "register": {
     "metaTitle": "Register interest",

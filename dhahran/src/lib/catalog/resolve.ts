@@ -15,6 +15,7 @@ export type MembershipAction =
 export interface PublicPrice {
   kind: 'exact';
   amountMinor: number;
+  previousAmountMinor?: number;
   currency: 'SAR';
   taxDisplay: Price['taxDisplay'];
 }
@@ -35,7 +36,7 @@ const branchOk = (m: Membership) =>
 
 export function resolveMembershipAction(m: Membership, opts: ResolveOptions = {}): MembershipAction {
   const now = opts.now ?? new Date();
-  const days = opts.freshnessDays ?? 7;
+  const days = opts.freshnessDays ?? m.reviewDays ?? 7;
 
   if (m.branchScope === 'dammam') return { kind: 'register-interest', reason: 'not-dhahran' };
   if (!branchOk(m)) return { kind: 'register-interest', reason: 'branch-unverified' };
@@ -52,7 +53,9 @@ export function resolveMembershipAction(m: Membership, opts: ResolveOptions = {}
     kind: 'purchase',
     url: m.productUrl,
     // stale or unapproved amount → send the visitor to see the current price in the store
-    price: priceOk ? { kind: 'exact', amountMinor: p.amountMinor, currency: p.currency, taxDisplay: p.taxDisplay } : { kind: 'see-store' },
+    price: priceOk
+      ? { kind: 'exact', amountMinor: p.amountMinor, ...(p.previousAmountMinor ? { previousAmountMinor: p.previousAmountMinor } : {}), currency: p.currency, taxDisplay: p.taxDisplay }
+      : { kind: 'see-store' },
   };
 }
 
@@ -61,7 +64,7 @@ export function overdueVerifications(items: Membership[], opts: ResolveOptions =
   const now = opts.now ?? new Date();
   const days = opts.freshnessDays ?? 7;
   return items
-    .filter((m) => m.linkVerified && !fresh(m.linkVerifiedAt, now, days))
+    .filter((m) => m.linkVerified && !fresh(m.linkVerifiedAt, now, opts.freshnessDays ?? m.reviewDays ?? days))
     .map((m) => m.id);
 }
 

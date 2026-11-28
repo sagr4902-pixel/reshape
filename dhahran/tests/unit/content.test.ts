@@ -6,22 +6,35 @@ import { validateAll } from '../../scripts/validate-content';
 
 describe('content integrity', () => {
   it('passes schema, cross-reference, asset and translation-parity validation', () => {
-    expect(validateAll(new Date('2026-11-21T12:00:00Z')).errors).toEqual([]);
+    expect(validateAll(new Date('2026-11-29T12:00:00Z')).errors).toEqual([]);
   });
 
-  it('public membership DTO exposes only Dhahran plans — no store evidence, notes or unapproved prices', () => {
+  it('public membership DTO: owner-confirmed Dhahran packages with prices and store links — no evidence notes', () => {
     for (const locale of ['ar', 'en'] as const) {
-      const pub = publicMemberships(locale, new Date('2026-11-21T12:00:00Z'));
-      expect(pub.map((m) => m.id).sort()).toEqual(['dhahran-adult', 'dhahran-kids']);
-      const json = JSON.stringify(pub);
-      expect(json).not.toMatch(/note|evidence|amountMinor|2700|749|Dammam|الدمام|reshape-sa\.com/);
-      // No Dhahran product is verified in the store → nothing may resolve to a purchase.
-      expect(pub.every((m) => m.action.kind === 'register-interest')).toBe(true);
+      const pub = publicMemberships(locale, new Date('2026-11-29T12:00:00Z'));
+      expect(pub.map((m) => m.id)).toEqual(['gym-3m', 'gym-6m', 'gym-12m', 'kids-1m', 'kids-3m', 'kids-6m', 'kids-12m', 'pause-1w', 'travel-extra', 'pt-test']);
+      expect(JSON.stringify(pub)).not.toMatch(/note|evidence|publishApproved|Owner confirmed/);
+      for (const m of pub) {
+        expect(m.action.kind, m.id).toBe('purchase');
+        if (m.action.kind === 'purchase') expect(m.action.url).toMatch(/^https:\/\/reshape-sa\.com\/[a-z0-9-]+\/p\d+$/);
+      }
+      const gym6 = pub.find((m) => m.id === 'gym-6m')!.action;
+      expect(gym6).toMatchObject({ kind: 'purchase', price: { kind: 'exact', amountMinor: 496000, previousAmountMinor: 504000 } });
     }
   });
 
-  it('no store product is marked as Dhahran-eligible', () => {
-    for (const m of memberships.filter((x) => x.productUrl)) expect(['dammam', 'unknown']).toContain(m.branchScope);
+  it('owner-confirmed prices stay shown for the review window, then fall back to "see the store"', () => {
+    const at = (iso: string) => publicMemberships('ar', new Date(iso)).find((m) => m.id === 'gym-3m')!.action;
+    expect(at('2027-01-05T00:00:00Z')).toMatchObject({ kind: 'purchase', price: { kind: 'exact', amountMinor: 270000 } });
+    // past 45 days the link is no longer treated as checked: visitors are asked to register instead of buying blind
+    expect(at('2027-01-20T00:00:00Z').kind).toBe('register-interest');
+  });
+
+  it('every package is sold only on the official store, and Dhahran is the only branch shown', () => {
+    for (const m of memberships) {
+      expect(m.branchScope, m.id).toBe('dhahran');
+      expect(m.productUrl, m.id).toMatch(/^https:\/\/reshape-sa\.com\//);
+    }
   });
 
   it('programs stay planned until confirmed', () => {

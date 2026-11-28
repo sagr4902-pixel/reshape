@@ -1,95 +1,77 @@
 import type { Membership } from '@/lib/catalog/types';
 
 /**
- * Membership catalog.
+ * Dhahran membership packages, sold on the official store (Salla).
  *
- * Checked on the official store (https://reshape-sa.com/, Salla) on
- * 2026-11-21 ~07:30 UTC via rendered scrape — see docs/catalog-verification.md.
- * Result: NO product mentions Dhahran. KIDs products state Dammam; GYM
- * products state no location. Therefore no store product may carry a Dhahran
- * purchase CTA. Their observed prices are evidence only and are NOT
- * publish-approved for this site.
+ * Owner, 28 Nov 2026: the packages on the store's group-classes page
+ * (https://reshape-sa.com/…/c571221986) are the Dhahran club's packages and
+ * prices. Titles, prices, previous prices and links were read from that page
+ * the same day. Note: the kids product pages also carry a "Dammam" location
+ * line; the owner's confirmation is what makes them Dhahran packages here.
  *
- * To update a price or link: edit the record, set verifiedAt/linkVerifiedAt to
- * the real check time, then run `npm run content:validate`.
+ * Prices are owner-confirmed and shown for `reviewDays`; after that the card
+ * says "see the current price in the store" until someone re-checks the store
+ * and updates CHECKED. To change a price: edit it here, update CHECKED, and run
+ * `npm run content:validate`.
  */
-const CHECKED = '2026-11-21T07:30:00Z';
+const CHECKED = '2026-11-28T08:00:00Z';
+const REVIEW_DAYS = 45;
 const store = (path: string) => `https://reshape-sa.com/${path}`;
-const observed = (sar: number, path: string) => ({
-  amountMinor: sar * 100,
-  currency: 'SAR' as const,
-  taxDisplay: 'unknown' as const, // store pages show no tax wording
-  status: 'verified' as const,
-  sourceUrl: store(path),
-  verifiedAt: CHECKED,
-  publishApproved: false,
-});
+
+type Row = readonly [id: string, storeTitle: string, ar: string, en: string, months: number | null, sar: number, wasSar: number | null, path: string];
+
+const make =
+  (group: 'adult' | 'kids' | 'extra', programIds: string[]) =>
+  ([id, storeTitle, ar, en, months, sar, wasSar, path]: Row): Membership => ({
+    id,
+    title: { ar, en },
+    storeTitle,
+    group,
+    programIds,
+    branchScope: 'dhahran',
+    branchEvidence: { status: 'owner-confirmed', sourceUrl: store(path), verifiedAt: CHECKED, note: 'Owner confirmed on 28 Nov 2026 that these store packages and prices are for Dhahran.' },
+    availability: 'available',
+    ...(months ? { duration: { value: months, unit: 'month' as const } } : {}),
+    price: {
+      amountMinor: sar * 100,
+      ...(wasSar ? { previousAmountMinor: wasSar * 100 } : {}),
+      currency: 'SAR',
+      taxDisplay: 'unknown', // the store shows no tax wording
+      status: 'owner-confirmed',
+      sourceUrl: store(path),
+      verifiedAt: CHECKED,
+      publishApproved: true,
+    },
+    productUrl: store(path),
+    linkVerifiedAt: CHECKED,
+    linkVerified: true,
+    reviewDays: REVIEW_DAYS,
+  });
+
+const ADULT_PROGRAMS = ['calisthenics', 'hybrid-endurance', 'functional-training'];
+const KIDS_PROGRAMS = ['kids', 'kids-martial-arts'];
 
 export const memberships: Membership[] = [
-  // ── Planned Dhahran plans (no official product or price yet) ─────────────
-  {
-    id: 'dhahran-adult',
-    title: { ar: 'عضوية البالغين — الظهران', en: 'Adult membership — Dhahran' },
-    programIds: ['calisthenics', 'hybrid-endurance', 'functional-training'],
-    branchScope: 'dhahran',
-    branchEvidence: { status: 'owner-confirmed', verifiedAt: '2026-11-21T07:00:00Z', note: 'Planned for the Dhahran club per owner brief; no store product yet.' },
-    availability: 'unknown',
-    linkVerified: false,
-  },
-  {
-    id: 'dhahran-kids',
-    title: { ar: 'عضوية الأطفال — الظهران', en: 'Kids membership — Dhahran' },
-    programIds: ['kids', 'kids-martial-arts'],
-    branchScope: 'dhahran',
-    branchEvidence: { status: 'owner-confirmed', verifiedAt: '2026-11-21T07:00:00Z', note: 'Planned for the Dhahran club per owner brief; no store product yet.' },
-    availability: 'unknown',
-    linkVerified: false,
-  },
-
-  // ── Existing store products (evidence only; not Dhahran-eligible) ────────
   ...(
     [
-      ['store-gym-3m', 'Three months - GYM', 3, 2700, 'three-months-gym/p1522254403'],
-      ['store-gym-6m', 'Six months - GYM', 6, 4960, 'six-months-gym/p1882410865'],
-      ['store-gym-12m', 'one year - GYM', 12, 8840, 'one-year-gym/p1018656171'],
-    ] as const
-  ).map(
-    ([id, storeTitle, months, sar, path]): Membership => ({
-      id,
-      title: { ar: `اشتراك النادي — ${months} أشهر (المتجر الحالي)`, en: `Gym — ${months} months (existing store)` },
-      storeTitle,
-      programIds: [],
-      branchScope: 'unknown',
-      branchEvidence: { status: 'unknown', sourceUrl: store(path), verifiedAt: CHECKED, note: 'Product page states no branch.' },
-      availability: 'unknown', // page text contained both add-to-cart and sold-out labels
-      duration: { value: months, unit: 'month' },
-      price: observed(sar, path),
-      productUrl: store(path),
-      linkVerifiedAt: CHECKED,
-      linkVerified: true,
-    }),
-  ),
+      ['gym-3m', 'Three months - GYM', 'اشتراك النادي — ٣ أشهر', 'Gym — 3 months', 3, 2700, null, 'three-months-gym/p1522254403'],
+      ['gym-6m', 'Six months - GYM', 'اشتراك النادي — ٦ أشهر', 'Gym — 6 months', 6, 4960, 5040, 'six-months-gym/p1882410865'],
+      ['gym-12m', 'one year - GYM', 'اشتراك النادي — سنة', 'Gym — 1 year', 12, 8840, 9100, 'one-year-gym/p1018656171'],
+    ] as const satisfies readonly Row[]
+  ).map(make('adult', ADULT_PROGRAMS)),
   ...(
     [
-      ['store-kids-1m', 'KIDs- one month', 1, 749, 'kids-one-month/p1148810604'],
-      ['store-kids-3m', 'KIDs- 3 months', 3, 2250, 'kids-3-months/p1952352210'],
-      ['store-kids-6m', 'KIDs- 6 months', 6, 3820, 'kids-6-months/p1946581655'],
-      ['store-kids-12m', 'KIDs- One year', 12, 6900, 'kids-one-year/p1354110888'],
-    ] as const
-  ).map(
-    ([id, storeTitle, months, sar, path]): Membership => ({
-      id,
-      title: { ar: `اشتراك الأطفال — ${months} أشهر (فرع الدمام)`, en: `Kids — ${months} months (Dammam branch)` },
-      storeTitle,
-      programIds: [],
-      branchScope: 'dammam',
-      branchEvidence: { status: 'verified', sourceUrl: store(path), verifiedAt: CHECKED, note: 'Page states: "الموقع : الدمام ) حي اسكان الدمام".' },
-      availability: 'unknown',
-      duration: { value: months, unit: 'month' },
-      price: observed(sar, path),
-      productUrl: store(path),
-      linkVerifiedAt: CHECKED,
-      linkVerified: true,
-    }),
-  ),
+      ['kids-1m', 'KIDs- one month', 'الأطفال — شهر', 'Kids — 1 month', 1, 749, null, 'kids-one-month/p1148810604'],
+      ['kids-3m', 'KIDs- 3 months', 'الأطفال — ٣ أشهر', 'Kids — 3 months', 3, 2250, null, 'kids-3-months/p1952352210'],
+      ['kids-6m', 'KIDs- 6 months', 'الأطفال — ٦ أشهر', 'Kids — 6 months', 6, 3820, null, 'kids-6-months/p1946581655'],
+      ['kids-12m', 'KIDs- One year', 'الأطفال — سنة', 'Kids — 1 year', 12, 6900, null, 'kids-one-year/p1354110888'],
+    ] as const satisfies readonly Row[]
+  ).map(make('kids', KIDS_PROGRAMS)),
+  ...(
+    [
+      ['pause-1w', 'SUBSCRIPTION PAUSE 1 WEEK', 'إيقاف الاشتراك — أسبوع', 'Subscription pause — 1 week', null, 68, 100, 'subscription-pause-1-week/p1409694364'],
+      ['travel-extra', 'Travel program (EXTRA)', 'برنامج السفر (إضافي)', 'Travel program (extra)', null, 90, null, 'travel-program-extra/p1145519985'],
+      ['pt-test', 'PT TEST', 'اختبار اللياقة (PT Test)', 'PT test', null, 300, null, 'pt-test/p2083324497'],
+    ] as const satisfies readonly Row[]
+  ).map(make('extra', [])),
 ];

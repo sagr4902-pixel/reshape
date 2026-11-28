@@ -14,6 +14,7 @@ import { CINE_DURATION } from "./cine/timeline";
 import { OneDay } from "./oneday/OneDay";
 import { OD_DURATION } from "./oneday/timeline";
 import { Hype, HYPE_DURATION } from "./hype/Hype";
+import { Study, STUDY_DURATION } from "./study/Study";
 
 // A single scene rendered in isolation (with the global finish), for look-dev and review.
 const ScenePreview: React.FC<{ Component: React.FC }> = ({ Component }) => (
@@ -27,6 +28,7 @@ const ScenePreview: React.FC<{ Component: React.FC }> = ({ Component }) => (
 export const RemotionRoot = () => {
   return (
     <>
+      <Composition id="ReshapeStudy916" component={Study} durationInFrames={STUDY_DURATION} fps={30} width={1080} height={1920} />
       <Composition id="ReshapeHype916" component={Hype} durationInFrames={HYPE_DURATION} fps={30} width={1080} height={1920} />
       <Composition id="ReshapeCinematic169" component={Cinematic} durationInFrames={CINE_DURATION} fps={30} width={1920} height={1080} defaultProps={{ portrait: false }} />
       <Composition id="ReshapeOneDay169" component={OneDay} durationInFrames={OD_DURATION} fps={30} width={1920} height={1080} defaultProps={{ portrait: false }} />

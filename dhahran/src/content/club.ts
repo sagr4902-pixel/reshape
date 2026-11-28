@@ -49,7 +49,7 @@ export interface Achievement {
 
 export interface MediaItem {
   id: string;
-  group: 'sessions' | 'championships' | 'community' | 'kids' | 'workshops';
+  group: 'sessions' | 'championships' | 'community' | 'kids' | 'interviews' | 'workshops';
   kind: 'photo' | 'video';
   src: string;
   poster?: string;
@@ -77,6 +77,41 @@ export interface Partner {
 export const coaches: Coach[] = [];
 export const stories: Story[] = [];
 export const achievements: Achievement[] = [];
-export const media: MediaItem[] = [];
+/** Club clips supplied by the owner (Nov 2026), compressed to 540p H.264 under /public/assets/media. */
+const clip = (id: string, group: MediaItem['group'], ar: string, en: string): MediaItem => ({
+  id,
+  group,
+  kind: 'video',
+  src: `/assets/media/${id}.mp4`,
+  poster: `/assets/media/${id}.webp`,
+  caption: { ar, en },
+});
+
+export const media: MediaItem[] = [
+  clip('sessions-bar-flow', 'sessions', 'حركات على البار فوق المراتب', 'Bar movement over the mats'),
+  clip('sessions-pushup-class', 'sessions', 'حصة جماعية: تمارين الضغط', 'Group class: push-up work'),
+  clip('sessions-inverted-rows', 'sessions', 'حصة جماعية: سحب مقلوب', 'Group class: inverted rows'),
+  clip('sessions-calisthenics-reel', 'sessions', 'لقطات من تمارين الكاليسثنكس في النادي', 'Calisthenics training at the club'),
+
+  clip('championships-athletes-day', 'championships', 'يوم البطولة: الرياضيون أمام الحكام', 'Championship day: athletes in front of the judges'),
+  clip('championships-highlights', 'championships', 'أبرز لحظات بطولة الكبار', 'Adult championship highlights'),
+  clip('championships-judges-clock', 'championships', 'تحدي الوقت في البطولة', 'Racing the clock at the championship'),
+  clip('championships-kids-final', 'championships', 'بطولة الأطفال أمام الجمهور', 'The kids championship in front of the crowd'),
+
+  clip('community-open-night', 'community', 'ليلة تدريب مفتوحة مع مجتمع ريشيب', 'An open training night with the RESHAPE community'),
+  clip('community-open-gym', 'community', 'تدريب مفتوح للجميع', 'Open gym for everyone'),
+  clip('community-tug-of-war', 'community', 'شد الحبل بين الأطفال والآباء', 'Tug of war: kids and dads'),
+  clip('community-kids-event', 'community', 'فعالية الأطفال: تحديات وفرحة', 'Kids event: challenges and celebration'),
+
+  clip('kids-one-two-three', 'kids', 'برنامج الأطفال خطوة بخطوة', 'The kids program, step by step'),
+  clip('kids-first-skills', 'kids', 'أول المهارات في برنامج الأطفال', 'First skills in the kids program'),
+  clip('kids-dead-hang', 'kids', 'تحدي التعلق للأطفال', 'Kids dead-hang challenge'),
+  clip('kids-splits-with-coach', 'kids', 'تمارين المرونة مع المدرب', 'Flexibility work with the coach'),
+
+  clip('interviews-young-athletes', 'interviews', 'لقاء مع أبطالنا الصغار يوم البطولة', 'Our young athletes on championship day'),
+  clip('interviews-parents', 'interviews', 'ضيوف البطولة: هل تنصح الشباب بهذه الرياضة؟', 'Championship guests: would you recommend the sport?'),
+  clip('interviews-supporters', 'interviews', 'الجمهور: لو كنت لاعبًا؟', 'The crowd: what if you were competing?'),
+  clip('interviews-members', 'interviews', 'لقاءات من داخل النادي', 'Interviews from inside the club'),
+];
 export const schedule: ClassSlot[] = [];
 export const partners: Partner[] = [];

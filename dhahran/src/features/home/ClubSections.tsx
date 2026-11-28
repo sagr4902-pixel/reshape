@@ -273,7 +273,7 @@ export async function Team({ locale, no, preview }: Gated) {
   );
 }
 
-const GROUPS = ['sessions', 'championships', 'community', 'kids', 'workshops'] as const;
+const GROUPS = ['sessions', 'championships', 'community', 'kids', 'interviews', 'workshops'] as const;
 
 /** Live photos and clips. Hidden in production until supplied. */
 export async function Gallery({ locale, no, preview }: Gated) {
